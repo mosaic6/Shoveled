@@ -1,0 +1,63 @@
+PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.6)
+  - Firebase (2.5.1)
+  - FLKAutoLayout (0.2.1)
+  - ForecastIO (1.5.0)
+  - ORStackView (2.0.0):
+    - FLKAutoLayout (~> 0.1)
+  - Snowflakes (0.1.1)
+  - Stripe (6.2.0):
+    - Stripe/Core (= 6.2.0)
+  - Stripe/Core (6.2.0)
+  - SwiftSpinner (0.8.0)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.5)
+  - Crashlytics
+  - Fabric
+  - Firebase (>= 2.5.0)
+  - ForecastIO
+  - ORStackView (~> 2.0)
+  - Snowflakes
+  - Stripe
+  - SwiftSpinner
+  - SwiftyJSON (~> 2.1)
+
+SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Fabric: 1abc1e59f11fa39ede6f690ef7309d8563e3ec59
+  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  FLKAutoLayout: 9db6b30c2008d230da608e62c607b11c23b942e6
+  ForecastIO: b6b3e26e7134acf8a05388cc513a9e7eb18846b7
+  ORStackView: 5df6b1b990b0648d8ef6f69f89361ea8648e8f64
+  Snowflakes: ca7727a29acaed48f3f47249ed1959a73282ae4a
+  Stripe: 275524137e6c4cc1058f6d32ece248adf30a21f9
+  SwiftSpinner: 11c2c5ec7443d92f3026d3067ca8a91d4adef13f
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+COCOAPODS: 0.38.2
