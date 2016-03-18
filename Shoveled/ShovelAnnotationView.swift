@@ -6,20 +6,23 @@
 //  Copyright © 2016 Lucky Penguin. All rights reserved.
 //
 
-import Foundation
 import MapKit
 
 class ShovelAnnotation: NSObject, MKAnnotation {
-    let userTitle: String
-    let locationName: String
+    let title: String?
+    let locationName: String?
     let coordinate: CLLocationCoordinate2D
     
     init(title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
-        self.userTitle = title
+        self.title = title
         self.locationName = locationName
         self.coordinate = coordinate
         
         super.init()
+    }
+    
+    var subtitle: String? {
+        return locationName?.uppercaseString
     }
         
 }

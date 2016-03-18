@@ -210,6 +210,7 @@
 			children = (
 				612AB8591C32E38400779CC9 /* Extensions.swift */,
 				61FEC6811C8B613F00D25128 /* MenuItems.swift */,
+				618FBD751C8540A900A6504F /* VCMapView.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -283,7 +284,6 @@
 				617ECFC81BE306E000E61546 /* WelcomeView.swift */,
 				617ECFCF1BE6E66600E61546 /* CustomButton.swift */,
 				617031381C7D53B100297A25 /* ShovelAnnotationView.swift */,
-				618FBD751C8540A900A6504F /* VCMapView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";

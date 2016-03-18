@@ -110,6 +110,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.mapView.setCenterCoordinate(coordinates, animated: false)
         self.mapView.setRegion(region, animated: false)
         defer { retrieveWeatherForecast() }
+        locationManager.stopUpdatingLocation()
     }
     
     
@@ -134,10 +135,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     } else { 
 
                         
-                        for _ in self.nearArray { 
-
-                            let theirAnnotation = ShovelAnnotation(title: shovelItem.address, locationName: "Ok", coordinate: self.theirLocation)
-
+                        for _ in self.nearArray {
+                            let theirAnnotation = ShovelAnnotation(title: shovelItem.address, locationName: shovelItem.details, coordinate: self.theirLocation)
                             self.mapView.addAnnotation(theirAnnotation) 
   
                         } 

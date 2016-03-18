@@ -29,7 +29,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     var user: User!
     var email: String!
     var items = [ShovelRequest]()
-    
+        
     var dailyWeather: DailyWeather? {
         didSet {
             configureView()
@@ -47,8 +47,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         getLocation()
         paymentInfo()
         configureView()
-        
-        
+    
     }
     
     func paymentInfo() {
@@ -166,6 +165,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         let shovelTime = tfShovelTime.text!
         
         let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime)
+        
         let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
         
         requestName.setValue(shovelRequest.toAnyObject()) { (error: NSError?, ref:Firebase!) -> Void in
