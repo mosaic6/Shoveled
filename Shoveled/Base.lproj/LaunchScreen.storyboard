@@ -26,16 +26,16 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snowBG" translatesAutoresizingMaskIntoConstraints="NO" id="TKq-mn-bh8">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="664"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="SHOVELED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krC-vi-9Iw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krC-vi-9Iw">
                                 <rect key="frame" x="209" y="129" width="182" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="8ht-oq-Sev"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Marvel-Bold" family="Marvel" pointSize="50"/>
-                                <color key="textColor" red="0.83863779362416091" green="0.88276006711409383" blue="0.91078544463087252" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" red="0.53480657789999997" green="0.64615666949999995" blue="0.73716437820000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <size key="shadowOffset" width="0.0" height="2"/>
+                                <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

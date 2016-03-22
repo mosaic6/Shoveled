@@ -19,6 +19,7 @@ class MenuItems {
     class func allItems() -> Array<MenuItems> {
         return [
             MenuItems(title: "Home"),
+            MenuItems(title: "Settings"),
             MenuItems(title: "Logout")
         ]
     }

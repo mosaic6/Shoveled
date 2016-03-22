@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8850B499591F5E8F82B4493F"
+               BlueprintIdentifier = "C7EA31B8C9BA7B0C06633BC4"
                BuildableName = "Pods_Shoveled.framework"
                BlueprintName = "Pods-Shoveled"
                ReferencedContainer = "container:Pods.xcodeproj">

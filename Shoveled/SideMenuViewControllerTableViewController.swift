@@ -58,12 +58,11 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     func logoutUser() {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             rootRef.unauth()
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.removeFromParentViewController()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let loginViewController = storyboard.instantiateViewControllerWithIdentifier("loginViewController") as? LoginViewController
-            let currentStatusViewController = storyboard.instantiateViewControllerWithIdentifier("CurrentStatusViewController") as? CurrentStatusViewController
-            self.removeFromParentViewController()
-            currentStatusViewController?.removeFromParentViewController()
+//            let currentStatusViewController = storyboard.instantiateViewControllerWithIdentifier("CurrentStatusViewController") as? CurrentStatusViewController
+//            currentStatusViewController?.removeFromParentViewController()
             self.presentViewController(loginViewController!, animated: true, completion: nil)
         })
     }

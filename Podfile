@@ -12,4 +12,5 @@ target 'Shoveled' do
   pod 'Snowflakes'
   pod 'Stripe'
   pod 'Firebase', '>= 2.5.0'
+  pod 'Reveal-iOS-SDK', :configurations => ['Debug']
 end

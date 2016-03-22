@@ -12,8 +12,10 @@
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
+            <string>Marvel-Regular</string>
         </mutableArray>
         <mutableArray key="Rajdhani-Bold.ttf">
+            <string>Rajdhani-Bold</string>
             <string>Rajdhani-Bold</string>
             <string>Rajdhani-Bold</string>
         </mutableArray>
@@ -374,7 +376,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW LONG DOES IT TAKE YOU TO SHOVEL NORMALLY? (in minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW LONG DOES IT TAKE YOU TO SHOVEL NORMALLY? (in minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
                                 <rect key="frame" x="20" y="216" width="391" height="21"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -383,6 +385,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.53480657789999997" green="0.64615666949999995" blue="0.73716437820000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="Kgh-XG-YJJ" secondAttribute="trailing" constant="169" id="CcB-rt-wY5"/>
                             <constraint firstItem="bof-Wf-8x9" firstAttribute="top" secondItem="Kgh-XG-YJJ" secondAttribute="bottom" constant="2" id="GN3-nP-adD"/>
                             <constraint firstAttribute="leadingMargin" secondItem="UfU-Fu-X1Z" secondAttribute="leading" id="Ib0-Qr-jx1"/>
                             <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="V7x-FY-TeC" secondAttribute="bottom" constant="160" id="Ior-Iq-POS"/>
@@ -410,6 +413,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="rIQ-6Q-9vT"/>
                                 <exclude reference="K3F-5U-eKK"/>
                                 <exclude reference="aE4-bI-dpd"/>
                                 <exclude reference="yHt-df-pOq"/>
@@ -430,7 +434,7 @@
         <!--Accept Request View Controller-->
         <scene sceneID="T2j-j7-Ody">
             <objects>
-                <viewController id="dUN-69-lLl" customClass="AcceptRequestViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AcceptRequestViewController" id="dUN-69-lLl" customClass="AcceptRequestViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9CQ-NL-s8Q"/>
                         <viewControllerLayoutGuide type="bottom" id="yAy-77-eci"/>
@@ -439,18 +443,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Accept your mission!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
-                                <rect key="frame" x="220" y="49" width="160" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
+                                <rect key="frame" x="176" y="31" width="249" height="40"/>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRu-Wi-ZGs">
-                                <rect key="frame" x="270" y="317" width="49" height="30"/>
-                                <state key="normal" title="Accept"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2q-Ks-OBi">
+                                <rect key="frame" x="20" y="28" width="45" height="45"/>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="dismissView:" destination="dUN-69-lLl" eventType="touchUpInside" id="7nu-C1-xve"/>
+                                </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1SJ-mv-4gw">
+                                <rect key="frame" x="0.0" y="530" width="600" height="70"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRu-Wi-ZGs" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="11" width="584" height="45"/>
+                                        <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Sg7-Zo-l17"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="15"/>
+                                        <state key="normal" title="Accept">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="CRu-Wi-ZGs" firstAttribute="leading" secondItem="1SJ-mv-4gw" secondAttribute="leading" constant="8" id="3B7-su-WTT"/>
+                                    <constraint firstAttribute="trailing" secondItem="CRu-Wi-ZGs" secondAttribute="trailing" constant="8" id="rZT-K0-WCO"/>
+                                    <constraint firstAttribute="height" constant="70" id="th9-qg-kPW"/>
+                                    <constraint firstItem="CRu-Wi-ZGs" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="top" constant="11" id="vKu-VC-LCf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="vzO-8m-fo5" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="11" id="6qJ-nt-XPo"/>
+                            <constraint firstItem="yAy-77-eci" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="bottom" id="HOE-fv-kfp"/>
+                            <constraint firstItem="I2q-Ks-OBi" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="8" id="cTB-QT-BBw"/>
+                            <constraint firstItem="1SJ-mv-4gw" firstAttribute="leading" secondItem="Ubn-s7-HPJ" secondAttribute="leading" id="cyx-o2-4xO"/>
+                            <constraint firstItem="vzO-8m-fo5" firstAttribute="centerX" secondItem="Ubn-s7-HPJ" secondAttribute="centerX" id="eqH-dF-79Z"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="I2q-Ks-OBi" secondAttribute="leading" id="nOz-RT-omV"/>
+                            <constraint firstAttribute="trailing" secondItem="1SJ-mv-4gw" secondAttribute="trailing" id="tle-jw-vH8"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heh-KL-6Tg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -643,7 +682,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="GFi-Xp-lrr">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="a3o-cX-KKN" customClass="MenuItemCell" customModule="Shoveled" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
@@ -660,6 +699,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="lblTitle" destination="Nks-gp-Exh" id="sYe-9t-NIe"/>
                                 </connections>

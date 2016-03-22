@@ -36,16 +36,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         animateLaunchView()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(animated: Bool) {
         rootRef.observeAuthEventWithBlock { (authData) -> Void in
             if authData != nil {
                 self.performSegueWithIdentifier("AuthUser", sender: nil)
             }
         }
-    }
-    
-    override func viewWillAppear(animated: Bool) {
+        
         lblWelcome1.center.x -= view.bounds.width
         lblWelcome2.center.x -= view.bounds.width
         lblWelcome3.center.x -= view.bounds.width
@@ -197,32 +194,22 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let passwordString = tfExistingPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
         
         if usernameString?.characters.count == 0 || passwordString?.characters.count == 0 {
-            let alert = UIAlertController(title: "There was an error signing you up", message: "Please fill out all fields", preferredStyle: .Alert)
+            let alert = UIAlertController(title: "There was an error logging in", message: "Please fill out all fields", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
             self.presentViewController(alert, animated: true, completion: .None)
         } else {
-            rootRef.authUser(usernameString, password: passwordString,
-                withCompletionBlock: { error, authData in
-                    if error != nil {
-                        let alert = UIAlertController(title: "There was an error signing you up", message: "Please fill out all fields", preferredStyle: .Alert)
-                        alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
-                        self.presentViewController(alert, animated: true, completion: .None)
-                    } else {
-                        
-                        self.currentStatusVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CurrentStatusViewController") as! CurrentStatusViewController
-                        
-                        self.presentViewController(self.currentStatusVC, animated: true, completion: nil)
-                    }
+            rootRef.authUser(usernameString, password: passwordString, withCompletionBlock: { error, authData in
+                if error != nil {
+                    let alert = UIAlertController(title: "There was an error loggin in", message: "Please try again", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
+                    self.presentViewController(alert, animated: true, completion: .None)
+                } else {
+                    self.removeFromParentViewController()
+                    self.currentStatusVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CurrentStatusViewController") as! CurrentStatusViewController
+                    
+                    self.presentViewController(self.currentStatusVC, animated: true, completion: nil)
+                }
             })
-        }
-    }
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "loginUser"
-        {
-            if let destinationVC = segue.destinationViewController as? CurrentStatusViewController{
-                self.presentViewController(destinationVC, animated: true, completion: nil)
-            }
         }
     }
     

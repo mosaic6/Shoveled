@@ -23,7 +23,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             } else {
                 view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -5, y: -5)
+                view.calloutOffset = CGPoint(x: -8, y: 0)
                 view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             }
             return view
@@ -34,6 +34,13 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
         let shovel = view.annotation as! ShovelAnnotation
-               
+        
+        let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("AcceptRequestViewController") as? AcceptRequestViewController
+        
+        if let requestVC = requestDetailsView {
+            self.presentViewController(requestVC, animated: true, completion: nil)
+        }
+        
+        
     }
 }
