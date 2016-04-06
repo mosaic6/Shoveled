@@ -14,6 +14,7 @@
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
+            <string>Marvel-Regular</string>
         </mutableArray>
         <mutableArray key="Rajdhani-Bold.ttf">
             <string>Rajdhani-Bold</string>
@@ -361,7 +362,7 @@
                                     <constraint firstAttribute="height" constant="55" id="KcM-HL-uI6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
-                                <state key="normal" title="2">
+                                <state key="normal" title="Submit">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -389,6 +390,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TO CONFIRM REQUEST PLEASE INPUT PAYMENT INFO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="pVH-jB-AO9">
+                                <rect key="frame" x="20" y="337" width="314" height="21"/>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="laN-TO-1Kd">
                                 <rect key="frame" x="20" y="301" width="560" height="29"/>
                                 <segments>
@@ -399,7 +406,7 @@
                                 </segments>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Xu-V5-iot">
-                                <rect key="frame" x="20" y="340" width="560" height="65"/>
+                                <rect key="frame" x="20" y="366" width="560" height="65"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="0j5-TK-FR5"/>
@@ -410,6 +417,7 @@
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="laN-TO-1Kd" secondAttribute="leading" id="68k-Fz-YIh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kgh-XG-YJJ" secondAttribute="trailing" constant="169" id="CcB-rt-wY5"/>
+                            <constraint firstItem="9Xu-V5-iot" firstAttribute="top" secondItem="pVH-jB-AO9" secondAttribute="bottom" constant="8" id="ETV-WS-fSk"/>
                             <constraint firstItem="bof-Wf-8x9" firstAttribute="top" secondItem="Kgh-XG-YJJ" secondAttribute="bottom" constant="2" id="GN3-nP-adD"/>
                             <constraint firstItem="laN-TO-1Kd" firstAttribute="top" secondItem="BdP-5G-VDV" secondAttribute="bottom" constant="3" id="Gc2-Xh-Ine"/>
                             <constraint firstItem="9Xu-V5-iot" firstAttribute="top" secondItem="laN-TO-1Kd" secondAttribute="bottom" constant="11" id="HNz-3H-M0I"/>
@@ -430,6 +438,7 @@
                             <constraint firstAttribute="leadingMargin" secondItem="Mbm-bp-IFG" secondAttribute="leading" id="gml-cI-2pT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Zh7-IN-Rx2" secondAttribute="leading" id="gv4-Zi-0LO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V7x-FY-TeC" secondAttribute="trailing" id="hS8-5H-cdM"/>
+                            <constraint firstItem="pVH-jB-AO9" firstAttribute="top" secondItem="laN-TO-1Kd" secondAttribute="bottom" constant="8" id="l0q-0K-yHF"/>
                             <constraint firstAttribute="leadingMargin" secondItem="9Xu-V5-iot" secondAttribute="leading" id="lV6-YC-2Yx"/>
                             <constraint firstItem="Zh7-IN-Rx2" firstAttribute="top" secondItem="5uz-kI-daf" secondAttribute="bottom" constant="21" id="mcB-jF-oBc"/>
                             <constraint firstAttribute="leadingMargin" secondItem="V7x-FY-TeC" secondAttribute="leading" id="nJ2-NZ-kiO"/>
@@ -438,6 +447,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Kgh-XG-YJJ" secondAttribute="trailing" constant="169" id="rIQ-6Q-9vT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Kgh-XG-YJJ" secondAttribute="leading" id="seI-Ow-KEv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5uz-kI-daf" secondAttribute="leading" id="tWa-MZ-1dt"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="pVH-jB-AO9" secondAttribute="leading" id="vOj-J1-Bvj"/>
                             <constraint firstItem="BdP-5G-VDV" firstAttribute="top" secondItem="bof-Wf-8x9" secondAttribute="bottom" constant="8" id="xXA-5a-34c"/>
                             <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="227" id="yHt-df-pOq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="laN-TO-1Kd" secondAttribute="trailing" id="ypW-bk-oTe"/>
@@ -447,6 +457,7 @@
                                 <exclude reference="CcB-rt-wY5"/>
                                 <exclude reference="rIQ-6Q-9vT"/>
                                 <exclude reference="K3F-5U-eKK"/>
+                                <exclude reference="HNz-3H-M0I"/>
                                 <exclude reference="aE4-bI-dpd"/>
                                 <exclude reference="yHt-df-pOq"/>
                             </mask>
