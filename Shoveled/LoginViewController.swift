@@ -54,6 +54,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func configureView() {
         
+        tfExistingUsername.text = "joshuatwalsh@gmail.com"
+        tfExistingPassword.text = "way2cool"
+        
         let formGroup = CAAnimationGroup()
         formGroup.duration = 0.5
         formGroup.fillMode = kCAFillModeBackwards
@@ -189,6 +192,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginUser(sender: AnyObject) {
         
+//        #if DEBUG
+        
+//        #endif
         
         let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
         let passwordString = tfExistingPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())

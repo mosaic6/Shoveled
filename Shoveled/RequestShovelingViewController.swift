@@ -20,6 +20,9 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     @IBOutlet weak var tfAddress: UITextField!
     @IBOutlet weak var tfDescription: UITextField!
     @IBOutlet weak var tfShovelTime: UITextField!
+    @IBOutlet weak var priceControl: UISegmentedControl!
+    @IBOutlet weak var paymentInfoView: UIView!
+    
     //MARK: - Variables
     let locationManager = CLLocationManager()
     var paymentTextField: STPPaymentCardTextField! = nil
@@ -29,7 +32,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     var user: User!
     var email: String!
     var items = [ShovelRequest]()
-        
+    
     var dailyWeather: DailyWeather? {
         didSet {
             configureView()
@@ -51,13 +54,10 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     }
     
     func paymentInfo() {
-        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(15, 280, CGRectGetWidth(view.frame) - 30, 44))
+        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(0, 0, view.frame.size.width - 50, 44))
         paymentTextField.delegate = self
-//        view.addSubview(paymentTextField)
-//
-//        submitButton.setTitle("Submit", forState: UIControlState.Normal)
-//        submitButton.addTarget(self, action: "submitCard:", forControlEvents: UIControlEvents.TouchUpInside)
-//        view.addSubview(submitButton)
+        paymentTextField.backgroundColor = UIColor.whiteColor()
+        paymentInfoView.addSubview(paymentTextField)
     }
     
     func configureView() {
@@ -68,14 +68,15 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         }
         
         tfDescription.becomeFirstResponder()
+        
     }
     
     //MARK: Stripe payment delegate
     func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
-//        submitButton.enabled = textField.valid
+        submitButton.enabled = textField.valid
     }
     
-    @IBAction func submitCard(sender: AnyObject?) {
+    private func submitCard() {
         // If you have your own form for getting credit card information, you can construct
         // your own STPCardParams from number, month, year, and CVV.
         let card = paymentTextField.cardParams
@@ -163,8 +164,9 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         let lon = longitude
         let details = tfDescription.text!
         let shovelTime = tfShovelTime.text!
-        
-        let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime)
+        guard let price = priceControl.titleForSegmentAtIndex(priceControl.selectedSegmentIndex) else { return }
+ 
+        let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: price)
         
         let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
         
@@ -175,6 +177,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                 alert.addAction(okAction)
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
+                self.submitCard()
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
         }

@@ -28,6 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        let configuration = NSBundle.mainBundle().objectForInfoDictionaryKey("Configuration")
+        
+        print("Current Configuration: \(configuration)")
+            
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
         let containerViewController = ContainerViewController()

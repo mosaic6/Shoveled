@@ -132,9 +132,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
                         self.mapView.removeAnnotation(annotationsToRemove!)
 
-                    } else { 
-
-                        
+                    } else {
                         for _ in self.nearArray {
                             let theirAnnotation = ShovelAnnotation(title: shovelItem.address, locationName: shovelItem.details, coordinate: self.theirLocation)
                             self.mapView.addAnnotation(theirAnnotation) 

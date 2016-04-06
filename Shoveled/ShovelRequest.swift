@@ -17,10 +17,11 @@ struct ShovelRequest {
     let details: String!
     let addedByUser: String!
     let shovelTime: String!
+    let price: String!
     var completed: Bool!
     let ref: Firebase?
     
-    init(address: String, addedByUser: String, completed: Bool, latitude: NSNumber, longitude: NSNumber, details: String, shovelTime: String, key: String = "") {
+    init(address: String, addedByUser: String, completed: Bool, latitude: NSNumber, longitude: NSNumber, details: String, shovelTime: String, price: String, key: String = "") {
         self.key = key
         self.address = address
         self.addedByUser = addedByUser
@@ -29,6 +30,7 @@ struct ShovelRequest {
         self.longitude = longitude
         self.details = details
         self.shovelTime = shovelTime
+        self.price = price
         self.ref = nil
         
     }
@@ -41,6 +43,7 @@ struct ShovelRequest {
         details = snapshot.value["details"] as! String
         addedByUser = snapshot.value["addedByUser"] as! String
         shovelTime = snapshot.value["shovelTime"] as! String
+        price = snapshot.value["price"] as! String
         completed = snapshot.value["completed"] as! Bool
         ref = snapshot.ref
     }
@@ -53,6 +56,7 @@ struct ShovelRequest {
             "latitude": latitude,
             "longitude": longitude,
             "shovelTime": shovelTime,
+            "price": price,
             "completed": completed
         ]
     }

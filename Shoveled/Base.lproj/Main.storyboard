@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Marvel-Regular.ttf">
+            <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
@@ -354,13 +355,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-FY-TeC" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="20" y="385" width="560" height="55"/>
-                                <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="20" y="525" width="560" height="55"/>
+                                <color key="backgroundColor" red="0.99215686270000003" green="0.59607843140000005" blue="0.1529411765" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="KcM-HL-uI6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
-                                <state key="normal" title="Confirm Request">
+                                <state key="normal" title="2">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -382,19 +383,46 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET WHAT YOU WANT TO PAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-5G-VDV">
+                                <rect key="frame" x="20" y="277" width="171.5" height="21"/>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="laN-TO-1Kd">
+                                <rect key="frame" x="20" y="301" width="560" height="29"/>
+                                <segments>
+                                    <segment title="$10"/>
+                                    <segment title="$20"/>
+                                    <segment title="$30"/>
+                                    <segment title="$40"/>
+                                </segments>
+                            </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Xu-V5-iot">
+                                <rect key="frame" x="20" y="340" width="560" height="65"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="65" id="0j5-TK-FR5"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.53480657789999997" green="0.64615666949999995" blue="0.73716437820000003" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="laN-TO-1Kd" secondAttribute="leading" id="68k-Fz-YIh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kgh-XG-YJJ" secondAttribute="trailing" constant="169" id="CcB-rt-wY5"/>
                             <constraint firstItem="bof-Wf-8x9" firstAttribute="top" secondItem="Kgh-XG-YJJ" secondAttribute="bottom" constant="2" id="GN3-nP-adD"/>
+                            <constraint firstItem="laN-TO-1Kd" firstAttribute="top" secondItem="BdP-5G-VDV" secondAttribute="bottom" constant="3" id="Gc2-Xh-Ine"/>
+                            <constraint firstItem="9Xu-V5-iot" firstAttribute="top" secondItem="laN-TO-1Kd" secondAttribute="bottom" constant="11" id="HNz-3H-M0I"/>
                             <constraint firstAttribute="leadingMargin" secondItem="UfU-Fu-X1Z" secondAttribute="leading" id="Ib0-Qr-jx1"/>
-                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="V7x-FY-TeC" secondAttribute="bottom" constant="160" id="Ior-Iq-POS"/>
+                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="V7x-FY-TeC" secondAttribute="bottom" constant="20" id="Ior-Iq-POS"/>
                             <constraint firstItem="bof-Wf-8x9" firstAttribute="top" secondItem="Kgh-XG-YJJ" secondAttribute="bottom" constant="2" id="K3F-5U-eKK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UfU-Fu-X1Z" secondAttribute="trailing" id="M6x-I1-yQZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="9Xu-V5-iot" secondAttribute="trailing" id="O7J-TH-vgV"/>
                             <constraint firstAttribute="leadingMargin" secondItem="732-8Z-ymu" secondAttribute="leading" id="REU-ny-Iyj"/>
                             <constraint firstItem="732-8Z-ymu" firstAttribute="top" secondItem="Mbm-bp-IFG" secondAttribute="bottom" constant="8" id="Rlv-lX-Yja"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bof-Wf-8x9" secondAttribute="leading" id="RpI-Ax-dB5"/>
                             <constraint firstItem="Mbm-bp-IFG" firstAttribute="top" secondItem="Zh7-IN-Rx2" secondAttribute="bottom" constant="2" id="UqR-uz-rHw"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="BdP-5G-VDV" secondAttribute="leading" id="W6O-Or-lLT"/>
                             <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="Mbm-bp-IFG" secondAttribute="bottom" constant="113" id="aE4-bI-dpd"/>
                             <constraint firstItem="Kgh-XG-YJJ" firstAttribute="top" secondItem="UfU-Fu-X1Z" secondAttribute="bottom" constant="8" id="aeh-CQ-2yW"/>
                             <constraint firstItem="UfU-Fu-X1Z" firstAttribute="top" secondItem="732-8Z-ymu" secondAttribute="bottom" constant="2" id="ayw-0V-Lag"/>
@@ -402,6 +430,7 @@
                             <constraint firstAttribute="leadingMargin" secondItem="Mbm-bp-IFG" secondAttribute="leading" id="gml-cI-2pT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Zh7-IN-Rx2" secondAttribute="leading" id="gv4-Zi-0LO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V7x-FY-TeC" secondAttribute="trailing" id="hS8-5H-cdM"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="9Xu-V5-iot" secondAttribute="leading" id="lV6-YC-2Yx"/>
                             <constraint firstItem="Zh7-IN-Rx2" firstAttribute="top" secondItem="5uz-kI-daf" secondAttribute="bottom" constant="21" id="mcB-jF-oBc"/>
                             <constraint firstAttribute="leadingMargin" secondItem="V7x-FY-TeC" secondAttribute="leading" id="nJ2-NZ-kiO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bof-Wf-8x9" secondAttribute="trailing" id="nlN-oM-Mrw"/>
@@ -409,10 +438,13 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Kgh-XG-YJJ" secondAttribute="trailing" constant="169" id="rIQ-6Q-9vT"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Kgh-XG-YJJ" secondAttribute="leading" id="seI-Ow-KEv"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5uz-kI-daf" secondAttribute="leading" id="tWa-MZ-1dt"/>
+                            <constraint firstItem="BdP-5G-VDV" firstAttribute="top" secondItem="bof-Wf-8x9" secondAttribute="bottom" constant="8" id="xXA-5a-34c"/>
                             <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="227" id="yHt-df-pOq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="laN-TO-1Kd" secondAttribute="trailing" id="ypW-bk-oTe"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="CcB-rt-wY5"/>
                                 <exclude reference="rIQ-6Q-9vT"/>
                                 <exclude reference="K3F-5U-eKK"/>
                                 <exclude reference="aE4-bI-dpd"/>
@@ -421,6 +453,8 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="paymentInfoView" destination="9Xu-V5-iot" id="pRl-Rq-S8a"/>
+                        <outlet property="priceControl" destination="laN-TO-1Kd" id="cjv-Xr-1KZ"/>
                         <outlet property="submitButton" destination="V7x-FY-TeC" id="oCS-Gs-0Ro"/>
                         <outlet property="tfAddress" destination="Mbm-bp-IFG" id="0Ls-BO-HBU"/>
                         <outlet property="tfDescription" destination="UfU-Fu-X1Z" id="qqa-my-7zZ"/>
@@ -568,7 +602,7 @@
                             <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWf-Rv-bdm">
                                 <rect key="frame" x="20" y="123" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="I9z-8r-vV3" id="V2a-L5-t7D"/>
                                 </connections>
