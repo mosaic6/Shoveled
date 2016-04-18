@@ -13,7 +13,8 @@ import SwiftSpinner
 import Stripe
 import Firebase
 
-class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, STPPaymentCardTextFieldDelegate, CLLocationManagerDelegate {
+@available(iOS 9.0, *)
+class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, STPPaymentCardTextFieldDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate {
 
     // MARK: - Outlets
     @IBOutlet weak var submitButton: UIButton!
@@ -39,6 +40,15 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         }
     }
     
+    static let supportedNetworks = [
+        PKPaymentNetworkAmex,
+        PKPaymentNetworkDiscover,
+        PKPaymentNetworkMasterCard,
+        PKPaymentNetworkVisa
+    ]
+    
+    var paymentToken: PKPaymentToken!
+    
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +60,82 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         getLocation()
         paymentInfo()
         configureView()
+    }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(RequestShovelingViewController.supportedNetworks) {
+            
+            let button = PKPaymentButton(type: .Buy, style: .Black)
+            button.addTarget(self, action: #selector(RequestShovelingViewController.applePayButtonPressed), forControlEvents: .TouchUpInside)
+            
+            button.center = paymentInfoView.center
+            button.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
+            paymentInfoView.addSubview(button)
+        }
+    }
+    
+    // MARK: - Apple Pay Methods
+    
+    func applePayButtonPressed() {
+        // Set up our payment request.
+        let paymentRequest = PKPaymentRequest()
+        
+        /*
+         Our merchant identifier needs to match what we previously set up in
+         the Capabilities window (or the developer portal).
+         */
+        paymentRequest.merchantIdentifier = AppConfiguration.Merchant.identifier
+        
+        /*
+         Both country code and currency code are standard ISO formats. Country
+         should be the region you will process the payment in. Currency should
+         be the currency you would like to charge in.
+         */
+        paymentRequest.countryCode = "US"
+        paymentRequest.currencyCode = "USD"
+        
+        // The networks we are able to accept.
+        paymentRequest.supportedNetworks = RequestShovelingViewController.supportedNetworks
+        
+        /*
+         Ask your payment processor what settings are right for your app. In
+         most cases you will want to leave this set to .Capability3DS.
+         */
+        paymentRequest.merchantCapabilities = .Capability3DS
+        
+        /*
+         An array of `PKPaymentSummaryItems` that we'd like to display on the
+         sheet (see the summaryItems function).
+         */
+        paymentRequest.paymentSummaryItems = makeSummaryItems(requiresInternationalSurcharge: false)
+        
+        // Request shipping information, in this case just postal address.
+        paymentRequest.requiredShippingAddressFields = .PostalAddress
+        
+        // Display the view controller.
+        let viewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
+        viewController.delegate = self
+        presentViewController(viewController, animated: true, completion: nil)
+    }
+    
+    // A function to generate our payment summary items, applying an international surcharge if required.
+    func makeSummaryItems(requiresInternationalSurcharge requiresInternationalSurcharge: Bool) -> [PKPaymentSummaryItem] {
+        var items = [PKPaymentSummaryItem]()
+        
+        /*
+         Product items have a label (a string) and an amount (NSDecimalNumber).
+         NSDecimalNumber is a Cocoa class that can express floating point numbers
+         in Base 10, which ensures precision. It can be initialized with a
+         double, or in this case, a string.
+         */
+        if let price = priceControl.titleForSegmentAtIndex(priceControl.selectedSegmentIndex) {
+            let shovelSummaryItem = PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: price))
+            items += [shovelSummaryItem]
+        }
+               
+        return items
     }
     
     func paymentInfo() {
@@ -74,6 +159,34 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     //MARK: Stripe payment delegate
     func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
         submitButton.enabled = textField.valid
+    }
+    
+    private func applePay() {
+        let paymentNetworks = [PKPaymentNetworkMasterCard, PKPaymentNetworkVisa]
+        
+        if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(paymentNetworks) {
+            // create payment request
+            let request = PKPaymentRequest()
+            
+            request.merchantIdentifier = "merchant.com.mosaic6.Shoveled"
+            request.countryCode        = "US"
+            request.currencyCode       = "USD"
+            request.supportedNetworks  = paymentNetworks
+            request.merchantCapabilities = .Capability3DS
+            
+            guard let price = priceControl.titleForSegmentAtIndex(priceControl.selectedSegmentIndex) else { return }
+            let total = PKPaymentSummaryItem(label: "Shovel Request", amount: NSDecimalNumber(string: price))
+            request.paymentSummaryItems = [total]
+            
+            let vc = PKPaymentAuthorizationViewController(paymentRequest: request)
+            
+            vc.delegate = self
+            presentViewController(vc, animated: true, completion: nil)
+        } else {
+            // traditional checkout flow
+        }
+        
+        
     }
     
     private func submitCard() {
@@ -235,5 +348,19 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
 //                
 //            }
 //        })
+    }
+    
+    
+    //MARK: Apple Pay Delegate
+    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
+        paymentToken = payment.token
+        
+        completion(.Success)
+        
+//        performSegueWithIdentifier(<#T##identifier: String##String#>, sender: <#T##AnyObject?#>)
+    }
+    
+    func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
+        
     }
 }

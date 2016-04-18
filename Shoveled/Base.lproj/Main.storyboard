@@ -389,7 +389,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET WHAT YOU WANT TO PAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-5G-VDV">
-                                <rect key="frame" x="20" y="277" width="171.5" height="21"/>
+                                <rect key="frame" x="20" y="277" width="172" height="21"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -492,7 +492,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
                                 <rect key="frame" x="179" y="31" width="243" height="37"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -569,6 +569,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="FRQ-8e-KGw" secondAttribute="trailing" id="HY9-Sk-TbU"/>
                             <constraint firstItem="liO-iY-Q7Z" firstAttribute="top" secondItem="FRQ-8e-KGw" secondAttribute="bottom" constant="8" id="IfC-p7-rNs"/>
                             <constraint firstAttribute="trailingMargin" secondItem="liO-iY-Q7Z" secondAttribute="trailing" id="SO1-hS-cX5"/>
+                            <constraint firstItem="vzO-8m-fo5" firstAttribute="leading" secondItem="I2q-Ks-OBi" secondAttribute="trailing" constant="114" id="aIZ-Xh-MVc"/>
                             <constraint firstAttribute="leadingMargin" secondItem="FRQ-8e-KGw" secondAttribute="leading" id="bFu-Qj-iuZ"/>
                             <constraint firstItem="I2q-Ks-OBi" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="8" id="cTB-QT-BBw"/>
                             <constraint firstItem="1SJ-mv-4gw" firstAttribute="leading" secondItem="Ubn-s7-HPJ" secondAttribute="leading" id="cyx-o2-4xO"/>

@@ -17,6 +17,7 @@
 		612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */; };
 		614E78411C00E82800314390 /* UsersLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614E78401C00E82800314390 /* UsersLocation.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
+		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
 		615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526301BF90BB5006D7862 /* Marvel-Bold.ttf */; };
 		615526351BF90BB6006D7862 /* Marvel-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */; };
 		615526361BF90BB6006D7862 /* Marvel-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526321BF90BB6006D7862 /* Marvel-Italic.ttf */; };
@@ -86,6 +87,7 @@
 		614E78401C00E82800314390 /* UsersLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersLocation.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Shoveled.entitlements; sourceTree = "<group>"; };
+		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
 		615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-BoldItalic.ttf"; path = "../Marvel-BoldItalic.ttf"; sourceTree = "<group>"; };
 		615526321BF90BB6006D7862 /* Marvel-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Italic.ttf"; path = "../Marvel-Italic.ttf"; sourceTree = "<group>"; };
@@ -182,6 +184,14 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		6152E65D1CC57D0A001972A6 /* Common Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				6152E65E1CC57D23001972A6 /* AppConfiguration.swift */,
+			);
+			name = "Common Configuration";
+			sourceTree = "<group>";
+		};
 		615526441BF90BE6006D7862 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +260,7 @@
 		61ED021B1BAE43F3006B22B7 /* Shoveled */ = {
 			isa = PBXGroup;
 			children = (
+				6152E65D1CC57D0A001972A6 /* Common Configuration */,
 				6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */,
 				614E78421C013A0100314390 /* Settings.bundle */,
 				61ED02261BAE43F3006B22B7 /* Assets.xcassets */,
@@ -438,10 +449,10 @@
 								enabled = 1;
 							};
 							com.apple.OMC = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -617,6 +628,7 @@
 				61FEC6801C8B575200D25128 /* SideMenuViewControllerTableViewController.swift in Sources */,
 				61A354951BCF399A0071B5BE /* CurrentWeather.swift in Sources */,
 				612AB8581C32DBFB00779CC9 /* HamburgerView.swift in Sources */,
+				6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */,
 				61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */,
 				61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */,
 				612AB8561C32DBE400779CC9 /* MenuItemCell.swift in Sources */,
@@ -727,6 +739,7 @@
 			baseConfigurationReference = 1C2D2914E581DC0C6373FEFA /* Pods-Shoveled.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Shoveled/Shoveled.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -854,6 +867,7 @@
 			baseConfigurationReference = 1C2D2914E581DC0C6373FEFA /* Pods-Shoveled.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Shoveled/Shoveled.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -874,6 +888,7 @@
 			baseConfigurationReference = 9D7E5A3F8A127680E58B934C /* Pods-Shoveled.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Shoveled/Shoveled.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
