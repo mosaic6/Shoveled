@@ -38,6 +38,12 @@ extension CurrentStatusViewController: MKMapViewDelegate {
         let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("AcceptRequestViewController") as? AcceptRequestViewController
         
         if let requestVC = requestDetailsView {
+            requestVC.addressString = shovel.title
+            requestVC.descriptionString = shovel.details
+            requestVC.priceString = shovel.price
+            requestVC.shovelTimeString = shovel.shovelTime
+            
+            
             self.presentViewController(requestVC, animated: true, completion: nil)
         }
         

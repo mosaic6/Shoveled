@@ -38,7 +38,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
             configureView()
         }
     }
-        
+    
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     }
     
     func paymentInfo() {
-        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(0, 0, view.frame.size.width - 50, 44))
+        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(0, 0, view.frame.size.width - 40, 44))
         paymentTextField.delegate = self
         paymentTextField.backgroundColor = UIColor.whiteColor()
         paymentInfoView.addSubview(paymentTextField)
@@ -81,12 +81,29 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         // your own STPCardParams from number, month, year, and CVV.
         let card = paymentTextField.cardParams
         
+        guard let request = Stripe.paymentRequestWithMerchantIdentifier("YOUR_APPLE_MERCHANT_ID") else {
+            // request will be nil if running on < iOS8
+            return
+        }
+        
+        
+        
+        request.paymentSummaryItems = [
+            PKPaymentSummaryItem(label: "Shovel Request", amount: 10.0)
+        ]
+        
+        if (Stripe.canSubmitPaymentRequest(request)) {
+            let paymentController = PKPaymentAuthorizationViewController(paymentRequest: request)
+            presentViewController(paymentController, animated: true, completion: nil)
+        } else {
+            // Show the user your own credit card form (see options 2 or 3)
+        }
+        
         STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
             guard let stripeToken = token else {
                 NSLog("Error creating token: %@", error!.localizedDescription);
                 return
             }
-            
             // TODO: send the token to your server so it can create a charge
             let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))

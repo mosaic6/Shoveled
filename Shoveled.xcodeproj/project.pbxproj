@@ -85,6 +85,7 @@
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
 		614E78401C00E82800314390 /* UsersLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersLocation.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
+		6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Shoveled.entitlements; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
 		615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-BoldItalic.ttf"; path = "../Marvel-BoldItalic.ttf"; sourceTree = "<group>"; };
 		615526321BF90BB6006D7862 /* Marvel-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Italic.ttf"; path = "../Marvel-Italic.ttf"; sourceTree = "<group>"; };
@@ -249,6 +250,7 @@
 		61ED021B1BAE43F3006B22B7 /* Shoveled */ = {
 			isa = PBXGroup;
 			children = (
+				6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */,
 				614E78421C013A0100314390 /* Settings.bundle */,
 				61ED02261BAE43F3006B22B7 /* Assets.xcassets */,
 				61ED024F1BAE46A0006B22B7 /* Data */,
@@ -434,6 +436,9 @@
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.OMC = {
+								enabled = 0;
 							};
 							com.apple.Push = {
 								enabled = 1;

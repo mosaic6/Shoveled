@@ -15,6 +15,10 @@
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
+            <string>Marvel-Regular</string>
+            <string>Marvel-Regular</string>
+            <string>Marvel-Regular</string>
+            <string>Marvel-Regular</string>
         </mutableArray>
         <mutableArray key="Rajdhani-Bold.ttf">
             <string>Rajdhani-Bold</string>
@@ -488,8 +492,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
-                                <rect key="frame" x="176" y="31" width="249" height="40"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
+                                <rect key="frame" x="179" y="31" width="243" height="37"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -514,6 +518,9 @@
                                         <state key="normal" title="Accept">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="acceptRequest:" destination="dUN-69-lLl" eventType="touchUpInside" id="89H-Tf-wB7"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -524,22 +531,73 @@
                                     <constraint firstItem="CRu-Wi-ZGs" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="top" constant="11" id="vKu-VC-LCf"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sO-lo-cgE">
+                                <rect key="frame" x="20" y="127" width="560" height="21"/>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCB-U0-TdD">
+                                <rect key="frame" x="20" y="171" width="560" height="21"/>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRQ-8e-KGw">
+                                <rect key="frame" x="20" y="217" width="560" height="88"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="88" id="Zag-kj-eL6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="40"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liO-iY-Q7Z">
+                                <rect key="frame" x="20" y="313" width="560" height="21"/>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="7sO-lo-cgE" secondAttribute="trailing" id="1JO-jd-PXA"/>
+                            <constraint firstItem="7sO-lo-cgE" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="107" id="2qK-nj-6K1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aCB-U0-TdD" secondAttribute="trailing" id="67u-Hx-d1l"/>
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="11" id="6qJ-nt-XPo"/>
                             <constraint firstItem="yAy-77-eci" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="bottom" id="HOE-fv-kfp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FRQ-8e-KGw" secondAttribute="trailing" id="HY9-Sk-TbU"/>
+                            <constraint firstItem="liO-iY-Q7Z" firstAttribute="top" secondItem="FRQ-8e-KGw" secondAttribute="bottom" constant="8" id="IfC-p7-rNs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="liO-iY-Q7Z" secondAttribute="trailing" id="SO1-hS-cX5"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="FRQ-8e-KGw" secondAttribute="leading" id="bFu-Qj-iuZ"/>
                             <constraint firstItem="I2q-Ks-OBi" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="8" id="cTB-QT-BBw"/>
                             <constraint firstItem="1SJ-mv-4gw" firstAttribute="leading" secondItem="Ubn-s7-HPJ" secondAttribute="leading" id="cyx-o2-4xO"/>
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="centerX" secondItem="Ubn-s7-HPJ" secondAttribute="centerX" id="eqH-dF-79Z"/>
+                            <constraint firstItem="7sO-lo-cgE" firstAttribute="top" secondItem="vzO-8m-fo5" secondAttribute="bottom" constant="56" id="fR9-Lo-x5m"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="aCB-U0-TdD" secondAttribute="leading" id="lhl-Pj-shs"/>
                             <constraint firstAttribute="leadingMargin" secondItem="I2q-Ks-OBi" secondAttribute="leading" id="nOz-RT-omV"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="liO-iY-Q7Z" secondAttribute="leading" id="t2x-7t-Tj9"/>
                             <constraint firstAttribute="trailing" secondItem="1SJ-mv-4gw" secondAttribute="trailing" id="tle-jw-vH8"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="7sO-lo-cgE" secondAttribute="leading" id="va1-he-YQn"/>
+                            <constraint firstItem="FRQ-8e-KGw" firstAttribute="top" secondItem="aCB-U0-TdD" secondAttribute="bottom" constant="25" id="x4g-pX-BMz"/>
+                            <constraint firstItem="aCB-U0-TdD" firstAttribute="top" secondItem="7sO-lo-cgE" secondAttribute="bottom" constant="23" id="zRb-Ip-jYK"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="fR9-Lo-x5m"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="addressLabel" destination="7sO-lo-cgE" id="r5S-IB-O4A"/>
+                        <outlet property="descriptionLabel" destination="aCB-U0-TdD" id="UoG-30-lTy"/>
+                        <outlet property="priceLabel" destination="FRQ-8e-KGw" id="snv-CN-pjW"/>
+                        <outlet property="shovelTimeLabel" destination="liO-iY-Q7Z" id="igU-Bu-4R2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heh-KL-6Tg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958" y="2598"/>
+            <point key="canvasLocation" x="1835" y="2643"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5mg-xD-AOq">

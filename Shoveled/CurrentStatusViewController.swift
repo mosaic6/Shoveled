@@ -114,7 +114,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     
-    
+    // MARK: - Get Shovel Requests
     func filterByProximity() {
         shovelRef.queryOrderedByChild("completed").observeEventType(.Value, withBlock: { snapshot in
             if let snapshot = snapshot {
@@ -134,8 +134,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
                     } else {
                         for _ in self.nearArray {
-                            let theirAnnotation = ShovelAnnotation(title: shovelItem.address, locationName: shovelItem.details, coordinate: self.theirLocation)
-                            self.mapView.addAnnotation(theirAnnotation) 
+                            let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, price: shovelItem.price, details: shovelItem.details, shovelTime: shovelItem.shovelTime)
+                            
+                            self.mapView.addAnnotation(mapAnnotation)
   
                         } 
                     }
@@ -189,8 +190,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             print(error.description)
         })
     }
-    
-    
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return UIStatusBarStyle.LightContent

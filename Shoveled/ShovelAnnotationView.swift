@@ -10,19 +10,25 @@ import MapKit
 
 class ShovelAnnotation: NSObject, MKAnnotation {
     let title: String?
-    let locationName: String?
     let coordinate: CLLocationCoordinate2D
+    let completed: Bool
+    let price: String?
+    let details: String?
+    let shovelTime: String?
     
-    init(title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
-        self.title = title
-        self.locationName = locationName
+    init(address: String, coordinate: CLLocationCoordinate2D, completed: Bool, price: String, details: String, shovelTime: String) {
+        self.title = address
         self.coordinate = coordinate
+        self.completed = completed
+        self.price = price
+        self.details = details
+        self.shovelTime = shovelTime
         
         super.init()
     }
     
     var subtitle: String? {
-        return locationName?.uppercaseString
+        return details?.uppercaseString
     }
         
 }
