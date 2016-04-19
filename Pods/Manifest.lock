@@ -30,8 +30,8 @@ PODS:
     - FLKAutoLayout (~> 0.1)
   - Reveal-iOS-SDK (1.6.2)
   - Snowflakes (0.1.1)
-  - Stripe (6.2.0):
-    - Stripe/Core (= 6.2.0)
+  - Stripe/ApplePay (6.2.0):
+    - Stripe/Core
   - Stripe/Core (6.2.0)
   - SwiftSpinner (0.8.0)
   - SwiftyJSON (2.3.2)
@@ -45,7 +45,7 @@ DEPENDENCIES:
   - ORStackView (~> 2.0)
   - Reveal-iOS-SDK
   - Snowflakes
-  - Stripe
+  - Stripe/ApplePay
   - SwiftSpinner
   - SwiftyJSON (~> 2.1)
 

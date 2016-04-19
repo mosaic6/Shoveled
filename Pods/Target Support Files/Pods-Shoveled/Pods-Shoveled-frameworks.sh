@@ -62,6 +62,17 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-Shoveled/SwiftSpinner.framework'
   install_framework 'Pods-Shoveled/SwiftyJSON.framework'
 fi
+if [[ "$CONFIGURATION" == "QA" ]]; then
+  install_framework 'Pods-Shoveled/AFNetworking.framework'
+  install_framework 'Pods-Shoveled/FLKAutoLayout.framework'
+  install_framework 'Pods-Shoveled/Firebase.framework'
+  install_framework 'Pods-Shoveled/ForecastIO.framework'
+  install_framework 'Pods-Shoveled/ORStackView.framework'
+  install_framework 'Pods-Shoveled/Snowflakes.framework'
+  install_framework 'Pods-Shoveled/Stripe.framework'
+  install_framework 'Pods-Shoveled/SwiftSpinner.framework'
+  install_framework 'Pods-Shoveled/SwiftyJSON.framework'
+fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-Shoveled/AFNetworking.framework'
   install_framework 'Pods-Shoveled/FLKAutoLayout.framework'

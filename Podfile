@@ -10,7 +10,7 @@ target 'Shoveled' do
   pod 'Crashlytics'
   pod 'SwiftSpinner'
   pod 'Snowflakes'
-  pod 'Stripe'
+  pod 'Stripe/ApplePay'
   pod 'Firebase', '>= 2.5.0'
   pod 'Reveal-iOS-SDK', :configurations => ['Debug']
 end

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B82E462B6C0A806B4414A842"
+               BlueprintIdentifier = "A543520A9835FD55B010BC6E"
                BuildableName = "Snowflakes.bundle"
                BlueprintName = "Snowflakes-Snowflakes"
                ReferencedContainer = "container:Pods.xcodeproj">

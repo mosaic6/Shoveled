@@ -17,6 +17,7 @@
 		612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */; };
 		614E78411C00E82800314390 /* UsersLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614E78401C00E82800314390 /* UsersLocation.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
+		6150A2B91CC5BF5100F1C8E5 /* ApplePayShoveledServer.py in Resources */ = {isa = PBXBuildFile; fileRef = 6150A2B81CC5BF5100F1C8E5 /* ApplePayShoveledServer.py */; };
 		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
 		615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526301BF90BB5006D7862 /* Marvel-Bold.ttf */; };
 		615526351BF90BB6006D7862 /* Marvel-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */; };
@@ -86,6 +87,7 @@
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
 		614E78401C00E82800314390 /* UsersLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersLocation.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
+		6150A2B81CC5BF5100F1C8E5 /* ApplePayShoveledServer.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = ApplePayShoveledServer.py; sourceTree = "<group>"; };
 		6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Shoveled.entitlements; sourceTree = "<group>"; };
 		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
@@ -184,6 +186,15 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		6150A2B71CC5BF3300F1C8E5 /* Stripe Integration */ = {
+			isa = PBXGroup;
+			children = (
+				6150A2B81CC5BF5100F1C8E5 /* ApplePayShoveledServer.py */,
+			);
+			name = "Stripe Integration";
+			path = Shoveled;
+			sourceTree = "<group>";
+		};
 		6152E65D1CC57D0A001972A6 /* Common Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,6 +249,7 @@
 		61ED02101BAE43F3006B22B7 = {
 			isa = PBXGroup;
 			children = (
+				6150A2B71CC5BF3300F1C8E5 /* Stripe Integration */,
 				61ED021B1BAE43F3006B22B7 /* Shoveled */,
 				61ED02331BAE43F3006B22B7 /* ShoveledTests */,
 				61ED023E1BAE43F3006B22B7 /* ShoveledUITests */,
@@ -500,6 +512,7 @@
 				615526391BF90BC9006D7862 /* Boogaloo-Regular.ttf in Resources */,
 				614E78431C013A0200314390 /* Settings.bundle in Resources */,
 				615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */,
+				6150A2B91CC5BF5100F1C8E5 /* ApplePayShoveledServer.py in Resources */,
 				615526351BF90BB6006D7862 /* Marvel-BoldItalic.ttf in Resources */,
 				615526361BF90BB6006D7862 /* Marvel-Italic.ttf in Resources */,
 				615526371BF90BB6006D7862 /* Marvel-Regular.ttf in Resources */,

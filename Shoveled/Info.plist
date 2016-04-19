@@ -20,6 +20,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>Configuration</key>
+	<string>${CONFIGURATION}</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -83,7 +85,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>Configuration</key>
-	<string>${CONFIGURATION}</string>
 </dict>
 </plist>
