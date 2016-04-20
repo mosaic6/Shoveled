@@ -11,7 +11,7 @@ import Foundation
 public class AppConfiguration {
     
     private struct Bundle {
-        static var prefix = NSBundle.mainBundle().objectForInfoDictionaryKey("APPLEShoveledBundlePrefix") as! String
+        static var prefix = NSBundle.mainBundle().objectForInfoDictionaryKey("merchant.com.mosaic6") as! String
     }
     
     struct UserActivity {

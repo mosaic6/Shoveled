@@ -12,6 +12,7 @@ import Snowflakes
 import SwiftSpinner
 import Stripe
 import Firebase
+import PassKit
 
 @available(iOS 9.0, *)
 class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, STPPaymentCardTextFieldDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate {
@@ -22,11 +23,9 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     @IBOutlet weak var tfDescription: UITextField!
     @IBOutlet weak var tfShovelTime: UITextField!
     @IBOutlet weak var priceControl: UISegmentedControl!
-    @IBOutlet weak var paymentInfoView: UIView!
     
     //MARK: - Variables
     let locationManager = CLLocationManager()
-    var paymentTextField: STPPaymentCardTextField! = nil
     var latitude: Double!
     var longitude: Double!
     var coordinates: CLLocationCoordinate2D!
@@ -58,7 +57,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         tfShovelTime.delegate = self
         getUserStatus()
         getLocation()
-        paymentInfo()
         configureView()
     }
     
@@ -70,9 +68,9 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
             let button = PKPaymentButton(type: .Buy, style: .Black)
             button.addTarget(self, action: #selector(RequestShovelingViewController.applePayButtonPressed), forControlEvents: .TouchUpInside)
             
-            button.center = paymentInfoView.center
+            button.center = self.view.center
             button.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
-            paymentInfoView.addSubview(button)
+            self.view.addSubview(button)
         }
     }
     
@@ -86,7 +84,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
          Our merchant identifier needs to match what we previously set up in
          the Capabilities window (or the developer portal).
          */
-        paymentRequest.merchantIdentifier = AppConfiguration.Merchant.identifier
+        paymentRequest.merchantIdentifier = "merchant.com.mosaic6.Shoveled"
         
         /*
          Both country code and currency code are standard ISO formats. Country
@@ -138,13 +136,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         return items
     }
     
-    func paymentInfo() {
-        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(0, 0, view.frame.size.width - 40, 44))
-        paymentTextField.delegate = self
-        paymentTextField.backgroundColor = UIColor.whiteColor()
-        paymentInfoView.addSubview(paymentTextField)
-    }
-    
     func configureView() {
         self.view.addSubview(SnowflakesView(frame: self.view.frame))
         
@@ -161,7 +152,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         submitButton.enabled = textField.valid
     }
     
-    private func applePay() {
+    func applePay() {
         let paymentNetworks = [PKPaymentNetworkMasterCard, PKPaymentNetworkVisa]
         
         if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(paymentNetworks) {
@@ -187,41 +178,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         }
         
         
-    }
-    
-    private func submitCard() {
-        // If you have your own form for getting credit card information, you can construct
-        // your own STPCardParams from number, month, year, and CVV.
-        let card = paymentTextField.cardParams
-        
-        guard let request = Stripe.paymentRequestWithMerchantIdentifier("YOUR_APPLE_MERCHANT_ID") else {
-            // request will be nil if running on < iOS8
-            return
-        }
-        
-        
-        
-        request.paymentSummaryItems = [
-            PKPaymentSummaryItem(label: "Shovel Request", amount: 10.0)
-        ]
-        
-        if (Stripe.canSubmitPaymentRequest(request)) {
-            let paymentController = PKPaymentAuthorizationViewController(paymentRequest: request)
-            presentViewController(paymentController, animated: true, completion: nil)
-        } else {
-            // Show the user your own credit card form (see options 2 or 3)
-        }
-        
-        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
-            guard let stripeToken = token else {
-                NSLog("Error creating token: %@", error!.localizedDescription);
-                return
-            }
-            // TODO: send the token to your server so it can create a charge
-            let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
     }
     
     //MARK: - Location Manager Delegate
@@ -307,8 +263,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                 alert.addAction(okAction)
                 self.presentViewController(alert, animated: true, completion: nil)
             } else {
-                self.submitCard()
-                self.dismissViewControllerAnimated(true, completion: nil)
+//                self.applePay()
             }
         }
     }
