@@ -28,9 +28,15 @@ class ShoveledUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    // Test sign up new user    
+    func signUpNewUserTest() {
+        
+    }
+    
+    // Test login existing user
+    func loginUserTest() {
+        
+        
     }
     
 }

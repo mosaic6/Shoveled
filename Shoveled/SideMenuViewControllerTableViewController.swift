@@ -36,7 +36,7 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellItems.count
+        return cellItems == nil ? 0 : cellItems.count
     }
 
     
@@ -58,9 +58,6 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     func logoutUser() {
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             rootRef.unauth()
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginViewController = storyboard.instantiateViewControllerWithIdentifier("loginViewController") as? LoginViewController
-            self.presentViewController(loginViewController!, animated: true, completion: nil)
         })
     }
 }

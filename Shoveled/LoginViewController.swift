@@ -127,9 +127,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                 if error != nil {
                     dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         rootRef.authUser(emailString, password: passwordString, withCompletionBlock: { (error, auth) -> Void in
-                            self.currentStatusVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CurrentStatusViewController") as! CurrentStatusViewController
-                            
-                            self.presentViewController(self.currentStatusVC, animated: true, completion: nil) 
+                            self.removeFromParentViewController()
                         })
                     })
                 } else {
@@ -191,11 +189,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func loginUser(sender: AnyObject) {
-        
-//        #if DEBUG
-        
-//        #endif
-        
+
         let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
         let passwordString = tfExistingPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
         
@@ -210,10 +204,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
                     self.presentViewController(alert, animated: true, completion: .None)
                 } else {
-                    self.removeFromParentViewController()
-                    self.currentStatusVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("CurrentStatusViewController") as! CurrentStatusViewController
-                    
-                    self.presentViewController(self.currentStatusVC, animated: true, completion: nil)
+                    self.dismissViewControllerAnimated(true, completion: nil)
                 }
             })
         }

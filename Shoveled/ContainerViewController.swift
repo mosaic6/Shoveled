@@ -18,6 +18,7 @@ class ContainerViewController: UIViewController {
 
     var centerNavigationController: UINavigationController!
     var centerViewController: CurrentStatusViewController!
+    var loginViewController: LoginViewController!
     
     var currentState: SlideOutState = .BothCollapsed {
         didSet {
@@ -41,8 +42,6 @@ class ContainerViewController: UIViewController {
         addChildViewController(centerNavigationController)
 
         centerNavigationController.didMoveToParentViewController(self)
-//        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
-//        centerNavigationController.view.addGestureRecognizer(panGestureRecognizer)
     }
 }
 
@@ -101,7 +100,7 @@ extension ContainerViewController: CurrentStatusControllerDelegate {
     }
     
     func animateCenterPanelXPosition(targetPosition targetPosition: CGFloat, completion: ((Bool) -> Void)! = nil) {
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .CurveEaseInOut, animations: {
+        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .CurveEaseInOut, animations: {
             self.centerNavigationController.view.frame.origin.x = targetPosition
             }, completion: completion)
     }
@@ -115,36 +114,7 @@ extension ContainerViewController: CurrentStatusControllerDelegate {
     }
 }
 
-extension ContainerViewController: UIGestureRecognizerDelegate {
-    // MARK: Gesture recognizer
-    
-    func handlePanGesture(recognizer: UIPanGestureRecognizer) {
-        let gestureIsDraggingFromLeftToRight = (recognizer.velocityInView(view).x > 0)
-        
-        switch(recognizer.state) {
-        case .Began:
-            if (currentState == .BothCollapsed) {
-                if (gestureIsDraggingFromLeftToRight) {
-                    addLeftPanelViewController()
-                }
-                showShadowForCenterViewController(true)
-            }
-        case .Changed:
-            recognizer.view!.center.x = recognizer.view!.center.x + recognizer.translationInView(view).x
-            recognizer.setTranslation(CGPointZero, inView: view)
-        case .Ended:
-            if (leftViewController != nil) {
-                // animate the side panel open or closed based on whether the view has moved more or less than halfway
-                let hasMovedGreaterThanHalfway = recognizer.view!.center.x > view.bounds.size.width
-                animateLeftPanel(shouldExpand: hasMovedGreaterThanHalfway)
-            }
-        default:
-            break
-        }
-    }
-}
-
-private extension UIStoryboard {
+extension UIStoryboard {
     class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()) }
     
     class func leftViewController() -> SideMenuViewControllerTableViewController? {
@@ -153,5 +123,9 @@ private extension UIStoryboard {
     
     class func centerViewController() -> CurrentStatusViewController? {
         return mainStoryboard().instantiateViewControllerWithIdentifier("CurrentStatusViewController") as? CurrentStatusViewController
+    }
+    
+    class func loginViewController() -> LoginViewController? {
+        return mainStoryboard().instantiateViewControllerWithIdentifier("LoginViewController") as? LoginViewController
     }
 }

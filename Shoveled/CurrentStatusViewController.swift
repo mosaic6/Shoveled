@@ -134,7 +134,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
                     } else {
                         for _ in self.nearArray {
-                            let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, price: shovelItem.price, details: shovelItem.details, shovelTime: shovelItem.shovelTime)
+                            let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, price: String(shovelItem.price), details: shovelItem.details, shovelTime: shovelItem.shovelTime)
                             
                             self.mapView.addAnnotation(mapAnnotation)
   
@@ -180,9 +180,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     func getShovelRequests() {
         ref.observeEventType(.Value, withBlock: { snapshot in
             
-            var requestItem = [ShovelRequest]()
+            let requestItem = [ShovelRequest]()
             for item in snapshot.children {
-
+                print(item)
             }
             self.items = requestItem
             
