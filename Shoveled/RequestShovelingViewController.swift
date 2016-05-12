@@ -23,6 +23,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     @IBOutlet weak var tfDescription: UITextField!
     @IBOutlet weak var tfShovelTime: UITextField!
     @IBOutlet weak var priceControl: UISegmentedControl!
+    @IBOutlet weak var requestFormView: UIView!
     
     //MARK: - Variables
     let locationManager = CLLocationManager()
@@ -32,7 +33,9 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     var user: User!
     var email: String!
     var items = [ShovelRequest]()
-    
+    var paymentTextField: STPPaymentCardTextField! = nil
+
+
     var dailyWeather: DailyWeather? {
         didSet {
             configureView()
@@ -62,16 +65,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(RequestShovelingViewController.supportedNetworks) {
-            
-            let button = PKPaymentButton(type: .Buy, style: .Black)
-            button.addTarget(self, action: #selector(RequestShovelingViewController.applePayButtonPressed), forControlEvents: .TouchUpInside)
-            
-            button.center = self.view.center
-            button.autoresizingMask = [.FlexibleLeftMargin, .FlexibleRightMargin]
-            self.view.addSubview(button)
-        }
     }
     
     // MARK: - Apple Pay Methods
@@ -167,6 +160,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
             let administrativeArea: String! = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
             let address = "\(subthoroughfare) \(thoroughfare), \(locality), \(administrativeArea) \(postalCode)"
             tfAddress.text = address
+            
         }
     }
     
@@ -188,28 +182,68 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
         spinner.startAnimating()
         
-        let address = tfAddress.text!
-        let lat = latitude
-        let lon = longitude
-        let details = tfDescription.text!
-        let shovelTime = tfShovelTime.text!
-        guard let price = priceControl.titleForSegmentAtIndex(priceControl.selectedSegmentIndex) else { return }
- 
-        let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
-        
-        let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
-        
-        requestName.setValue(shovelRequest.toAnyObject()) { (error: NSError?, ref:Firebase!) -> Void in
-            if error != nil {
-                let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                alert.addAction(okAction)
-                self.presentViewController(alert, animated: true, completion: nil)
-            } else {
-                self.applePayButtonPressed()
-            }
+        if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(RequestShovelingViewController.supportedNetworks) {
+            self.applePayButtonPressed()
+        } else {
+            // TODO: Animate form off view
+            self.requestFormView.hidden = true
+            self.displayPaymentTextField()
         }
     }
+    
+    func displayPaymentTextField() {
+        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(15, (self.view.bounds.height / 2) - 60, CGRectGetWidth(view.frame) - 30, 44))
+        paymentTextField.delegate = self
+        view.addSubview(paymentTextField)
+        submitButton = UIButton(type: UIButtonType.System)
+        submitButton.frame = CGRectMake(15, (self.view.bounds.height / 2), CGRectGetWidth(view.frame) - 30, 44)
+        submitButton.enabled = false
+        submitButton.setTitle("Submit", forState: UIControlState.Normal)
+        submitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        view.addSubview(submitButton)
+
+    }
+    
+    @IBAction func submitCard(sender: AnyObject?) {
+        // If you have your own form for getting credit card information, you can construct
+        // your own STPCardParams from number, month, year, and CVV.
+        let card = paymentTextField.cardParams
+        
+        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
+            guard let stripeToken = token else {
+                NSLog("Error creating token: %@", error!.localizedDescription);
+                return
+            }
+            
+            let address = self.tfAddress.text!
+            let lat = self.latitude
+            let lon = self.longitude
+            let details = self.tfDescription.text!
+            let shovelTime = self.tfShovelTime.text!
+            guard let price = self.priceControl.titleForSegmentAtIndex(self.priceControl.selectedSegmentIndex) else { return }
+            
+            let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+            
+            let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
+            
+            requestName.setValue(shovelRequest.toAnyObject()) { (error: NSError?, ref:Firebase!) -> Void in
+                if error != nil {
+                    let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
+                    let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    alert.addAction(okAction)
+                    self.presentViewController(alert, animated: true, completion: nil)
+                } else {
+                    // TODO: send the token to your server so it can create a charge
+                    let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+            }
+            
+            
+        }
+    }
+
     
     @IBAction func closeView(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -240,9 +274,20 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     //MARK: Apple Pay Delegate
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
-        paymentToken = payment.token
         
-        print("::::\(paymentToken)")
+        let card = STPCardParams()
+        
+        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
+            guard let stripeToken = token else {
+                NSLog("Error creating token: %@", error!.localizedDescription);
+                return
+            }
+            
+            // TODO: send the token to your server so it can create a charge
+            let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
