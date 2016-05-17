@@ -233,7 +233,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     alert.addAction(okAction)
                     self.presentViewController(alert, animated: true, completion: nil)
                 } else {
-                    // TODO: send the token to your server so it can create a charge
                     let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
@@ -273,24 +272,66 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     
     //MARK: Apple Pay Delegate
+
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
         
-        let card = STPCardParams()
-        
-        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
-            guard let stripeToken = token else {
-                NSLog("Error creating token: %@", error!.localizedDescription);
+        STPAPIClient.sharedClient().createTokenWithPayment(payment) { (token, error) -> Void in
+            if error != nil {
+                completion(PKPaymentAuthorizationStatus.Failure)
                 return
             }
-            
-            // TODO: send the token to your server so it can create a charge
-            let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            if let token = token {
+                self.createBackendChargeWithToken(token, completion: completion)
+            }
         }
     }
     
     func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func createBackendChargeWithToken(token: STPToken, completion: PKPaymentAuthorizationStatus -> ()) {
+        let url = NSURL(string: "https://example.com/token")
+        if let url = url {
+            let request = NSMutableURLRequest(URL: url)
+            request.HTTPMethod = "POST"
+            let body = "stripeToken=(token.tokenId)"
+            request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
+            let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
+            let session = NSURLSession(configuration: configuration)
+            let task = session.dataTaskWithRequest(request) {  (data, response, error) -> Void in
+                if error != nil {
+                    completion(PKPaymentAuthorizationStatus.Failure)
+                }
+                else {
+                    
+                    let address = self.tfAddress.text!
+                    let lat = self.latitude
+                    let lon = self.longitude
+                    let details = self.tfDescription.text!
+                    let shovelTime = self.tfShovelTime.text!
+                    guard let price = self.priceControl.titleForSegmentAtIndex(self.priceControl.selectedSegmentIndex) else { return }
+                    
+                    let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+                    
+                    let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
+                    
+                    requestName.setValue(shovelRequest.toAnyObject()) { (error: NSError?, ref:Firebase!) -> Void in
+                        if error != nil {
+                            let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
+                            let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                            alert.addAction(okAction)
+                            self.presentViewController(alert, animated: true, completion: nil)
+                        } else {
+                            print("Failed")
+                        }
+                    }
+                    
+                    completion(PKPaymentAuthorizationStatus.Success)
+                }
+            }
+        task.resume()
+        }
+    }
+    
 }

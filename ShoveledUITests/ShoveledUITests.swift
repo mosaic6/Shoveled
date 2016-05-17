@@ -29,13 +29,12 @@ class ShoveledUITests: XCTestCase {
     }
     
     // Test sign up new user    
-    func signUpNewUserTest() {
+    func testSignUpNewUser() {
         
     }
     
     // Test login existing user
-    func loginUserTest() {
-        
+    func testLoginUser() {
         
     }
     
