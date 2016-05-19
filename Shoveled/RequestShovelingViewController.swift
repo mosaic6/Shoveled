@@ -15,15 +15,17 @@ import Firebase
 import PassKit
 
 @available(iOS 9.0, *)
-class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, STPPaymentCardTextFieldDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate {
+class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, STPPaymentCardTextFieldDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // MARK: - Outlets
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tfAddress: UITextField!
     @IBOutlet weak var tfDescription: UITextField!
     @IBOutlet weak var tfShovelTime: UITextField!
-    @IBOutlet weak var priceControl: UISegmentedControl!
     @IBOutlet weak var requestFormView: UIView!
+    @IBOutlet weak var dataPicker: UIPickerView!
+    @IBOutlet weak var pricePicker: UIPickerView!
+    @IBOutlet weak var tfPrice: ShoveledTextField!
     
     //MARK: - Variables
     let locationManager = CLLocationManager()
@@ -35,12 +37,14 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     var items = [ShovelRequest]()
     var paymentTextField: STPPaymentCardTextField! = nil
 
-
     var dailyWeather: DailyWeather? {
         didSet {
             configureView()
         }
     }
+    
+    let shovelDescriptionArray = ["Driveway", "Sidewalk", "Steps", "All of the above"]
+    let priceArray = ["10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"]
     
     static let supportedNetworks = [
         PKPaymentNetworkAmex,
@@ -58,9 +62,17 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         tfAddress.delegate = self
         tfDescription.delegate = self
         tfShovelTime.delegate = self
+        tfPrice.delegate = self
+        
         getUserStatus()
         getLocation()
         configureView()
+        
+        dataPicker.delegate = self
+        pricePicker.delegate = self
+        dataPicker.dataSource = self
+        pricePicker.dataSource = self
+        pricePicker.hidden = true
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -92,11 +104,11 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     func makeSummaryItems(requiresInternationalSurcharge requiresInternationalSurcharge: Bool) -> [PKPaymentSummaryItem] {
         var items = [PKPaymentSummaryItem]()
         
-        if let price = priceControl.titleForSegmentAtIndex(priceControl.selectedSegmentIndex) {
-            let shovelSummaryItem = PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "\(price)"))
-            items += [shovelSummaryItem]
-        }
-               
+//        if let price = priceControl.titleForSegmentAtIndex(priceControl.selectedSegmentIndex) {
+//            let shovelSummaryItem = PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "\(price)"))
+//            items += [shovelSummaryItem]
+//        }
+        
         return items
     }
     
@@ -177,11 +189,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         
         self.submitButton.enabled = false
         
-        let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
-        spinner.setNeedsDisplay()
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
-        spinner.startAnimating()
-        
         if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(RequestShovelingViewController.supportedNetworks) {
             self.applePayButtonPressed()
         } else {
@@ -199,50 +206,10 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         submitButton.frame = CGRectMake(15, (self.view.bounds.height / 2), CGRectGetWidth(view.frame) - 30, 44)
         submitButton.enabled = false
         submitButton.setTitle("Submit", forState: UIControlState.Normal)
-        submitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        submitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         view.addSubview(submitButton)
 
     }
-    
-    @IBAction func submitCard(sender: AnyObject?) {
-        // If you have your own form for getting credit card information, you can construct
-        // your own STPCardParams from number, month, year, and CVV.
-        let card = paymentTextField.cardParams
-        
-        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
-            guard let stripeToken = token else {
-                NSLog("Error creating token: %@", error!.localizedDescription);
-                return
-            }
-            
-            let address = self.tfAddress.text!
-            let lat = self.latitude
-            let lon = self.longitude
-            let details = self.tfDescription.text!
-            let shovelTime = self.tfShovelTime.text!
-            guard let price = self.priceControl.titleForSegmentAtIndex(self.priceControl.selectedSegmentIndex) else { return }
-            
-            let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
-            
-            let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
-            
-            requestName.setValue(shovelRequest.toAnyObject()) { (error: NSError?, ref:Firebase!) -> Void in
-                if error != nil {
-                    let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
-                    let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                    alert.addAction(okAction)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                } else {
-                    let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
-                }
-            }
-            
-            
-        }
-    }
-
     
     @IBAction func closeView(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -272,7 +239,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     
     //MARK: Apple Pay Delegate
-
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
         
         STPAPIClient.sharedClient().createTokenWithPayment(payment) { (token, error) -> Void in
@@ -304,15 +270,14 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     completion(PKPaymentAuthorizationStatus.Failure)
                 }
                 else {
-                    
                     let address = self.tfAddress.text!
                     let lat = self.latitude
                     let lon = self.longitude
                     let details = self.tfDescription.text!
                     let shovelTime = self.tfShovelTime.text!
-                    guard let price = self.priceControl.titleForSegmentAtIndex(self.priceControl.selectedSegmentIndex) else { return }
+//                    guard let price = self.priceControl.titleForSegmentAtIndex(self.priceControl.selectedSegmentIndex) else { return }
                     
-                    let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+                    let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: "1"))
                     
                     let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
                     
@@ -323,15 +288,58 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                             alert.addAction(okAction)
                             self.presentViewController(alert, animated: true, completion: nil)
                         } else {
-                            print("Failed")
+                            print("Success")
                         }
                     }
-                    
                     completion(PKPaymentAuthorizationStatus.Success)
                 }
             }
-        task.resume()
+            task.resume()
+        }
+    }
+
+    
+    // returns the # of rows in each component..
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        if pickerView == dataPicker {
+            return 1
+        }
+        return 1
+    }
+ 
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+        if pickerView == dataPicker {
+            return shovelDescriptionArray.count
+        }
+        else {
+            return priceArray.count
         }
     }
     
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == dataPicker {
+            return shovelDescriptionArray[row]
+        }
+        else {
+            return priceArray[row]
+        }
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == dataPicker {
+            tfDescription.text = shovelDescriptionArray[row]
+        }
+        else {
+            tfPrice.text = priceArray[row]
+        }
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        if textField == tfPrice {
+            pricePicker.hidden = false
+        }
+        return false
+    }
 }

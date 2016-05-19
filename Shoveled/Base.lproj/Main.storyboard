@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -320,7 +320,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELING DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="732-8Z-ymu">
                                         <rect key="frame" x="20" y="55" width="151" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-IN-Rx2">
@@ -329,7 +329,7 @@
                                             <constraint firstAttribute="width" constant="77" id="2qv-GZ-cUm"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -337,63 +337,64 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mbm-bp-IFG">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mbm-bp-IFG" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
                                         <rect key="frame" x="20" y="17" width="560" height="30"/>
-                                        <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="fwQ-eV-JE3"/>
                                         </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Driveway, walkway, stairs, etc..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-Fu-X1Z">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Driveway, walkway, stairs, etc..." textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-Fu-X1Z" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
                                         <rect key="frame" x="20" y="72" width="560" height="30"/>
-                                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="VW6-NR-FFp"/>
                                         </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW LONG DOES IT TAKE YOU TO SHOVEL NORMALLY? (in minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
                                         <rect key="frame" x="20" y="110" width="391" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="20, 30, 60" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="20, 30, 60" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
                                         <rect key="frame" x="20" y="129" width="560" height="30"/>
-                                        <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="nnW-lD-bLV"/>
                                         </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET WHAT YOU WANT TO PAY $$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-5G-VDV">
                                         <rect key="frame" x="20" y="167" width="191" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="laN-TO-1Kd">
-                                        <rect key="frame" x="20" y="186" width="560" height="29"/>
-                                        <segments>
-                                            <segment title="1"/>
-                                            <segment title="20"/>
-                                            <segment title="30"/>
-                                            <segment title="40"/>
-                                        </segments>
-                                    </segmentedControl>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kNJ-1K-BoE" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="187" width="560" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="vbg-aP-mfk"/>
+                                        </constraints>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="kNJ-1K-BoE" firstAttribute="top" secondItem="BdP-5G-VDV" secondAttribute="bottom" constant="-1" id="A8b-jg-MI4"/>
+                                    <constraint firstItem="kNJ-1K-BoE" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="Cbi-Gn-aIU"/>
                                     <constraint firstItem="Kgh-XG-YJJ" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="DZH-K3-kks"/>
                                     <constraint firstItem="732-8Z-ymu" firstAttribute="top" secondItem="Mbm-bp-IFG" secondAttribute="bottom" constant="8" id="Hrm-f8-PbE"/>
-                                    <constraint firstItem="laN-TO-1Kd" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="IAz-lv-MGR"/>
-                                    <constraint firstItem="laN-TO-1Kd" firstAttribute="top" secondItem="BdP-5G-VDV" secondAttribute="bottom" constant="-2" id="JsY-A3-pHK"/>
                                     <constraint firstAttribute="height" constant="255" id="MnT-eY-lZK"/>
-                                    <constraint firstAttribute="trailing" secondItem="laN-TO-1Kd" secondAttribute="trailing" constant="20" id="OEq-0A-JFO"/>
                                     <constraint firstItem="Kgh-XG-YJJ" firstAttribute="top" secondItem="UfU-Fu-X1Z" secondAttribute="bottom" constant="8" id="PKa-9s-Gxe"/>
                                     <constraint firstItem="732-8Z-ymu" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="RRA-7c-TV0"/>
                                     <constraint firstAttribute="trailing" secondItem="Mbm-bp-IFG" secondAttribute="trailing" constant="20" id="RiX-Qt-fG7"/>
@@ -409,6 +410,7 @@
                                     <constraint firstAttribute="trailing" secondItem="UfU-Fu-X1Z" secondAttribute="trailing" constant="20" id="jco-Xl-AMD"/>
                                     <constraint firstItem="Mbm-bp-IFG" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="kAB-Ek-TWz"/>
                                     <constraint firstItem="Mbm-bp-IFG" firstAttribute="top" secondItem="Zh7-IN-Rx2" secondAttribute="bottom" constant="-4" id="p3q-6V-A90"/>
+                                    <constraint firstAttribute="trailing" secondItem="kNJ-1K-BoE" secondAttribute="trailing" constant="20" id="rfH-wp-iPl"/>
                                 </constraints>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-I6-WmZ">
@@ -435,18 +437,39 @@
                                     <action selector="sendRequest:" destination="TrE-4C-B29" eventType="touchUpInside" id="hAc-uc-W5A"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWe-KW-c50" userLabel="Description Picker">
+                                <rect key="frame" x="0.0" y="384" width="600" height="216"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="1cf-ex-mCT" id="8dz-i1-XtU"/>
+                                    <outlet property="delegate" destination="1cf-ex-mCT" id="YQE-2T-90Q"/>
+                                </connections>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIx-Xx-fR8" userLabel="Price Picker">
+                                <rect key="frame" x="0.0" y="384" width="600" height="216"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="NWe-KW-c50" id="5Zv-yN-EIL"/>
+                                    <outlet property="delegate" destination="NWe-KW-c50" id="CB7-TM-owC"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
-                        <color key="backgroundColor" red="0.53480657789999997" green="0.64615666949999995" blue="0.73716437820000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="QIx-Xx-fR8" secondAttribute="trailing" constant="-20" id="5mk-87-0ZZ"/>
                             <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="V7x-FY-TeC" secondAttribute="bottom" constant="20" id="Ior-Iq-POS"/>
+                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="QIx-Xx-fR8" secondAttribute="bottom" id="N2I-Pb-4vB"/>
+                            <constraint firstItem="NWe-KW-c50" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="S7p-Dj-RlU"/>
+                            <constraint firstItem="QIx-Xx-fR8" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="SGa-cf-MRF"/>
                             <constraint firstItem="5uz-kI-daf" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="8" id="cfY-xF-r5d"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V7x-FY-TeC" secondAttribute="trailing" id="hS8-5H-cdM"/>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="jaI-Jf-oP1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NWe-KW-c50" secondAttribute="trailing" constant="-20" id="mQR-bC-6pj"/>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="74" id="ml4-nm-76P"/>
                             <constraint firstAttribute="leadingMargin" secondItem="V7x-FY-TeC" secondAttribute="leading" id="nJ2-NZ-kiO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hot-EF-Mi2" secondAttribute="trailing" constant="-20" id="ob9-MR-ORh"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5uz-kI-daf" secondAttribute="leading" id="tWa-MZ-1dt"/>
                             <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="227" id="yHt-df-pOq"/>
+                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="NWe-KW-c50" secondAttribute="bottom" id="zqi-hl-zDO"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -455,11 +478,13 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="priceControl" destination="laN-TO-1Kd" id="cjv-Xr-1KZ"/>
+                        <outlet property="dataPicker" destination="NWe-KW-c50" id="IL5-KM-zBS"/>
+                        <outlet property="pricePicker" destination="QIx-Xx-fR8" id="GCA-gL-tKY"/>
                         <outlet property="requestFormView" destination="Hot-EF-Mi2" id="Mjm-0h-CaG"/>
                         <outlet property="submitButton" destination="V7x-FY-TeC" id="oCS-Gs-0Ro"/>
                         <outlet property="tfAddress" destination="Mbm-bp-IFG" id="0Ls-BO-HBU"/>
                         <outlet property="tfDescription" destination="UfU-Fu-X1Z" id="qqa-my-7zZ"/>
+                        <outlet property="tfPrice" destination="kNJ-1K-BoE" id="nah-bq-9yJ"/>
                         <outlet property="tfShovelTime" destination="bof-Wf-8x9" id="q71-eP-CW3"/>
                     </connections>
                 </viewController>

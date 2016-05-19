@@ -16,6 +16,7 @@
 		612AB85C1C32E38B00779CC9 /* MenuItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 612AB85B1C32E38B00779CC9 /* MenuItems.plist */; };
 		612B41551BB0DC5D00331F9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41541BB0DC5D00331F9B /* LoginViewController.swift */; };
 		612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */; };
+		61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61369D121CEBF6CF00079734 /* CustomTextField.swift */; };
 		614E78411C00E82800314390 /* UsersLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614E78401C00E82800314390 /* UsersLocation.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
 		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
@@ -86,6 +87,7 @@
 		612AB85B1C32E38B00779CC9 /* MenuItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MenuItems.plist; sourceTree = "<group>"; };
 		612B41541BB0DC5D00331F9B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
+		61369D121CEBF6CF00079734 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		614E78401C00E82800314390 /* UsersLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersLocation.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Shoveled.entitlements; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				617ECFC81BE306E000E61546 /* WelcomeView.swift */,
 				617ECFCF1BE6E66600E61546 /* CustomButton.swift */,
 				617031381C7D53B100297A25 /* ShovelAnnotationView.swift */,
+				61369D121CEBF6CF00079734 /* CustomTextField.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
 				618FBD761C8540A900A6504F /* VCMapView.swift in Sources */,
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,
+				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,
 				617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */,
 				61A354931BCF397B0071B5BE /* Forecast.swift in Sources */,
 				617031331C7D4B5600297A25 /* API+Firebase.swift in Sources */,
