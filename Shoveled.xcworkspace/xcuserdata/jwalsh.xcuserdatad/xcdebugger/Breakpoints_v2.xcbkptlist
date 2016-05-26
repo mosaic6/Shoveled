@@ -19,5 +19,85 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shoveled/RequestShovelingViewController.swift"
+            timestampString = "485919426.224122"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "createBackendChargeWithToken(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shoveled/RequestShovelingViewController.swift"
+            timestampString = "485919426.903805"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "298"
+            endingLineNumber = "298"
+            landmarkName = "createBackendChargeWithToken(_:completion:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shoveled.RequestShovelingViewController.(createBackendChargeWithToken (__ObjC.STPToken, completion : (__C.PKPaymentAuthorizationStatus) -&gt; ()) -&gt; ()).(closure #1)"
+                  moduleName = "Shoveled"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
+                  timestampString = "485919446.967915"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "298"
+                  endingLineNumber = "298"
+                  offsetFromSymbolStart = "4028">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shoveled.RequestShovelingViewController.(createBackendChargeWithToken (__ObjC.STPToken, completion : (__C.PKPaymentAuthorizationStatus) -&gt; ()) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "Shoveled"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
+                  timestampString = "485919446.968097"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "299"
+                  endingLineNumber = "299"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shoveled/RequestShovelingViewController.swift"
+            timestampString = "485919431.416236"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
+            landmarkName = "createBackendChargeWithToken(_:completion:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

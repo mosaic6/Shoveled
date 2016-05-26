@@ -73,10 +73,24 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         dataPicker.dataSource = self
         pricePicker.dataSource = self
         pricePicker.hidden = true
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
+        self.view.addGestureRecognizer(tap)
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    func dismissKeyboards() {
+        tfAddress.resignFirstResponder()
+        tfDescription.resignFirstResponder()
+        tfPrice.resignFirstResponder()
+        tfShovelTime.resignFirstResponder()
+        
+        dataPicker.hidden = true
+        pricePicker.hidden = true
     }
     
     // MARK: - Apple Pay Methods
@@ -104,10 +118,10 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     func makeSummaryItems(requiresInternationalSurcharge requiresInternationalSurcharge: Bool) -> [PKPaymentSummaryItem] {
         var items = [PKPaymentSummaryItem]()
         
-//        if let price = priceControl.titleForSegmentAtIndex(priceControl.selectedSegmentIndex) {
-//            let shovelSummaryItem = PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "\(price)"))
-//            items += [shovelSummaryItem]
-//        }
+        if let price = tfPrice.text {
+            let shovelSummaryItem = PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "\(price)"))
+            items += [shovelSummaryItem]
+        }
         
         return items
     }
@@ -270,14 +284,13 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     completion(PKPaymentAuthorizationStatus.Failure)
                 }
                 else {
-                    let address = self.tfAddress.text!
-                    let lat = self.latitude
-                    let lon = self.longitude
-                    let details = self.tfDescription.text!
-                    let shovelTime = self.tfShovelTime.text!
-//                    guard let price = self.priceControl.titleForSegmentAtIndex(self.priceControl.selectedSegmentIndex) else { return }
-                    
-                    let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: "1"))
+                    guard let address = self.tfAddress.text else { return }
+                    guard let lat = self.latitude else { return }
+                    guard let lon = self.longitude else { return }
+                    guard let details = self.tfDescription.text else { return }
+                    guard let shovelTime = self.tfShovelTime.text else { return }
+                    guard let price = self.tfPrice.text else { return }
+                    let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
                     
                     let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
                     
@@ -287,8 +300,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                             let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
                             alert.addAction(okAction)
                             self.presentViewController(alert, animated: true, completion: nil)
-                        } else {
-                            print("Success")
                         }
                     }
                     completion(PKPaymentAuthorizationStatus.Success)
@@ -336,9 +347,30 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         self.view.endEditing(true)
     }
     
+    
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        if textField == tfPrice {
+        if textField == tfAddress {
+            dataPicker.hidden = true
+            pricePicker.hidden = true
+            return true
+        }
+        else if textField == tfDescription {
+            dataPicker.hidden = false
+            pricePicker.hidden = true
+            textField.resignFirstResponder()
+            tfShovelTime.resignFirstResponder()
+            tfAddress.resignFirstResponder()
+        }
+        else if textField == tfShovelTime {
+            dataPicker.hidden = true
+            pricePicker.hidden = true
+            return true
+        }
+        else if textField == tfPrice {
+            tfShovelTime.resignFirstResponder()
+            dataPicker.hidden = true
             pricePicker.hidden = false
+            textField.resignFirstResponder()
         }
         return false
     }

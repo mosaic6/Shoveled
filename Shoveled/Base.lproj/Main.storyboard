@@ -346,7 +346,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Driveway, walkway, stairs, etc..." textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-Fu-X1Z" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Driveway, walkway, stairs, etc..." textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-Fu-X1Z" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
                                         <rect key="frame" x="20" y="72" width="560" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -356,7 +356,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW LONG DOES IT TAKE YOU TO SHOVEL NORMALLY? (in minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW LONG DOES IT TAKE YOU TO SHOVEL NORMALLY? (in minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
                                         <rect key="frame" x="20" y="110" width="391" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -401,6 +401,7 @@
                                     <constraint firstAttribute="trailing" secondItem="bof-Wf-8x9" secondAttribute="trailing" constant="20" id="SYF-WI-Squ"/>
                                     <constraint firstItem="UfU-Fu-X1Z" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="UgA-yY-jnC"/>
                                     <constraint firstItem="BdP-5G-VDV" firstAttribute="top" secondItem="bof-Wf-8x9" secondAttribute="bottom" constant="8" id="Wgw-iA-RWx"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kgh-XG-YJJ" secondAttribute="trailing" constant="189" id="Y4Z-KB-wtJ"/>
                                     <constraint firstItem="bof-Wf-8x9" firstAttribute="top" secondItem="Kgh-XG-YJJ" secondAttribute="bottom" constant="-2" id="ZnU-pi-6b5"/>
                                     <constraint firstItem="Zh7-IN-Rx2" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="aJg-Cc-mPV"/>
                                     <constraint firstItem="BdP-5G-VDV" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="bg7-Xj-qp0"/>
@@ -447,6 +448,7 @@
                             </pickerView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIx-Xx-fR8" userLabel="Price Picker">
                                 <rect key="frame" x="0.0" y="384" width="600" height="216"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="dataSource" destination="NWe-KW-c50" id="5Zv-yN-EIL"/>
                                     <outlet property="delegate" destination="NWe-KW-c50" id="CB7-TM-owC"/>
