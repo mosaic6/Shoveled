@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A4CD536748326BCC5AC004C1"
+               BlueprintIdentifier = "2AEEADC98773BF954B5D5E71"
                BuildableName = "ForecastIO.framework"
                BlueprintName = "ForecastIO"
                ReferencedContainer = "container:Pods.xcodeproj">

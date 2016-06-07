@@ -356,12 +356,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOW LONG DOES IT TAKE YOU TO SHOVEL NORMALLY? (in minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.59999999999999998" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
-                                        <rect key="frame" x="20" y="110" width="391" height="21"/>
-                                        <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="20, 30, 60" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
                                         <rect key="frame" x="20" y="129" width="560" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -387,12 +381,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVERAGE TIME TO SHOVEL (MINUTES)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
+                                        <rect key="frame" x="20" y="110" width="220" height="21"/>
+                                        <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="kNJ-1K-BoE" firstAttribute="top" secondItem="BdP-5G-VDV" secondAttribute="bottom" constant="-1" id="A8b-jg-MI4"/>
                                     <constraint firstItem="kNJ-1K-BoE" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="Cbi-Gn-aIU"/>
-                                    <constraint firstItem="Kgh-XG-YJJ" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="DZH-K3-kks"/>
+                                    <constraint firstItem="Kgh-XG-YJJ" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="257" id="DZH-K3-kks"/>
                                     <constraint firstItem="732-8Z-ymu" firstAttribute="top" secondItem="Mbm-bp-IFG" secondAttribute="bottom" constant="8" id="Hrm-f8-PbE"/>
                                     <constraint firstAttribute="height" constant="255" id="MnT-eY-lZK"/>
                                     <constraint firstItem="Kgh-XG-YJJ" firstAttribute="top" secondItem="UfU-Fu-X1Z" secondAttribute="bottom" constant="8" id="PKa-9s-Gxe"/>
@@ -410,9 +410,16 @@
                                     <constraint firstItem="bof-Wf-8x9" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="j8K-qR-oCy"/>
                                     <constraint firstAttribute="trailing" secondItem="UfU-Fu-X1Z" secondAttribute="trailing" constant="20" id="jco-Xl-AMD"/>
                                     <constraint firstItem="Mbm-bp-IFG" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="kAB-Ek-TWz"/>
+                                    <constraint firstItem="Kgh-XG-YJJ" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="kMU-nl-eHY"/>
                                     <constraint firstItem="Mbm-bp-IFG" firstAttribute="top" secondItem="Zh7-IN-Rx2" secondAttribute="bottom" constant="-4" id="p3q-6V-A90"/>
                                     <constraint firstAttribute="trailing" secondItem="kNJ-1K-BoE" secondAttribute="trailing" constant="20" id="rfH-wp-iPl"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="DZH-K3-kks"/>
+                                        <exclude reference="Y4Z-KB-wtJ"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-I6-WmZ">
                                 <rect key="frame" x="282" y="256" width="37" height="37"/>
@@ -667,16 +674,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snowBG" translatesAutoresizingMaskIntoConstraints="NO" id="gxE-ji-b1d">
                                 <rect key="frame" x="0.0" y="-64" width="600" height="664"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-VP-y7g">
-                                <rect key="frame" x="232" y="300" width="137" height="32"/>
-                                <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="15"/>
-                                <state key="normal" title="Already a user? Log in">
-                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="showLoginFom:" destination="I9z-8r-vV3" eventType="touchUpInside" id="fAa-fn-bkd"/>
-                                </connections>
-                            </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDs-Qq-bKx" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
                                 <rect key="frame" x="20" y="278" width="560" height="44"/>
                                 <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -689,20 +686,6 @@
                                 </state>
                                 <connections>
                                     <action selector="signUpNewUser:" destination="I9z-8r-vV3" eventType="touchUpInside" id="tw1-ra-Crn"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOo-bj-zqc">
-                                <rect key="frame" x="180" y="253" width="241" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="241" id="QOH-2P-ul2"/>
-                                    <constraint firstAttribute="height" constant="44" id="pVv-Vg-jDY"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Rajdhani-Medium" family="Rajdhani" pointSize="25"/>
-                                <state key="normal" title="Sign Up">
-                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="showSignUpForm:" destination="I9z-8r-vV3" eventType="touchUpInside" id="1fL-yw-FWS"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQg-YC-8pj">
@@ -751,6 +734,30 @@
                                     <outlet property="delegate" destination="I9z-8r-vV3" id="GDE-Dk-5pH"/>
                                 </connections>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-VP-y7g">
+                                <rect key="frame" x="232" y="548" width="137" height="32"/>
+                                <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="15"/>
+                                <state key="normal" title="Already a user? Log in">
+                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showLoginFom:" destination="I9z-8r-vV3" eventType="touchUpInside" id="fAa-fn-bkd"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOo-bj-zqc">
+                                <rect key="frame" x="180" y="501" width="241" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="241" id="QOH-2P-ul2"/>
+                                    <constraint firstAttribute="height" constant="44" id="pVv-Vg-jDY"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Rajdhani-Medium" family="Rajdhani" pointSize="25"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showSignUpForm:" destination="I9z-8r-vV3" eventType="touchUpInside" id="1fL-yw-FWS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -789,7 +796,7 @@
                             <constraint firstItem="hrF-VP-y7g" firstAttribute="leading" secondItem="wqs-hU-war" secondAttribute="leadingMargin" constant="212" id="kYM-0i-u8j"/>
                             <constraint firstItem="rOo-bj-zqc" firstAttribute="leading" secondItem="wqs-hU-war" secondAttribute="leading" constant="180" id="p4C-PC-ImX"/>
                             <constraint firstItem="lWf-Rv-bdm" firstAttribute="leading" secondItem="wqs-hU-war" secondAttribute="leading" constant="20" id="sxp-LI-eg7"/>
-                            <constraint firstItem="rOo-bj-zqc" firstAttribute="centerY" secondItem="wqs-hU-war" secondAttribute="centerY" constant="-25" id="uDv-gN-XSa"/>
+                            <constraint firstItem="rOo-bj-zqc" firstAttribute="centerY" secondItem="wqs-hU-war" secondAttribute="centerY" constant="223" id="uDv-gN-XSa"/>
                             <constraint firstItem="hrF-VP-y7g" firstAttribute="top" secondItem="rOo-bj-zqc" secondAttribute="bottom" constant="3" id="ucl-ZR-98w"/>
                             <constraint firstItem="hrF-VP-y7g" firstAttribute="centerX" secondItem="wqs-hU-war" secondAttribute="centerX" id="udB-7f-uvR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5jM-Cp-mrq" secondAttribute="trailing" id="wEp-RQ-kPd"/>

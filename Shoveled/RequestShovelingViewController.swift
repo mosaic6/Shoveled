@@ -13,6 +13,7 @@ import SwiftSpinner
 import Stripe
 import Firebase
 import PassKit
+import Crashlytics
 
 @available(iOS 9.0, *)
 class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, STPPaymentCardTextFieldDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -300,6 +301,8 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                             let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
                             alert.addAction(okAction)
                             self.presentViewController(alert, animated: true, completion: nil)
+                            
+                            Crashlytics.sharedInstance().recordError(error!)
                         }
                     }
                     completion(PKPaymentAuthorizationStatus.Success)

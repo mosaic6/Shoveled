@@ -170,6 +170,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             self.tfExistingPassword.hidden = false
             self.btnExistingLogin.hidden = false
             self.btnLogin.hidden = true
+            self.btnGetStarted.hidden = false
         }, completion: nil)
     }
     

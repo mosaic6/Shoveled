@@ -30,9 +30,9 @@ PODS:
     - FLKAutoLayout (~> 0.1)
   - Reveal-iOS-SDK (1.6.2)
   - Snowflakes (0.1.1)
-  - Stripe/ApplePay (7.0.0):
+  - Stripe/ApplePay (7.0.1):
     - Stripe/Core
-  - Stripe/Core (7.0.0)
+  - Stripe/Core (7.0.1)
   - SwiftSpinner (0.8.0)
   - SwiftyJSON (2.3.2)
 
@@ -59,7 +59,7 @@ SPEC CHECKSUMS:
   ORStackView: 5df6b1b990b0648d8ef6f69f89361ea8648e8f64
   Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
   Snowflakes: ca7727a29acaed48f3f47249ed1959a73282ae4a
-  Stripe: 147bbff1ba7cf3422e4ed14f6e1fbbc72471ce6c
+  Stripe: b92298b31cf156fb23a029361b57e2fcb6583d57
   SwiftSpinner: 11c2c5ec7443d92f3026d3067ca8a91d4adef13f
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
