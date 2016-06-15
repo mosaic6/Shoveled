@@ -21,7 +21,7 @@ struct ShovelRequest {
     var completed: Bool!
     let ref: Firebase?
     
-    init(address: String, addedByUser: String, completed: Bool, latitude: NSNumber, longitude: NSNumber, details: String, shovelTime: String, price: NSNumber, key: String = "") {
+    init(key: String = "", address: String, addedByUser: String, completed: Bool, latitude: NSNumber, longitude: NSNumber, details: String, shovelTime: String, price: NSNumber) {
         self.key = key
         self.address = address
         self.addedByUser = addedByUser

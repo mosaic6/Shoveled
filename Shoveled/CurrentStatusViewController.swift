@@ -57,6 +57,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         getCurrentLocation()
         filterByProximity()
         configureView()
+        
+        UIApplication.sharedApplication().registerForRemoteNotifications()
     }
     
     override func viewDidAppear(animated: Bool) {

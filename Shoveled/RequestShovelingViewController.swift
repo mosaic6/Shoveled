@@ -105,26 +105,24 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         
         paymentRequest.supportedNetworks = RequestShovelingViewController.supportedNetworks
         paymentRequest.merchantCapabilities = .Capability3DS
-        paymentRequest.paymentSummaryItems = makeSummaryItems(requiresInternationalSurcharge: false)
         
         paymentRequest.requiredShippingAddressFields = .Email
+        
+        var items = [PKPaymentSummaryItem]()
+        items.append(PKPaymentSummaryItem(label: "Process Fee", amount: 1.0))
+        if let price = tfPrice.text {
+            let newPrice = NSDecimalNumber(string: "\(price)")
+            let processFee = NSDecimalNumber(double: 1.0)
+            let final: NSDecimalNumber = newPrice.decimalNumberByAdding(processFee)
+            items.append(PKPaymentSummaryItem(label: "Shoveled", amount: final))
+        }
+        
+        paymentRequest.paymentSummaryItems = items
         
         // Display the view controller.
         let viewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         viewController.delegate = self
         presentViewController(viewController, animated: true, completion: nil)
-    }
-    
-    // A function to generate our payment summary items, applying an international surcharge if required.
-    func makeSummaryItems(requiresInternationalSurcharge requiresInternationalSurcharge: Bool) -> [PKPaymentSummaryItem] {
-        var items = [PKPaymentSummaryItem]()
-        
-        if let price = tfPrice.text {
-            let shovelSummaryItem = PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "\(price)"))
-            items += [shovelSummaryItem]
-        }
-        
-        return items
     }
     
     func configureView() {
@@ -187,7 +185,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
             let administrativeArea: String! = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
             let address = "\(subthoroughfare) \(thoroughfare), \(locality), \(administrativeArea) \(postalCode)"
             tfAddress.text = address
-            
         }
     }
     
@@ -205,24 +202,27 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         self.submitButton.enabled = false
         
         if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(RequestShovelingViewController.supportedNetworks) {
-            self.applePayButtonPressed()
-        } else {
+            
             // TODO: Animate form off view
             self.requestFormView.hidden = true
             self.displayPaymentTextField()
+        } else {
+            self.applePayButtonPressed()
         }
+        
     }
     
     func displayPaymentTextField() {
         paymentTextField = STPPaymentCardTextField(frame: CGRectMake(15, (self.view.bounds.height / 2) - 60, CGRectGetWidth(view.frame) - 30, 44))
         paymentTextField.delegate = self
         view.addSubview(paymentTextField)
-        submitButton = UIButton(type: UIButtonType.System)
-        submitButton.frame = CGRectMake(15, (self.view.bounds.height / 2), CGRectGetWidth(view.frame) - 30, 44)
-        submitButton.enabled = false
-        submitButton.setTitle("Submit", forState: UIControlState.Normal)
-//        submitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        view.addSubview(submitButton)
+        paymentTextField.textColor = UIColor.whiteColor()
+        let newSubmitButton = UIButton(type: UIButtonType.System)
+        newSubmitButton.frame = CGRectMake(15, (self.view.bounds.height / 2), CGRectGetWidth(view.frame) - 30, 44)
+        newSubmitButton.enabled = true
+        newSubmitButton.setTitle("Submit", forState: UIControlState.Normal)
+        self.submitButton.hidden = true
+        view.addSubview(newSubmitButton)
 
     }
     
@@ -285,15 +285,16 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     completion(PKPaymentAuthorizationStatus.Failure)
                 }
                 else {
+                    let postId = Int(arc4random_uniform(10000) + 1)
                     guard let address = self.tfAddress.text else { return }
                     guard let lat = self.latitude else { return }
                     guard let lon = self.longitude else { return }
                     guard let details = self.tfDescription.text else { return }
                     guard let shovelTime = self.tfShovelTime.text else { return }
                     guard let price = self.tfPrice.text else { return }
-                    let shovelRequest = ShovelRequest(address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+                    let shovelRequest = ShovelRequest(key: "", address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
                     
-                    let requestName = shovelRef.childByAppendingPath(address.lowercaseString)
+                    let requestName = shovelRef.childByAppendingPath("\(postId)")
                     
                     requestName.setValue(shovelRequest.toAnyObject()) { (error: NSError?, ref:Firebase!) -> Void in
                         if error != nil {
@@ -377,4 +378,5 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         }
         return false
     }
+
 }
