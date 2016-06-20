@@ -29,9 +29,11 @@ class AcceptRequestViewController: UIViewController {
 
     
     func configureView() {
+        guard let description = descriptionString else { return }
+        guard let price = priceString else { return }
         addressLabel.text = addressString?.uppercaseString
-        descriptionLabel.text = descriptionString?.uppercaseString
-        priceLabel.text = priceString?.uppercaseString
+        descriptionLabel.text = "Please Shovel: \(description)".uppercaseString
+        priceLabel.text = "Price: \(price)".uppercaseString
         if let timeString = shovelTimeString {
             shovelTimeLabel.text = "Average Shovel Time: \(timeString) minutes".uppercaseString
         }
