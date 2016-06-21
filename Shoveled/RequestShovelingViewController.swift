@@ -223,8 +223,28 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         newSubmitButton.setTitle("Submit", forState: UIControlState.Normal)
         self.submitButton.hidden = true
         view.addSubview(newSubmitButton)
+        newSubmitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: .TouchUpInside)
 
     }
+    
+    @IBAction func submitCard(sender: AnyObject?) {
+        // If you have your own form for getting credit card information, you can construct
+        // your own STPCardParams from number, month, year, and CVV.
+        let card = paymentTextField.cardParams
+        
+        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
+            guard let stripeToken = token else {
+                NSLog("Error creating token: %@", error!.localizedDescription);
+                return
+            }
+            
+            // TODO: send the token to your server so it can create a charge
+            let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+
     
     @IBAction func closeView(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)

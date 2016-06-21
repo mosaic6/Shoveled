@@ -35,7 +35,7 @@
 		617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617031381C7D53B100297A25 /* ShovelAnnotationView.swift */; };
 		617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFC81BE306E000E61546 /* WelcomeView.swift */; };
 		617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCD1BE59B7300E61546 /* WeatherCell.swift */; };
-		617ECFD01BE6E66600E61546 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCF1BE6E66600E61546 /* CustomButton.swift */; };
+		617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */; };
 		617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */; };
 		618FBD761C8540A900A6504F /* VCMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FBD751C8540A900A6504F /* VCMapView.swift */; };
 		618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FBD771C8695E400A6504F /* ShovelRequest.swift */; };
@@ -107,7 +107,7 @@
 		617031381C7D53B100297A25 /* ShovelAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelAnnotationView.swift; sourceTree = "<group>"; };
 		617ECFC81BE306E000E61546 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		617ECFCD1BE59B7300E61546 /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
-		617ECFCF1BE6E66600E61546 /* CustomButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoveledButton.swift; sourceTree = "<group>"; };
 		617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestShovelingViewController.swift; sourceTree = "<group>"; };
 		618FBD751C8540A900A6504F /* VCMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VCMapView.swift; sourceTree = "<group>"; };
 		618FBD771C8695E400A6504F /* ShovelRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelRequest.swift; sourceTree = "<group>"; };
@@ -300,7 +300,7 @@
 				612AB8571C32DBFB00779CC9 /* HamburgerView.swift */,
 				61A3549A1BCF4D8C0071B5BE /* BackgroundView.swift */,
 				617ECFC81BE306E000E61546 /* WelcomeView.swift */,
-				617ECFCF1BE6E66600E61546 /* CustomButton.swift */,
+				617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */,
 				617031381C7D53B100297A25 /* ShovelAnnotationView.swift */,
 				61369D121CEBF6CF00079734 /* CustomTextField.swift */,
 			);
@@ -640,7 +640,7 @@
 				61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */,
 				612AB8561C32DBE400779CC9 /* MenuItemCell.swift in Sources */,
 				617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */,
-				617ECFD01BE6E66600E61546 /* CustomButton.swift in Sources */,
+				617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */,
 				61FEC6821C8B613F00D25128 /* MenuItems.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
