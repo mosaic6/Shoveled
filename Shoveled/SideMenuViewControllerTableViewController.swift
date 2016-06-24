@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 protocol SidePanelViewControllerDelegate {
     func cellSelected(cell: MenuItems)
@@ -56,8 +57,8 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     }
 
     func logoutUser() {
-        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            rootRef.unauth()
-        })
+        try! FIRAuth.auth()!.signOut()
+        self.performSegueWithIdentifier("notLoggedIn", sender: nil)
     }
+    
 }

@@ -32,9 +32,10 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     var longitude: Double!
     var coordinates: CLLocationCoordinate2D!
     var user: User!
-    var email: String!
+    var email: String?
     var items = [ShovelRequest]()
     var paymentTextField: STPPaymentCardTextField! = nil
+    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
 
     var dailyWeather: DailyWeather? {
         didSet {
@@ -198,12 +199,11 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         self.submitButton.enabled = false
         
         if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(RequestShovelingViewController.supportedNetworks) {
-            
+            self.applePayButtonPressed()
+        } else {
             // TODO: Animate form off view
             self.requestFormView.hidden = true
-            self.displayPaymentTextField()
-        } else {
-            self.applePayButtonPressed()
+            self.displayPaymentTextField()            
         }
         
     }
@@ -248,24 +248,8 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     //MARK: User status
     func getUserStatus() {
-        shovelRef.observeAuthEventWithBlock { authData in
-            
-            if authData != nil {
-                
-                self.user = User(authData: authData)
-                
-                // Create a child reference with a unique id
-                let currentUserRef = usersRef.childByAutoId()
-                
-                // Save the current user to the online users list
-                currentUserRef.setValue(self.user.email)
-                self.email = self.user.email
-                
-                // When the user disconnects remove the value
-                currentUserRef.onDisconnectRemoveValue()
-            }
-            
-        }
+        email = FIRAuth.auth()?.currentUser?.email
+        
     }
     
     
@@ -308,11 +292,11 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     guard let details = self.tfDescription.text else { return }
                     guard let shovelTime = self.tfShovelTime.text else { return }
                     guard let price = self.tfPrice.text else { return }
-                    let shovelRequest = ShovelRequest(key: "", address: address, addedByUser: self.email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+                    let shovelRequest = ShovelRequest(address: address, addedByUser: "", completed: false, accepted: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
                     
-                    let requestName = shovelRef.childByAppendingPath("\(postId)")
+                    let requestName = self.ref.child("\(postId)")
                     
-                    requestName.setValue(shovelRequest.toAnyObject()) { (error: NSError?, ref:Firebase!) -> Void in
+                    requestName.setValue(shovelRequest.toAnyObject(), withCompletionBlock: { (error, ref) in                                                                
                         if error != nil {
                             let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
                             let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
@@ -321,7 +305,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                             
                             Crashlytics.sharedInstance().recordError(error!)
                         }
-                    }
+                    })
                     completion(PKPaymentAuthorizationStatus.Success)
                 }
             }

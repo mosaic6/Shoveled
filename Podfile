@@ -11,5 +11,5 @@ target 'Shoveled' do
     pod 'Firebase/Database'
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
-    pod 'Firebase/Storage'
+    pod 'Firebase/Storage'    
 end

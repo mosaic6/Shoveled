@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -883,6 +884,7 @@
                                 <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="lblTitle" destination="Nks-gp-Exh" id="sYe-9t-NIe"/>
+                                    <segue destination="I9z-8r-vV3" kind="show" identifier="notLoggedIn" id="6Et-N2-jBP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -895,7 +897,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52H-Zk-opo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="827" y="2560"/>
+            <point key="canvasLocation" x="823" y="1675"/>
         </scene>
     </scenes>
     <resources>
@@ -904,4 +906,7 @@
         <image name="cloudy" width="60" height="40"/>
         <image name="snowBG" width="1024" height="680"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="6Et-N2-jBP"/>
+    </inferredMetricsTieBreakers>
 </document>

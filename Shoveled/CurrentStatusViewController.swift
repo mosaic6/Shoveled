@@ -77,10 +77,10 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     func getUserInfo() {
-        if FIRAuth.auth()?.currentUser != nil {
-            self.performSegueWithIdentifier("signIn", sender: nil)
-        }
-        ref = FIRDatabase.database().reference()
+//        if FIRAuth.auth()?.currentUser != nil {
+//            self.performSegueWithIdentifier("signIn", sender: nil)
+//        }
+//        ref = FIRDatabase.database().reference()
     }
 
     // MARK: - Get users location

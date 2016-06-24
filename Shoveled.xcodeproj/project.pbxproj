@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D8BC9F67B65190F1EF029F8 /* Pods_Shoveled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */; };
+		6108382F1D1D8B2400816EEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */; };
 		610E58431CD04DEF000AE0FA /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E58421CD04DEF000AE0FA /* LoginTest.swift */; };
 		6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */; };
 		612AB8561C32DBE400779CC9 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612AB8551C32DBE400779CC9 /* MenuItemCell.swift */; };
@@ -80,6 +81,7 @@
 /* Begin PBXFileReference section */
 		0BFD4D3F8655DFA49986158E /* Pods-Shoveled.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.debug.xcconfig"; sourceTree = "<group>"; };
 		3DC5BD28EAEDC9B7A6CC123F /* Pods-Shoveled.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.release.xcconfig"; sourceTree = "<group>"; };
+		6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		610E58421CD04DEF000AE0FA /* LoginTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
 		6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewController.swift; sourceTree = "<group>"; };
 		612AB8551C32DBE400779CC9 /* MenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				61ED021C1BAE43F3006B22B7 /* AppDelegate.swift */,
 				61ED022B1BAE43F3006B22B7 /* Info.plist */,
 				616A5F561C728B0500A81AE5 /* Localizable.strings */,
+				6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -463,7 +466,7 @@
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -514,6 +517,7 @@
 				615526351BF90BB6006D7862 /* Marvel-BoldItalic.ttf in Resources */,
 				615526361BF90BB6006D7862 /* Marvel-Italic.ttf in Resources */,
 				615526371BF90BB6006D7862 /* Marvel-Regular.ttf in Resources */,
+				6108382F1D1D8B2400816EEB /* GoogleService-Info.plist in Resources */,
 				61ED022A1BAE43F3006B22B7 /* LaunchScreen.storyboard in Resources */,
 				616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */,
 				61ED02271BAE43F3006B22B7 /* Assets.xcassets in Resources */,

@@ -10,19 +10,17 @@ import Foundation
 import UIKit
 
 class ShovelRequest: NSObject {
-    var key: String!
-    var address: String!
-    var latitude: NSNumber!
-    var longitude: NSNumber!
-    var details: String!
-    var addedByUser: String!
-    var shovelTime: String!
-    var price: NSNumber!
-    var completed: Bool!
-    var accepted: Bool!
+    var address: String
+    var latitude: NSNumber
+    var longitude: NSNumber
+    var details: String
+    var addedByUser: String
+    var shovelTime: String
+    var price: NSNumber
+    var completed: Bool
+    var accepted: Bool
     
-    init(key: String = "", address: String, addedByUser: String, completed: Bool, accepted: Bool, latitude: NSNumber, longitude: NSNumber, details: String, shovelTime: String, price: NSNumber) {
-        self.key = key
+    init(address: String, addedByUser: String, completed: Bool, accepted: Bool, latitude: NSNumber, longitude: NSNumber, details: String, shovelTime: String, price: NSNumber) {
         self.address = address
         self.addedByUser = addedByUser
         self.completed = completed
@@ -48,6 +46,6 @@ class ShovelRequest: NSObject {
         ]
     }
     convenience override init() {
-        self.init(key: "", address: "", addedByUser: "", completed: false, accepted: false, latitude: 0, longitude: 0, details: "", shovelTime: "", price: 0)
+        self.init(address: "", addedByUser: "", completed: false, accepted: false, latitude: 0, longitude: 0, details: "", shovelTime: "", price: 0.0)
     }
 }
