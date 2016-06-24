@@ -8,8 +8,6 @@
 
 import UIKit
 import CoreLocation
-import Snowflakes
-import SwiftSpinner
 import Stripe
 import Firebase
 import PassKit
@@ -126,8 +124,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     }
     
     func configureView() {
-        self.view.addSubview(SnowflakesView(frame: self.view.frame))
-        
         if tfAddress == "" || tfDescription == "" {
             submitButton.enabled = false
         }
@@ -312,7 +308,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     guard let details = self.tfDescription.text else { return }
                     guard let shovelTime = self.tfShovelTime.text else { return }
                     guard let price = self.tfPrice.text else { return }
-                    let shovelRequest = ShovelRequest(key: "", address: address, addedByUser: self.email, completed: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+                    let shovelRequest = ShovelRequest(key: "", address: address, addedByUser: self.email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
                     
                     let requestName = shovelRef.childByAppendingPath("\(postId)")
                     

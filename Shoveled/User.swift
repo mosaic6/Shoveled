@@ -2,26 +2,21 @@
 //  User.swift
 //  Shoveled
 //
-//  Created by Joshua Walsh on 3/2/16.
+//  Created by Joshua Walsh on 6/23/16.
 //  Copyright © 2016 Lucky Penguin. All rights reserved.
 //
 
 import Foundation
-import Firebase
+import UIKit
 
-struct User {
-    let uid: String
-    let email: String
+class User: NSObject {
+    var username: String
     
-    // Initialize from Firebase
-    init(authData: FAuthData) {
-        uid = authData.uid
-        email = authData.providerData["email"] as! String
+    init(username: String) {
+        self.username = username
     }
     
-    // Initialize from arbitrary data
-    init(uid: String, email: String) {
-        self.uid = uid
-        self.email = email
+    convenience override init() {
+        self.init(username:  "")
     }
 }

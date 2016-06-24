@@ -11,6 +11,7 @@ import CoreLocation
 import MapKit
 import SwiftSpinner
 import Firebase
+import FirebaseDatabase
 
 @objc
 protocol CurrentStatusControllerDelegate {
@@ -42,11 +43,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var userLong: Double!
     var items = [ShovelRequest]()
     var delegate: CurrentStatusControllerDelegate?
-    
-    // Root API
-    let ref = Firebase(url: "https://shoveled.firebaseio.com/")
-    let locationRef = Firebase(url: "https://shoveled.firebaseio.com/shovel-locations")
-    
+    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     
     // MARK: View Methods
     override func viewDidLoad() {
@@ -80,11 +77,10 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     func getUserInfo() {
-        rootRef.observeAuthEventWithBlock { (authData) -> Void in
-            if authData == nil {
-                self.performSegueWithIdentifier("notLoggedIn", sender: nil)
-            }
+        if FIRAuth.auth()?.currentUser != nil {
+            self.performSegueWithIdentifier("signIn", sender: nil)
         }
+        ref = FIRDatabase.database().reference()
     }
 
     // MARK: - Get users location
@@ -118,37 +114,26 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     
     // MARK: - Get Shovel Requests
     func filterByProximity() {
-        shovelRef.queryOrderedByChild("completed").observeEventType(.Value, withBlock: { snapshot in
-            if let snapshot = snapshot {
-                var newRequest = [ShovelRequest]()
-                for item in snapshot.children {
-                    let shovelItem = ShovelRequest(snapshot: item as! FDataSnapshot)
-                    newRequest.append(shovelItem)
-                    let theirLat: Double = shovelItem.latitude.doubleValue
-                    let theirLong: Double = shovelItem.longitude.doubleValue
-                    self.theirLocation = CLLocationCoordinate2D(latitude: theirLat, longitude: theirLong)
-                    self.nearArray.append(self.theirLocation)
-                    if self.nearArray.isEmpty {
-
-                        let annotationsToRemove = self.mapView.annotations.filter { $0 !== self.mapView.userLocation } as? MKAnnotation
-
-                        self.mapView.removeAnnotation(annotationsToRemove!)
-
-                    } else {
-                        for _ in self.nearArray {
-                            let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, price: String(shovelItem.price), details: shovelItem.details, shovelTime: shovelItem.shovelTime)
-                            
-                            self.mapView.addAnnotation(mapAnnotation)
-  
-                        } 
-                    }
-                    
-                } 
-                
-            } 
-            
+        ref.queryOrderedByChild("coordinate").observeEventType(.Value, withBlock: { snapshot in
+            var newRequest = [ShovelRequest]()
+            for _ in snapshot.children {
+                let shovelItem = ShovelRequest()
+                newRequest.append(shovelItem)
+                let theirLat: Double = shovelItem.latitude.doubleValue
+                let theirLong: Double = shovelItem.longitude.doubleValue
+                self.theirLocation = CLLocationCoordinate2D(latitude: theirLat, longitude: theirLong)
+                self.nearArray.append(self.theirLocation)
+                if self.nearArray.isEmpty {
+                    let annotationsToRemove = self.mapView.annotations.filter { $0 !== self.mapView.userLocation } as? MKAnnotation
+                    self.mapView.removeAnnotation(annotationsToRemove!)
+                } else {
+                    for _ in self.nearArray {
+                        let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, accepted: false, price: String(shovelItem.price), details: shovelItem.details, shovelTime: shovelItem.shovelTime)
+                        self.mapView.addAnnotation(mapAnnotation)
+                    } 
+                }
+            }
         })
-        
     }
     
     

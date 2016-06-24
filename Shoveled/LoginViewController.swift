@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import SwiftSpinner
 import Crashlytics
 import Firebase
+import FirebaseAuth
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -28,6 +28,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     let lblWelcome3 = UILabel()
     
     var currentStatusVC = CurrentStatusViewController()
+    var ref:FIRDatabaseReference!
+    var alert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,12 +38,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         animateLaunchView()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        rootRef.observeAuthEventWithBlock { (authData) -> Void in
-            if authData != nil {
-                self.performSegueWithIdentifier("AuthUser", sender: nil)
-            }
+    override func viewDidAppear(animated: Bool) {
+        if FIRAuth.auth()?.currentUser != nil {
+            self.removeFromParentViewController()
         }
+        ref = FIRDatabase.database().reference()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
         
         lblWelcome1.center.x -= view.bounds.width
         lblWelcome2.center.x -= view.bounds.width
@@ -112,10 +116,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     // MARK: - SIGN UP NEW USER
     func signUpUser() {
         
-        let emailString = tfEmail.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
-        let passwordString = tfPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
+        guard let emailString = tfEmail.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
+        guard let passwordString = tfPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
         
-        if emailString?.characters.count == 0 || passwordString?.characters.count == 0 {
+        if emailString.characters.count == 0 || passwordString.characters.count == 0 {
             let alert = UIAlertController(title: "There was an error signing you up", message: "Please fill out all fields", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
             self.presentViewController(alert, animated: true, completion: .None)
@@ -123,20 +127,14 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
             spinner.startAnimating()
         
-            rootRef.createUser(emailString, password: passwordString, withCompletionBlock: { (error: NSError!) -> Void in
-                if error != nil {
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        rootRef.authUser(emailString, password: passwordString, withCompletionBlock: { (error, auth) -> Void in
-                            self.removeFromParentViewController()
-                        })
-                    })
+            FIRAuth.auth()?.createUserWithEmail(emailString, password: passwordString) { (user, error) in
+                if let error = error {
+                    self.alert.showMessagePrompt(error.localizedDescription)
                 } else {
-                    let errorString = error.userInfo["error"] as? NSString
-                    let alert = UIAlertController(title: "There was an error signing you up", message: errorString?.description, preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
-                    self.presentViewController(alert, animated: true, completion: .None)
+                    self.ref.child("users").child(user!.uid).setValue(["username": emailString])
+                    self.removeFromParentViewController()
                 }
-            })
+            }
         }
     }
     
@@ -191,21 +189,21 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func loginUser(sender: AnyObject) {
 
-        let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
-        let passwordString = tfExistingPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet())
+        guard let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
+        guard let passwordString = tfExistingPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
         
-        if usernameString?.characters.count == 0 || passwordString?.characters.count == 0 {
+        if usernameString.characters.count == 0 || passwordString.characters.count == 0 {
             let alert = UIAlertController(title: "There was an error logging in", message: "Please fill out all fields", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
             self.presentViewController(alert, animated: true, completion: .None)
         } else {
-            rootRef.authUser(usernameString, password: passwordString, withCompletionBlock: { error, authData in
-                if error != nil {
-                    let alert = UIAlertController(title: "There was an error loggin in", message: "Please try again", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
-                    self.presentViewController(alert, animated: true, completion: .None)
-                } else {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+            FIRAuth.auth()?.signInWithEmail(usernameString, password: passwordString, completion: { (user, error) in                
+                if let error = error {
+                    self.alert.showMessagePrompt(error.localizedDescription)
+                } else if let user = user {
+                    self.ref.child("users").child(user.uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    })
                 }
             })
         }

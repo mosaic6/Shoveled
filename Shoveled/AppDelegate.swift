@@ -11,6 +11,7 @@ import CoreData
 import Fabric
 import Crashlytics
 import Firebase
+import FirebaseDatabase
 import Stripe
 
 let FirebaseUrl = "https://shoveled.firebaseio.com"
@@ -23,10 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         super.init()
-        Firebase.defaultConfig().persistenceEnabled = true
+        
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        FIRApp.configure()
         
         let configuration = NSBundle.mainBundle().objectForInfoDictionaryKey("Configuration")
         

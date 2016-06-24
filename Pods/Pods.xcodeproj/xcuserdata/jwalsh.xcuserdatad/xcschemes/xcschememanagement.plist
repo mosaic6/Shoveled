@@ -4,42 +4,12 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AFNetworking.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>FLKAutoLayout.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Firebase.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>ForecastIO.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ORStackView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-Shoveled.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Snowflakes-Snowflakes.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Snowflakes.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -54,65 +24,25 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftyJSON.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0F4A34E1054EFBC0FD2454FDAAD64E0B</key>
+		<key>04494808926D2895F56C2269C86D4270</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3EE6DB64A708E056ACD125161876D7E0</key>
+		<key>74D5B17874A09A1A27708722352D99D3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>49DF35BF671B5192832CBAAD6CFDFB5F</key>
+		<key>AC72257F21EFE3F828601CA8E4357C51</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7108C523B8B8DC16F6E94ECB2D2F7FBF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>84E802D7DC69BCB8A1486994A3DE1EB6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9A1DCEB8FEC5BA635F95C45A56944CC1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>AFC05DDC0946D14769D542A62F12832C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>BB1A77F6243AFE6D25DC4B3A4CBDB9ED</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ECCF7F400F74C2020CDEA402D0E74FF3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ECE89359281BD718A524D8B21B21CD92</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FFE952E9BB092803B1E90CDDB87AFB91</key>
+		<key>BA54D9F473AC78BFC18360247AB11BDD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
