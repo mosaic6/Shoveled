@@ -240,7 +240,7 @@
                                         </variation>
                                         <connections>
                                             <action selector="requestShoveling:" destination="tCX-AY-NMz" eventType="touchUpInside" id="hlV-An-jKa"/>
-                                            <segue destination="TrE-4C-B29" kind="presentation" identifier="showRequest" id="ZnU-r1-1cJ"/>
+                                            <segue destination="bkD-nG-HQT" kind="presentation" identifier="showRequest" id="ZnU-r1-1cJ"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -318,7 +318,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hot-EF-Mi2">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hot-EF-Mi2">
                                 <rect key="frame" x="0.0" y="94" width="600" height="255"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELING DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="732-8Z-ymu">
@@ -428,8 +428,12 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-I6-WmZ">
                                 <rect key="frame" x="282" y="256" width="37" height="37"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5uz-kI-daf">
-                                <rect key="frame" x="20" y="28" width="45" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5uz-kI-daf">
+                                <rect key="frame" x="20" y="28" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="Dtc-7o-I26"/>
+                                    <constraint firstAttribute="width" constant="28" id="prA-Jo-bRs"/>
+                                </constraints>
                                 <state key="normal" image="Close"/>
                                 <connections>
                                     <action selector="closeView:" destination="TrE-4C-B29" eventType="touchUpInside" id="6Vg-SN-YCK"/>
@@ -442,11 +446,11 @@
                                     <constraint firstAttribute="height" constant="55" id="KcM-HL-uI6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
-                                <state key="normal" title="Submit">
+                                <state key="normal" title="Next">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="sendRequest:" destination="TrE-4C-B29" eventType="touchUpInside" id="hAc-uc-W5A"/>
+                                    <segue destination="EOT-xq-0KV" kind="show" id="xTj-LE-hzd"/>
                                 </connections>
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWe-KW-c50" userLabel="Description Picker">
@@ -490,6 +494,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="FNR-gg-U62"/>
                     <connections>
                         <outlet property="dataPicker" destination="NWe-KW-c50" id="IL5-KM-zBS"/>
                         <outlet property="pricePicker" destination="QIx-Xx-fR8" id="GCA-gL-tKY"/>
@@ -503,12 +508,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2jd-7Q-8QC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2376" y="1890"/>
+            <point key="canvasLocation" x="3188" y="1890"/>
         </scene>
-        <!--View Controller-->
+        <!--Payment Details View Controller-->
         <scene sceneID="4hJ-Z9-M24">
             <objects>
-                <viewController id="EOT-xq-0KV" sceneMemberID="viewController">
+                <viewController id="EOT-xq-0KV" customClass="PaymentDetailsViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vQj-xt-YAg"/>
                         <viewControllerLayoutGuide type="bottom" id="j4p-cA-KhS"/>
@@ -521,7 +526,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sss-Kx-xxh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3082" y="1901"/>
+            <point key="canvasLocation" x="3894" y="1901"/>
         </scene>
         <!--Accept Request View Controller-->
         <scene sceneID="T2j-j7-Ody">
@@ -898,6 +903,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="52H-Zk-opo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="823" y="1675"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Thb-BY-HDo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bkD-nG-HQT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRc-yD-JAX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="TrE-4C-B29" kind="relationship" relationship="rootViewController" id="k9w-Yd-fHj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CuQ-0U-8Hy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2376" y="1890"/>
         </scene>
     </scenes>
     <resources>

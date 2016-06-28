@@ -81,6 +81,8 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBarHidden = true 
     }
     
     func dismissKeyboards() {
@@ -216,10 +218,10 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         let newSubmitButton = UIButton(type: UIButtonType.System)
         newSubmitButton.frame = CGRectMake(15, (self.view.bounds.height / 2), CGRectGetWidth(view.frame) - 30, 44)
         newSubmitButton.enabled = true
-        newSubmitButton.setTitle("Submit", forState: UIControlState.Normal)
+        newSubmitButton.setTitle("Next", forState: UIControlState.Normal)
         self.submitButton.hidden = true
         view.addSubview(newSubmitButton)
-        newSubmitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: .TouchUpInside)
+//        newSubmitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: .TouchUpInside)
 
     }
     
@@ -272,12 +274,13 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     }
     
     func createBackendChargeWithToken(token: STPToken, completion: PKPaymentAuthorizationStatus -> ()) {
-        let url = NSURL(string: "https://example.com/token")
+        let url = NSURL(string: "https://api.stripe.com/v1/tokens")
         if let url = url {
             let request = NSMutableURLRequest(URL: url)
             request.HTTPMethod = "POST"
             let body = "stripeToken=(token.tokenId)"
             request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
+            request.addValue("Bearer \(AppConfiguration.authKey)", forHTTPHeaderField: "Authorization")
             let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
             let session = NSURLSession(configuration: configuration)
             let task = session.dataTaskWithRequest(request) {  (data, response, error) -> Void in
@@ -285,6 +288,14 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     completion(PKPaymentAuthorizationStatus.Failure)
                 }
                 else {
+                    if let data = data {
+                        if let json: AnyObject = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) {
+                            if let dict = json as? NSDictionary {
+                                print(dict)
+                            }
+                        }
+                    }
+                    
                     let postId = Int(arc4random_uniform(10000) + 1)
                     guard let address = self.tfAddress.text else { return }
                     guard let lat = self.latitude else { return }

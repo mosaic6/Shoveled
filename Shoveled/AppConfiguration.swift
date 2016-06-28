@@ -10,6 +10,8 @@ import Foundation
 
 public class AppConfiguration {
     
+    static let authKey = "sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
+    
     private struct Bundle {
         static var prefix = NSBundle.mainBundle().objectForInfoDictionaryKey("merchant.com.mosaic6") as! String
     }

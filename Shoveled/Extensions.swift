@@ -36,3 +36,14 @@ extension UIAlertController {
         }
     }
 }
+
+extension UIViewController {
+    func showSpinner() {
+        var actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+        view.addSubview(actInd)
+        actInd.startAnimating()
+    }
+}

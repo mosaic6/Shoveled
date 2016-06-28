@@ -77,10 +77,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
     
     func getUserInfo() {
-//        if FIRAuth.auth()?.currentUser != nil {
-//            self.performSegueWithIdentifier("signIn", sender: nil)
-//        }
-//        ref = FIRDatabase.database().reference()
+        if FIRAuth.auth()?.currentUser == nil {
+            self.performSegueWithIdentifier("notLoggedIn", sender: nil)
+        }
     }
 
     // MARK: - Get users location
@@ -114,7 +113,11 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     
     // MARK: - Get Shovel Requests
     func filterByProximity() {
-        ref.queryOrderedByChild("coordinate").observeEventType(.Value, withBlock: { snapshot in
+        ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+        
+        
+//        })
+//        ref.queryOrderedByChild("completed").observeEventType(.Value, withBlock: { snapshot in
             var newRequest = [ShovelRequest]()
             for _ in snapshot.children {
                 let shovelItem = ShovelRequest()
