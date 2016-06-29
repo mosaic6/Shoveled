@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="Marvel-Bold.ttf">
-            <string>Marvel-Bold</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
@@ -26,11 +22,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="664"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krC-vi-9Iw">
-                                <rect key="frame" x="209" y="129" width="182" height="61"/>
+                                <rect key="frame" x="180" y="129" width="241" height="59"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="8ht-oq-Sev"/>
+                                    <constraint firstAttribute="height" constant="59" id="8ht-oq-Sev"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Marvel-Bold" family="Marvel" pointSize="50"/>
+                                <fontDescription key="fontDescription" name="Menlo-Bold" family="Menlo" pointSize="50"/>
                                 <color key="textColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" red="0.53480657789999997" green="0.64615666949999995" blue="0.73716437820000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -43,7 +39,7 @@
                             <constraint firstItem="TKq-mn-bh8" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="Ezg-i4-yjQ"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="TKq-mn-bh8" secondAttribute="bottom" constant="-64" id="Otm-Gb-uZN"/>
                             <constraint firstItem="TKq-mn-bh8" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="UeN-CS-HW6"/>
-                            <constraint firstItem="krC-vi-9Iw" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-140.5" id="fYS-M6-efn"/>
+                            <constraint firstItem="krC-vi-9Iw" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-141.5" id="fYS-M6-efn"/>
                             <constraint firstItem="krC-vi-9Iw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="uIn-qY-72q"/>
                         </constraints>
                     </view>

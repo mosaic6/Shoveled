@@ -74,6 +74,8 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         pricePicker.dataSource = self
         pricePicker.hidden = true
         
+        self.title = "Request"
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
         self.view.addGestureRecognizer(tap)
         
@@ -81,8 +83,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.navigationController?.navigationBarHidden = true 
     }
     
     func dismissKeyboards() {
