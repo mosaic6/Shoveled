@@ -26,6 +26,7 @@ class PaymentDetailsViewController: UITableViewController, UITextFieldDelegate {
     var cardNumber: String? = ""
     var cvc: String? = ""
     var price: String? = ""
+    var visibleRowsPerSection = [[Int]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class PaymentDetailsViewController: UITableViewController, UITextFieldDelegate {
         self.navigationController?.navigationBarHidden = false
         self.title = "Payment Details"
         
-        paymentDetails()
+//        paymentDetails()
         email = FIRAuth.auth()?.currentUser?.email
         emailTF.text = email
         
@@ -111,4 +112,14 @@ class PaymentDetailsViewController: UITableViewController, UITextFieldDelegate {
         
         return true
     }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        guard let text = cardNumberTF.text else { return true }
+        
+        let newLength = text.utf16.count + string.utf16.count - range.length
+        return newLength <= 16 // Bool
+    }
+    
+    // MARK: - Tableview sections 
+ 
 }
