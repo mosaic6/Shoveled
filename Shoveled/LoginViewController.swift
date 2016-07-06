@@ -202,6 +202,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     self.alert.showMessagePrompt(error.localizedDescription)
                 } else if let user = user {
                     self.ref.child("users").child(user.uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
+                        self.resignFirstResponder()
                         self.dismissViewControllerAnimated(true, completion: nil)
                     })
                 }

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		4D8BC9F67B65190F1EF029F8 /* Pods_Shoveled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */; };
 		6108382F1D1D8B2400816EEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */; };
-		610838341D2206AB00816EEB /* PaymentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610838331D2206AB00816EEB /* PaymentDetailsViewController.swift */; };
 		610E58431CD04DEF000AE0FA /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E58421CD04DEF000AE0FA /* LoginTest.swift */; };
 		6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */; };
 		612AB8561C32DBE400779CC9 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612AB8551C32DBE400779CC9 /* MenuItemCell.swift */; };
@@ -84,7 +83,6 @@
 		3DC5BD28EAEDC9B7A6CC123F /* Pods-Shoveled.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.release.xcconfig"; sourceTree = "<group>"; };
 		6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		610838301D21FCE100816EEB /* Shoveled-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shoveled-Bridging-Header.h"; sourceTree = "<group>"; };
-		610838331D2206AB00816EEB /* PaymentDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentDetailsViewController.swift; sourceTree = "<group>"; };
 		610E58421CD04DEF000AE0FA /* LoginTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
 		6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewController.swift; sourceTree = "<group>"; };
 		612AB8551C32DBE400779CC9 /* MenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
@@ -333,7 +331,6 @@
 				6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */,
 				61FEC67F1C8B575200D25128 /* SideMenuViewControllerTableViewController.swift */,
 				61FEC6831C8B64C300D25128 /* ContainerViewController.swift */,
-				610838331D2206AB00816EEB /* PaymentDetailsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -671,7 +668,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				610838341D2206AB00816EEB /* PaymentDetailsViewController.swift in Sources */,
 				618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */,
 				612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */,
 				61FEC6841C8B64C300D25128 /* ContainerViewController.swift in Sources */,

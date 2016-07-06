@@ -8,7 +8,6 @@ target 'Shoveled' do
     pod 'SwiftSpinner'
     pod 'Crashlytics'
     pod 'Stripe'
-    pod 'Stripe/ApplePay'
     pod 'Firebase'
     pod 'Firebase/Database'
     pod 'Firebase/Auth'

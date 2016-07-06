@@ -25,13 +25,13 @@ extension UIAlertController {
     
     func showMessagePrompt(message: String) {
         if self.supportsAlertController() {
-            var alert: UIAlertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+            let alert: UIAlertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
             let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
             alert.addAction(okAction)
             self.presentViewController(alert, animated: true, completion: { _ in })
         }
         else {
-            var alert: UIAlertView = UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "OK")
+            let alert: UIAlertView = UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "OK")
             alert.show()
         }
     }
@@ -39,7 +39,7 @@ extension UIAlertController {
 
 extension UIViewController {
     func showSpinner() {
-        var actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
         actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge

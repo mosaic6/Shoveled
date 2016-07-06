@@ -14,7 +14,7 @@ import PassKit
 import Crashlytics
 
 @available(iOS 9.0, *)
-class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, STPPaymentCardTextFieldDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, STPPaymentContextDelegate {
 
     // MARK: - Outlets
     @IBOutlet weak var submitButton: UIButton!
@@ -25,6 +25,8 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     @IBOutlet weak var dataPicker: UIPickerView!
     @IBOutlet weak var pricePicker: UIPickerView!
     @IBOutlet weak var tfPrice: ShoveledTextField!
+    @IBOutlet weak var payWIthCCButton: UIButton!
+    @IBOutlet weak var applePayButton: UIButton!
     
     //MARK: - Variables
     let locationManager = CLLocationManager()
@@ -34,7 +36,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     var user: User!
     var email: String?
     var items = [ShovelRequest]()
-    var paymentTextField: STPPaymentCardTextField! = nil
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
 
     var dailyWeather: DailyWeather? {
@@ -97,7 +98,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     // MARK: - Apple Pay Methods
     
-    func applePayButtonPressed() {
+    @IBAction func payWithApplePay(sender: AnyObject) {
         let paymentRequest = PKPaymentRequest()
         paymentRequest.merchantIdentifier = "merchant.com.mosaic6.Shoveled"
 
@@ -136,8 +137,36 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     }
     
     //MARK: Stripe payment delegate
-    func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
-        submitButton.enabled = textField.valid
+    func paymentContextDidChange(paymentContext: STPPaymentContext) {
+        self.payWIthCCButton.enabled = paymentContext.selectedPaymentMethod != nil
+    }
+    
+    func paymentContext(paymentContext: STPPaymentContext,
+                        didCreatePaymentResult paymentResult: STPPaymentResult,
+                                               completion: STPErrorBlock) {
+        
+        myAPIClient.createCharge(paymentResult.source.stripeID, completion: { (error: NSError?) in
+            if let error = error {
+                completion(error)
+            } else {
+                completion(nil)
+            }
+        })
+    }
+    
+    func paymentContext(paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
+        switch status {
+        case .Error:
+            print("\(error?.localizedDescription)")
+        case .Success:
+            self.showReceipt()
+        case .UserCancellation:
+            return // do nothing
+        }
+    }
+    func paymentContext(paymentContext: STPPaymentContext, didFailToLoadWithError error: NSError) {
+        self.navigationController?.popViewControllerAnimated(true)
+        // show the error to your user, etc
     }
     
     //MARK: - Location Manager Delegate
@@ -195,52 +224,11 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         return false
     }
     
-    //MARK: Actions
-    @IBAction func sendRequest(sender: AnyObject) {
-        
-        self.submitButton.enabled = false
-        
-        if PKPaymentAuthorizationViewController.canMakePaymentsUsingNetworks(RequestShovelingViewController.supportedNetworks) {
-            self.applePayButtonPressed()
-        } else {
-            // TODO: Animate form off view
-            self.requestFormView.hidden = true
-            self.displayPaymentTextField()            
-        }
-        
-    }
-    
-    func displayPaymentTextField() {
-        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(15, (self.view.bounds.height / 2) - 60, CGRectGetWidth(view.frame) - 30, 44))
-        paymentTextField.delegate = self
-        view.addSubview(paymentTextField)
-        paymentTextField.textColor = UIColor.whiteColor()
-        let newSubmitButton = UIButton(type: UIButtonType.System)
-        newSubmitButton.frame = CGRectMake(15, (self.view.bounds.height / 2), CGRectGetWidth(view.frame) - 30, 44)
-        newSubmitButton.enabled = true
-        newSubmitButton.setTitle("Next", forState: UIControlState.Normal)
-        self.submitButton.hidden = true
-        view.addSubview(newSubmitButton)
-//        newSubmitButton.addTarget(self, action: #selector(RequestShovelingViewController.submitCard(_:)), forControlEvents: .TouchUpInside)
-
-    }
-    
-    @IBAction func submitCard(sender: AnyObject?) {
+    @IBAction func payWithCreditCard(sender: AnyObject) {
         // If you have your own form for getting credit card information, you can construct
         // your own STPCardParams from number, month, year, and CVV.
-        let card = paymentTextField.cardParams
+        self.presentPaymentMethodsViewController()
         
-        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
-            guard let stripeToken = token else {
-                NSLog("Error creating token: %@", error!.localizedDescription);
-                return
-            }
-            
-            // TODO: send the token to your server so it can create a charge
-            let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
     }
 
     
@@ -253,7 +241,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         email = FIRAuth.auth()?.currentUser?.email
         
     }
-    
     
     //MARK: Apple Pay Delegate
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
