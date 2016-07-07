@@ -145,13 +145,13 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                         didCreatePaymentResult paymentResult: STPPaymentResult,
                                                completion: STPErrorBlock) {
         
-        myAPIClient.createCharge(paymentResult.source.stripeID, completion: { (error: NSError?) in
-            if let error = error {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        })
+//        myAPIClient.createCharge(paymentResult.source.stripeID, completion: { (error: NSError?) in
+//            if let error = error {
+//                completion(error)
+//            } else {
+//                completion(nil)
+//            }
+//        })
     }
     
     func paymentContext(paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
@@ -159,7 +159,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         case .Error:
             print("\(error?.localizedDescription)")
         case .Success:
-            self.showReceipt()
+            self.dismissViewControllerAnimated(true, completion: nil)
         case .UserCancellation:
             return // do nothing
         }
@@ -227,7 +227,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     @IBAction func payWithCreditCard(sender: AnyObject) {
         // If you have your own form for getting credit card information, you can construct
         // your own STPCardParams from number, month, year, and CVV.
-        self.presentPaymentMethodsViewController()
+//        self.paymentContext.presentPaymentMethodsViewController()
         
     }
 
