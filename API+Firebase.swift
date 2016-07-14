@@ -11,7 +11,6 @@ import Firebase
 import FirebaseDatabase
 
 let rootRef = FIRDatabase.database().reference()
-//let shovelRef = Firebase(url: "https://shoveled.firebaseio.com/shoveled-request")
 //let shovelItemRef = rootRef.childByAppendingPath("shovel-request")
 //let acceptRef = shovelRef.childByAppendingPath("accepted")
 //let usersRef = Firebase(url: "https://shoveled.firebaseio.com/online")

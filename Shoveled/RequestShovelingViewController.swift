@@ -14,10 +14,9 @@ import PassKit
 import Crashlytics
 
 @available(iOS 9.0, *)
-class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, STPPaymentContextDelegate {
+class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, STPPaymentContextDelegate {
 
     // MARK: - Outlets
-    @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var tfAddress: UITextField!
     @IBOutlet weak var tfDescription: UITextField!
     @IBOutlet weak var tfShovelTime: UITextField!
@@ -34,17 +33,11 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     var longitude: Double!
     var coordinates: CLLocationCoordinate2D!
     var user: User!
-    var email: String?
     var items = [ShovelRequest]()
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
+    weak var toolBar: UIToolbar!
 
-    var dailyWeather: DailyWeather? {
-        didSet {
-            configureView()
-        }
-    }
-    
-    let shovelDescriptionArray = ["Driveway", "Sidewalk", "Steps", "All of the above"]
+    let shovelDescriptionArray = ["Driveway", "Sidewalk", "Steps", "Whole Property"]
     let priceArray = ["10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"]
     
     static let supportedNetworks = [
@@ -64,16 +57,20 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         tfDescription.delegate = self
         tfShovelTime.delegate = self
         tfPrice.delegate = self
-        
-        getUserStatus()
-        getLocation()
-        configureView()
+        addToolBar(tfAddress)
+        addToolBar(tfShovelTime)
         
         dataPicker.delegate = self
         pricePicker.delegate = self
         dataPicker.dataSource = self
         pricePicker.dataSource = self
         pricePicker.hidden = true
+        
+        addToolBarToPicker(dataPicker, textField: tfDescription)
+        addToolBarToPicker(pricePicker, textField: tfPrice)
+        
+        applePayButton.userInteractionEnabled = false
+        payWIthCCButton.userInteractionEnabled = false
         
         self.title = "Request"
         
@@ -84,6 +81,8 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        getLocation()
     }
     
     func dismissKeyboards() {
@@ -97,7 +96,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     }
     
     // MARK: - Apple Pay Methods
-    
     @IBAction func payWithApplePay(sender: AnyObject) {
         let paymentRequest = PKPaymentRequest()
         paymentRequest.merchantIdentifier = "merchant.com.mosaic6.Shoveled"
@@ -111,12 +109,9 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         paymentRequest.requiredShippingAddressFields = .Email
         
         var items = [PKPaymentSummaryItem]()
-        items.append(PKPaymentSummaryItem(label: "Process Fee", amount: 1.0))
         if let price = tfPrice.text {
             let newPrice = NSDecimalNumber(string: "\(price)")
-            let processFee = NSDecimalNumber(double: 1.0)
-            let final: NSDecimalNumber = newPrice.decimalNumberByAdding(processFee)
-            items.append(PKPaymentSummaryItem(label: "Shoveled", amount: final))
+            items.append(PKPaymentSummaryItem(label: "Shoveled", amount: newPrice))
         }
         
         paymentRequest.paymentSummaryItems = items
@@ -125,15 +120,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         let viewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         viewController.delegate = self
         presentViewController(viewController, animated: true, completion: nil)
-    }
-    
-    func configureView() {
-        if tfAddress == "" || tfDescription == "" {
-            submitButton.enabled = false
-        }
-        
-        tfDescription.becomeFirstResponder()
-        
     }
     
     //MARK: Stripe payment delegate
@@ -160,6 +146,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
             print("\(error?.localizedDescription)")
         case .Success:
             self.dismissViewControllerAnimated(true, completion: nil)
+            self.removeFromParentViewController()
         case .UserCancellation:
             return // do nothing
         }
@@ -216,14 +203,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         }
     }
     
-    // MARK: Textfield delegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField == tfDescription || textField == tfAddress || textField == tfShovelTime {
-            textField.resignFirstResponder()
-        }
-        return false
-    }
-    
     @IBAction func payWithCreditCard(sender: AnyObject) {
         // If you have your own form for getting credit card information, you can construct
         // your own STPCardParams from number, month, year, and CVV.
@@ -234,12 +213,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     
     @IBAction func closeView(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    //MARK: User status
-    func getUserStatus() {
-        email = FIRAuth.auth()?.currentUser?.email
-        
     }
     
     //MARK: Apple Pay Delegate
@@ -282,7 +255,6 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                             }
                         }
                     }
-                    
                     let postId = Int(arc4random_uniform(10000) + 1)
                     guard let address = self.tfAddress.text else { return }
                     guard let lat = self.latitude else { return }
@@ -290,7 +262,8 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
                     guard let details = self.tfDescription.text else { return }
                     guard let shovelTime = self.tfShovelTime.text else { return }
                     guard let price = self.tfPrice.text else { return }
-                    let shovelRequest = ShovelRequest(address: address, addedByUser: "", completed: false, accepted: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+                    guard let email = FIRAuth.auth()?.currentUser?.email else { return }
+                    let shovelRequest = ShovelRequest(address: address, addedByUser: email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
                     
                     let requestName = self.ref.child("\(postId)")
                     
@@ -312,6 +285,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
     }
 
     
+    // MARK Picker Delegates
     // returns the # of rows in each component..
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         if pickerView == dataPicker {
@@ -349,7 +323,7 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         self.view.endEditing(true)
     }
     
-    
+    // MARK: Textfield delegate
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         if textField == tfAddress {
             dataPicker.hidden = true
@@ -376,5 +350,60 @@ class RequestShovelingViewController: UIViewController, UITextFieldDelegate, UIG
         }
         return false
     }
-
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        for tf in [textField] {
+            if tf.text != "" {
+                applePayButton.userInteractionEnabled = true
+                payWIthCCButton.userInteractionEnabled = true
+            }
+        }
+    }
+    
+    func addToolBarToPicker(picker: UIPickerView, textField: UITextField) {
+        picker.showsSelectionIndicator = true
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.Default
+        toolBar.translucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.sizeToFit()
+        
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(RequestShovelingViewController.hidePickers))
+        
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.userInteractionEnabled = true
+        picker.addSubview(toolBar)
+        
+        textField.inputView = picker
+        textField.inputAccessoryView = toolBar
+    }
+    
+    func addToolBar(textField: UITextField) {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.Default
+        toolBar.translucent = true
+        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(RequestShovelingViewController.done))
+        
+        toolBar.setItems([spaceButton, doneButton], animated: false)
+        toolBar.userInteractionEnabled = true
+        toolBar.sizeToFit()
+        
+        textField.inputAccessoryView = toolBar
+    }
+    
+    func hidePickers() {
+        dataPicker.removeFromSuperview()
+        pricePicker.removeFromSuperview()
+        tfDescription.resignFirstResponder()
+        tfPrice.resignFirstResponder()
+        print("Done Pressed")
+    }
+    func done() {
+        self.view.endEditing(true)
+    }
 }

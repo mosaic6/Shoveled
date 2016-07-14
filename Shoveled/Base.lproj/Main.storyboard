@@ -455,7 +455,7 @@
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWe-KW-c50" userLabel="Description Picker">
                                 <rect key="frame" x="0.0" y="384" width="600" height="216"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="1cf-ex-mCT" id="8dz-i1-XtU"/>
                                     <outlet property="delegate" destination="1cf-ex-mCT" id="YQE-2T-90Q"/>
@@ -463,7 +463,7 @@
                             </pickerView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIx-Xx-fR8" userLabel="Price Picker">
                                 <rect key="frame" x="0.0" y="384" width="600" height="216"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="NWe-KW-c50" id="5Zv-yN-EIL"/>
                                     <outlet property="delegate" destination="NWe-KW-c50" id="CB7-TM-owC"/>
@@ -739,6 +739,11 @@
                                 <state key="normal" title="Log in">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="kQ2-QK-Z4K"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="loginUser:" destination="I9z-8r-vV3" eventType="touchUpInside" id="85T-1Z-uSa"/>
                                 </connections>

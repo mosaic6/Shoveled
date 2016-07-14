@@ -114,10 +114,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     // MARK: - Get Shovel Requests
     func filterByProximity() {
         ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
-        
-        
-//        })
-//        ref.queryOrderedByChild("completed").observeEventType(.Value, withBlock: { snapshot in
+
             var newRequest = [ShovelRequest]()
             for _ in snapshot.children {
                 let shovelItem = ShovelRequest()
@@ -168,13 +165,33 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     
     // MARK: - Fetch Request
     func getShovelRequests() {
+//        var request = ShovelRequest()
         ref.observeEventType(.Value, withBlock: { snapshot in
-            
-            let requestItem = [ShovelRequest]()
             for item in snapshot.children {
-                print(item)
+                guard let address = item.value["address"] as? String else { return }
+                guard let addedByUser = item.value["addedByUser"] as? String else { return }
+                guard let completed = item.value["completed"] as? Bool else { return }
+                guard let accepted = item.value["accepted"] as? Bool else { return }
+                guard let latitude = item.value["latitude"] as? NSNumber else { return }
+                guard let longitude = item.value["longitude"] as? NSNumber else { return }
+                guard let details = item.value["details"] as? String else { return }
+                guard let time = item.value["shovelTime"] as? String else { return }
+                guard let price = item.value["price"] as? NSNumber else { return }//
+                
+                self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
+                self.nearArray.append(self.theirLocation)
+                if self.nearArray.isEmpty {
+                    let annotationsToRemove = self.mapView.annotations.filter { $0 !== self.mapView.userLocation } as? MKAnnotation
+                    self.mapView.removeAnnotation(annotationsToRemove!)
+                } else {
+                    for _ in self.nearArray {
+                        let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, shovelTime: time)
+                        self.mapView.addAnnotation(mapAnnotation)
+                    }
+                }
+                
             }
-            self.items = requestItem
+//            self.items.append(request)
             
         }, withCancelBlock: {error in
             print(error.description)

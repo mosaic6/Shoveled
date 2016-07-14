@@ -46,12 +46,8 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             if completed {
                 print(completed)
             }
-            
-            
-            
+                                    
             self.presentViewController(requestVC, animated: true, completion: nil)
         }
-        
-        
     }
 }

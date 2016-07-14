@@ -11,7 +11,7 @@ import Crashlytics
 import Firebase
 import FirebaseAuth
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var imgBackground: UIImageView!
     @IBOutlet weak var btnSignUp: ShoveledButton!
