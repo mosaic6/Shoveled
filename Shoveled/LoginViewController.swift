@@ -22,6 +22,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var tfExistingUsername: UITextField!
     @IBOutlet weak var tfExistingPassword: UITextField!
     @IBOutlet weak var btnExistingLogin: ShoveledButton!
+    @IBOutlet weak var btnForgotPassword: UIButton!
     
     let lblWelcome1 = UILabel()
     let lblWelcome2 = UILabel()
@@ -46,7 +47,6 @@ class LoginViewController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        
         lblWelcome1.center.x -= view.bounds.width
         lblWelcome2.center.x -= view.bounds.width
         lblWelcome3.center.x -= view.bounds.width
@@ -57,7 +57,6 @@ class LoginViewController: UIViewController {
     }
     
     func configureView() {
-        
         tfExistingUsername.text = "joshuatwalsh@gmail.com"
         tfExistingPassword.text = "way2cool"
         
@@ -115,7 +114,6 @@ class LoginViewController: UIViewController {
     
     // MARK: - SIGN UP NEW USER
     func signUpUser() {
-        
         guard let emailString = tfEmail.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
         guard let passwordString = tfPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
         
@@ -142,6 +140,7 @@ class LoginViewController: UIViewController {
     func animateLaunchView() {
         self.btnGetStarted.alpha = 0
         self.btnLogin.alpha = 0
+        self.btnForgotPassword.alpha = 0
         UIView.animateWithDuration(0.3, delay: 0.3, options: [.CurveEaseInOut], animations: {
             self.lblWelcome1.center.x += self.view.bounds.width
         }, completion: nil)
@@ -156,11 +155,11 @@ class LoginViewController: UIViewController {
             self.btnGetStarted.alpha = 1.0
             self.btnLogin.hidden = false
             self.btnLogin.alpha = 1.0
+            self.btnForgotPassword.hidden = true
         }, completion: nil)
     }
     
-    
-    
+    // MARK: LOGIN AND SIGNUP METHODS
     @IBAction func showLoginFom(sender: AnyObject) {
         UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseInOut], animations: {
             self.hideSignUpForm()
@@ -169,6 +168,8 @@ class LoginViewController: UIViewController {
             self.btnExistingLogin.hidden = false
             self.btnLogin.hidden = true
             self.btnGetStarted.hidden = false
+            self.btnForgotPassword.hidden = false
+            self.btnForgotPassword.alpha = 1.0
         }, completion: nil)
     }
     
@@ -183,12 +184,14 @@ class LoginViewController: UIViewController {
             self.btnGetStarted.hidden = true
         }, completion: nil)
     }
+    
     @IBAction func signUpNewUser(sender: AnyObject) {
         signUpUser()
     }
     
     @IBAction func loginUser(sender: AnyObject) {
-        showSpinner()
+        showSpinner(.WhiteLarge)
+        self.resignFirstResponder()
         guard let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
         guard let passwordString = tfExistingPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
         
@@ -202,13 +205,29 @@ class LoginViewController: UIViewController {
                     self.alert.showMessagePrompt(error.localizedDescription)
                 } else if let user = user {
                     self.ref.child("users").child(user.uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
-                        self.resignFirstResponder()
                         self.dismissViewControllerAnimated(true, completion: nil)
                     })
                 }
             })
         }
     }
+    
+    // Reset Password
+    @IBAction func resetPassword(sender: AnyObject) {
+        guard let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
+        
+        FIRAuth.auth()?.sendPasswordResetWithEmail(usernameString) { error in
+            if let error = error {
+                self.alert.showMessagePrompt(error.localizedDescription)
+            } else {
+                let alert: UIAlertController = UIAlertController(title: nil, message: "Your reset password link has been emailed to you.", preferredStyle: .Alert)
+                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(okAction)
+                self.presentViewController(alert, animated: true, completion: { _ in })
+            }
+        }
+    }
+    
     
     func hideSignUpForm() {
         self.lblWelcome3.hidden = true

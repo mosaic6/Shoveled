@@ -38,11 +38,11 @@ extension UIAlertController {
 }
 
 extension UIViewController {
-    func showSpinner() {
+    func showSpinner(style: UIActivityIndicatorViewStyle) {
         let actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
+        actInd.activityIndicatorViewStyle = style
         view.addSubview(actInd)
         actInd.startAnimating()
     }

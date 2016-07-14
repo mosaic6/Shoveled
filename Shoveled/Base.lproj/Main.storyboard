@@ -32,6 +32,7 @@
             <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
+            <string>Rajdhani-Regular</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -455,7 +456,7 @@
                             </button>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWe-KW-c50" userLabel="Description Picker">
                                 <rect key="frame" x="0.0" y="384" width="600" height="216"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="1cf-ex-mCT" id="8dz-i1-XtU"/>
                                     <outlet property="delegate" destination="1cf-ex-mCT" id="YQE-2T-90Q"/>
@@ -463,7 +464,7 @@
                             </pickerView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIx-Xx-fR8" userLabel="Price Picker">
                                 <rect key="frame" x="0.0" y="384" width="600" height="216"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="NWe-KW-c50" id="5Zv-yN-EIL"/>
                                     <outlet property="delegate" destination="NWe-KW-c50" id="CB7-TM-owC"/>
@@ -783,15 +784,31 @@
                                     <action selector="showSignUpForm:" destination="I9z-8r-vV3" eventType="touchUpInside" id="1fL-yw-FWS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWR-ma-rGI">
+                                <rect key="frame" x="20" y="278" width="560" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="iYA-Mm-44S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="15"/>
+                                <state key="normal" title="Forgot Password?">
+                                    <color key="titleColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetPassword:" destination="I9z-8r-vV3" eventType="touchUpInside" id="e56-FU-m4S"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="fWR-ma-rGI" firstAttribute="top" secondItem="5jM-Cp-mrq" secondAttribute="bottom" constant="35" id="2wj-oI-mD6"/>
                             <constraint firstItem="gxE-ji-b1d" firstAttribute="centerY" secondItem="wqs-hU-war" secondAttribute="centerY" constant="-32" id="3HX-wn-3nO"/>
                             <constraint firstItem="bQg-YC-8pj" firstAttribute="top" secondItem="4yX-nl-oX4" secondAttribute="bottom" constant="103" id="3LV-o5-jRM"/>
                             <constraint firstAttribute="leadingMargin" secondItem="pfP-Xh-lmB" secondAttribute="leading" id="76N-p6-yAd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fWR-ma-rGI" secondAttribute="trailing" id="7pE-jN-BrB"/>
                             <constraint firstItem="mDs-Qq-bKx" firstAttribute="centerY" secondItem="wqs-hU-war" secondAttribute="centerY" id="99D-Wi-Gz3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bQg-YC-8pj" secondAttribute="trailing" id="9FM-ET-LZP"/>
                             <constraint firstItem="gxE-ji-b1d" firstAttribute="leading" secondItem="wqs-hU-war" secondAttribute="leading" id="Ab5-XS-n2N"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="fWR-ma-rGI" secondAttribute="leading" id="Bbs-Xe-phd"/>
                             <constraint firstAttribute="trailing" secondItem="gxE-ji-b1d" secondAttribute="trailing" id="Bm5-Tp-RPY"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bQg-YC-8pj" secondAttribute="leading" id="DCv-Fr-yfH"/>
                             <constraint firstItem="rOo-bj-zqc" firstAttribute="centerX" secondItem="wqs-hU-war" secondAttribute="centerX" id="ENl-Ie-PDj"/>
@@ -834,6 +851,7 @@
                             <mask key="constraints">
                                 <exclude reference="g39-q0-Dre"/>
                                 <exclude reference="sxp-LI-eg7"/>
+                                <exclude reference="UNr-Xb-gQ1"/>
                                 <exclude reference="ENl-Ie-PDj"/>
                                 <exclude reference="RGA-ha-65U"/>
                                 <exclude reference="cbD-Oj-1NA"/>
@@ -851,6 +869,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="btnExistingLogin" destination="5jM-Cp-mrq" id="r0M-Sr-htT"/>
+                        <outlet property="btnForgotPassword" destination="fWR-ma-rGI" id="vuX-x3-y5v"/>
                         <outlet property="btnGetStarted" destination="rOo-bj-zqc" id="ezf-lB-UNf"/>
                         <outlet property="btnLogin" destination="hrF-VP-y7g" id="LmH-FY-YHa"/>
                         <outlet property="btnSignUp" destination="mDs-Qq-bKx" id="kna-SJ-fI5"/>

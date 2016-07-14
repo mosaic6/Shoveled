@@ -36,6 +36,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var items = [ShovelRequest]()
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     weak var toolBar: UIToolbar!
+    var actInd = UIActivityIndicatorView()
+    let theme: STPTheme = STPTheme()
 
     let shovelDescriptionArray = ["Driveway", "Sidewalk", "Steps", "Whole Property"]
     let priceArray = ["10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"]
@@ -72,6 +74,13 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         applePayButton.userInteractionEnabled = false
         payWIthCCButton.userInteractionEnabled = false
         
+        actInd.frame = CGRectMake(0,0, 50, 50)
+        actInd.center = self.view.center
+        actInd.hidesWhenStopped = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        actInd.hidden = true
+        view.addSubview(actInd)
+        
         self.title = "Request"
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
@@ -97,6 +106,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     
     // MARK: - Apple Pay Methods
     @IBAction func payWithApplePay(sender: AnyObject) {
+        startSpinner()
         let paymentRequest = PKPaymentRequest()
         paymentRequest.merchantIdentifier = "merchant.com.mosaic6.Shoveled"
 
@@ -206,7 +216,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     @IBAction func payWithCreditCard(sender: AnyObject) {
         // If you have your own form for getting credit card information, you can construct
         // your own STPCardParams from number, month, year, and CVV.
-//        self.paymentContext.presentPaymentMethodsViewController()
+
+        self.view.backgroundColor = self.theme.primaryBackgroundColor
+        var red: CGFloat = 0
+        self.theme.primaryBackgroundColor.getRed(&red, green: nil, blue: nil, alpha: nil)
         
     }
 
@@ -272,8 +285,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                             let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
                             let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
                             alert.addAction(okAction)
-                            self.presentViewController(alert, animated: true, completion: nil)
-                            
+                            self.presentViewController(alert, animated: true, completion: nil)                            
                             Crashlytics.sharedInstance().recordError(error!)
                         }
                     })
@@ -281,6 +293,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 }
             }
             task.resume()
+            stopSpinner()
         }
     }
 
@@ -405,5 +418,15 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
     func done() {
         self.view.endEditing(true)
+    }
+    
+    func startSpinner() {
+        actInd.hidden = false
+        actInd.startAnimating()
+    }
+    
+    func stopSpinner() {
+        actInd.hidden = true
+        actInd.stopAnimating()
     }
 }

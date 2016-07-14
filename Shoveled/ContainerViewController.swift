@@ -48,8 +48,7 @@ class ContainerViewController: UIViewController {
 
 extension ContainerViewController: CurrentStatusControllerDelegate {
     func toggleLeftPanel() {
-        let notAlreadyExpanded = (currentState != .LeftPanelExpanded)
-        
+        let notAlreadyExpanded = (currentState != .LeftPanelExpanded)        
         if notAlreadyExpanded {
             addLeftPanelViewController()
         }

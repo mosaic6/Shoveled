@@ -46,7 +46,7 @@ class SideMenuViewControllerTableViewController: UITableViewController {
         let selectedItem = cellItems[indexPath.row]
         if selectedItem.title == "Logout" {
             logoutUser()
-        }
+        } 
         delegate?.cellSelected(selectedItem)
     }
 
