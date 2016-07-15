@@ -219,8 +219,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
         self.view.backgroundColor = self.theme.primaryBackgroundColor
         var red: CGFloat = 0
-        self.theme.primaryBackgroundColor.getRed(&red, green: nil, blue: nil, alpha: nil)
-        
+        self.theme.primaryBackgroundColor.getRed(&red, green: nil, blue: nil, alpha: nil)                
     }
 
     
