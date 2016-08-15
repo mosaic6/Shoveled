@@ -38,6 +38,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     weak var toolBar: UIToolbar!
     var actInd = UIActivityIndicatorView()
     let theme: STPTheme = STPTheme()
+//    let paymentContext: STPPaymentContext
 
     let shovelDescriptionArray = ["Driveway", "Sidewalk", "Steps", "Whole Property"]
     let priceArray = ["10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"]
@@ -219,7 +220,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
         self.view.backgroundColor = self.theme.primaryBackgroundColor
         var red: CGFloat = 0
-        self.theme.primaryBackgroundColor.getRed(&red, green: nil, blue: nil, alpha: nil)                
+        self.theme.primaryBackgroundColor.getRed(&red, green: nil, blue: nil, alpha: nil)
+        
     }
 
     

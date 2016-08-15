@@ -44,6 +44,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.shovelTimeString = shovel.shovelTime
             let completed = shovel.completed
             if completed {
+                // Show completed status
                 print(completed)
             }
                                     

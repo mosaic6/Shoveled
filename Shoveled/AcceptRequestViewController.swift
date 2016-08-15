@@ -20,6 +20,8 @@ class AcceptRequestViewController: UIViewController {
     var descriptionString: String?
     var priceString: String?
     var shovelTimeString: String?
+//    var accepted: Bool
+//    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +43,11 @@ class AcceptRequestViewController: UIViewController {
     
     @IBAction func acceptRequest(sender: AnyObject) {
         
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func dismissView(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
-        
         
     }
 }
