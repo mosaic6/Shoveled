@@ -41,7 +41,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.addressString = shovel.title
             requestVC.descriptionString = shovel.details
             requestVC.priceString = shovel.price
-            requestVC.shovelTimeString = shovel.shovelTime
+            requestVC.otherInfoString = shovel.otherInfo
             let completed = shovel.completed
             if completed {
                 // Show completed status

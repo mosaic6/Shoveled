@@ -16,12 +16,12 @@ class ShovelRequest: NSObject {
     var longitude: NSNumber
     var details: String
     var addedByUser: String
-    var shovelTime: String
+    var otherInfo: String
     var price: NSNumber
     var completed: Bool
     var accepted: Bool
     
-    init(address: String, addedByUser: String, completed: Bool, accepted: Bool, latitude: NSNumber, longitude: NSNumber, details: String, shovelTime: String, price: NSNumber) {
+    init(address: String, addedByUser: String, completed: Bool, accepted: Bool, latitude: NSNumber, longitude: NSNumber, details: String, otherInfo: String, price: NSNumber) {
         self.address = address
         self.addedByUser = addedByUser
         self.completed = completed
@@ -29,7 +29,7 @@ class ShovelRequest: NSObject {
         self.latitude = latitude
         self.longitude = longitude
         self.details = details
-        self.shovelTime = shovelTime
+        self.otherInfo = otherInfo
         self.price = price
     }
     
@@ -40,13 +40,13 @@ class ShovelRequest: NSObject {
             "addedByUser": addedByUser,
             "latitude": latitude,
             "longitude": longitude,
-            "shovelTime": shovelTime,
+            "otherInfo": otherInfo,
             "price": price,
             "completed": completed,
             "accepted": accepted
         ]
     }
     convenience override init() {
-        self.init(address: "", addedByUser: "", completed: false, accepted: false, latitude: 0, longitude: 0, details: "", shovelTime: "", price: 0.0)
+        self.init(address: "", addedByUser: "", completed: false, accepted: false, latitude: 0, longitude: 0, details: "", otherInfo: "", price: 0.0)
     }
 }

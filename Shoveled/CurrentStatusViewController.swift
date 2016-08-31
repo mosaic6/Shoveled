@@ -128,9 +128,11 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     self.mapView.removeAnnotation(annotationsToRemove!)
                 } else {
                     for _ in self.nearArray {
-                        let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, accepted: false, price: String(shovelItem.price), details: shovelItem.details, shovelTime: shovelItem.shovelTime)
-                        self.mapView.addAnnotation(mapAnnotation)
-                    } 
+                        let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, accepted: false, price: String(shovelItem.price), details: shovelItem.details, otherInfo: shovelItem.otherInfo)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.mapView.addAnnotation(mapAnnotation)
+                        })
+                    }
                 }
             }
         })
@@ -185,8 +187,10 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     self.mapView.removeAnnotation(annotationsToRemove!)
                 } else {
                     for _ in self.nearArray {
-                        let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, shovelTime: time)
-                        self.mapView.addAnnotation(mapAnnotation)
+                        let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, otherInfo: time)
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self.mapView.addAnnotation(mapAnnotation)
+                        })
                     }
                 }
                 

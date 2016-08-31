@@ -15,16 +15,16 @@ class ShovelAnnotation: NSObject, MKAnnotation {
     let accepted: Bool
     let price: String?
     let details: String?
-    let shovelTime: String?
+    let otherInfo: String?
     
-    init(address: String, coordinate: CLLocationCoordinate2D, completed: Bool, accepted: Bool, price: String, details: String, shovelTime: String) {
+    init(address: String, coordinate: CLLocationCoordinate2D, completed: Bool, accepted: Bool, price: String, details: String, otherInfo: String) {
         self.title = address
         self.coordinate = coordinate
         self.completed = completed
         self.accepted = accepted
         self.price = price
         self.details = details
-        self.shovelTime = shovelTime
+        self.otherInfo = otherInfo
         
         super.init()
     }

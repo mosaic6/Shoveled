@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -360,14 +360,14 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="20, 30, 60" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other info we should know" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
                                         <rect key="frame" x="20" y="129" width="560" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="nnW-lD-bLV"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET WHAT YOU WANT TO PAY $$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-5G-VDV">
                                         <rect key="frame" x="20" y="167" width="191" height="21"/>
@@ -381,10 +381,10 @@
                                             <constraint firstAttribute="height" constant="30" id="vbg-aP-mfk"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVERAGE TIME TO SHOVEL (MINUTES)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
-                                        <rect key="frame" x="20" y="110" width="220" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OTHER SHOVELING INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
+                                        <rect key="frame" x="20" y="110" width="143" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -454,41 +454,19 @@
                                     <action selector="payWithCreditCard:" destination="TrE-4C-B29" eventType="touchUpInside" id="uhJ-sb-m3g"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWe-KW-c50" userLabel="Description Picker">
-                                <rect key="frame" x="0.0" y="384" width="600" height="216"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="1cf-ex-mCT" id="8dz-i1-XtU"/>
-                                    <outlet property="delegate" destination="1cf-ex-mCT" id="YQE-2T-90Q"/>
-                                </connections>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIx-Xx-fR8" userLabel="Price Picker">
-                                <rect key="frame" x="0.0" y="384" width="600" height="216"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="NWe-KW-c50" id="5Zv-yN-EIL"/>
-                                    <outlet property="delegate" destination="NWe-KW-c50" id="CB7-TM-owC"/>
-                                </connections>
-                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="QIx-Xx-fR8" secondAttribute="trailing" constant="-20" id="5mk-87-0ZZ"/>
                             <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="V7x-FY-TeC" secondAttribute="bottom" id="Ior-Iq-POS"/>
-                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="QIx-Xx-fR8" secondAttribute="bottom" id="N2I-Pb-4vB"/>
-                            <constraint firstItem="NWe-KW-c50" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="S7p-Dj-RlU"/>
-                            <constraint firstItem="QIx-Xx-fR8" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="SGa-cf-MRF"/>
                             <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="hqR-nC-Rrl" secondAttribute="bottom" id="g9b-Ud-RAu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V7x-FY-TeC" secondAttribute="trailing" constant="-20" id="hS8-5H-cdM"/>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="jaI-Jf-oP1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="NWe-KW-c50" secondAttribute="trailing" constant="-20" id="mQR-bC-6pj"/>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="50" id="ml4-nm-76P"/>
                             <constraint firstAttribute="leadingMargin" secondItem="V7x-FY-TeC" secondAttribute="leading" constant="20" id="nJ2-NZ-kiO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hot-EF-Mi2" secondAttribute="trailing" constant="-20" id="ob9-MR-ORh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hqR-nC-Rrl" secondAttribute="trailing" constant="-20" id="oxM-tv-Cmc"/>
                             <constraint firstItem="hqR-nC-Rrl" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="sae-IE-ohe"/>
                             <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="227" id="yHt-df-pOq"/>
-                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="NWe-KW-c50" secondAttribute="bottom" id="zqi-hl-zDO"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -514,9 +492,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="applePayButton" destination="V7x-FY-TeC" id="a14-vn-jKm"/>
-                        <outlet property="dataPicker" destination="NWe-KW-c50" id="IL5-KM-zBS"/>
                         <outlet property="payWIthCCButton" destination="hqR-nC-Rrl" id="io6-Rq-Jpw"/>
-                        <outlet property="pricePicker" destination="QIx-Xx-fR8" id="GCA-gL-tKY"/>
                         <outlet property="requestFormView" destination="Hot-EF-Mi2" id="Mjm-0h-CaG"/>
                         <outlet property="tfAddress" destination="Mbm-bp-IFG" id="0Ls-BO-HBU"/>
                         <outlet property="tfDescription" destination="UfU-Fu-X1Z" id="qqa-my-7zZ"/>

@@ -19,7 +19,7 @@ class AcceptRequestViewController: UIViewController {
     var addressString: String?
     var descriptionString: String?
     var priceString: String?
-    var shovelTimeString: String?
+    var otherInfoString: String?
 //    var accepted: Bool
 //    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     
@@ -36,8 +36,8 @@ class AcceptRequestViewController: UIViewController {
         addressLabel.text = addressString?.uppercaseString
         descriptionLabel.text = "Please Shovel: \(description)".uppercaseString
         priceLabel.text = "Price: \(price)".uppercaseString
-        if let timeString = shovelTimeString {
-            shovelTimeLabel.text = "Average Shovel Time: \(timeString) minutes".uppercaseString
+        if let moreInfoString = otherInfoString {
+            shovelTimeLabel.text = "Other Info: \(moreInfoString)".uppercaseString
         }
     }
     

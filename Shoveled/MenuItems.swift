@@ -23,4 +23,5 @@ class MenuItems {
             MenuItems(title: "Logout")
         ]
     }
+
 }

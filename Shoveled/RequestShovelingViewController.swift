@@ -14,15 +14,13 @@ import PassKit
 import Crashlytics
 
 @available(iOS 9.0, *)
-class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, STPPaymentContextDelegate {
+class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate, PKPaymentAuthorizationViewControllerDelegate, UITextFieldDelegate, STPPaymentContextDelegate {
 
     // MARK: - Outlets
     @IBOutlet weak var tfAddress: UITextField!
     @IBOutlet weak var tfDescription: UITextField!
     @IBOutlet weak var tfShovelTime: UITextField!
     @IBOutlet weak var requestFormView: UIView!
-    @IBOutlet weak var dataPicker: UIPickerView!
-    @IBOutlet weak var pricePicker: UIPickerView!
     @IBOutlet weak var tfPrice: ShoveledTextField!
     @IBOutlet weak var payWIthCCButton: UIButton!
     @IBOutlet weak var applePayButton: UIButton!
@@ -39,9 +37,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var actInd = UIActivityIndicatorView()
     let theme: STPTheme = STPTheme()
 //    let paymentContext: STPPaymentContext
-
-    let shovelDescriptionArray = ["Driveway", "Sidewalk", "Steps", "Whole Property"]
-    let priceArray = ["10", "15", "20", "25", "30", "35", "40", "45", "50", "55", "60", "65", "70", "75", "80", "85", "90", "95", "100"]
     
     static let supportedNetworks = [
         PKPaymentNetworkAmex,
@@ -62,15 +57,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         tfPrice.delegate = self
         addToolBar(tfAddress)
         addToolBar(tfShovelTime)
-        
-        dataPicker.delegate = self
-        pricePicker.delegate = self
-        dataPicker.dataSource = self
-        pricePicker.dataSource = self
-        pricePicker.hidden = true
-        
-        addToolBarToPicker(dataPicker, textField: tfDescription)
-        addToolBarToPicker(pricePicker, textField: tfPrice)
+        addToolBar(tfPrice)
+        addToolBar(tfDescription)
         
         applePayButton.userInteractionEnabled = false
         payWIthCCButton.userInteractionEnabled = false
@@ -100,9 +88,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         tfDescription.resignFirstResponder()
         tfPrice.resignFirstResponder()
         tfShovelTime.resignFirstResponder()
-        
-        dataPicker.hidden = true
-        pricePicker.hidden = true
     }
     
     // MARK: - Apple Pay Methods
@@ -274,10 +259,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                     guard let lat = self.latitude else { return }
                     guard let lon = self.longitude else { return }
                     guard let details = self.tfDescription.text else { return }
-                    guard let shovelTime = self.tfShovelTime.text else { return }
+                    guard let otherInfo = self.tfShovelTime.text else { return }
                     guard let price = self.tfPrice.text else { return }
                     guard let email = FIRAuth.auth()?.currentUser?.email else { return }
-                    let shovelRequest = ShovelRequest(address: address, addedByUser: email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, shovelTime: shovelTime, price: NSDecimalNumber(string: price))
+                    let shovelRequest = ShovelRequest(address: address, addedByUser: email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price))
                     
                     let requestName = self.ref.child("\(postId)")
                     
@@ -297,73 +282,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             stopSpinner()
         }
     }
-
-    
-    // MARK Picker Delegates
-    // returns the # of rows in each component..
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        if pickerView == dataPicker {
-            return 1
-        }
-        return 1
-    }
- 
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-
-        if pickerView == dataPicker {
-            return shovelDescriptionArray.count
-        }
-        else {
-            return priceArray.count
-        }
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == dataPicker {
-            return shovelDescriptionArray[row]
-        }
-        else {
-            return priceArray[row]
-        }
-    }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == dataPicker {
-            tfDescription.text = shovelDescriptionArray[row]
-        }
-        else {
-            tfPrice.text = priceArray[row]
-        }
-        self.view.endEditing(true)
-    }
-    
-    // MARK: Textfield delegate
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        if textField == tfAddress {
-            dataPicker.hidden = true
-            pricePicker.hidden = true
-            return true
-        }
-        else if textField == tfDescription {
-            dataPicker.hidden = false
-            pricePicker.hidden = true
-            textField.resignFirstResponder()
-            tfShovelTime.resignFirstResponder()
-            tfAddress.resignFirstResponder()
-        }
-        else if textField == tfShovelTime {
-            dataPicker.hidden = true
-            pricePicker.hidden = true
-            return true
-        }
-        else if textField == tfPrice {
-            tfShovelTime.resignFirstResponder()
-            dataPicker.hidden = true
-            pricePicker.hidden = false
-            textField.resignFirstResponder()
-        }
-        return false
-    }
     
     func textFieldDidEndEditing(textField: UITextField) {
         for tf in [textField] {
@@ -372,26 +290,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 payWIthCCButton.userInteractionEnabled = true
             }
         }
-    }
-    
-    func addToolBarToPicker(picker: UIPickerView, textField: UITextField) {
-        picker.showsSelectionIndicator = true
-        
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.Default
-        toolBar.translucent = true
-        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
-        toolBar.sizeToFit()
-        
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(RequestShovelingViewController.hidePickers))
-        
-        toolBar.setItems([spaceButton, doneButton], animated: false)
-        toolBar.userInteractionEnabled = true
-        picker.addSubview(toolBar)
-        
-        textField.inputView = picker
-        textField.inputAccessoryView = toolBar
     }
     
     func addToolBar(textField: UITextField) {
@@ -410,13 +308,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         textField.inputAccessoryView = toolBar
     }
     
-    func hidePickers() {
-        dataPicker.removeFromSuperview()
-        pricePicker.removeFromSuperview()
-        tfDescription.resignFirstResponder()
-        tfPrice.resignFirstResponder()
-        print("Done Pressed")
-    }
     func done() {
         self.view.endEditing(true)
     }
@@ -430,4 +321,5 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         actInd.hidden = true
         actInd.stopAnimating()
     }
+    
 }
