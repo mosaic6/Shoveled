@@ -177,8 +177,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 guard let latitude = item.value["latitude"] as? NSNumber else { return }
                 guard let longitude = item.value["longitude"] as? NSNumber else { return }
                 guard let details = item.value["details"] as? String else { return }
-                guard let time = item.value["shovelTime"] as? String else { return }
-                guard let price = item.value["price"] as? NSNumber else { return }//
+                guard let otherInfo = item.value["otherInfo"] as? String else { return }
+                guard let price = item.value["price"] as? NSNumber else { return }
                 
                 self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
                 self.nearArray.append(self.theirLocation)
@@ -187,7 +187,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     self.mapView.removeAnnotation(annotationsToRemove!)
                 } else {
                     for _ in self.nearArray {
-                        let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, otherInfo: time)
+                        let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, otherInfo: otherInfo)
                         dispatch_async(dispatch_get_main_queue(), {
                             self.mapView.addAnnotation(mapAnnotation)
                         })

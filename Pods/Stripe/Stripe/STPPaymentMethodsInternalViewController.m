@@ -13,6 +13,8 @@
 #import "NSString+Stripe_CardBrands.h"
 #import "UITableViewCell+Stripe_Borders.h"
 #import "UINavigationController+Stripe_Completion.h"
+#import "STPColorUtils.h"
+#import "STPLocalizationUtils.h"
 
 static NSString *const STPPaymentMethodCellReuseIdentifier = @"STPPaymentMethodCellReuseIdentifier";
 static NSInteger STPPaymentMethodCardListSection = 0;
@@ -47,7 +49,7 @@ static NSInteger STPPaymentMethodAddCardSection = 1;
         _selectedPaymentMethod = tuple.selectedPaymentMethod;
         _delegate = delegate;
     }
-    self.title = NSLocalizedString(@"Payment Method", nil);
+    self.title = STPLocalizedString(@"Payment Method", @"Title for Payment Method screen");
     return self;
 }
 
@@ -77,6 +79,12 @@ static NSInteger STPPaymentMethodAddCardSection = 1;
     self.tableView.backgroundColor = self.theme.primaryBackgroundColor;
     self.tableView.tintColor = self.theme.accentColor;
     self.cardImageView.tintColor = self.theme.accentColor;
+    
+    if ([STPColorUtils colorIsBright:self.theme.primaryBackgroundColor]) {
+        self.tableView.indicatorStyle = UIScrollViewIndicatorStyleBlack;
+    } else {
+        self.tableView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
+    }
 }
 
 - (void)viewDidLayoutSubviews {
@@ -110,20 +118,25 @@ static NSInteger STPPaymentMethodAddCardSection = 1;
     return 0;
 }
 
+- (UIColor *)primaryColorForPaymentMethodWithSelectedState:(BOOL)isSelected {
+    return isSelected ? self.theme.accentColor : [self.theme.primaryForegroundColor colorWithAlphaComponent:0.6f];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:STPPaymentMethodCellReuseIdentifier forIndexPath:indexPath];
     cell.textLabel.font = self.theme.font;
     cell.backgroundColor = self.theme.secondaryBackgroundColor;
     if (indexPath.section == STPPaymentMethodCardListSection) {
         id<STPPaymentMethod> paymentMethod = [self.paymentMethods stp_boundSafeObjectAtIndex:indexPath.row];
-        cell.imageView.image = paymentMethod.image;
+        cell.imageView.image = paymentMethod.templateImage;
         BOOL selected = [paymentMethod isEqual:self.selectedPaymentMethod];
+        cell.imageView.tintColor = [self primaryColorForPaymentMethodWithSelectedState:selected];
         cell.textLabel.attributedText = [self buildAttributedStringForPaymentMethod:paymentMethod selected:selected];
         cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     } else if (indexPath.section == STPPaymentMethodAddCardSection) {
         cell.textLabel.textColor = [self.theme accentColor];
         cell.imageView.image = [STPImageLibrary addIcon];
-        cell.textLabel.text = NSLocalizedString(@"Add New Card...", nil);
+        cell.textLabel.text = STPLocalizedString(@"Add New Card…", nil);
     }
     return cell;
 }
@@ -133,15 +146,15 @@ static NSInteger STPPaymentMethodAddCardSection = 1;
     if ([paymentMethod isKindOfClass:[STPCard class]]) {
         return [self buildAttributedStringForCard:(STPCard *)paymentMethod selected:selected];
     } else if ([paymentMethod isKindOfClass:[STPApplePayPaymentMethod class]]) {
-        NSString *label = NSLocalizedString(@"Apple Pay", nil);
-        UIColor *primaryColor = selected ? self.theme.accentColor : self.theme.primaryForegroundColor;
+        NSString *label = STPLocalizedString(@"Apple Pay", nil);
+        UIColor *primaryColor = [self primaryColorForPaymentMethodWithSelectedState:selected];
         return [[NSAttributedString alloc] initWithString:label attributes:@{NSForegroundColorAttributeName: primaryColor}];
     }
     return nil;
 }
 
 - (NSAttributedString *)buildAttributedStringForCard:(STPCard *)card selected:(BOOL)selected {
-    NSString *template = NSLocalizedString(@"%@ Ending In %@", @"{card brand} ending in {last4}");
+    NSString *template = STPLocalizedString(@"%@ Ending In %@", @"{card brand} ending in {last4}");
     NSString *brandString = [NSString stp_stringWithCardBrand:card.brand];
     NSString *label = [NSString stringWithFormat:template, brandString, card.last4];
     UIColor *primaryColor = selected ? self.theme.accentColor : self.theme.primaryForegroundColor;

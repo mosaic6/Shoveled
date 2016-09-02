@@ -394,6 +394,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61ED02441BAE43F3006B22B7 /* Build configuration list for PBXNativeTarget "Shoveled" */;
 			buildPhases = (
+				2BB7EB4BBF91BC2E1E325BEB /* [CP] Check Pods Manifest.lock */,
 				E6AEB6E245299AAC0049D87A /* [CP] Check Pods Manifest.lock */,
 				E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */,
 				61ED02151BAE43F3006B22B7 /* Sources */,
@@ -575,6 +576,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2BB7EB4BBF91BC2E1E325BEB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		38FE2EFCED3546B5ED3B1EDD /* 📦 Embed Pods Frameworks */ = {

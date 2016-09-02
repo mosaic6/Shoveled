@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="16A304a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -28,7 +28,6 @@
             <string>Rajdhani-Medium</string>
         </mutableArray>
         <mutableArray key="Rajdhani-Regular.ttf">
-            <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
@@ -426,22 +425,8 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-I6-WmZ">
                                 <rect key="frame" x="282" y="256" width="37" height="37"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7x-FY-TeC" userLabel="PayWIth Apple Pay">
-                                <rect key="frame" x="0.0" y="545" width="600" height="55"/>
-                                <color key="backgroundColor" red="0.1764705882" green="0.1843137255" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="KcM-HL-uI6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
-                                <state key="normal" title="Apple Pay">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="payWithApplePay:" destination="TrE-4C-B29" eventType="touchUpInside" id="mLm-4g-vDo"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqR-nC-Rrl">
-                                <rect key="frame" x="0.0" y="490" width="600" height="55"/>
+                                <rect key="frame" x="0.0" y="545" width="600" height="55"/>
                                 <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="p0E-Bt-ugL"/>
@@ -457,22 +442,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="V7x-FY-TeC" secondAttribute="bottom" id="Ior-Iq-POS"/>
-                            <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="hqR-nC-Rrl" secondAttribute="bottom" id="g9b-Ud-RAu"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="V7x-FY-TeC" secondAttribute="trailing" constant="-20" id="hS8-5H-cdM"/>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="jaI-Jf-oP1"/>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="50" id="ml4-nm-76P"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="V7x-FY-TeC" secondAttribute="leading" constant="20" id="nJ2-NZ-kiO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Hot-EF-Mi2" secondAttribute="trailing" constant="-20" id="ob9-MR-ORh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hqR-nC-Rrl" secondAttribute="trailing" constant="-20" id="oxM-tv-Cmc"/>
+                            <constraint firstItem="SSF-zN-XtR" firstAttribute="top" secondItem="hqR-nC-Rrl" secondAttribute="bottom" id="rlW-E2-fKG"/>
                             <constraint firstItem="hqR-nC-Rrl" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="sae-IE-ohe"/>
-                            <constraint firstItem="V7x-FY-TeC" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="227" id="yHt-df-pOq"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="yHt-df-pOq"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="FNR-gg-U62">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="CRx-eM-lZN">
@@ -491,7 +467,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="applePayButton" destination="V7x-FY-TeC" id="a14-vn-jKm"/>
                         <outlet property="payWIthCCButton" destination="hqR-nC-Rrl" id="io6-Rq-Jpw"/>
                         <outlet property="requestFormView" destination="Hot-EF-Mi2" id="Mjm-0h-CaG"/>
                         <outlet property="tfAddress" destination="Mbm-bp-IFG" id="0Ls-BO-HBU"/>

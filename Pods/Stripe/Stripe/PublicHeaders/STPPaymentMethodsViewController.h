@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class STPPaymentContext, STPPaymentMethodsViewController;
 
 /**
- *  This view controller presents a list of payment method options to the user, which they can select between. They can also add and remove credit cards from the list. It must be displayed inside a `UINavigationController`, so you can either create a `UINavigationController` with an `STPPaymentMethodsViewController` as the `rootViewController` and then present the `UINavigationController`, or push a new `STPPaymentMethodsViewController` onto an existing `UINavigationController`'s stack. You can also have `STPPaymentContext` do this for you automatically, by calling `presentPaymentMethodsViewController` or `pushPaymentMethodsViewController` on it.
+ *  This view controller presents a list of payment method options to the user, which they can select between. They can also add credit cards to the list. It must be displayed inside a `UINavigationController`, so you can either create a `UINavigationController` with an `STPPaymentMethodsViewController` as the `rootViewController` and then present the `UINavigationController`, or push a new `STPPaymentMethodsViewController` onto an existing `UINavigationController`'s stack. You can also have `STPPaymentContext` do this for you automatically, by calling `presentPaymentMethodsViewController` or `pushPaymentMethodsViewController` on it.
  */
 @interface STPPaymentMethodsViewController : UIViewController
 
@@ -74,7 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
  *  This is called when the view controller encounters an error fetching the user's payment methods from its API adapter. You should dismiss the view controller when this is called.
  *
  *  @param paymentMethodsViewController the view controller in question
- *  @param paymentMethod                the selected payment method
+ *  @param error                        the error that occurred
  */
 - (void)paymentMethodsViewController:(STPPaymentMethodsViewController *)paymentMethodsViewController
               didFailToLoadWithError:(NSError *)error;

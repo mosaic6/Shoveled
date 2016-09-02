@@ -13,4 +13,5 @@ target 'Shoveled' do
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'Firebase/Storage'    
+    pod 'FutureKit', '~> 2.0'
 end
