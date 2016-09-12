@@ -266,7 +266,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                     guard let email = FIRAuth.auth()?.currentUser?.email else { return }
                     let shovelRequest = ShovelRequest(address: address, addedByUser: email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price))
                     
-                    let requestName = self.ref.child("\(postId)")
+                    let requestName = self.ref.child("/requests\(postId)")
                     
                     requestName.setValue(shovelRequest.toAnyObject(), withCompletionBlock: { (error, ref) in                                                                
                         if error != nil {
