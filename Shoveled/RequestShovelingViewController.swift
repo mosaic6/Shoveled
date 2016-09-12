@@ -72,8 +72,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         self.title = "Request"
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
-        self.view.addGestureRecognizer(tap)
-        
+        self.view.addGestureRecognizer(tap)        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -87,52 +86,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         tfDescription.resignFirstResponder()
         tfPrice.resignFirstResponder()
         tfShovelTime.resignFirstResponder()
-    }
-    
-    //MARK: Stripe payment delegate
-    func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
-        payWIthCCButton.enabled = textField.valid
-    }
-    
-    @IBAction func submitCard(sender: AnyObject?) {
-        // If you have your own form for getting credit card information, you can construct
-        // your own STPCardParams from number, month, year, and CVV.
-        let card = paymentTextField.cardParams
-        
-        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
-            guard let stripeToken = token else {
-                NSLog("Error creating token: %@", error!.localizedDescription);
-                return
-            }
-            self.createBackendChargeWithToken(stripeToken, completion: { (status: PKPaymentAuthorizationStatus) in
-                print(status)
-            })
-            
-            // TODO: send the token to your server so it can create a charge
-            let alert = UIAlertController(title: "Welcome to Stripe", message: "Token created: \(stripeToken)", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-
-    func paymentContextDidChange(paymentContext: STPPaymentContext) {
-        self.sendToStripeBtn.enabled = paymentContext.selectedPaymentMethod != nil
-    }
-    
-    func paymentContext(paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
-        switch status {
-        case .Error:
-            print("\(error?.localizedDescription)")
-        case .Success:
-            self.dismissViewControllerAnimated(true, completion: nil)
-            self.removeFromParentViewController()
-        case .UserCancellation:
-            return // do nothing
-        }
-    }
-    func paymentContext(paymentContext: STPPaymentContext, didFailToLoadWithError error: NSError) {
-        self.navigationController?.popViewControllerAnimated(true)
-        // show the error to your user, etc
     }
     
     //MARK: - Location Manager Delegate
@@ -180,6 +133,54 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             let address = "\(subthoroughfare) \(thoroughfare), \(locality), \(administrativeArea) \(postalCode)"
             tfAddress.text = address
         }
+    }
+    
+    //MARK: Stripe payment delegate
+    func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
+        payWIthCCButton.enabled = textField.valid
+    }
+    
+    @IBAction func submitCard(sender: AnyObject?) {
+        // If you have your own form for getting credit card information, you can construct
+        // your own STPCardParams from number, month, year, and CVV.
+        let card = paymentTextField.cardParams
+        
+        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
+            guard let stripeToken = token else {
+                NSLog("Error creating token: %@", error!.localizedDescription);
+                return
+            }
+            self.createBackendChargeWithToken(stripeToken, completion: { (status: PKPaymentAuthorizationStatus) in
+                if status == .Success {
+                    guard let amount = self.tfPrice.text else { return }
+                    StripeManager.sharedInstance.sendChargeToStripeWith(amount, source: String(stripeToken.tokenId), description: "Shoveled Requested")
+                    
+                    // display success message and send email with confirmation
+                    
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+            })
+        }
+    }
+    
+    func paymentContextDidChange(paymentContext: STPPaymentContext) {
+        self.sendToStripeBtn.enabled = paymentContext.selectedPaymentMethod != nil
+    }
+    
+    func paymentContext(paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
+        switch status {
+        case .Error:
+            print("\(error?.localizedDescription)")
+        case .Success:
+            self.dismissViewControllerAnimated(true, completion: nil)
+            self.removeFromParentViewController()
+        case .UserCancellation:
+            return // do nothing
+        }
+    }
+    func paymentContext(paymentContext: STPPaymentContext, didFailToLoadWithError error: NSError) {
+        self.navigationController?.popViewControllerAnimated(true)
+        // show the error to your user, etc
     }
     
     @IBAction func payWithCreditCard(sender: AnyObject) {

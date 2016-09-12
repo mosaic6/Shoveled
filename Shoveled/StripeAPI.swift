@@ -9,147 +9,97 @@
 import Foundation
 import Stripe
 
-class MyAPIClient: NSObject, STPBackendAPIAdapter {
+
+class StripeManager {
     
-    let baseURLString: String?
-    let customerID: String?
-    let session: NSURLSession
+    static let sharedInstance = StripeManager()
     
-    var defaultSource: STPCard? = nil
-    var sources: [STPCard] = []
-    
-    static var sharedClient = MyAPIClient(baseURL: nil, customerID: nil)
-    static func sharedInit(baseURL baseURL: String?, customerID: String?) {
-        sharedClient = MyAPIClient(baseURL: baseURL, customerID: customerID)
-    }
-    
-    /// If no base URL or customerID is given, MyAPIClient will save cards in memory.
-    init(baseURL: String?, customerID: String?) {
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        configuration.timeoutIntervalForRequest = 5
-        self.session = NSURLSession(configuration: configuration)
-        self.baseURLString = baseURL
-        self.customerID = customerID
-        super.init()
-    }
-    
-    func decodeResponse(response: NSURLResponse?, error: NSError?) -> NSError? {
-        if let httpResponse = response as? NSHTTPURLResponse
-            where httpResponse.statusCode != 200 {
-            return error ?? NSError.networkingError(httpResponse.statusCode)
-        }
-        return error
-    }
-    
-    func completeCharge(result: STPPaymentResult, amount: Int, completion: STPErrorBlock) {
-        guard let baseURLString = baseURLString, baseURL = NSURL(string: baseURLString), customerID = customerID else {
-            completion(nil)
-            return
-        }
-        let path = "charge"
-        let url = baseURL.URLByAppendingPathComponent(path)
-        let params: [String: AnyObject] = [
-            "source": result.source.stripeID,
+    func sendChargeToStripeWith(amount: String, source: String, description: String) {
+        /* Configure session, choose between:
+         * defaultSessionConfiguration
+         * ephemeralSessionConfiguration
+         * backgroundSessionConfigurationWithIdentifier:
+         And set session-wide properties, such as: HTTPAdditionalHeaders,
+         HTTPCookieAcceptPolicy, requestCachePolicy or timeoutIntervalForRequest.
+         */
+        let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+        
+        /* Create session, and optionally set a NSURLSessionDelegate. */
+        let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
+        
+        /* Create the Request:
+         Request (POST https://api.stripe.com/v1/charges)
+         */
+        
+        guard let URL = NSURL(string: "https://api.stripe.com/v1/charges") else {return}
+        let request = NSMutableURLRequest(URL: URL)
+        request.HTTPMethod = "POST"
+        
+        // Headers
+        
+        request.addValue("Basic c2tfdGVzdF9QYkg1VVoyMER3a0JWYmY2cVdlT0hTZmg6OioqKioqIEhpZGRlbiBjcmVkZW50aWFscyAqKioqKg==", forHTTPHeaderField: "Authorization")
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        // Form URL-Encoded Body
+        
+        let bodyParameters = [
             "amount": amount,
-            "customer": customerID
-        ]
-        let request = NSURLRequest.request(url, method: .POST, params: params)
-        let task = self.session.dataTaskWithRequest(request) { (data, urlResponse, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if let error = self.decodeResponse(urlResponse, error: error) {
-                    completion(error)
-                    return
-                }
-                completion(nil)
-            }
-        }
-        task.resume()
-    }
-    
-    @objc func retrieveCustomer(completion: STPCustomerCompletionBlock) {
-        guard let key = Stripe.defaultPublishableKey() where !key.containsString("#") else {
-            let error = NSError(domain: StripeDomain, code: 50, userInfo: [
-                NSLocalizedDescriptionKey: "Please set stripePublishableKey to your account's test publishable key in CheckoutViewController.swift"
-                ])
-            completion(nil, error)
-            return
-        }
-        guard let baseURLString = baseURLString, baseURL = NSURL(string: baseURLString), customerID = customerID else {
-            // This code is just for demo purposes - in this case, if the example app isn't properly configured, we'll return a fake customer just so the app works.
-            let customer = STPCustomer(stripeID: "cus_test", defaultSource: self.defaultSource, sources: self.sources)
-            completion(customer, nil)
-            return
-        }
-        let path = "/customers/\(customerID)"
-        let url = baseURL.URLByAppendingPathComponent(path)
-        let request = NSURLRequest.request(url, method: .GET, params: [:])
-        let task = self.session.dataTaskWithRequest(request) { (data, urlResponse, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                let deserializer = STPCustomerDeserializer(data: data, urlResponse: urlResponse, error: error)
-                if let error = deserializer.error {
-                    completion(nil, error)
-                    return
-                } else if let customer = deserializer.customer {
-                    completion(customer, nil)
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    @objc func selectDefaultCustomerSource(source: STPSource, completion: STPErrorBlock) {
-        guard let baseURLString = baseURLString, baseURL = NSURL(string: baseURLString), customerID = customerID else {
-            if let token = source as? STPToken {
-                self.defaultSource = token.card
-            }
-            completion(nil)
-            return
-        }
-        let path = "/customers/\(customerID)/select_source"
-        let url = baseURL.URLByAppendingPathComponent(path)
-        let params = [
-            "customer": customerID,
-            "source": source.stripeID,
+            "currency": "usd",
+            "source": source,
+            "description": description,
             ]
-        let request = NSURLRequest.request(url, method: .POST, params: params)
-        let task = self.session.dataTaskWithRequest(request) { (data, urlResponse, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if let error = self.decodeResponse(urlResponse, error: error) {
-                    completion(error)
-                    return
-                }
-                completion(nil)
+        let bodyString = bodyParameters.queryParameters
+        request.HTTPBody = bodyString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+        
+        /* Start a new Task */
+        let task = session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            if (error == nil) {
+                // Success
+                let statusCode = (response as! NSHTTPURLResponse).statusCode
+                print("URL Session Task Succeeded: HTTP \(statusCode)")
             }
-        }
+            else {
+                // Failure
+                print("URL Session Task Failed: %@", error!.localizedDescription);
+            }
+        })
         task.resume()
+        session.finishTasksAndInvalidate()
+    }
+}
+
+protocol URLQueryParameterStringConvertible {
+    var queryParameters: String {get}
+}
+
+extension Dictionary : URLQueryParameterStringConvertible {
+    /**
+     This computed property returns a query parameters string from the given NSDictionary. For
+     example, if the input is @{@"day":@"Tuesday", @"month":@"January"}, the output
+     string will be @"day=Tuesday&month=January".
+     @return The computed parameters string.
+     */
+    var queryParameters: String {
+        var parts: [String] = []
+        for (key, value) in self {
+            let part = NSString(format: "%@=%@",
+                                String(key).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!,
+                                String(value).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
+            parts.append(part as String)
+        }
+        return parts.joinWithSeparator("&")
     }
     
-    @objc func attachSourceToCustomer(source: STPSource, completion: STPErrorBlock) {
-        guard let baseURLString = baseURLString, baseURL = NSURL(string: baseURLString), customerID = customerID else {
-            if let token = source as? STPToken, card = token.card {
-                self.sources.append(card)
-                self.defaultSource = card
-            }
-            completion(nil)
-            return
-        }
-        let path = "/customers/\(customerID)/sources"
-        let url = baseURL.URLByAppendingPathComponent(path)
-        let params = [
-            "customer": customerID,
-            "source": source.stripeID,
-            ]
-        let request = NSURLRequest.request(url, method: .POST, params: params)
-        let task = self.session.dataTaskWithRequest(request) { (data, urlResponse, error) in
-            dispatch_async(dispatch_get_main_queue()) {
-                if let error = self.decodeResponse(urlResponse, error: error) {
-                    completion(error)
-                    return
-                }
-                completion(nil)
-            }
-        }
-        task.resume()
+}
+
+extension NSURL {
+    /**
+     Creates a new URL by adding the given query parameters.
+     @param parametersDictionary The query parameter dictionary to add.
+     @return A new NSURL.
+     */
+    func URLByAppendingQueryParameters(parametersDictionary : Dictionary<String, String>) -> NSURL {
+        let URLString : NSString = NSString(format: "%@?%@", self.absoluteString, parametersDictionary.queryParameters)
+        return NSURL(string: URLString as String)!
     }
-    
 }
