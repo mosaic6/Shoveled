@@ -153,7 +153,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             self.createBackendChargeWithToken(stripeToken, completion: { (status: PKPaymentAuthorizationStatus) in
                 if status == .Success {
                     guard let amount = self.tfPrice.text else { return }
-                    StripeManager.sharedInstance.sendChargeToStripeWith(amount, source: String(stripeToken.tokenId), description: "Shoveled Requested")
+                    let price:Int = Int(amount)! * 100
+                    StripeManager.sharedInstance.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Requested")
                     
                     // display success message and send email with confirmation
                     
