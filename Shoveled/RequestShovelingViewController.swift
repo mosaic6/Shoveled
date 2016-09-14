@@ -50,7 +50,24 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureAppearance()
+        getUserEmail()
         
+        StripeManager.getCustomers(withId: "") { (result) in
+            
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
+        self.view.addGestureRecognizer(tap)        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getLocation()
+    }
+    
+    func configureAppearance() {
         tfAddress.delegate = self
         tfDescription.delegate = self
         tfShovelTime.delegate = self
@@ -62,23 +79,21 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         
         payWIthCCButton.setTitle("Submit & Pay", forState: UIControlState.Normal)
         
-        actInd.frame = CGRectMake(0,0, 50, 50)
+        actInd.frame = CGRectMake(25, 25, 50, 50)
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
         actInd.hidden = true
         view.addSubview(actInd)
         
         self.title = "Request"
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
-        self.view.addGestureRecognizer(tap)        
+
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    func getUserEmail() -> String {
+        guard let email = FIRAuth.auth()?.currentUser?.email else { return "" }
         
-        getLocation()
+        return email
     }
     
     func dismissKeyboards() {
@@ -141,6 +156,9 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
     
     @IBAction func submitCard(sender: AnyObject?) {
+        
+        actInd.hidden = false
+        actInd.startAnimating()
         // If you have your own form for getting credit card information, you can construct
         // your own STPCardParams from number, month, year, and CVV.
         let card = paymentTextField.cardParams
@@ -150,17 +168,18 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 NSLog("Error creating token: %@", error!.localizedDescription);
                 return
             }
-            self.createBackendChargeWithToken(stripeToken, completion: { (status: PKPaymentAuthorizationStatus) in
-                if status == .Success {
-                    guard let amount = self.tfPrice.text else { return }
-                    let price:Int = Int(amount)! * 100
-                    StripeManager.sharedInstance.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Requested")
-                    
-                    // display success message and send email with confirmation
-                    
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                }
-            })
+            
+            if !stripeToken.tokenId.isEmpty {
+                guard let amount = self.tfPrice.text else { return }
+                let price:Int = Int(amount)! * 100
+                StripeAPI.sharedInstance.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Request From \(self.getUserEmail())")
+                
+                self.addRequestOnSuccess()
+                // display success message and send email with confirmation
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+                self.actInd.stopAnimating()
+            }
         }
     }
     
@@ -188,6 +207,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
         sendToStripeBtn = UIButton(type: .System)
         sendToStripeBtn.setTitle("Pay Now", forState: .Normal)
+        sendToStripeBtn.titleLabel?.font = UIFont(name: "Rajdhani", size: 30)
         sendToStripeBtn.backgroundColor = UIColor(red: 78.0/255.0, green: 168.0/255.0, blue: 177.0/255.0, alpha: 1)
         sendToStripeBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         sendToStripeBtn.addTarget(self, action: #selector(self.submitCard(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
@@ -196,7 +216,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         priceLabel.font = UIFont(name: "Marvel-Bold", size: 50.0)
         priceLabel.textAlignment = NSTextAlignment.Center
         guard let price = tfPrice.text else { return }
-        priceLabel.text = "$\(price)"
+        priceLabel.text = "💲\(price).00"
         
         paymentTextField = STPPaymentCardTextField(frame: CGRectMake(15, (self.view.frame.height / 2) - 50, CGRectGetWidth(view.frame) - 30, 44))
         paymentTextField.delegate = self
@@ -234,55 +254,28 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func createBackendChargeWithToken(token: STPToken, completion: PKPaymentAuthorizationStatus -> ()) {
-        let url = NSURL(string: "https://api.stripe.com/v1/tokens")
-        if let url = url {
-            let request = NSMutableURLRequest(URL: url)
-            request.HTTPMethod = "POST"
-            let body = "stripeToken=(token.tokenId)"
-            request.HTTPBody = body.dataUsingEncoding(NSUTF8StringEncoding)
-            request.addValue("Bearer \(AppConfiguration.authKey)", forHTTPHeaderField: "Authorization")
-            let configuration = NSURLSessionConfiguration.ephemeralSessionConfiguration()
-            let session = NSURLSession(configuration: configuration)
-            let task = session.dataTaskWithRequest(request) {  (data, response, error) -> Void in
-                if error != nil {
-                    completion(PKPaymentAuthorizationStatus.Failure)
-                }
-                else {
-                    if let data = data {
-                        if let json: AnyObject = try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments) {
-                            if let dict = json as? NSDictionary {
-                                print(dict)
-                            }
-                        }
-                    }
-                    let postId = Int(arc4random_uniform(10000) + 1)
-                    guard let address = self.tfAddress.text else { return }
-                    guard let lat = self.latitude else { return }
-                    guard let lon = self.longitude else { return }
-                    guard let details = self.tfDescription.text else { return }
-                    guard let otherInfo = self.tfShovelTime.text else { return }
-                    guard let price = self.tfPrice.text else { return }
-                    guard let email = FIRAuth.auth()?.currentUser?.email else { return }
-                    let shovelRequest = ShovelRequest(address: address, addedByUser: email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price))
-                    
-                    let requestName = self.ref.child("/requests\(postId)")
-                    
-                    requestName.setValue(shovelRequest.toAnyObject(), withCompletionBlock: { (error, ref) in                                                                
-                        if error != nil {
-                            let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
-                            let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                            alert.addAction(okAction)
-                            self.presentViewController(alert, animated: true, completion: nil)                            
-                            Crashlytics.sharedInstance().recordError(error!)
-                        }
-                    })
-                    completion(PKPaymentAuthorizationStatus.Success)
-                }
+    func addRequestOnSuccess() {
+        let postId = Int(arc4random_uniform(10000) + 1)
+        guard let address = self.tfAddress.text else { return }
+        guard let lat = self.latitude else { return }
+        guard let lon = self.longitude else { return }
+        guard let details = self.tfDescription.text else { return }
+        guard let otherInfo = self.tfShovelTime.text else { return }
+        guard let price = self.tfPrice.text else { return }
+        guard let email = FIRAuth.auth()?.currentUser?.email else { return }
+        let shovelRequest = ShovelRequest(address: address, addedByUser: email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price))
+        
+        let requestName = self.ref.child("/requests/\(postId)")
+        
+        requestName.setValue(shovelRequest.toAnyObject(), withCompletionBlock: { (error, ref) in
+            if error != nil {
+                let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
+                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(okAction)
+                self.presentViewController(alert, animated: true, completion: nil)
+                Crashlytics.sharedInstance().recordError(error!)
             }
-            task.resume()
-            stopSpinner()
-        }
+        })
     }
     
     func addToolBar(textField: UITextField) {

@@ -127,7 +127,7 @@ class LoginViewController: UIViewController {
         
             FIRAuth.auth()?.createUserWithEmail(emailString, password: passwordString) { (user, error) in
                 if let error = error {
-                    self.alert.showMessagePrompt(error.localizedDescription)
+                    print("::::: \(error)")
                 } else {
                     self.ref.child("users").child(user!.uid).setValue(["username": emailString])
                     self.removeFromParentViewController()

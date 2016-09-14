@@ -10,6 +10,7 @@
 		4D8BC9F67B65190F1EF029F8 /* Pods_Shoveled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */; };
 		6108382F1D1D8B2400816EEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */; };
 		610E58431CD04DEF000AE0FA /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E58421CD04DEF000AE0FA /* LoginTest.swift */; };
+		6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115A52E1D89D601001FC3B6 /* StripeManager.swift */; };
 		6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */; };
 		6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6125EA6C1D37300E006ED343 /* StripeAPI.swift */; };
 		6125EA6F1D37309B006ED343 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6125EA6E1D37309B006ED343 /* Networking.swift */; };
@@ -85,6 +86,7 @@
 		6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		610838301D21FCE100816EEB /* Shoveled-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shoveled-Bridging-Header.h"; sourceTree = "<group>"; };
 		610E58421CD04DEF000AE0FA /* LoginTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
+		6115A52E1D89D601001FC3B6 /* StripeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeManager.swift; sourceTree = "<group>"; };
 		6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewController.swift; sourceTree = "<group>"; };
 		6125EA6C1D37300E006ED343 /* StripeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeAPI.swift; sourceTree = "<group>"; };
 		6125EA6E1D37309B006ED343 /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
@@ -181,6 +183,14 @@
 				3DC5BD28EAEDC9B7A6CC123F /* Pods-Shoveled.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		6115A52D1D89D24D001FC3B6 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				6115A52E1D89D601001FC3B6 /* StripeManager.swift */,
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 		614E783C1C0022D000314390 /* UI */ = {
@@ -341,6 +351,7 @@
 		61ED024F1BAE46A0006B22B7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6115A52D1D89D24D001FC3B6 /* Manager */,
 				617031321C7D4B5600297A25 /* API+Firebase.swift */,
 				61E73B8F1C1FC8F2000D7872 /* Model */,
 				61ED02231BAE43F3006B22B7 /* Shoveled.xcdatamodeld */,
@@ -687,6 +698,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */,
 				618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */,
 				612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */,
 				61FEC6841C8B64C300D25128 /* ContainerViewController.swift in Sources */,
@@ -832,6 +844,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Shoveled/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.Shoveled;
@@ -962,6 +975,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Shoveled/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.Shoveled;
@@ -985,6 +999,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Shoveled/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.Shoveled;

@@ -16,8 +16,9 @@ class ShovelAnnotation: NSObject, MKAnnotation {
     let price: String?
     let details: String?
     let otherInfo: String?
+    let addedByUser: String?
     
-    init(address: String, coordinate: CLLocationCoordinate2D, completed: Bool, accepted: Bool, price: String, details: String, otherInfo: String) {
+    init(address: String, coordinate: CLLocationCoordinate2D, completed: Bool, accepted: Bool, price: String, details: String, otherInfo: String, addedByUser: String) {
         self.title = address
         self.coordinate = coordinate
         self.completed = completed
@@ -25,6 +26,7 @@ class ShovelAnnotation: NSObject, MKAnnotation {
         self.price = price
         self.details = details
         self.otherInfo = otherInfo
+        self.addedByUser = addedByUser
         
         super.init()
     }

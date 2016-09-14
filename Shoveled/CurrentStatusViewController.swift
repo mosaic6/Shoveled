@@ -41,9 +41,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var nearArray : [CLLocationCoordinate2D] = []
     var userLat: Double!
     var userLong: Double!
-    var items = [ShovelRequest]()
+    var owner: String!
     var delegate: CurrentStatusControllerDelegate?
-    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
+    lazy var ref: FIRDatabaseReference = FIRDatabase.database().referenceWithPath("requests")
     
     // MARK: View Methods
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.mapView.delegate = self
         SwiftSpinner.show("Are those snowflakes?")
         getCurrentLocation()
-        filterByProximity()
+        getShovelRequests()
         configureView()
         
         UIApplication.sharedApplication().registerForRemoteNotifications()
@@ -62,13 +62,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidAppear(animated)
         
         getUserInfo()
-        getShovelRequests()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        filterByProximity()
     }
     
     func configureView() {
@@ -110,36 +109,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         locationManager.stopUpdatingLocation()
     }
     
-    
-    // MARK: - Get Shovel Requests
-    func filterByProximity() {
-        ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
-
-            var newRequest = [ShovelRequest]()
-            for _ in snapshot.children {
-                let shovelItem = ShovelRequest()
-                newRequest.append(shovelItem)
-                let theirLat: Double = shovelItem.latitude.doubleValue
-                let theirLong: Double = shovelItem.longitude.doubleValue
-                self.theirLocation = CLLocationCoordinate2D(latitude: theirLat, longitude: theirLong)
-                self.nearArray.append(self.theirLocation)
-                if self.nearArray.isEmpty {
-                    let annotationsToRemove = self.mapView.annotations.filter { $0 !== self.mapView.userLocation } as? MKAnnotation
-                    self.mapView.removeAnnotation(annotationsToRemove!)
-                } else {
-                    for _ in self.nearArray {
-                        let mapAnnotation = ShovelAnnotation(address: shovelItem.address, coordinate: self.theirLocation, completed: false, accepted: false, price: String(shovelItem.price), details: shovelItem.details, otherInfo: shovelItem.otherInfo)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.mapView.addAnnotation(mapAnnotation)
-                        })
-                    }
-                }
-            }
-        })
-    }
-    
-    
-    
     // MARK: - Weather Fetching
     func retrieveWeatherForecast() {
         let forecastService = ForecastService(APIKey: forecastAPIKey)
@@ -167,11 +136,11 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     
     // MARK: - Fetch Request
     func getShovelRequests() {
-//        var request = ShovelRequest()
         ref.observeEventType(.Value, withBlock: { snapshot in
             for item in snapshot.children {
                 guard let address = item.value["address"] as? String else { return }
                 guard let addedByUser = item.value["addedByUser"] as? String else { return }
+                self.owner = item.value["addedByUser"] as? String
                 guard let completed = item.value["completed"] as? Bool else { return }
                 guard let accepted = item.value["accepted"] as? Bool else { return }
                 guard let latitude = item.value["latitude"] as? NSNumber else { return }
@@ -186,17 +155,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     let annotationsToRemove = self.mapView.annotations.filter { $0 !== self.mapView.userLocation } as? MKAnnotation
                     self.mapView.removeAnnotation(annotationsToRemove!)
                 } else {
-                    for _ in self.nearArray {
-                        let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, otherInfo: otherInfo)
-                        dispatch_async(dispatch_get_main_queue(), {
-                            self.mapView.addAnnotation(mapAnnotation)
-                        })
-                    }
+                    let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, otherInfo: otherInfo, addedByUser: addedByUser)
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.mapView.addAnnotation(mapAnnotation)
+                    })
                 }
                 
-            }
-//            self.items.append(request)
-            
+            }            
         }, withCancelBlock: {error in
             print(error.description)
         })

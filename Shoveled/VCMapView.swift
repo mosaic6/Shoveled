@@ -8,6 +8,13 @@
 
 import Foundation
 import MapKit
+import FirebaseAuth
+
+enum PinColor {
+    case Owner
+    case Active
+    case Completed
+}
 
 extension CurrentStatusViewController: MKMapViewDelegate {
     
@@ -25,6 +32,17 @@ extension CurrentStatusViewController: MKMapViewDelegate {
                 view.canShowCallout = true
                 view.calloutOffset = CGPoint(x: -8, y: 0)
                 view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+                
+                let currentUser = FIRAuth.auth()?.currentUser?.email
+                print(owner)
+                if owner == currentUser {
+                    view.pinColor = MKPinAnnotationColor.Green
+                }
+                else {
+                    view.pinColor = MKPinAnnotationColor.Red
+                }
+                
+                
             }
             return view
         }

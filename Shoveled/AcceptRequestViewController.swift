@@ -39,6 +39,9 @@ class AcceptRequestViewController: UIViewController {
         if let moreInfoString = otherInfoString {
             shovelTimeLabel.text = "Other Info: \(moreInfoString)".uppercaseString
         }
+        else {
+            shovelTimeLabel.text = "Nothing to see here..."
+        }
     }
     
     @IBAction func acceptRequest(sender: AnyObject) {
