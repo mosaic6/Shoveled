@@ -10,6 +10,7 @@ import UIKit
 import Crashlytics
 import Firebase
 import FirebaseAuth
+import PaperOnboarding
 
 class LoginViewController: UIViewController {
     
@@ -31,6 +32,8 @@ class LoginViewController: UIViewController {
     var currentStatusVC = CurrentStatusViewController()
     var ref:FIRDatabaseReference!
     var alert: UIAlertController!
+    
+    let onboarding = PaperOn
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -21,7 +21,7 @@ class StripeAPI {
     static let sharedInstance = StripeAPI()
     
     // Get customers with Stripe account
-    func getCustomers(completion: (result: NSDictionary?, error: NSError?) -> Void) {
+    func getCustomers(completion: (result: NSDictionary?, error: NSError?) -> ()) {
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         
         /* Create session, and optionally set a NSURLSessionDelegate. */
@@ -78,7 +78,7 @@ class StripeAPI {
     }
     
     // Create a new customer if they don't already exist
-    func createCustomerStripeAccountWith(customerDesciption: String = "Shoveled Customer", source: String, email: String) {
+    func createCustomerStripeAccountWith(customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: (success: Bool, error: NSError?) -> ()) {
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         
         /* Create session, and optionally set a NSURLSessionDelegate. */
@@ -112,10 +112,14 @@ class StripeAPI {
             if (error == nil) {
                 // Success
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
-                print("URL Session Task Succeeded: HTTP \(statusCode)")
+                
+                if statusCode == 200 {
+                    completion(success: true, error: nil)
+                }
             }
             else {
                 // Failure
+                completion(success: false, error: error)
                 print("URL Session Task Failed: %@", error!.localizedDescription);
             }
         })
@@ -123,9 +127,8 @@ class StripeAPI {
         session.finishTasksAndInvalidate()
     }
     
-    
     // Send the charge to Stripe
-    func sendChargeToStripeWith(amount: String, source: String, description: String) {
+    func sendChargeToStripeWith(amount: String, source: String, description: String, completion: (success: Bool, error: NSError?) -> ()) {
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         
         /* Create session, and optionally set a NSURLSessionDelegate. */
@@ -160,10 +163,13 @@ class StripeAPI {
             if (error == nil) {
                 // Success
                 let statusCode = (response as! NSHTTPURLResponse).statusCode
-                print("URL Session Task Succeeded: HTTP \(statusCode)")
+                if statusCode == 200 {
+                    completion(success: true, error: nil)
+                }
             }
             else {
                 // Failure
+                completion(success: false, error: error)
                 print("URL Session Task Failed: %@", error!.localizedDescription);
             }
         })

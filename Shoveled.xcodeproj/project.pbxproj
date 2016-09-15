@@ -34,7 +34,6 @@
 		615526421BF90BDE006D7862 /* Rajdhani-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6155263D1BF90BDE006D7862 /* Rajdhani-Regular.ttf */; };
 		615526431BF90BDE006D7862 /* Rajdhani-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6155263E1BF90BDE006D7862 /* Rajdhani-SemiBold.ttf */; };
 		616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 616A5F561C728B0500A81AE5 /* Localizable.strings */; };
-		617031331C7D4B5600297A25 /* API+Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617031321C7D4B5600297A25 /* API+Firebase.swift */; };
 		617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617031381C7D53B100297A25 /* ShovelAnnotationView.swift */; };
 		617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFC81BE306E000E61546 /* WelcomeView.swift */; };
 		617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCD1BE59B7300E61546 /* WeatherCell.swift */; };
@@ -111,7 +110,6 @@
 		6155263D1BF90BDE006D7862 /* Rajdhani-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rajdhani-Regular.ttf"; path = "../Rajdhani-Regular.ttf"; sourceTree = "<group>"; };
 		6155263E1BF90BDE006D7862 /* Rajdhani-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rajdhani-SemiBold.ttf"; path = "../Rajdhani-SemiBold.ttf"; sourceTree = "<group>"; };
 		616A5F561C728B0500A81AE5 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
-		617031321C7D4B5600297A25 /* API+Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "API+Firebase.swift"; sourceTree = SOURCE_ROOT; };
 		617031381C7D53B100297A25 /* ShovelAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelAnnotationView.swift; sourceTree = "<group>"; };
 		617ECFC81BE306E000E61546 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		617ECFCD1BE59B7300E61546 /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
@@ -193,6 +191,15 @@
 			name = Manager;
 			sourceTree = "<group>";
 		};
+		6115A5301D89E80B001FC3B6 /* WebServices */ = {
+			isa = PBXGroup;
+			children = (
+				6125EA6E1D37309B006ED343 /* Networking.swift */,
+				6125EA6C1D37300E006ED343 /* StripeAPI.swift */,
+			);
+			name = WebServices;
+			sourceTree = "<group>";
+		};
 		614E783C1C0022D000314390 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,8 +268,6 @@
 			children = (
 				618FBD771C8695E400A6504F /* ShovelRequest.swift */,
 				618595B61D1CC38C004EB4D4 /* User.swift */,
-				6125EA6C1D37300E006ED343 /* StripeAPI.swift */,
-				6125EA6E1D37309B006ED343 /* Networking.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -351,8 +356,8 @@
 		61ED024F1BAE46A0006B22B7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6115A5301D89E80B001FC3B6 /* WebServices */,
 				6115A52D1D89D24D001FC3B6 /* Manager */,
-				617031321C7D4B5600297A25 /* API+Firebase.swift */,
 				61E73B8F1C1FC8F2000D7872 /* Model */,
 				61ED02231BAE43F3006B22B7 /* Shoveled.xcdatamodeld */,
 				61A354901BCF39520071B5BE /* Icon.swift */,
@@ -716,7 +721,6 @@
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,
 				617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */,
 				61A354931BCF397B0071B5BE /* Forecast.swift in Sources */,
-				617031331C7D4B5600297A25 /* API+Firebase.swift in Sources */,
 				614E78411C00E82800314390 /* UsersLocation.swift in Sources */,
 				61A3549B1BCF4D8C0071B5BE /* BackgroundView.swift in Sources */,
 				61FEC6801C8B575200D25128 /* SideMenuViewControllerTableViewController.swift in Sources */,

@@ -160,7 +160,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         actInd.hidden = false
         actInd.startAnimating()
         // If you have your own form for getting credit card information, you can construct
-        // your own STPCardParams from number, month, year, and CVV.
+        // your own STPCardParams from number, month, year, and CVV.    
         let card = paymentTextField.cardParams
         
         STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
@@ -172,13 +172,17 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             if !stripeToken.tokenId.isEmpty {
                 guard let amount = self.tfPrice.text else { return }
                 let price:Int = Int(amount)! * 100
-                StripeAPI.sharedInstance.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Request From \(self.getUserEmail())")
+                
+                StripeManager.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (success, error) in
+                    
+                })
                 
                 self.addRequestOnSuccess()
                 // display success message and send email with confirmation
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
                 self.actInd.stopAnimating()
+            
             }
         }
     }

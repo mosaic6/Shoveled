@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/FutureKit/FutureKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Stripe/Stripe.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftSpinner/SwiftSpinner.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/paper-onboarding/paper_onboarding.framework"
 fi
 if [[ "$CONFIGURATION" == "QA" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
@@ -96,6 +97,7 @@ if [[ "$CONFIGURATION" == "QA" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/FutureKit/FutureKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Stripe/Stripe.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftSpinner/SwiftSpinner.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/paper-onboarding/paper_onboarding.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/AFNetworking/AFNetworking.framework"
@@ -103,4 +105,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/FutureKit/FutureKit.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Stripe/Stripe.framework"
   install_framework "$BUILT_PRODUCTS_DIR/SwiftSpinner/SwiftSpinner.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/paper-onboarding/paper_onboarding.framework"
 fi

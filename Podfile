@@ -14,4 +14,5 @@ target 'Shoveled' do
     pod 'Firebase/Messaging'
     pod 'Firebase/Storage'    
     pod 'FutureKit', '~> 2.0'
+    pod 'paper-onboarding'
 end
