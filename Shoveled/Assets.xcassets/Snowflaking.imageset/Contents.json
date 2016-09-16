@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Snowflaking.pdf",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Snowflaking.pdf",
       "scale" : "2x"
     },
     {
