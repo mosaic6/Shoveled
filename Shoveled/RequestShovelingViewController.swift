@@ -39,6 +39,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var sendToStripeBtn: UIButton! = nil
     var priceLabel: UILabel! = nil
     var paymentToken: PKPaymentToken!
+    var container: UIView = UIView()
+    var loadingView: UIView = UIView()
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     
     static let supportedNetworks = [
         PKPaymentNetworkAmex,
@@ -53,7 +57,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         self.configureAppearance()
         getUserEmail()
         
-        StripeManager.getCustomers(withId: "") { (result) in
+        StripeManager.getCustomers() { (result) in
             
         }
         
@@ -157,10 +161,12 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     
     @IBAction func submitCard(sender: AnyObject?) {
         
-        actInd.hidden = false
-        actInd.startAnimating()
-        // If you have your own form for getting credit card information, you can construct
-        // your own STPCardParams from number, month, year, and CVV.    
+        dispatch_async(dispatch_get_main_queue()) { 
+            self.paymentTextField.resignFirstResponder()
+        }        
+        
+        showActivityIndicatory(self.view)
+        
         let card = paymentTextField.cardParams
         
         STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
@@ -173,6 +179,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 guard let amount = self.tfPrice.text else { return }
                 let price:Int = Int(amount)! * 100
                 
+//                StripeManager.createCustomerStripeAccountWith("New Shoveled Customer", source: String(stripeToken.tokenId), email: self.getUserEmail(), completion: { (success, error) in
+//                    
+//                })
+//                
                 StripeManager.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (success, error) in
                     
                 })
@@ -181,7 +191,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 // display success message and send email with confirmation
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
-                self.actInd.stopAnimating()
+                self.hideActivityIndicator(self.view)
             
             }
         }
@@ -267,7 +277,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         guard let otherInfo = self.tfShovelTime.text else { return }
         guard let price = self.tfPrice.text else { return }
         guard let email = FIRAuth.auth()?.currentUser?.email else { return }
-        let shovelRequest = ShovelRequest(address: address, addedByUser: email, completed: false, accepted: false, latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price))
+        let date = NSDate()
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
+        let dateString = dateFormatter.stringFromDate(date)
+        let shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString)
         
         let requestName = self.ref.child("/requests/\(postId)")
         
@@ -302,14 +316,31 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         self.view.endEditing(true)
     }
     
-    func startSpinner() {
-        actInd.hidden = false
+    func showActivityIndicatory(uiView: UIView) {
+        container.frame = uiView.frame
+        container.center = uiView.center
+        container.backgroundColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 0.5)
+        
+        loadingView.frame = CGRectMake(0, 0, 80, 80)
+        loadingView.center = uiView.center
+        loadingView.backgroundColor = UIColor(red: 68.0/255.0, green: 68.0/255.0, blue: 68.0/255.0, alpha: 0.8)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+        actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.WhiteLarge
+        actInd.center = CGPointMake(loadingView.frame.size.width / 2,
+                                    loadingView.frame.size.height / 2);
+        loadingView.addSubview(actInd)
+        container.addSubview(loadingView)
+        uiView.addSubview(container)
         actInd.startAnimating()
     }
     
-    func stopSpinner() {
-        actInd.hidden = true
-        actInd.stopAnimating()
+    func hideActivityIndicator(uiView: UIView) {
+        activityIndicator.stopAnimating()
+        container.removeFromSuperview()
     }
-    
 }

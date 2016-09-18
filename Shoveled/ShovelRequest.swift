@@ -18,19 +18,21 @@ class ShovelRequest: NSObject {
     var addedByUser: String
     var otherInfo: String
     var price: NSNumber
-    var completed: Bool
-    var accepted: Bool
+    var status: String
+    var id: String
+    var createdAt: String
     
-    init(address: String, addedByUser: String, completed: Bool, accepted: Bool, latitude: NSNumber, longitude: NSNumber, details: String, otherInfo: String, price: NSNumber) {
+    init(address: String, addedByUser: String, status: String, latitude: NSNumber, longitude: NSNumber, details: String, otherInfo: String, price: NSNumber, id: String, createdAt: String) {
         self.address = address
         self.addedByUser = addedByUser
-        self.completed = completed
-        self.accepted = accepted
+        self.status = status
         self.latitude = latitude
         self.longitude = longitude
         self.details = details
         self.otherInfo = otherInfo
         self.price = price
+        self.id = id
+        self.createdAt = createdAt
     }
     
     func toAnyObject() -> AnyObject {
@@ -42,11 +44,12 @@ class ShovelRequest: NSObject {
             "longitude": longitude,
             "otherInfo": otherInfo,
             "price": price,
-            "completed": completed,
-            "accepted": accepted
+            "status": status,
+            "id": id,
+            "createdAt": createdAt
         ]
     }
     convenience override init() {
-        self.init(address: "", addedByUser: "", completed: false, accepted: false, latitude: 0, longitude: 0, details: "", otherInfo: "", price: 0.0)
+        self.init(address: "", addedByUser: "", status: "", latitude: 0, longitude: 0, details: "", otherInfo: "", price: 0.0, id: "", createdAt: "")
     }
 }

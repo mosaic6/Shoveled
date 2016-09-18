@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="16A320" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -21,13 +20,13 @@
         </mutableArray>
         <mutableArray key="Rajdhani-Bold.ttf">
             <string>Rajdhani-Bold</string>
-            <string>Rajdhani-Bold</string>
-            <string>Rajdhani-Bold</string>
         </mutableArray>
         <mutableArray key="Rajdhani-Medium.ttf">
             <string>Rajdhani-Medium</string>
         </mutableArray>
         <mutableArray key="Rajdhani-Regular.ttf">
+            <string>Rajdhani-Regular</string>
+            <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
             <string>Rajdhani-Regular</string>
@@ -228,7 +227,7 @@
                                             <constraint firstAttribute="width" constant="600" id="Ums-O3-Nhs"/>
                                             <constraint firstAttribute="height" constant="45" id="saE-l5-Dlm"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="15"/>
+                                        <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
                                         <state key="normal" title="Get Shoveled Out">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -507,8 +506,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="Sg7-Zo-l17"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="15"/>
-                                        <state key="normal" title="Accept">
+                                        <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
+                                        <state key="normal">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -612,6 +611,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="acceptBtn" destination="CRu-Wi-ZGs" id="FhN-Ym-1Aj"/>
                         <outlet property="addressLabel" destination="7sO-lo-cgE" id="r5S-IB-O4A"/>
                         <outlet property="descriptionLabel" destination="aCB-U0-TdD" id="UoG-30-lTy"/>
                         <outlet property="priceLabel" destination="FRQ-8e-KGw" id="snv-CN-pjW"/>
@@ -904,6 +904,6 @@
         <image name="snowBG" width="1024" height="680"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6Et-N2-jBP"/>
+        <segue reference="2R3-lk-DrQ"/>
     </inferredMetricsTieBreakers>
 </document>

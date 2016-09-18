@@ -12,9 +12,17 @@ class StripeManager {
     
     
     // Get Customers
-    class func getCustomers(withId customerId: String, completion: (result: NSDictionary) -> ()) {
+    class func getCustomers(completion: (customerEmail: String) -> ()) {
         StripeAPI.sharedInstance.getCustomers { (result, error) in
-            print(result)
+            if let result = result {
+                if let data = result.objectForKey("data") as? [NSDictionary] {
+                    for customers in data {
+                        if let email = customers.objectForKey("email") as? String {
+                            completion(customerEmail: email)
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -31,10 +39,19 @@ class StripeManager {
     // Create Customer 
     class func createCustomerStripeAccountWith(customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: (success: Bool, error: NSError?) -> ()) {
         
-        StripeAPI.sharedInstance.createCustomerStripeAccountWith(customerDesciption, source: source, email: email) { (success, error) in
-            if success {
-                print("Customer Created!")
+        let error: NSError? = nil
+        getCustomers { (customerEmail) in
+            if email == customerEmail {
+                completion(success: false, error: error)
             }
+            else {
+                completion(success: true, error: nil)
+                StripeAPI.sharedInstance.createCustomerStripeAccountWith(customerDesciption, source: source, email: email) { (success, error) in
+                    if success {
+                        print("Customer Created!")
+                    }
+                }
+            }            
         }
     }
 }

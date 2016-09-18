@@ -1,4 +1,4 @@
-//
+    //
 //  CurrentStatusViewController.swift
 //  Shoveled
 //
@@ -41,7 +41,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var nearArray : [CLLocationCoordinate2D] = []
     var userLat: Double!
     var userLong: Double!
-    var owner: String!
+    var requestStatus: String!
     var delegate: CurrentStatusControllerDelegate?
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().referenceWithPath("requests")
     
@@ -54,6 +54,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         getCurrentLocation()
         getShovelRequests()
         configureView()
+        
+        let currentUser = FIRAuth.auth()?.currentUser?.email
+        print(currentUser)
         
         UIApplication.sharedApplication().registerForRemoteNotifications()
     }
@@ -140,14 +143,15 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             for item in snapshot.children {
                 guard let address = item.value["address"] as? String else { return }
                 guard let addedByUser = item.value["addedByUser"] as? String else { return }
-                self.owner = item.value["addedByUser"] as? String
-                guard let completed = item.value["completed"] as? Bool else { return }
-                guard let accepted = item.value["accepted"] as? Bool else { return }
+                guard let status = item.value["status"] as? String else { return }
                 guard let latitude = item.value["latitude"] as? NSNumber else { return }
                 guard let longitude = item.value["longitude"] as? NSNumber else { return }
                 guard let details = item.value["details"] as? String else { return }
                 guard let otherInfo = item.value["otherInfo"] as? String else { return }
                 guard let price = item.value["price"] as? NSNumber else { return }
+                guard let id = item.value["id"] as? String else { return }
+                guard let createdAt = item.value["createdAt"] as? String else { return }                            
+                
                 
                 self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
                 self.nearArray.append(self.theirLocation)
@@ -155,7 +159,33 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     let annotationsToRemove = self.mapView.annotations.filter { $0 !== self.mapView.userLocation } as? MKAnnotation
                     self.mapView.removeAnnotation(annotationsToRemove!)
                 } else {
-                    let mapAnnotation = ShovelAnnotation(address: address, coordinate: self.theirLocation, completed: completed, accepted: accepted, price: String(price), details: details, otherInfo: otherInfo, addedByUser: addedByUser)
+                    let mapAnnotation = ShovelAnnotation(
+                        address: address,
+                        coordinate: self.theirLocation,
+                        latitude: latitude,
+                        longitude: longitude,
+                        status: status,
+                        price: String(price),
+                        details: details,
+                        otherInfo: otherInfo,
+                        addedByUser: addedByUser,
+                        id: id,
+                        createdAt: createdAt)
+                    
+                    
+                    if status == "Active" {
+                        self.requestStatus = status
+                    }
+                    if status == "Accepted" {
+                        self.requestStatus = status
+                    }
+                    if status == "Completed" {
+                        dispatch_async(dispatch_get_main_queue(), { 
+                            self.mapView.removeAnnotation(mapAnnotation) 
+                        })
+                        
+                    }
+                    
                     dispatch_async(dispatch_get_main_queue(), {
                         self.mapView.addAnnotation(mapAnnotation)
                     })
@@ -187,5 +217,63 @@ extension CurrentStatusViewController: SidePanelViewControllerDelegate {
     func cellSelected(cell: MenuItems) {
         
         delegate?.collapseSidePanels?()
+    }
+}
+
+extension CurrentStatusViewController: MKMapViewDelegate {
+    
+    //MARK: - MapView Delegate
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if let annotation = annotation as? ShovelAnnotation {
+            let identifier = "ShovelAnnotation"
+            var view: MKPinAnnotationView!
+            if let deqeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView {
+                deqeuedView.annotation = annotation
+                view = deqeuedView
+            } else {
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.calloutOffset = CGPoint(x: -8, y: 0)
+                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+                
+                dispatch_async(dispatch_get_main_queue(), { 
+                    if self.requestStatus == "Active" {
+                        view.pinTintColor = UIColor.greenColor()
+                    }
+                    if self.requestStatus == "Accepted" {
+                        view.pinTintColor = UIColor.orangeColor()
+                    }
+                    if self.requestStatus == "Completed" {
+                        view.hidden = true
+                    }
+                })
+                
+            }
+            return view
+        }
+        return nil
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        
+        let shovel = view.annotation as! ShovelAnnotation
+        
+        let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("AcceptRequestViewController") as? AcceptRequestViewController
+        
+        if let requestVC = requestDetailsView {
+            requestVC.addressString = shovel.title
+            requestVC.descriptionString = shovel.details
+            requestVC.longitude = shovel.longitude
+            requestVC.latitude = shovel.latitude
+            requestVC.priceString = shovel.price
+            requestVC.addedByUser = shovel.addedByUser
+            requestVC.otherInfoString = shovel.otherInfo
+            requestVC.status = shovel.status
+            requestVC.id = shovel.id
+            requestVC.createdAt = shovel.createdAt
+            
+            self.presentViewController(requestVC, animated: true, completion: nil)
+        }
     }
 }

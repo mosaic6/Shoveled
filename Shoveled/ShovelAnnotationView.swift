@@ -11,24 +11,29 @@ import MapKit
 class ShovelAnnotation: NSObject, MKAnnotation {
     let title: String?
     let coordinate: CLLocationCoordinate2D
-    let completed: Bool
-    let accepted: Bool
+    let latitude: NSNumber?
+    let longitude: NSNumber?
+    let status: String?
     let price: String?
     let details: String?
     let otherInfo: String?
     let addedByUser: String?
+    let id: String?
+    let createdAt: String?
     
-    init(address: String, coordinate: CLLocationCoordinate2D, completed: Bool, accepted: Bool, price: String, details: String, otherInfo: String, addedByUser: String) {
+    init(address: String, coordinate: CLLocationCoordinate2D, latitude: NSNumber, longitude: NSNumber, status: String, price: String, details: String, otherInfo: String, addedByUser: String, id: String, createdAt: String) {
         self.title = address
         self.coordinate = coordinate
-        self.completed = completed
-        self.accepted = accepted
+        self.latitude = latitude
+        self.longitude = longitude
+        self.status = status
         self.price = price
         self.details = details
         self.otherInfo = otherInfo
         self.addedByUser = addedByUser
+        self.id = id
+        self.createdAt = createdAt  
         
-        super.init()
     }
     
     var subtitle: String? {

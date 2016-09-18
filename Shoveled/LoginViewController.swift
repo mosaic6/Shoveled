@@ -10,7 +10,6 @@ import UIKit
 import Crashlytics
 import Firebase
 import FirebaseAuth
-import PaperOnboarding
 
 class LoginViewController: UIViewController {
     
@@ -32,8 +31,6 @@ class LoginViewController: UIViewController {
     var currentStatusVC = CurrentStatusViewController()
     var ref:FIRDatabaseReference!
     var alert: UIAlertController!
-    
-    let onboarding = PaperOn
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -205,11 +202,11 @@ class LoginViewController: UIViewController {
         } else {
             FIRAuth.auth()?.signInWithEmail(usernameString, password: passwordString, completion: { (user, error) in                
                 if let error = error {
-                    self.alert.showMessagePrompt(error.localizedDescription)
+                    print(error)
                 } else if let user = user {
-                    self.ref.child("users").child(user.uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                    self.ref.child("users").child(user.uid).observeSingleEventOfType(.Value, withBlock: { snapshot in                        
                     })
+                    self.dismissViewControllerAnimated(true, completion: nil)
                 }
             })
         }

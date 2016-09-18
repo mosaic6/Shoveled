@@ -40,7 +40,7 @@ class StripeAPI {
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        
+        let semaphore = dispatch_semaphore_create(0)
         /* Start a new Task */
         let task = session.dataTaskWithRequest(request, completionHandler: { (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             if (error == nil) {
@@ -65,6 +65,7 @@ class StripeAPI {
                         }
                     }
                     completion(result: parsedObject as? NSDictionary, error: serializationError)
+                    dispatch_semaphore_signal(semaphore)
                 }
                 
             }
