@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import Foundation
+
+var container: UIView = UIView()
+var loadingView: UIView = UIView()
+var actInd = UIActivityIndicatorView()
 
 extension UIColor {
   convenience init(colorArray array: NSArray) {
@@ -17,26 +22,6 @@ extension UIColor {
   }
 }
 
-extension UIAlertController {
-    
-    func supportsAlertController() -> Bool {
-        return NSClassFromString("UIAlertController") != nil
-    }
-    
-    func showMessagePrompt(message: String) {
-        if self.supportsAlertController() {
-            let alert: UIAlertController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
-            let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-            alert.addAction(okAction)
-            self.presentViewController(alert, animated: true, completion: { _ in })
-        }
-        else {
-            let alert: UIAlertView = UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: nil, otherButtonTitles: "OK")
-            alert.show()
-        }
-    }
-}
-
 extension UIViewController {
     func showSpinner(style: UIActivityIndicatorViewStyle) {
         let actInd: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
@@ -45,5 +30,35 @@ extension UIViewController {
         actInd.activityIndicatorViewStyle = style
         view.addSubview(actInd)
         actInd.startAnimating()
+    }
+}
+
+extension UIViewController {    
+    func showActivityIndicatory(uiView: UIView) {
+        container.frame = uiView.frame
+        container.center = uiView.center
+        container.backgroundColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 0.5)
+        
+        loadingView.frame = CGRectMake(0, 0, 80, 80)
+        loadingView.center = uiView.center
+        loadingView.backgroundColor = UIColor(red: 68.0/255.0, green: 68.0/255.0, blue: 68.0/255.0, alpha: 0.8)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
+        actInd.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
+        actInd.activityIndicatorViewStyle =
+            UIActivityIndicatorViewStyle.WhiteLarge
+        actInd.center = CGPointMake(loadingView.frame.size.width / 2,
+                                    loadingView.frame.size.height / 2);
+        loadingView.addSubview(actInd)
+        container.addSubview(loadingView)
+        uiView.addSubview(container)
+        actInd.startAnimating()
+    }
+    
+    func hideActivityIndicator(uiView: UIView) {
+        actInd.stopAnimating()
+        container.removeFromSuperview()
     }
 }

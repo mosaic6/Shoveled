@@ -34,16 +34,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var items = [ShovelRequest]()
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     weak var toolBar: UIToolbar!
-    var actInd = UIActivityIndicatorView()
     var paymentTextField: STPPaymentCardTextField! = nil
     var sendToStripeBtn: UIButton! = nil
     var priceLabel: UILabel! = nil
     var paymentToken: PKPaymentToken!
-    var container: UIView = UIView()
-    var loadingView: UIView = UIView()
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    
-    
+        
     static let supportedNetworks = [
         PKPaymentNetworkAmex,
         PKPaymentNetworkDiscover,
@@ -314,33 +309,5 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     
     func done() {
         self.view.endEditing(true)
-    }
-    
-    func showActivityIndicatory(uiView: UIView) {
-        container.frame = uiView.frame
-        container.center = uiView.center
-        container.backgroundColor = UIColor(red: 155.0/255.0, green: 155.0/255.0, blue: 155.0/255.0, alpha: 0.5)
-        
-        loadingView.frame = CGRectMake(0, 0, 80, 80)
-        loadingView.center = uiView.center
-        loadingView.backgroundColor = UIColor(red: 68.0/255.0, green: 68.0/255.0, blue: 68.0/255.0, alpha: 0.8)
-        loadingView.clipsToBounds = true
-        loadingView.layer.cornerRadius = 10
-        
-        let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-        actInd.frame = CGRectMake(0.0, 0.0, 40.0, 40.0);
-        actInd.activityIndicatorViewStyle =
-            UIActivityIndicatorViewStyle.WhiteLarge
-        actInd.center = CGPointMake(loadingView.frame.size.width / 2,
-                                    loadingView.frame.size.height / 2);
-        loadingView.addSubview(actInd)
-        container.addSubview(loadingView)
-        uiView.addSubview(container)
-        actInd.startAnimating()
-    }
-    
-    func hideActivityIndicator(uiView: UIView) {
-        activityIndicator.stopAnimating()
-        container.removeFromSuperview()
-    }
+    }            
 }

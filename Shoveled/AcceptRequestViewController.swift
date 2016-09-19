@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 
 class AcceptRequestViewController: UIViewController {
 
@@ -28,9 +29,9 @@ class AcceptRequestViewController: UIViewController {
     var status: String?
     var id: String?
     var createdAt: String?
-
     
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().referenceWithPath("requests")
+    let currentUser = FIRAuth.auth()?.currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +42,16 @@ class AcceptRequestViewController: UIViewController {
     
     func configureView() {
         
+        if currentUser?.email == addedByUser {
+            acceptBtn.setTitle("My Request", forState: .Normal)
+            acceptBtn.enabled = false
+        }
+        
         guard let description = descriptionString else { return }
         guard let price = priceString else { return }
         addressLabel.text = addressString?.uppercaseString
         descriptionLabel.text = "Please Shovel: \(description)".uppercaseString
-        priceLabel.text = "Price: \(price)".uppercaseString
+        priceLabel.text = "Will Pay: $\(price).00".uppercaseString
         if let moreInfoString = otherInfoString where moreInfoString == "" {
             shovelTimeLabel.text = "No more details for you!".uppercaseString
         }
@@ -56,6 +62,11 @@ class AcceptRequestViewController: UIViewController {
         guard let rStatus = status else { return }
         if rStatus == "Accepted" {
             acceptBtn.setTitle("In Progress", forState: .Normal)
+            acceptBtn.backgroundColor = UIColor(red: 35.0/255.0, green: 35.0/255.0, blue: 35.0/255.0, alpha: 0.8)
+            acceptBtn.enabled = false
+        }
+        else if rStatus == "Completed" {
+            acceptBtn.setTitle("Completed", forState: .Normal)
             acceptBtn.backgroundColor = UIColor(red: 35.0/255.0, green: 35.0/255.0, blue: 35.0/255.0, alpha: 0.8)
             acceptBtn.enabled = false
         }
@@ -71,6 +82,8 @@ class AcceptRequestViewController: UIViewController {
     }
     
     @IBAction func acceptRequest(sender: AnyObject) {                
+        
+        
         
         guard let requestId = id,
             address = addressString,
@@ -97,12 +110,6 @@ class AcceptRequestViewController: UIViewController {
     }
     
     @IBAction func dismissView(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-    }
-    
-    func updateRequestAsAccepted() -> Bool {
-        
-        return false
+        self.dismissViewControllerAnimated(true, completion: nil)        
     }
 }

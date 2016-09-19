@@ -49,11 +49,11 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.mapView.delegate = self
+        mapView.delegate = self
         SwiftSpinner.show("Are those snowflakes?")
         getCurrentLocation()
-        getShovelRequests()
         configureView()
+        getShovelRequests()
         
         let currentUser = FIRAuth.auth()?.currentUser?.email
         print(currentUser)
@@ -152,45 +152,27 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 guard let id = item.value["id"] as? String else { return }
                 guard let createdAt = item.value["createdAt"] as? String else { return }                            
                 
+                self.requestStatus = status
                 
                 self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
                 self.nearArray.append(self.theirLocation)
-                if self.nearArray.isEmpty {
-                    let annotationsToRemove = self.mapView.annotations.filter { $0 !== self.mapView.userLocation } as? MKAnnotation
-                    self.mapView.removeAnnotation(annotationsToRemove!)
-                } else {
-                    let mapAnnotation = ShovelAnnotation(
-                        address: address,
-                        coordinate: self.theirLocation,
-                        latitude: latitude,
-                        longitude: longitude,
-                        status: status,
-                        price: String(price),
-                        details: details,
-                        otherInfo: otherInfo,
-                        addedByUser: addedByUser,
-                        id: id,
-                        createdAt: createdAt)
-                    
-                    
-                    if status == "Active" {
-                        self.requestStatus = status
-                    }
-                    if status == "Accepted" {
-                        self.requestStatus = status
-                    }
-                    if status == "Completed" {
-                        dispatch_async(dispatch_get_main_queue(), { 
-                            self.mapView.removeAnnotation(mapAnnotation) 
-                        })
-                        
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.mapView.addAnnotation(mapAnnotation)
-                    })
-                }
+
+                let mapAnnotation = ShovelAnnotation(
+                    address: address,
+                    coordinate: self.theirLocation,
+                    latitude: latitude,
+                    longitude: longitude,
+                    status: status,
+                    price: String(price),
+                    details: details,
+                    otherInfo: otherInfo,
+                    addedByUser: addedByUser,
+                    id: id,
+                    createdAt: createdAt)
                 
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.mapView.addAnnotation(mapAnnotation)
+                })
             }            
         }, withCancelBlock: {error in
             print(error.description)
@@ -225,35 +207,26 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     //MARK: - MapView Delegate
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
-        if let annotation = annotation as? ShovelAnnotation {
-            let identifier = "ShovelAnnotation"
-            var view: MKPinAnnotationView!
-            if let deqeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView {
-                deqeuedView.annotation = annotation
-                view = deqeuedView
-            } else {
-                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.canShowCallout = true
-                view.calloutOffset = CGPoint(x: -8, y: 0)
-                view.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
-                
-                dispatch_async(dispatch_get_main_queue(), { 
-                    if self.requestStatus == "Active" {
-                        view.pinTintColor = UIColor.greenColor()
-                    }
-                    if self.requestStatus == "Accepted" {
-                        view.pinTintColor = UIColor.orangeColor()
-                    }
-                    if self.requestStatus == "Completed" {
-                        view.hidden = true
-                    }
-                })
-                
-            }
-            return view
+        if (annotation is MKUserLocation) { return nil }
+        
+        let identifier = "ShovelAnnotation"
+        var view = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+        if view != nil {
+            view?.annotation = annotation
         }
-        return nil
+        else {
+            view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            view!.image = UIImage(named: "Snowflaking")
+            view!.canShowCallout = true
+            view!.calloutOffset = CGPoint(x: -8, y: 0)
+            view!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+        }
+        
+        return view
+        
     }
+    
+    
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         

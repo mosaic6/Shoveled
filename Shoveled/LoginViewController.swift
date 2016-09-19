@@ -218,7 +218,10 @@ class LoginViewController: UIViewController {
         
         FIRAuth.auth()?.sendPasswordResetWithEmail(usernameString) { error in
             if let error = error {
-                self.alert.showMessagePrompt(error.localizedDescription)
+                let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .Alert)
+                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alert.addAction(okAction)
+                self.presentViewController(alert, animated: true, completion: { _ in })
             } else {
                 let alert: UIAlertController = UIAlertController(title: nil, message: "Your reset password link has been emailed to you.", preferredStyle: .Alert)
                 let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
