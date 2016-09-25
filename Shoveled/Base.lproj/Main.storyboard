@@ -17,6 +17,7 @@
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
             <string>Marvel-Regular</string>
+            <string>Marvel-Regular</string>
         </mutableArray>
         <mutableArray key="Rajdhani-Bold.ttf">
             <string>Rajdhani-Bold</string>
@@ -566,11 +567,22 @@
                                     </mask>
                                 </variation>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gM2-x4-8Gw">
+                                <rect key="frame" x="459" y="28" width="121" height="40"/>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="23"/>
+                                <state key="normal" title="Cancel Request">
+                                    <color key="titleColor" red="0.79607844350000001" green="0.1098039225" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelRequest:" destination="dUN-69-lLl" eventType="touchUpInside" id="oMC-qp-mYc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="7sO-lo-cgE" secondAttribute="trailing" id="1JO-jd-PXA"/>
                             <constraint firstItem="7sO-lo-cgE" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="107" id="2qK-nj-6K1"/>
+                            <constraint firstItem="gM2-x4-8Gw" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="8" id="5NQ-4t-XOF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aCB-U0-TdD" secondAttribute="trailing" id="67u-Hx-d1l"/>
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="62" id="6qJ-nt-XPo"/>
                             <constraint firstItem="yAy-77-eci" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="bottom" id="HOE-fv-kfp"/>
@@ -579,6 +591,7 @@
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="leading" secondItem="I2q-Ks-OBi" secondAttribute="trailing" constant="114" id="JlF-3N-grj"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vzO-8m-fo5" secondAttribute="trailing" constant="158" id="K28-tS-Z5F"/>
                             <constraint firstAttribute="trailingMargin" secondItem="liO-iY-Q7Z" secondAttribute="trailing" id="SO1-hS-cX5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gM2-x4-8Gw" secondAttribute="trailing" id="Txg-Dv-RlA"/>
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="leading" secondItem="I2q-Ks-OBi" secondAttribute="trailing" constant="114" id="aIZ-Xh-MVc"/>
                             <constraint firstAttribute="leadingMargin" secondItem="FRQ-8e-KGw" secondAttribute="leading" id="bFu-Qj-iuZ"/>
                             <constraint firstItem="I2q-Ks-OBi" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="8" id="cTB-QT-BBw"/>
@@ -613,6 +626,7 @@
                     <connections>
                         <outlet property="acceptBtn" destination="CRu-Wi-ZGs" id="FhN-Ym-1Aj"/>
                         <outlet property="addressLabel" destination="7sO-lo-cgE" id="r5S-IB-O4A"/>
+                        <outlet property="cancelBtn" destination="gM2-x4-8Gw" id="Dx0-nf-c5G"/>
                         <outlet property="descriptionLabel" destination="aCB-U0-TdD" id="UoG-30-lTy"/>
                         <outlet property="priceLabel" destination="FRQ-8e-KGw" id="snv-CN-pjW"/>
                         <outlet property="shovelTimeLabel" destination="liO-iY-Q7Z" id="igU-Bu-4R2"/>
@@ -620,7 +634,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heh-KL-6Tg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1835" y="2643"/>
+            <point key="canvasLocation" x="1587" y="2625"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5mg-xD-AOq">
@@ -904,6 +918,6 @@
         <image name="snowBG" width="1024" height="680"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2R3-lk-DrQ"/>
+        <segue reference="6Et-N2-jBP"/>
     </inferredMetricsTieBreakers>
 </document>

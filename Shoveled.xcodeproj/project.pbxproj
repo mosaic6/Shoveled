@@ -47,6 +47,7 @@
 		61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354981BCF3EA00071B5BE /* ForecastService.swift */; };
 		61A3549B1BCF4D8C0071B5BE /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3549A1BCF4D8C0071B5BE /* BackgroundView.swift */; };
 		61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */; };
+		61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A932511D90BDF100E07134 /* CompleteRequestView.swift */; };
 		61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ED021C1BAE43F3006B22B7 /* AppDelegate.swift */; };
 		61ED02221BAE43F3006B22B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61ED02201BAE43F3006B22B7 /* Main.storyboard */; };
 		61ED02251BAE43F3006B22B7 /* Shoveled.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61ED02231BAE43F3006B22B7 /* Shoveled.xcdatamodeld */; };
@@ -120,6 +121,7 @@
 		61A354981BCF3EA00071B5BE /* ForecastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastService.swift; sourceTree = "<group>"; };
 		61A3549A1BCF4D8C0071B5BE /* BackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		61A932511D90BDF100E07134 /* CompleteRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestView.swift; sourceTree = "<group>"; };
 		61ED02191BAE43F3006B22B7 /* Shoveled.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoveled.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61ED021C1BAE43F3006B22B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61ED02211BAE43F3006B22B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */,
 				617031381C7D53B100297A25 /* ShovelAnnotationView.swift */,
 				61369D121CEBF6CF00079734 /* CustomTextField.swift */,
+				61A932511D90BDF100E07134 /* CompleteRequestView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -699,6 +702,7 @@
 				612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */,
 				61FEC6841C8B64C300D25128 /* ContainerViewController.swift in Sources */,
 				61A354971BCF3E580071B5BE /* NetworkOperations.swift in Sources */,
+				61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */,
 				612B41551BB0DC5D00331F9B /* LoginViewController.swift in Sources */,
 				61ED02251BAE43F3006B22B7 /* Shoveled.xcdatamodeld in Sources */,
 				6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */,

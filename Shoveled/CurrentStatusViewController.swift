@@ -19,6 +19,8 @@ protocol CurrentStatusControllerDelegate {
     optional func collapseSidePanels()
 }
 
+let completedOrCancelledNotification = "com.mosaic6.removePinNotification"
+    
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate {
 
     // MARK: Outlets
@@ -57,6 +59,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         
         let currentUser = FIRAuth.auth()?.currentUser?.email
         print(currentUser)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: "cancelRequest", object: nil)
         
         UIApplication.sharedApplication().registerForRemoteNotifications()
     }
@@ -151,6 +155,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 guard let price = item.value["price"] as? NSNumber else { return }
                 guard let id = item.value["id"] as? String else { return }
                 guard let createdAt = item.value["createdAt"] as? String else { return }                            
+                guard let acceptedByUser = item.value["acceptedByUser"] as? String else { return }
                 
                 self.requestStatus = status
                 
@@ -168,7 +173,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     otherInfo: otherInfo,
                     addedByUser: addedByUser,
                     id: id,
-                    createdAt: createdAt)
+                    createdAt: createdAt,
+                    acceptedByUser: acceptedByUser)
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.mapView.addAnnotation(mapAnnotation)
@@ -216,17 +222,14 @@ extension CurrentStatusViewController: MKMapViewDelegate {
         }
         else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-            view!.image = UIImage(named: "Snowflaking")
+            view!.image = UIImage(named: "mapPin")
             view!.canShowCallout = true
-            view!.calloutOffset = CGPoint(x: -8, y: 0)
+            view!.calloutOffset = CGPoint(x: 0, y: 0)
             view!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
         }
         
-        return view
-        
+        return view        
     }
-    
-    
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         
@@ -245,6 +248,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.status = shovel.status
             requestVC.id = shovel.id
             requestVC.createdAt = shovel.createdAt
+            requestVC.acceptedByUser = shovel.acceptedByUser
             
             self.presentViewController(requestVC, animated: true, completion: nil)
         }

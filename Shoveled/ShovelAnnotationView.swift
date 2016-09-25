@@ -20,8 +20,9 @@ class ShovelAnnotation: NSObject, MKAnnotation {
     let addedByUser: String?
     let id: String?
     let createdAt: String?
+    let acceptedByUser: String?
     
-    init(address: String, coordinate: CLLocationCoordinate2D, latitude: NSNumber, longitude: NSNumber, status: String, price: String, details: String, otherInfo: String, addedByUser: String, id: String, createdAt: String) {
+    init(address: String, coordinate: CLLocationCoordinate2D, latitude: NSNumber, longitude: NSNumber, status: String, price: String, details: String, otherInfo: String, addedByUser: String, id: String, createdAt: String, acceptedByUser: String) {
         self.title = address
         self.coordinate = coordinate
         self.latitude = latitude
@@ -32,7 +33,8 @@ class ShovelAnnotation: NSObject, MKAnnotation {
         self.otherInfo = otherInfo
         self.addedByUser = addedByUser
         self.id = id
-        self.createdAt = createdAt  
+        self.createdAt = createdAt
+        self.acceptedByUser = acceptedByUser
         
     }
     

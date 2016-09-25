@@ -178,16 +178,14 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 //                    
 //                })
 //                
-                StripeManager.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (success, error) in
-                    
-                })
+                StripeManager.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (success, error) in })
                 
                 self.addRequestOnSuccess()
+                
                 // display success message and send email with confirmation
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
                 self.hideActivityIndicator(self.view)
-            
             }
         }
     }
@@ -276,7 +274,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.stringFromDate(date)
-        let shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString)
+        let shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "")
         
         let requestName = self.ref.child("/requests/\(postId)")
         
