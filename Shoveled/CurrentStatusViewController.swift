@@ -143,6 +143,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     
     // MARK: - Fetch Request
     func getShovelRequests() {
+        self.showActivityIndicatory(self.view)
         ref.observeEventType(.Value, withBlock: { snapshot in
             for item in snapshot.children {
                 guard let address = item.value["address"] as? String else { return }
@@ -178,8 +179,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     self.mapView.addAnnotation(mapAnnotation)
+                    self.hideActivityIndicator(self.view)
                 })
-            }            
+            }
         }, withCancelBlock: {error in
             print(error.description)
         })

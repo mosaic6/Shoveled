@@ -1,4 +1,4 @@
-git_url "https://github.com/mosaic6/Shoveled"
+git_url "https://github.com/mosaic6/lp_certs"
 
 type "development" # The default type, can be: appstore, adhoc or development
 
