@@ -16,7 +16,7 @@ class ShoveledButton: UIButton {
         
         self.titleLabel?.text = ""
         self.layer.cornerRadius = 5.0
-        self.backgroundColor = UIColor(red: 78.0/255.0, green: 168.0/255.0, blue: 177.0/255.0, alpha: 1)
-        self.tintColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor(red: 78.0 / 255.0, green: 168.0 / 255.0, blue: 177.0 / 255.0, alpha: 1)
+        self.tintColor = UIColor.white
     }
 }

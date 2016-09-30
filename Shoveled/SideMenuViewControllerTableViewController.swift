@@ -11,13 +11,13 @@ import Firebase
 import FirebaseAuth
 
 protocol SidePanelViewControllerDelegate {
-    func cellSelected(cell: MenuItems)
+    func cellSelected(_ cell: MenuItems)
 }
 
 class SideMenuViewControllerTableViewController: UITableViewController {
 
     var delegate: SidePanelViewControllerDelegate?
-    var cellItems: Array<MenuItems>!
+    var cellItems: Array <MenuItems>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,24 +26,24 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cellItems == nil ? 0 : cellItems.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! MenuItemCell
-        cell.configureForItems(cellItems[indexPath.row])
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MenuItemCell
+        cell.configureForItems(cellItems[(indexPath as NSIndexPath).row])
         return cell
     }
     
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let selectedItem = cellItems[indexPath.row]
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = cellItems[(indexPath as NSIndexPath).row]
         if selectedItem.title == "Logout" {
             logoutUser()
         } 
@@ -52,7 +52,7 @@ class SideMenuViewControllerTableViewController: UITableViewController {
 
     func logoutUser() {
         try! FIRAuth.auth()!.signOut()
-        self.performSegueWithIdentifier("notLoggedIn", sender: nil)
+        self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
     }
     
 }

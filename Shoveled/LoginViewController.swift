@@ -29,7 +29,7 @@ class LoginViewController: UIViewController {
     let lblWelcome3 = UILabel()
     
     var currentStatusVC = CurrentStatusViewController()
-    var ref:FIRDatabaseReference!
+    var ref: FIRDatabaseReference!
     var alert: UIAlertController!
     
     override func viewDidLoad() {
@@ -39,21 +39,21 @@ class LoginViewController: UIViewController {
         animateLaunchView()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         if FIRAuth.auth()?.currentUser != nil {
             self.removeFromParentViewController()
         }
         ref = FIRDatabase.database().reference()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         lblWelcome1.center.x -= view.bounds.width
         lblWelcome2.center.x -= view.bounds.width
         lblWelcome3.center.x -= view.bounds.width
         tfExistingPassword.center.x -= view.bounds.width
         tfExistingUsername.center.x -= view.bounds.width
-        tfEmail.hidden = true
-        tfPassword.hidden = true
+        tfEmail.isHidden = true
+        tfPassword.isHidden = true
     }
     
     func configureView() {
@@ -63,7 +63,6 @@ class LoginViewController: UIViewController {
         let formGroup = CAAnimationGroup()
         formGroup.duration = 0.5
         formGroup.fillMode = kCAFillModeBackwards
-        formGroup.delegate = self
         formGroup.setValue("form", forKey: "name")
         formGroup.setValue(tfExistingUsername.layer, forKey: "layer")
         formGroup.setValue(tfExistingPassword.layer, forKey: "layer")
@@ -71,61 +70,61 @@ class LoginViewController: UIViewController {
         formGroup.setValue(tfPassword.layer, forKey: "layer")
         formGroup.setValue(tfPassword.layer, forKey: "layer")
         
-        tfExistingUsername.layer.addAnimation(formGroup, forKey: nil)
-        tfExistingPassword.layer.addAnimation(formGroup, forKey: nil)
+        tfExistingUsername.layer.add(formGroup, forKey: nil)
+        tfExistingPassword.layer.add(formGroup, forKey: nil)
         
         let scaleDown = CABasicAnimation(keyPath: "transform.scale")
         scaleDown.fromValue = 3.5
         scaleDown.toValue = 1.0
         
-        self.navigationController?.navigationBar.hidden = true  
+        self.navigationController?.navigationBar.isHidden = true  
         
-        let darkBlur = UIBlurEffect(style: .Light)
+        let darkBlur = UIBlurEffect(style: .light)
         let blurView = UIVisualEffectView(effect: darkBlur)
-        blurView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurView.frame = self.imgBackground.bounds
-        self.imgBackground.insertSubview(blurView, atIndex: 0)
+        self.imgBackground.insertSubview(blurView, at: 0)
         
-        lblWelcome1.textColor = UIColor.grayColor()
+        lblWelcome1.textColor = UIColor.gray
         lblWelcome1.text = "Snowed in?"
         lblWelcome1.font = UIFont(name: "Rajdhani-Bold", size: 28)
         lblWelcome1.numberOfLines = 5
-        lblWelcome1.frame = CGRectMake(10, 0, self.view.frame.width - 20, 250)
-        lblWelcome1.textAlignment = NSTextAlignment.Center
+        lblWelcome1.frame = CGRect(x: 10, y: 0, width: self.view.frame.width - 20, height: 250)
+        lblWelcome1.textAlignment = NSTextAlignment.center
         self.view.addSubview(lblWelcome1)
         
-        lblWelcome2.textColor = UIColor.grayColor()
+        lblWelcome2.textColor = UIColor.gray
         lblWelcome2.text = "Don't feel like shoveling?"
         lblWelcome2.font = UIFont(name: "Rajdhani-Bold", size: 28)
         lblWelcome2.numberOfLines = 5
-        lblWelcome2.frame = CGRectMake(10, 0, self.view.frame.width - 20, 250)
-        lblWelcome2.textAlignment = NSTextAlignment.Center
+        lblWelcome2.frame = CGRect(x: 10, y: 0, width: self.view.frame.width - 20, height: 250)
+        lblWelcome2.textAlignment = NSTextAlignment.center
         self.view.addSubview(lblWelcome2)
         
-        lblWelcome3.textColor = UIColor.grayColor()
+        lblWelcome3.textColor = UIColor.gray
         lblWelcome3.text = "Sign up and get shoveled out!"
         lblWelcome3.font = UIFont(name: "Rajdhani-Bold", size: 28)
         lblWelcome3.numberOfLines = 5
-        lblWelcome3.frame = CGRectMake(10, 0, self.view.frame.width - 20, 250)
-        lblWelcome3.textAlignment = NSTextAlignment.Center
+        lblWelcome3.frame = CGRect(x: 10, y: 0, width: self.view.frame.width - 20, height: 250)
+        lblWelcome3.textAlignment = NSTextAlignment.center
         self.view.addSubview(lblWelcome3)
     }
     
     
     // MARK: - SIGN UP NEW USER
     func signUpUser() {
-        guard let emailString = tfEmail.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
-        guard let passwordString = tfPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
+        guard let emailString = tfEmail.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
+        guard let passwordString = tfPassword.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
         
         if emailString.characters.count == 0 || passwordString.characters.count == 0 {
-            let alert = UIAlertController(title: "There was an error signing you up", message: "Please fill out all fields", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
-            self.presentViewController(alert, animated: true, completion: .None)
+            let alert = UIAlertController(title: "There was an error signing you up", message: "Please fill out all fields", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
+            self.present(alert, animated: true, completion: .none)
         } else {
-            let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0, 0, 150, 150)) as UIActivityIndicatorView
+            let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 150, height: 150)) as UIActivityIndicatorView
             spinner.startAnimating()
         
-            FIRAuth.auth()?.createUserWithEmail(emailString, password: passwordString) { (user, error) in
+            FIRAuth.auth()?.createUser(withEmail: emailString, password: passwordString) { (user, error) in
                 if let error = error {
                     print("::::: \(error)")
                 } else {
@@ -141,112 +140,112 @@ class LoginViewController: UIViewController {
         self.btnGetStarted.alpha = 0
         self.btnLogin.alpha = 0
         self.btnForgotPassword.alpha = 0
-        UIView.animateWithDuration(0.3, delay: 0.3, options: [.CurveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.3, delay: 0.3, options: UIViewAnimationOptions(), animations: {
             self.lblWelcome1.center.x += self.view.bounds.width
         }, completion: nil)
-        UIView.animateWithDuration(0.3, delay: 2.0, options: [.CurveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.3, delay: 2.0, options: UIViewAnimationOptions(), animations: {
             self.lblWelcome1.center.x -= self.view.bounds.width
             self.lblWelcome2.center.x += self.view.bounds.width
         }, completion: nil)
-        UIView.animateWithDuration(0.3, delay: 4.0, options: [.CurveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.3, delay: 4.0, options: UIViewAnimationOptions(), animations: {
             self.lblWelcome2.center.x -= self.view.bounds.width
             self.lblWelcome3.center.x += self.view.bounds.width
-            self.btnGetStarted.hidden = false
+            self.btnGetStarted.isHidden = false
             self.btnGetStarted.alpha = 1.0
-            self.btnLogin.hidden = false
+            self.btnLogin.isHidden = false
             self.btnLogin.alpha = 1.0
-            self.btnForgotPassword.hidden = true
+            self.btnForgotPassword.isHidden = true
         }, completion: nil)
     }
     
     // MARK: LOGIN AND SIGNUP METHODS
-    @IBAction func showLoginFom(sender: AnyObject) {
-        UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseInOut], animations: {
+    @IBAction func showLoginFom(_ sender: AnyObject) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.hideSignUpForm()
-            self.tfExistingUsername.hidden = false
-            self.tfExistingPassword.hidden = false
-            self.btnExistingLogin.hidden = false
-            self.btnLogin.hidden = true
-            self.btnGetStarted.hidden = false
-            self.btnForgotPassword.hidden = false
+            self.tfExistingUsername.isHidden = false
+            self.tfExistingPassword.isHidden = false
+            self.btnExistingLogin.isHidden = false
+            self.btnLogin.isHidden = true
+            self.btnGetStarted.isHidden = false
+            self.btnForgotPassword.isHidden = false
             self.btnForgotPassword.alpha = 1.0
         }, completion: nil)
     }
     
-    @IBAction func showSignUpForm(sender: AnyObject) {
-        UIView.animateWithDuration(0.3, delay: 0, options: [.CurveEaseInOut], animations: {
+    @IBAction func showSignUpForm(_ sender: AnyObject) {
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions(), animations: {
             self.lblWelcome3.center.x -= self.view.bounds.width
         }, completion: nil)
-        UIView.animateWithDuration(0.9, delay: 2.0, options: [.CurveEaseInOut], animations: {
-            self.tfEmail.hidden = false
-            self.tfPassword.hidden = false
-            self.btnSignUp.hidden = false
-            self.btnGetStarted.hidden = true
+        UIView.animate(withDuration: 0.9, delay: 2.0, options: UIViewAnimationOptions(), animations: {
+            self.tfEmail.isHidden = false
+            self.tfPassword.isHidden = false
+            self.btnSignUp.isHidden = false
+            self.btnGetStarted.isHidden = true
         }, completion: nil)
     }
     
-    @IBAction func signUpNewUser(sender: AnyObject) {
+    @IBAction func signUpNewUser(_ sender: AnyObject) {
         signUpUser()
     }
     
-    @IBAction func loginUser(sender: AnyObject) {
-        showSpinner(.WhiteLarge)
+    @IBAction func loginUser(_ sender: AnyObject) {
+        showSpinner(.whiteLarge)
         self.resignFirstResponder()
-        guard let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
-        guard let passwordString = tfExistingPassword.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
+        guard let usernameString = tfExistingUsername.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
+        guard let passwordString = tfExistingPassword.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
         
         if usernameString.characters.count == 0 || passwordString.characters.count == 0 {
-            let alert = UIAlertController(title: "There was an error logging in", message: "Please fill out all fields", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Cancel, handler: .None))
-            self.presentViewController(alert, animated: true, completion: .None)
+            let alert = UIAlertController(title: "There was an error logging in", message: "Please fill out all fields", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
+            self.present(alert, animated: true, completion: .none)
         } else {
-            FIRAuth.auth()?.signInWithEmail(usernameString, password: passwordString, completion: { (user, error) in                
+            FIRAuth.auth()?.signIn(withEmail: usernameString, password: passwordString, completion: { (user, error) in                
                 if let error = error {
                     print(error)
                 } else if let user = user {
-                    self.ref.child("users").child(user.uid).observeSingleEventOfType(.Value, withBlock: { snapshot in                        
+                    self.ref.child("users").child(user.uid).observeSingleEvent(of: .value, with: { snapshot in                        
                     })
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
             })
         }
     }
     
     // Reset Password
-    @IBAction func resetPassword(sender: AnyObject) {
-        guard let usernameString = tfExistingUsername.text?.stringByTrimmingCharactersInSet(NSCharacterSet .whitespaceCharacterSet()) else { return }
+    @IBAction func resetPassword(_ sender: AnyObject) {
+        guard let usernameString = tfExistingUsername.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
         
-        FIRAuth.auth()?.sendPasswordResetWithEmail(usernameString) { error in
+        FIRAuth.auth()?.sendPasswordReset(withEmail: usernameString) { error in
             if let error = error {
-                let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .Alert)
-                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .alert)
+                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(okAction)
-                self.presentViewController(alert, animated: true, completion: { _ in })
+                self.present(alert, animated: true, completion: { _ in })
             } else {
-                let alert: UIAlertController = UIAlertController(title: nil, message: "Your reset password link has been emailed to you.", preferredStyle: .Alert)
-                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let alert: UIAlertController = UIAlertController(title: nil, message: "Your reset password link has been emailed to you.", preferredStyle: .alert)
+                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(okAction)
-                self.presentViewController(alert, animated: true, completion: { _ in })
+                self.present(alert, animated: true, completion: { _ in })
             }
         }
     }
     
     
     func hideSignUpForm() {
-        self.lblWelcome3.hidden = true
-        self.btnGetStarted.hidden = true
-        self.tfEmail.hidden = true
-        self.tfPassword.hidden = true
-        self.btnSignUp.hidden = true
+        self.lblWelcome3.isHidden = true
+        self.btnGetStarted.isHidden = true
+        self.tfEmail.isHidden = true
+        self.tfPassword.isHidden = true
+        self.btnSignUp.isHidden = true
         self.tfExistingUsername.becomeFirstResponder()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        let nextTage=textField.tag+1;
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTage = textField.tag + 1;
         // Try to find next responder
-        let nextResponder=textField.superview?.viewWithTag(nextTage) as UIResponder!
+        let nextResponder = textField.superview?.viewWithTag(nextTage) as UIResponder!
         
-        if (nextResponder != nil){
+        if (nextResponder != nil) {
             // Found next responder, so set it.
             nextResponder?.becomeFirstResponder()
         }
@@ -258,18 +257,18 @@ class LoginViewController: UIViewController {
         return false // We do not want UITextField to insert line-breaks.
     }
     
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         
-        if let name = anim.valueForKey("name") as? String {
+        if let name = anim.value(forKey: "name") as? String {
             if name == "form" {
-                let layer = anim.valueForKey("layer") as? CALayer
+                let layer = anim.value(forKey: "layer") as? CALayer
                 anim.setValue(nil, forKey: "layer")
                 
                 let pulse = CABasicAnimation(keyPath: "transform.scale")
                 pulse.fromValue = 1.24
                 pulse.toValue = 1.0
                 pulse.duration = 0.20
-                layer?.addAnimation(pulse, forKey: nil)
+                layer?.add(pulse, forKey: nil)
             }
         }
     }

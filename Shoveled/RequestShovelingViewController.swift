@@ -12,7 +12,6 @@ import Stripe
 import Firebase
 import PassKit
 import Crashlytics
-import FutureKit
 
 @available(iOS 9.0, *)
 class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate, UITextFieldDelegate, STPPaymentCardTextFieldDelegate {
@@ -27,8 +26,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     
     //MARK: - Variables
     let locationManager = CLLocationManager()
-    var latitude: Double!
-    var longitude: Double!
+    var latitude: NSNumber!
+    var longitude: NSNumber!
     var coordinates: CLLocationCoordinate2D!
     var user: User!
     var items = [ShovelRequest]()
@@ -39,19 +38,17 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var priceLabel: UILabel! = nil
     var paymentToken: PKPaymentToken!
         
-    static let supportedNetworks = [
-        PKPaymentNetworkAmex,
-        PKPaymentNetworkDiscover,
-        PKPaymentNetworkMasterCard,
-        PKPaymentNetworkVisa
+    static let SupportedNetworks = [
+        PKPaymentNetwork.amex,
+        PKPaymentNetwork.discover,
+        PKPaymentNetwork.masterCard,
+        PKPaymentNetwork.visa
     ]
     
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureAppearance()
-        getUserEmail()
-        
         StripeManager.getCustomers() { (result) in
             
         }
@@ -60,7 +57,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         self.view.addGestureRecognizer(tap)        
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         getLocation()
@@ -76,13 +73,13 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         addToolBar(tfPrice)
         addToolBar(tfDescription)
         
-        payWIthCCButton.setTitle("Submit & Pay", forState: UIControlState.Normal)
+        payWIthCCButton.setTitle("Submit & Pay", for: UIControlState())
         
-        actInd.frame = CGRectMake(25, 25, 50, 50)
+        actInd.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         actInd.center = self.view.center
         actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-        actInd.hidden = true
+        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
+        actInd.isHidden = true
         view.addSubview(actInd)
         
         self.title = "Request"
@@ -91,7 +88,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     
     func getUserEmail() -> String {
         guard let email = FIRAuth.auth()?.currentUser?.email else { return "" }
-        
         return email
     }
     
@@ -103,7 +99,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
     
     //MARK: - Location Manager Delegate
-    
     func getLocation() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -111,15 +106,15 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         locationManager.startUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Error while updating location " + error.localizedDescription)
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         self.coordinates = manager.location?.coordinate
-        self.latitude = coordinates.latitude
-        self.longitude = coordinates.longitude
+        self.latitude = coordinates.latitude as NSNumber
+        
         
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)-> Void in
             if (error != nil) {
@@ -135,7 +130,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         })
     }
     
-    func displayLocationInfo(placemark: CLPlacemark?) {
+    func displayLocationInfo(_ placemark: CLPlacemark?) {
         if let containsPlacemark = placemark {
             //stop updating location to save battery life
             locationManager.stopUpdatingLocation()
@@ -144,19 +139,19 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             let locality: String! = (containsPlacemark.locality != nil) ? containsPlacemark.locality : ""
             let postalCode: String! = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
             let administrativeArea: String! = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
-            let address = "\(subthoroughfare) \(thoroughfare), \(locality), \(administrativeArea) \(postalCode)"
+            let address = "\(subthoroughfare!) \(thoroughfare!), \(locality!), \(administrativeArea!) \(postalCode!)"
             tfAddress.text = address
         }
     }
     
     //MARK: Stripe payment delegate
-    func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
-        payWIthCCButton.enabled = textField.valid
+    func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
+        payWIthCCButton.isEnabled = textField.valid
     }
     
-    @IBAction func submitCard(sender: AnyObject?) {
+    @IBAction func submitCard(_ sender: AnyObject?) {
         
-        dispatch_async(dispatch_get_main_queue()) { 
+        DispatchQueue.main.async { 
             self.paymentTextField.resignFirstResponder()
         }        
         
@@ -164,7 +159,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         
         let card = paymentTextField.cardParams
         
-        STPAPIClient.sharedClient().createTokenWithCard(card) { token, error in
+        STPAPIClient.shared().createToken(withCard: card) { token, error in
             guard let stripeToken = token else {
                 NSLog("Error creating token: %@", error!.localizedDescription);
                 return
@@ -172,7 +167,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             
             if !stripeToken.tokenId.isEmpty {
                 guard let amount = self.tfPrice.text else { return }
-                let price:Int = Int(amount)! * 100
+                let price: Int = Int(amount)! * 100
                 
 //                StripeManager.createCustomerStripeAccountWith("New Shoveled Customer", source: String(stripeToken.tokenId), email: self.getUserEmail(), completion: { (success, error) in
 //                    
@@ -184,64 +179,65 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 
                 // display success message and send email with confirmation
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
                 self.hideActivityIndicator(self.view)
             }
         }
     }
     
-    func paymentContextDidChange(paymentContext: STPPaymentContext) {
-        self.sendToStripeBtn.enabled = paymentContext.selectedPaymentMethod != nil
+    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
+        self.sendToStripeBtn.isEnabled = paymentContext.selectedPaymentMethod != nil
     }
     
-    func paymentContext(paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
+    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
         switch status {
-        case .Error:
+        case .error:
             print("\(error?.localizedDescription)")
-        case .Success:
-            self.dismissViewControllerAnimated(true, completion: nil)
+        case .success:
+            self.dismiss(animated: true, completion: nil)
             self.removeFromParentViewController()
-        case .UserCancellation:
+        case .userCancellation:
             return // do nothing
         }
     }
-    func paymentContext(paymentContext: STPPaymentContext, didFailToLoadWithError error: NSError) {
-        self.navigationController?.popViewControllerAnimated(true)
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: NSError) {
+        self.navigationController?.popViewController(animated: true)
         // show the error to your user, etc
     }
     
-    @IBAction func payWithCreditCard(sender: AnyObject) {
+    @IBAction func payWithCreditCard(_ sender: AnyObject) {
 
-        sendToStripeBtn = UIButton(type: .System)
-        sendToStripeBtn.setTitle("Pay Now", forState: .Normal)
+        sendToStripeBtn = UIButton(type: .system)
+        sendToStripeBtn.setTitle("Pay Now", for: UIControlState())
         sendToStripeBtn.titleLabel?.font = UIFont(name: "Rajdhani", size: 30)
-        sendToStripeBtn.backgroundColor = UIColor(red: 78.0/255.0, green: 168.0/255.0, blue: 177.0/255.0, alpha: 1)
-        sendToStripeBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        sendToStripeBtn.addTarget(self, action: #selector(self.submitCard(_ :)), forControlEvents: UIControlEvents.TouchUpInside)
-        sendToStripeBtn.frame = CGRectMake(0, (self.view.frame.height / 2) + 60, CGRectGetWidth(view.frame), 55)
-        priceLabel = UILabel(frame: CGRectMake(0, 125, CGRectGetWidth(view.frame), 80))
+        sendToStripeBtn.backgroundColor = UIColor(red: 78.0 / 255.0, green: 168.0 / 255.0, blue: 177.0 / 255.0, alpha: 1)
+        sendToStripeBtn.setTitleColor(UIColor.white, for: UIControlState())
+        sendToStripeBtn.addTarget(self, action: #selector(self.submitCard(_: )), for: UIControlEvents.touchUpInside)
+        sendToStripeBtn.frame = CGRect(x: 0, y: (self.view.frame.height / 2) + 60, width: view.frame.width, height: 55)
+        priceLabel = UILabel(frame: CGRect(x: 0, y: 125, width: view.frame.width, height: 80))
         priceLabel.font = UIFont(name: "Marvel-Bold", size: 50.0)
-        priceLabel.textAlignment = NSTextAlignment.Center
+        priceLabel.textAlignment = NSTextAlignment.center
         guard let price = tfPrice.text else { return }
         priceLabel.text = "💲\(price).00"
         
-        paymentTextField = STPPaymentCardTextField(frame: CGRectMake(15, (self.view.frame.height / 2) - 50, CGRectGetWidth(view.frame) - 30, 44))
+        paymentTextField = STPPaymentCardTextField(frame: CGRect(x: 15, y: (self.view.frame.height / 2) - 50, width: view.frame.width - 30, height: 44))
         paymentTextField.delegate = self
         
         if tfAddress.text == "" || tfDescription.text == "" || tfPrice.text == "" {
-            let alert = UIAlertController(title: "Eh!", message: "Looks like you missed something", preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "Try again!", style: .Default, handler: nil)
+            let alert = UIAlertController(title: "Eh!", message: "Looks like you missed something", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Try again!", style: .default, handler: nil)
             alert.addAction(okAction)
-            self.presentViewController(alert, animated: false, completion: nil)
+            self.present(alert, animated: false, completion: nil)
         }
         else {
-            UIView.animateWithDuration(0.3, delay: 0.0, options: [.CurveEaseInOut], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
                 self.requestFormView.alpha = 0
-                self.payWIthCCButton.hidden = true
+                self.payWIthCCButton.isHidden = true
                 self.view.layoutIfNeeded()
             }, completion: nil)
             
-            UIView.animateWithDuration(0.3, delay: 0.4, options: [.CurveEaseInOut], animations: {
+            UIView.animate(withDuration: 0.3, delay: 0.4, options: UIViewAnimationOptions(), animations: {
                 self.view.addSubview(self.sendToStripeBtn)
                 self.view.addSubview(self.paymentTextField)
                 self.view.addSubview(self.priceLabel)
@@ -249,57 +245,56 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
- 
     }
-
     
-    @IBAction func closeView(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func closeView(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 
-    func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
+    func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
+        controller.dismiss(animated: true, completion: nil)
     }
     
     func addRequestOnSuccess() {
         let postId = Int(arc4random_uniform(10000) + 1)
         guard let address = self.tfAddress.text else { return }
-        guard let lat = self.latitude else { return }
-        guard let lon = self.longitude else { return }
+        guard var lat = self.latitude else { return }
+        guard var lon = self.longitude else { return }
         guard let details = self.tfDescription.text else { return }
         guard let otherInfo = self.tfShovelTime.text else { return }
         guard let price = self.tfPrice.text else { return }
         guard let email = FIRAuth.auth()?.currentUser?.email else { return }
-        let date = NSDate()
-        let dateFormatter = NSDateFormatter()
+        let date = Date()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
-        let dateString = dateFormatter.stringFromDate(date)
+        let dateString = dateFormatter.string(from: date)
+    
         let shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "")
         
         let requestName = self.ref.child("/requests/\(postId)")
         
         requestName.setValue(shovelRequest.toAnyObject(), withCompletionBlock: { (error, ref) in
             if error != nil {
-                let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                 alert.addAction(okAction)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.present(alert, animated: true, completion: nil)
                 Crashlytics.sharedInstance().recordError(error!)
             }
         })
     }
     
-    func addToolBar(textField: UITextField) {
+    func addToolBar(_ textField: UITextField) {
         let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.Default
-        toolBar.translucent = true
-        toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
         
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(RequestShovelingViewController.done))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(RequestShovelingViewController.done))
         
         toolBar.setItems([spaceButton, doneButton], animated: false)
-        toolBar.userInteractionEnabled = true
+        toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
         
         textField.inputAccessoryView = toolBar

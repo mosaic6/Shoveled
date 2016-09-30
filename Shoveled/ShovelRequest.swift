@@ -37,7 +37,7 @@ class ShovelRequest: NSObject {
         self.acceptedByUser = acceptedByUser
     }
     
-    func toAnyObject() -> AnyObject {
+    func toAnyObject() -> NSDictionary {
         return [
             "address": address,
             "details": details,

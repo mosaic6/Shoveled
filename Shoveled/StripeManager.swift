@@ -12,13 +12,13 @@ class StripeManager {
     
     
     // Get Customers
-    class func getCustomers(completion: (customerEmail: String) -> ()) {
+    class func getCustomers(_ completion: @escaping (_ customerEmail: String) -> ()) {
         StripeAPI.sharedInstance.getCustomers { (result, error) in
             if let result = result {
-                if let data = result.objectForKey("data") as? [NSDictionary] {
+                if let data = result.object(forKey: "data") as? [NSDictionary] {
                     for customers in data {
-                        if let email = customers.objectForKey("email") as? String {
-                            completion(customerEmail: email)
+                        if let email = customers.object(forKey: "email") as? String {
+                            completion(email)
                         }
                     }
                 }
@@ -27,7 +27,7 @@ class StripeManager {
     }
     
     // Send charge to Stripe
-    class func sendChargeToStripeWith(amount: String, source: String, description: String, completion: (success: Bool, error: NSError) -> ()) {
+    class func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: (_ success: Bool, _ error: NSError) -> ()) {
         
         StripeAPI.sharedInstance.sendChargeToStripeWith(amount, source: source, description: description) { (success, error) in
             if success {
@@ -37,15 +37,15 @@ class StripeManager {
     }
     
     // Create Customer 
-    class func createCustomerStripeAccountWith(customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: (success: Bool, error: NSError?) -> ()) {
+    class func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
         
         let error: NSError? = nil
         getCustomers { (customerEmail) in
             if email == customerEmail {
-                completion(success: false, error: error)
+                completion(false, error)
             }
             else {
-                completion(success: true, error: nil)
+                completion(true, nil)
                 StripeAPI.sharedInstance.createCustomerStripeAccountWith(customerDesciption, source: source, email: email) { (success, error) in
                     if success {
                         print("Customer Created!")

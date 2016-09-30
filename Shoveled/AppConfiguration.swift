@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class AppConfiguration {
+open class AppConfiguration {
     
     static let authKey = "sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
     
-    private struct Bundle {
-        static var prefix = NSBundle.mainBundle().objectForInfoDictionaryKey("merchant.com.mosaic6") as! String
+    fileprivate struct Bundle {
+        static var prefix = Foundation.Bundle.main.object(forInfoDictionaryKey: "merchant.com.mosaic6") as! String
     }
     
     struct UserActivity {

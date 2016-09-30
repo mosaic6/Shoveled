@@ -16,7 +16,7 @@ class MenuItemCell: UITableViewCell {
         
     }
     
-    func configureForItems(item: MenuItems) {
+    func configureForItems(_ item: MenuItems) {
         lblTitle.text = item.title
     }
   

@@ -5,7 +5,6 @@ target 'Shoveled' do
     pod 'AFNetworking'
     pod 'ForecastIO'
     pod 'Fabric'
-    pod 'SwiftSpinner'
     pod 'Crashlytics'
     pod 'Stripe'
     pod 'Firebase'
@@ -13,5 +12,4 @@ target 'Shoveled' do
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'Firebase/Storage'    
-    pod 'FutureKit', '~> 2.0'
 end

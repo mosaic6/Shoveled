@@ -39,7 +39,7 @@ class ShovelAnnotation: NSObject, MKAnnotation {
     }
     
     var subtitle: String? {
-        return status?.uppercaseString
+        return status?.uppercased()
     }
         
 }

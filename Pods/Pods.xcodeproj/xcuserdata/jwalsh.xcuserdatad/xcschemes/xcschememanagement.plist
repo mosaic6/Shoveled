@@ -14,11 +14,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FutureKit.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-Shoveled.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,35 +24,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftSpinner.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>03AF0A43C736BD6A5C1ACF9B413447F7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>04494808926D2895F56C2269C86D4270</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8DF186392A0DB9E342B6679B34E31903</key>
+		<key>13F6E213A76DC421D2868ED7E63235D3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E5DBC1B0CBF3DA92605223964CE1FCD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D870F87F33EE46B886F106E10112A425</key>
+		<key>6B5EF7594E91FD2D5446F1989CEA0570</key>
 		<dict>
 			<key>primary</key>
 			<true/>
