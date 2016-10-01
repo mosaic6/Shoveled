@@ -43,7 +43,6 @@ class AcceptRequestViewController: UIViewController {
 //        let tap = UITapGestureRecognizer(target: self, action: #selector(AcceptRequestViewController.showCompleteRequestView))
 //        self.view.addGestureRecognizer(tap)
     }
-
     
     func configureView() {
         
@@ -103,6 +102,7 @@ class AcceptRequestViewController: UIViewController {
     @IBAction func cancelRequest(_ sender: AnyObject) {
         deleteRequest()
     }
+    
     func deleteRequest() {
         let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)

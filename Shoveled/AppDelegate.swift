@@ -65,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             application.registerForRemoteNotifications()
         }
-        
         return true
     }
     
@@ -115,7 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Core Data stack
-
     lazy var applicationDocumentsDirectory: URL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.mosaic6.Shoveled" in the application's documents Application Support directory.
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -149,7 +147,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSLog("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
             abort()
         }
-        
         return coordinator
     }()
 
@@ -162,7 +159,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     // MARK: - Core Data Saving support
-
     func saveContext() {
         if managedObjectContext.hasChanges {
             do {
@@ -178,4 +174,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
-

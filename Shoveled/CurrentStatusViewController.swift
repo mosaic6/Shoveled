@@ -224,7 +224,6 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             view!.calloutOffset = CGPoint(x: 0, y: 0)
             view!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
-        
         return view        
     }
     

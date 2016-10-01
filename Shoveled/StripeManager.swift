@@ -27,8 +27,7 @@ class StripeManager {
     }
     
     // Send charge to Stripe
-    class func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: (_ success: Bool, _ error: NSError) -> ()) {
-        
+    class func sendChargeToStripeWith(amount: String, source: String, description: String) {
         StripeAPI.sharedInstance.sendChargeToStripeWith(amount, source: source, description: description) { (success, error) in
             if success {
                 print("Credit Card was charged with token: \(source)")

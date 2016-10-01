@@ -34,14 +34,12 @@ class SideMenuViewControllerTableViewController: UITableViewController {
         return cellItems == nil ? 0 : cellItems.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MenuItemCell
         cell.configureForItems(cellItems[(indexPath as NSIndexPath).row])
         return cell
     }
     
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = cellItems[(indexPath as NSIndexPath).row]
         if selectedItem.title == "Logout" {

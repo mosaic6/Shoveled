@@ -114,7 +114,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         
         self.coordinates = manager.location?.coordinate
         self.latitude = coordinates.latitude as NSNumber
-        
+        self.longitude = coordinates.longitude as NSNumber
         
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)-> Void in
             if (error != nil) {
@@ -168,15 +168,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             if !stripeToken.tokenId.isEmpty {
                 guard let amount = self.tfPrice.text else { return }
                 let price: Int = Int(amount)! * 100
+                let stringPrice = String(price)
                 
-//                StripeManager.createCustomerStripeAccountWith("New Shoveled Customer", source: String(stripeToken.tokenId), email: self.getUserEmail(), completion: { (success, error) in
-//                    
-//                })
-//                
-                StripeManager.sendChargeToStripeWith(String(price), source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (success, error) in })
-                
+                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())")
                 self.addRequestOnSuccess()
-                
+                                                        
                 // display success message and send email with confirmation
                 
                 self.dismiss(animated: true, completion: nil)
@@ -199,11 +195,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         case .userCancellation:
             return // do nothing
         }
-    }
-    
-    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: NSError) {
-        self.navigationController?.popViewController(animated: true)
-        // show the error to your user, etc
     }
     
     @IBAction func payWithCreditCard(_ sender: AnyObject) {
@@ -258,8 +249,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     func addRequestOnSuccess() {
         let postId = Int(arc4random_uniform(10000) + 1)
         guard let address = self.tfAddress.text else { return }
-        guard var lat = self.latitude else { return }
-        guard var lon = self.longitude else { return }
+        guard let lat = self.latitude else { return }
+        guard let lon = self.longitude else { return }
         guard let details = self.tfDescription.text else { return }
         guard let otherInfo = self.tfShovelTime.text else { return }
         guard let price = self.tfPrice.text else { return }

@@ -57,9 +57,6 @@ class LoginViewController: UIViewController {
     }
     
     func configureView() {
-        tfExistingUsername.text = "joshuatwalsh@gmail.com"
-        tfExistingPassword.text = "way2cool"
-        
         let formGroup = CAAnimationGroup()
         formGroup.duration = 0.5
         formGroup.fillMode = kCAFillModeBackwards
@@ -109,7 +106,6 @@ class LoginViewController: UIViewController {
         lblWelcome3.textAlignment = NSTextAlignment.center
         self.view.addSubview(lblWelcome3)
     }
-    
     
     // MARK: - SIGN UP NEW USER
     func signUpUser() {
@@ -229,7 +225,6 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
     
     func hideSignUpForm() {
         self.lblWelcome3.isHidden = true

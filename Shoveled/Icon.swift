@@ -49,7 +49,6 @@ enum Icon: String {
         
         let regularIcon = UIImage(named: "\(imageName).pdf")
         let largeIcon = UIImage(named: "\(imageName).pdf")
-        
         return (regularIcon, largeIcon)
     }
 }
