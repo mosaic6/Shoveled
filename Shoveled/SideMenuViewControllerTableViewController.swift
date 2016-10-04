@@ -22,6 +22,7 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.tableView.reloadData()
     }
 
@@ -37,14 +38,18 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! MenuItemCell
         cell.configureForItems(cellItems[(indexPath as NSIndexPath).row])
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = cellItems[(indexPath as NSIndexPath).row]
+        if selectedItem.title == "Home" {
+            print("Home Selected")  
+        }
         if selectedItem.title == "Logout" {
             logoutUser()
-        } 
+        }
         delegate?.cellSelected(selectedItem)
     }
 
@@ -52,5 +57,4 @@ class SideMenuViewControllerTableViewController: UITableViewController {
         try! FIRAuth.auth()!.signOut()
         self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
     }
-    
 }

@@ -1,38 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="16A320" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="I9z-8r-vV3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2338c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Marvel-Regular.ttf">
+        <array key="Marvel-Regular.ttf">
             <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-            <string>Marvel-Regular</string>
-        </mutableArray>
-        <mutableArray key="Rajdhani-Bold.ttf">
+        </array>
+        <array key="Rajdhani-Bold.ttf">
             <string>Rajdhani-Bold</string>
-        </mutableArray>
-        <mutableArray key="Rajdhani-Medium.ttf">
+        </array>
+        <array key="Rajdhani-Medium.ttf">
             <string>Rajdhani-Medium</string>
-        </mutableArray>
-        <mutableArray key="Rajdhani-Regular.ttf">
+        </array>
+        <array key="Rajdhani-Regular.ttf">
             <string>Rajdhani-Regular</string>
-            <string>Rajdhani-Regular</string>
-            <string>Rajdhani-Regular</string>
-            <string>Rajdhani-Regular</string>
-            <string>Rajdhani-Regular</string>
-            <string>Rajdhani-Regular</string>
-        </mutableArray>
+        </array>
     </customFonts>
     <scenes>
         <!--Shoveled-->
@@ -44,17 +30,17 @@
                         <viewControllerLayoutGuide type="bottom" id="U3i-yJ-xKQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="CBj-lx-rpf">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SLL-bG-2fj">
-                                <rect key="frame" x="0.0" y="180" width="600" height="420"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SLL-bG-2fj">
+                                <frame key="frameInset" minY="180" width="600" height="420"/>
                                 <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuE-0U-zZI">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="420"/>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuE-0U-zZI">
+                                        <frame key="frameInset" width="600" height="420"/>
                                     </mapView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="nuE-0U-zZI" firstAttribute="leading" secondItem="SLL-bG-2fj" secondAttribute="leading" id="I2M-Ty-Llf"/>
                                     <constraint firstAttribute="trailing" secondItem="nuE-0U-zZI" secondAttribute="trailing" id="V9g-pl-oxK"/>
@@ -62,11 +48,11 @@
                                     <constraint firstItem="nuE-0U-zZI" firstAttribute="top" secondItem="SLL-bG-2fj" secondAttribute="top" id="zE9-zy-bGE"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bfk-BZ-nYV">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="181"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bfk-BZ-nYV">
+                                <frame key="frameInset" width="600" height="181"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Ci-O4-bL1">
-                                        <rect key="frame" x="252" y="35" width="97" height="115"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="34" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="5Ci-O4-bL1">
+                                        <frame key="frameInset" minX="252" minY="35" width="97" height="115"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="97" id="ALu-TN-GY3"/>
                                             <constraint firstAttribute="height" constant="74" id="Ln4-da-AZ6"/>
@@ -75,7 +61,7 @@
                                             <constraint firstAttribute="width" constant="110" id="rBY-yt-a77"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="70"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -86,8 +72,8 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloudy" translatesAutoresizingMaskIntoConstraints="NO" id="ouX-RD-UJK">
-                                        <rect key="frame" x="357" y="61" width="60" height="60"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="cloudy" translatesAutoresizingMaskIntoConstraints="NO" id="ouX-RD-UJK">
+                                        <frame key="frameInset" minX="357" minY="61" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ouX-RD-UJK" secondAttribute="height" multiplier="1:1" id="5NM-EP-QhE"/>
                                             <constraint firstAttribute="width" constant="60" id="Acd-0L-D8a"/>
@@ -106,7 +92,7 @@
                                         </variation>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="s3z-U7-Vy4">
-                                        <rect key="frame" x="151" y="129" width="298" height="41"/>
+                                        <frame key="frameInset" minX="151" minY="129" width="298" height="41"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="42" id="0Fe-q5-6a3"/>
                                             <constraint firstAttribute="width" constant="180" id="1pE-Sz-QYp"/>
@@ -115,7 +101,7 @@
                                             <constraint firstAttribute="height" constant="41" id="jm8-jd-58d"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="22"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -127,7 +113,6 @@
                                         </variation>
                                     </label>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YR9-dH-xdJ">
-                                        <rect key="frame" x="8" y="25" width="55" height="42"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="55" id="jbm-RO-ywW"/>
                                             <constraint firstAttribute="height" constant="42" id="uBg-Sm-glX"/>
@@ -138,8 +123,8 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="tintColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="5Ci-O4-bL1" firstAttribute="bottom" secondItem="ouX-RD-UJK" secondAttribute="bottom" constant="7" id="10i-sE-k6H"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="leading" secondItem="bfk-BZ-nYV" secondAttribute="leading" constant="273" id="1wM-Yn-VjB"/>
@@ -216,12 +201,12 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Roy-N1-V2H">
-                                <rect key="frame" x="0.0" y="530" width="600" height="70"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Roy-N1-V2H">
+                                <frame key="frameInset" minY="530" width="600" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrl-wV-q5R" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="12" width="584" height="45"/>
-                                        <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrl-wV-q5R" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
+                                        <frame key="frameInset" minX="8" minY="12" width="584" height="45"/>
+                                        <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="9h1-CU-g0h"/>
                                             <constraint firstAttribute="width" constant="600" id="SvC-Gw-dQo"/>
@@ -230,7 +215,7 @@
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
                                         <state key="normal" title="Get Shoveled Out">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -245,7 +230,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="nrl-wV-q5R" firstAttribute="top" secondItem="Roy-N1-V2H" secondAttribute="top" constant="12" id="05Y-Z3-jv0"/>
                                     <constraint firstAttribute="trailing" secondItem="nrl-wV-q5R" secondAttribute="trailing" constant="8" id="6L8-rj-xTf"/>
@@ -316,25 +301,23 @@
                         <viewControllerLayoutGuide type="bottom" id="SSF-zN-XtR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1cf-ex-mCT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hot-EF-Mi2">
-                                <rect key="frame" x="0.0" y="114" width="600" height="255"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hot-EF-Mi2">
+                                <frame key="frameInset" minY="114" width="600" height="255"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELING DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="732-8Z-ymu">
-                                        <rect key="frame" x="20" y="55" width="151" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-IN-Rx2">
-                                        <rect key="frame" x="20" y="0.0" width="55.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="77" id="2qv-GZ-cUm"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -342,26 +325,26 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mbm-bp-IFG" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="17" width="560" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mbm-bp-IFG" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
+                                        <frame key="frameInset" minX="20" minY="17" width="560" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="fwQ-eV-JE3"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Driveway, walkway, stairs, etc..." textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-Fu-X1Z" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="72" width="560" height="30"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Driveway, walkway, stairs, etc..." textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UfU-Fu-X1Z" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
+                                        <frame key="frameInset" minX="20" minY="72" width="560" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="VW6-NR-FFp"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other info we should know" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="129" width="560" height="30"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other info we should know" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
+                                        <frame key="frameInset" minX="20" minY="129" width="560" height="30"/>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="nnW-lD-bLV"/>
                                         </constraints>
@@ -369,13 +352,12 @@
                                         <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET WHAT YOU WANT TO PAY $$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-5G-VDV">
-                                        <rect key="frame" x="20" y="167" width="191" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kNJ-1K-BoE" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="187" width="560" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kNJ-1K-BoE" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
+                                        <frame key="frameInset" minX="20" minY="187" width="560" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="vbg-aP-mfk"/>
                                         </constraints>
@@ -383,13 +365,12 @@
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OTHER SHOVELING INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
-                                        <rect key="frame" x="20" y="110" width="143" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="kNJ-1K-BoE" firstAttribute="top" secondItem="BdP-5G-VDV" secondAttribute="bottom" constant="-1" id="A8b-jg-MI4"/>
                                     <constraint firstItem="kNJ-1K-BoE" firstAttribute="leading" secondItem="Hot-EF-Mi2" secondAttribute="leading" constant="20" id="Cbi-Gn-aIU"/>
@@ -423,24 +404,25 @@
                                 </variation>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cxa-I6-WmZ">
-                                <rect key="frame" x="282" y="256" width="37" height="37"/>
+                                <frame key="frameInset" minX="282" minY="256" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqR-nC-Rrl">
-                                <rect key="frame" x="0.0" y="545" width="600" height="55"/>
-                                <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqR-nC-Rrl">
+                                <frame key="frameInset" minY="545" width="600" height="55"/>
+                                <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="p0E-Bt-ugL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
                                 <state key="normal" title="Submit with Credit Card">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="payWithCreditCard:" destination="TrE-4C-B29" eventType="touchUpInside" id="uhJ-sb-m3g"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="leading" secondItem="1cf-ex-mCT" secondAttribute="leadingMargin" constant="-20" id="jaI-Jf-oP1"/>
                             <constraint firstItem="Hot-EF-Mi2" firstAttribute="top" secondItem="Y4c-z8-9FI" secondAttribute="bottom" constant="50" id="ml4-nm-76P"/>
@@ -453,7 +435,7 @@
                     <navigationItem key="navigationItem" id="FNR-gg-U62">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="CRx-eM-lZN">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5uz-kI-daf">
-                                <rect key="frame" x="20" y="8" width="28" height="28"/>
+                                <rect key="frame" x="16" y="8" width="28" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="Dtc-7o-I26"/>
@@ -488,35 +470,35 @@
                         <viewControllerLayoutGuide type="bottom" id="yAy-77-eci"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ubn-s7-HPJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2q-Ks-OBi">
-                                <rect key="frame" x="20" y="28" width="45" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2q-Ks-OBi">
+                                <frame key="frameInset" minX="20" minY="28" width="45" height="45"/>
                                 <state key="normal" image="Close"/>
                                 <connections>
                                     <action selector="dismissView:" destination="dUN-69-lLl" eventType="touchUpInside" id="7nu-C1-xve"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1SJ-mv-4gw">
-                                <rect key="frame" x="0.0" y="530" width="600" height="70"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1SJ-mv-4gw">
+                                <frame key="frameInset" minY="530" width="600" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRu-Wi-ZGs" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="8" y="11" width="584" height="45"/>
-                                        <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CRu-Wi-ZGs" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
+                                        <frame key="frameInset" minX="8" minY="11" width="584" height="45"/>
+                                        <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="Sg7-Zo-l17"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
                                         <state key="normal">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="acceptRequest:" destination="dUN-69-lLl" eventType="touchUpInside" id="89H-Tf-wB7"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="CRu-Wi-ZGs" firstAttribute="leading" secondItem="1SJ-mv-4gw" secondAttribute="leading" constant="8" id="3B7-su-WTT"/>
                                     <constraint firstAttribute="trailing" secondItem="CRu-Wi-ZGs" secondAttribute="trailing" constant="8" id="rZT-K0-WCO"/>
@@ -524,41 +506,41 @@
                                     <constraint firstItem="CRu-Wi-ZGs" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="top" constant="11" id="vKu-VC-LCf"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sO-lo-cgE">
-                                <rect key="frame" x="20" y="127" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7sO-lo-cgE">
+                                <frame key="frameInset" minX="20" minY="127" width="560" height="21"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCB-U0-TdD">
-                                <rect key="frame" x="20" y="171" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCB-U0-TdD">
+                                <frame key="frameInset" minX="20" minY="171" width="560" height="21"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRQ-8e-KGw">
-                                <rect key="frame" x="20" y="217" width="560" height="88"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRQ-8e-KGw">
+                                <frame key="frameInset" minX="20" minY="217" width="560" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="Zag-kj-eL6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="40"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liO-iY-Q7Z">
-                                <rect key="frame" x="20" y="313" width="560" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liO-iY-Q7Z">
+                                <frame key="frameInset" minX="20" minY="313" width="560" height="21"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
-                                <rect key="frame" x="179" y="82" width="243" height="37"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
+                                <frame key="frameInset" minX="179" minY="82" width="243" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="243" id="06C-Zk-1PU"/>
                                     <constraint firstAttribute="width" constant="243" id="M0h-1t-7oF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -567,18 +549,18 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gM2-x4-8Gw">
-                                <rect key="frame" x="459" y="28" width="121" height="40"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gM2-x4-8Gw">
+                                <frame key="frameInset" minX="459" minY="28" width="121" height="40"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="23"/>
                                 <state key="normal" title="Cancel Request">
-                                    <color key="titleColor" red="0.79607844350000001" green="0.1098039225" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.74043166637420654" green="0.0" blue="0.33412215113639832" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="cancelRequest:" destination="dUN-69-lLl" eventType="touchUpInside" id="oMC-qp-mYc"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="7sO-lo-cgE" secondAttribute="trailing" id="1JO-jd-PXA"/>
                             <constraint firstItem="7sO-lo-cgE" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="107" id="2qK-nj-6K1"/>
@@ -645,36 +627,36 @@
                         <viewControllerLayoutGuide type="bottom" id="K3q-AT-TFX"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wqs-hU-war">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snowBG" translatesAutoresizingMaskIntoConstraints="NO" id="gxE-ji-b1d">
-                                <rect key="frame" x="0.0" y="-64" width="600" height="664"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="snowBG" translatesAutoresizingMaskIntoConstraints="NO" id="gxE-ji-b1d">
+                                <frame key="frameInset" minY="-64" width="600" height="664"/>
                             </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDs-Qq-bKx" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="20" y="278" width="560" height="44"/>
-                                <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mDs-Qq-bKx" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
+                                <frame key="frameInset" minX="20" minY="278" width="560" height="44"/>
+                                <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="XuP-L3-s67"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="25"/>
                                 <state key="normal" title="Sign Up">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="signUpNewUser:" destination="I9z-8r-vV3" eventType="touchUpInside" id="tw1-ra-Crn"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQg-YC-8pj">
-                                <rect key="frame" x="20" y="123" width="560" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bQg-YC-8pj">
+                                <frame key="frameInset" minX="20" minY="123" width="560" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
                                 <connections>
                                     <outlet property="delegate" destination="I9z-8r-vV3" id="vky-ms-3Ip"/>
                                 </connections>
                             </textField>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="202" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NNG-yN-1O9">
-                                <rect key="frame" x="20" y="161" width="560" height="30"/>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="202" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NNG-yN-1O9">
+                                <frame key="frameInset" minX="20" minY="161" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="ELa-Cf-jqN"/>
                                 </constraints>
@@ -684,8 +666,8 @@
                                     <outlet property="delegate" destination="I9z-8r-vV3" id="3dy-K3-zop"/>
                                 </connections>
                             </textField>
-                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWf-Rv-bdm">
-                                <rect key="frame" x="20" y="123" width="560" height="30"/>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" tag="201" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lWf-Rv-bdm">
+                                <frame key="frameInset" minX="20" minY="123" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rLy-Id-UJ0"/>
                                 </constraints>
@@ -695,15 +677,15 @@
                                     <outlet property="delegate" destination="I9z-8r-vV3" id="V2a-L5-t7D"/>
                                 </connections>
                             </textField>
-                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jM-Cp-mrq" userLabel="Login" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="20" y="199" width="560" height="44"/>
-                                <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <button hidden="YES" opaque="NO" tag="102" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jM-Cp-mrq" userLabel="Login" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
+                                <frame key="frameInset" minX="20" minY="199" width="560" height="44"/>
+                                <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="kQ2-QK-Z4K"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="25"/>
                                 <state key="normal" title="Log in">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -714,8 +696,8 @@
                                     <action selector="loginUser:" destination="I9z-8r-vV3" eventType="touchUpInside" id="85T-1Z-uSa"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pfP-Xh-lmB">
-                                <rect key="frame" x="20" y="161" width="560" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" tag="103" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pfP-Xh-lmB">
+                                <frame key="frameInset" minX="20" minY="161" width="560" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="iDl-CQ-3Wo"/>
                                 </constraints>
@@ -725,45 +707,45 @@
                                     <outlet property="delegate" destination="I9z-8r-vV3" id="GDE-Dk-5pH"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-VP-y7g">
-                                <rect key="frame" x="232" y="548" width="137" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-VP-y7g">
+                                <frame key="frameInset" minX="232" minY="548" width="137" height="32"/>
                                 <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="15"/>
                                 <state key="normal" title="Already a user? Log in">
-                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showLoginFom:" destination="I9z-8r-vV3" eventType="touchUpInside" id="fAa-fn-bkd"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOo-bj-zqc">
-                                <rect key="frame" x="180" y="501" width="241" height="44"/>
+                            <button opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rOo-bj-zqc">
+                                <frame key="frameInset" minX="180" minY="501" width="241" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="241" id="QOH-2P-ul2"/>
                                     <constraint firstAttribute="height" constant="44" id="pVv-Vg-jDY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Medium" family="Rajdhani" pointSize="25"/>
                                 <state key="normal" title="Sign Up">
-                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showSignUpForm:" destination="I9z-8r-vV3" eventType="touchUpInside" id="1fL-yw-FWS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWR-ma-rGI">
-                                <rect key="frame" x="20" y="278" width="560" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWR-ma-rGI">
+                                <frame key="frameInset" minX="20" minY="278" width="560" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="iYA-Mm-44S"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="15"/>
                                 <state key="normal" title="Forgot Password?">
-                                    <color key="titleColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="resetPassword:" destination="I9z-8r-vV3" eventType="touchUpInside" id="e56-FU-m4S"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fWR-ma-rGI" firstAttribute="top" secondItem="5jM-Cp-mrq" secondAttribute="bottom" constant="35" id="2wj-oI-mD6"/>
                             <constraint firstItem="gxE-ji-b1d" firstAttribute="centerY" secondItem="wqs-hU-war" secondAttribute="centerY" constant="-32" id="3HX-wn-3nO"/>
@@ -855,26 +837,27 @@
             <objects>
                 <tableViewController storyboardIdentifier="SideMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="apa-1D-32O" customClass="SideMenuViewControllerTableViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="GFi-Xp-lrr">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.73716437816619873" green="0.73714232444763184" blue="0.73715484142303467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="a3o-cX-KKN" customClass="MenuItemCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a3o-cX-KKN" id="Zfc-I6-u6C">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                    <frame key="frameInset" width="375" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nks-gp-Exh">
-                                            <rect key="frame" x="8" y="11" width="225" height="21"/>
+                                            <frame key="frameInset" minX="8" minY="11" width="225" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="18"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="lblTitle" destination="Nks-gp-Exh" id="sYe-9t-NIe"/>
                                     <segue destination="I9z-8r-vV3" kind="show" identifier="notLoggedIn" id="6Et-N2-jBP"/>
@@ -915,7 +898,7 @@
         <image name="Close" width="45" height="45"/>
         <image name="Settings" width="23" height="18"/>
         <image name="cloudy" width="60" height="40"/>
-        <image name="snowBG" width="1024" height="680"/>
+        <image name="snowBG" width="512" height="340"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6Et-N2-jBP"/>

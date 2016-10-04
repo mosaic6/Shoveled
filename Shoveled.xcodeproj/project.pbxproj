@@ -92,7 +92,6 @@
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
 		61369D121CEBF6CF00079734 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
-		6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Shoveled.entitlements; sourceTree = "<group>"; };
 		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
 		615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-BoldItalic.ttf"; path = "../Marvel-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -133,6 +132,7 @@
 		61ED023B1BAE43F3006B22B7 /* ShoveledUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoveledUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61ED023F1BAE43F3006B22B7 /* ShoveledUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoveledUITests.swift; sourceTree = "<group>"; };
 		61ED02411BAE43F3006B22B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61F2415F1DA15FE8007D3473 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shoveled.entitlements; sourceTree = "<group>"; };
 		61FEC67F1C8B575200D25128 /* SideMenuViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewControllerTableViewController.swift; sourceTree = "<group>"; };
 		61FEC6811C8B613F00D25128 /* MenuItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		61FEC6831C8B64C300D25128 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -291,8 +291,8 @@
 		61ED021B1BAE43F3006B22B7 /* Shoveled */ = {
 			isa = PBXGroup;
 			children = (
+				61F2415F1DA15FE8007D3473 /* Shoveled.entitlements */,
 				6152E65D1CC57D0A001972A6 /* Common Configuration */,
-				6152E63F1CB73EB7001972A6 /* Shoveled.entitlements */,
 				614E78421C013A0100314390 /* Settings.bundle */,
 				61ED02261BAE43F3006B22B7 /* Assets.xcassets */,
 				61ED024F1BAE46A0006B22B7 /* Data */,
@@ -473,6 +473,9 @@
 						DevelopmentTeam = P624W8659J;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
+							com.apple.ApplePay = {
+								enabled = 0;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};

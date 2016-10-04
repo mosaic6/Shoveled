@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>1.1</string>
 	<key>Configuration</key>
 	<string>${CONFIGURATION}</string>
 	<key>Fabric</key>
@@ -56,6 +56,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MGLMapboxAccessToken</key>
@@ -71,6 +73,7 @@
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>location</string>
 		<string>remote-notification</string>
 	</array>
@@ -86,7 +89,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>Shoveled need access to your camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Shoveled need access to your photo library.</string>
 </dict>
 </plist>
