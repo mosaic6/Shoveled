@@ -73,7 +73,7 @@
 	<key>kRequireOpenBraceOnMethodSignatureLine</key>
 	<true/>
 	<key>kShouldStaticVariableNameStartWithCapitalLetter</key>
-	<true/>
+	<false/>
 	<key>kRequireSpaceBeforeParameterParanthesesInFuncSignature</key>
 	<false/>
 	<key>kShouldTypeAliasNameStartWithCapitalLetter</key>

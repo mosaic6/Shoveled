@@ -18,6 +18,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     @IBOutlet weak var shovelTimeLabel: UILabel!
     @IBOutlet weak var acceptBtn: ShoveledButton!
     @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var completeJobBtn: UIButton!
     
     var closeModalBtn: UIButton!
     var imageView: UIImageView!
@@ -53,6 +54,9 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     func configureView() {
         
         cancelBtn.isHidden = true
+        completeJobBtn.isHidden = true
+        completeJobBtn.layer.cornerRadius = 5.0
+        completeJobBtn.addTarget(self, action: #selector(showCompleteRequestView), for: .touchUpInside)
         
         guard let description = descriptionString else { return }
         guard let price = priceString else { return }
@@ -72,6 +76,9 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             acceptBtn.setTitle("In Progress", for: UIControlState())
             acceptBtn.backgroundColor = UIColor(red: 235.0 / 255.0, green: 135.0 / 255.0, blue: 35.0 / 255.0, alpha: 0.8)
             acceptBtn.isEnabled = false
+            if currentUser == acceptedByUser {
+                completeJobBtn.isHidden = false
+            }
         }
         else if rStatus == "Completed" {
             acceptBtn.setTitle("Completed", for: UIControlState())
@@ -209,8 +216,11 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     func displayCamera() {
         imagePickerView.delegate = self
         
-        imagePickerView.sourceType = .camera
-        
+        #if(arch(i386) || arch(x86_64)) && os(iOS)
+        imagePickerView.sourceType = .photoLibrary
+            #else
+            imagePickerView.sourceType = .camera
+            #endif
         present(imagePickerView, animated: true, completion: nil)
     }
     

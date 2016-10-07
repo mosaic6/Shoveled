@@ -37,6 +37,9 @@ class LoginViewController: UIViewController {
 
         configureView()
         animateLaunchView()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
+        self.view.addGestureRecognizer(tap)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,10 +125,15 @@ class LoginViewController: UIViewController {
         
             FIRAuth.auth()?.createUser(withEmail: emailString, password: passwordString) { (user, error) in
                 if let error = error {
-                    print("::::: \(error)")
+                    let alert = UIAlertController(title: "There was an error signing you up", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
+                    self.present(alert, animated: true, completion: .none)
                 } else {
                     self.ref.child("users").child(user!.uid).setValue(["username": emailString])
-                    self.removeFromParentViewController()
+                    self.dismiss(animated: true, completion: nil)
+                    let currentVC = ContainerViewController()
+                    guard let centerVC = currentVC.centerViewController else { return }
+                    self.present(centerVC, animated: true, completion: nil)
                 }
             }
         }
@@ -164,6 +172,8 @@ class LoginViewController: UIViewController {
             self.btnLogin.isHidden = true
             self.btnGetStarted.isHidden = false
             self.btnForgotPassword.isHidden = false
+            self.btnSignUp.isHidden = true
+            self.btnGetStarted.isHidden = true
             self.btnForgotPassword.alpha = 1.0
         }, completion: nil)
     }
@@ -197,11 +207,16 @@ class LoginViewController: UIViewController {
         } else {
             FIRAuth.auth()?.signIn(withEmail: usernameString, password: passwordString, completion: { (user, error) in                
                 if let error = error {
-                    print(error)
+                    let alert = UIAlertController(title: "There was an error logging in", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
+                    self.present(alert, animated: true, completion: .none)
                 } else if let user = user {
                     self.ref.child("users").child(user.uid).observeSingleEvent(of: .value, with: { snapshot in                        
                     })
                     self.dismiss(animated: true, completion: nil)
+                    let currentVC = ContainerViewController()
+                    guard let centerVC = currentVC.centerViewController else { return }
+                    self.present(centerVC, animated: true, completion: nil)
                 }
             })
         }
@@ -249,6 +264,7 @@ class LoginViewController: UIViewController {
             // Not found, so remove keyboard
             textField.resignFirstResponder()
         }
+        
         return false // We do not want UITextField to insert line-breaks.
     }
     
@@ -266,5 +282,12 @@ class LoginViewController: UIViewController {
                 layer?.add(pulse, forKey: nil)
             }
         }
+    }
+    
+    func dismissKeyboards() {
+        tfEmail.resignFirstResponder()
+        tfPassword.resignFirstResponder()
+        tfExistingUsername.resignFirstResponder()
+        tfExistingPassword.resignFirstResponder()
     }
 }

@@ -31,6 +31,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var mapContainerView: UIView!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var refreshMapBtn: UIButton!
     
     // MARK: Variables
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
@@ -50,7 +51,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.delegate = self
+        mapView?.delegate = self
         getCurrentLocation()
         configureView()
         getShovelRequests()
@@ -78,6 +79,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     func configureView() {
         self.navigationController?.isNavigationBarHidden = true
         self.view.addSubview(currentWeatherView)
+        
+//        currentWeatherView.layer.shadowColor = UIColor.gray.cgColor
+//        currentWeatherView.layer.shadowOpacity = 0.8
+//        currentWeatherView.layer.shadowOffset = CGSize.zero
+//        currentWeatherView.layer.shadowRadius = 10
+//        currentWeatherView.layer.shouldRasterize = true
     }
     
     func getUserInfo() {
@@ -139,6 +146,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     
     // MARK: - Fetch Request
     func getShovelRequests() {
+        
+        self.removeAnnotations()
+        
         self.showActivityIndicatory(self.view)
         ref.observe(.value, with: { snapshot in
             let items = snapshot.value as! [String: AnyObject]
@@ -176,10 +186,19 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 
                 DispatchQueue.main.async(execute: {
                     self.mapView.addAnnotation(mapAnnotation)
+                    if status == "Completed" {
+                        self.mapView.removeAnnotation(mapAnnotation)
+                    }
                     self.hideActivityIndicator(self.view)
                 })
             }
         })
+    }
+    
+    // Make this a delegate method that gets called when completing a request or canceling one
+    func removeAnnotations() {
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -194,6 +213,17 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     // MARK: - Request shoveling
     @IBAction func requestShoveling(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "showRequest", sender: self)
+    }
+    
+    @IBAction func refreshMap(_ sender: AnyObject) {
+        
+        UIView.animate(withDuration: 0.3) {
+            self.refreshMapBtn.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+        }
+        UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            self.refreshMapBtn.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
+            }, completion: nil)
+        getShovelRequests()
     }
     
 }
@@ -220,10 +250,11 @@ extension CurrentStatusViewController: MKMapViewDelegate {
         else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view!.image = UIImage(named: "mapPin")
-            view!.canShowCallout = true
+            view!.canShowCallout = true            
             view!.calloutOffset = CGPoint(x: 0, y: 0)
             view!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
+        
         return view        
     }
     

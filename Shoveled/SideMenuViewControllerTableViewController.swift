@@ -44,9 +44,6 @@ class SideMenuViewControllerTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = cellItems[(indexPath as NSIndexPath).row]
-        if selectedItem.title == "Home" {
-            print("Home Selected")  
-        }
         if selectedItem.title == "Logout" {
             logoutUser()
         }
