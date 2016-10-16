@@ -10,6 +10,10 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+protocol CompletedRequestDelegate {
+    func updateRequest()
+}
+
 class AcceptRequestViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     @IBOutlet weak var addressLabel: UILabel!
@@ -95,7 +99,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             cancelBtn.isHidden = false
         }
         
-        closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 25.0, height: 25.0))
+        closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 45.0, height: 45.0))
         closeModalBtn.setImage(UIImage(named: "Close"), for: .normal)
         closeModalBtn.addTarget(self, action: #selector(AcceptRequestViewController.closeModal), for: .touchUpInside)
         

@@ -77,7 +77,7 @@
 	<key>kRequireSpaceBeforeParameterParanthesesInFuncSignature</key>
 	<false/>
 	<key>kShouldTypeAliasNameStartWithCapitalLetter</key>
-	<true/>
+	<false/>
 	<key>kRequireOpenBraceOnClassDeclarationLine</key>
 	<true/>
 </dict>

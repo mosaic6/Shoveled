@@ -53,4 +53,9 @@ class StripeManager {
             }            
         }
     }
+    
+    // GET Connected Accounts
+    class func getConnectedAccounts() {
+        StripeAPI.sharedInstance.getConnectedAccounts()
+    }
 }

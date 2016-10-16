@@ -15,6 +15,7 @@ let testAuthKey = "Bearer sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
 private let API_POST_CUSTOMER = "https://api.stripe.com/v1/customers"
 private let API_GET_CUSTOMERS = "https://api.stripe.com/v1/customers"
 private let API_POST_CHARGE   = "https://api.stripe.com/v1/charges"
+private let API_GET_CONNECTED_ACCOUNTS = "https://api.stripe.com/v1/accounts"
 
 class StripeAPI {
     
@@ -174,6 +175,52 @@ class StripeAPI {
         })
         task.resume()        
     }
+    
+    func getConnectedAccounts() {
+        guard let URL = URL(string: API_GET_CONNECTED_ACCOUNTS) else {return}
+        var request = URLRequest(url: URL)
+        request.httpMethod = "GET"
+        
+        // Headers
+        request.addValue("stripe.csrf=lF5XxRqmAOvjwiLkJBd4Pfli9f97ZU2q5MxeFyPaJPA3u4sUDjSMTu3O2PqRkJZ5rTANI6sA2PAHhmQxSSpEsA%3D%3D", forHTTPHeaderField: "Cookie")
+        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        
+        let semaphore = DispatchSemaphore(value: 0)
+        /* Start a new Task */
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            (data, response, error) in
+            if (error == nil) {
+                // Success
+                var parsedObject: [String: Any]?
+                var serializationError: NSError?
+                
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                if statusCode == 200 {
+                    print("URL Session Task Succeeded: HTTP \(statusCode)")
+                    
+                    if let data = data {
+                        do {
+                            parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
+                            guard let d = parsedObject?["data"] else { return }                            
+                            
+                        } catch let error as NSError {
+                            serializationError = error
+                            parsedObject = nil
+                        } catch {
+                            fatalError()
+                        }
+                    }
+                    semaphore.signal()
+                }
+            }
+            else {
+                // Failure
+                print("URL Session Task Failed: %@", error!.localizedDescription);
+            }
+        })
+        task.resume()
+    }
+
 }
 
 protocol URLQueryParameterStringConvertible {

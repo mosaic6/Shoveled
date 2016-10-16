@@ -17,10 +17,14 @@ protocol CurrentStatusControllerDelegate {
     @objc optional func toggleLeftPanel()
     @objc optional func collapseSidePanels()
 }
+    
+protocol UpdateRequestStatusDelegate {
+    func getShovelRequests()
+}
 
 let completedOrCancelledNotification = "com.mosaic6.removePinNotification"
     
-class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate {
+class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
 
     // MARK: Outlets
     @IBOutlet weak var lblCurrentTemp: UILabel!
@@ -45,11 +49,15 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var userLong: Double!
     var requestStatus: String!
     var delegate: CurrentStatusControllerDelegate?
+    var updateRequestDelegate: UpdateRequestStatusDelegate?
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
     
     // MARK: View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let connectAccounts = StripeManager.getConnectedAccounts()
+        print(connectAccounts)
         
         mapView?.delegate = self
         getCurrentLocation()
@@ -74,17 +82,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        getShovelRequests()
+        
     }
     
     func configureView() {
         self.navigationController?.isNavigationBarHidden = true
         self.view.addSubview(currentWeatherView)
-        
-//        currentWeatherView.layer.shadowColor = UIColor.gray.cgColor
-//        currentWeatherView.layer.shadowOpacity = 0.8
-//        currentWeatherView.layer.shadowOffset = CGSize.zero
-//        currentWeatherView.layer.shadowRadius = 10
-//        currentWeatherView.layer.shouldRasterize = true
     }
     
     func getUserInfo() {

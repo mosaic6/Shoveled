@@ -46,7 +46,7 @@ class LoginViewController: UIViewController {
         if FIRAuth.auth()?.currentUser != nil {
             self.removeFromParentViewController()
         }
-        ref = FIRDatabase.database().reference()
+        ref = FIRDatabase.database().reference()                
     }
     
     override func viewWillAppear(_ animated: Bool) {
