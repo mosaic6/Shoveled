@@ -177,7 +177,8 @@ class StripeAPI {
     }
     
     func getConnectedAccounts() {
-        guard let URL = URL(string: API_GET_CONNECTED_ACCOUNTS) else {return}
+        
+        guard let URL = URL(string: API_GET_CONNECTED_ACCOUNTS) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
         
@@ -191,7 +192,7 @@ class StripeAPI {
             (data, response, error) in
             if (error == nil) {
                 // Success
-                var parsedObject: [String: Any]?
+                var parsedObject: [String: AnyObject]?
                 var serializationError: NSError?
                 
                 let statusCode = (response as! HTTPURLResponse).statusCode
@@ -200,9 +201,18 @@ class StripeAPI {
                     
                     if let data = data {
                         do {
-                            parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-                            guard let d = parsedObject?["data"] else { return }                            
+                            parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
                             
+                            if let object = parsedObject {
+                                print(object["data"])
+                                
+                                if let email = object["data"]?["email"] as? String {
+                                    print(email)
+                                }
+                                else {
+                                    print("No email found")
+                                }
+                            }
                         } catch let error as NSError {
                             serializationError = error
                             parsedObject = nil
@@ -220,7 +230,7 @@ class StripeAPI {
         })
         task.resume()
     }
-
+    
 }
 
 protocol URLQueryParameterStringConvertible {
