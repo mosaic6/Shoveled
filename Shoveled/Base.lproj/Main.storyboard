@@ -564,8 +564,9 @@
                                 <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
                                 <state key="normal" title="Sign up as a Shoveler!"/>
                                 <connections>
-                                    <action selector="displayStripeWebView:" destination="dUN-69-lLl" eventType="touchUpInside" id="Sa5-Te-cCx"/>
-                                    <segue destination="a8f-XO-jco" kind="show" id="WFz-KW-LyQ"/>
+                                    <segue destination="a8f-XO-jco" kind="popoverPresentation" popoverAnchorView="I55-07-ils" id="1nQ-WG-TpR">
+                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                    </segue>
                                 </connections>
                             </button>
                         </subviews>
@@ -646,14 +647,33 @@
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zB4-Dq-ma5">
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="a8f-XO-jco" id="cDd-cr-coJ"/>
+                                </connections>
                             </webView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoQ-0w-QR5">
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="dismissView:" destination="a8f-XO-jco" eventType="touchUpInside" id="yo7-3e-fUr"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O8f-WR-Whl">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="pck-Zg-gmi" firstAttribute="top" secondItem="zB4-Dq-ma5" secondAttribute="bottom" id="64t-Cx-APb"/>
-                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" id="91h-T4-8Xc"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="zB4-Dq-ma5" secondAttribute="trailing" constant="-16" id="BLW-0q-Hpj"/>
-                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="leading" secondItem="6Io-gt-hwI" secondAttribute="leadingMargin" constant="-16" id="r2l-7M-pkn"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="WoQ-0w-QR5" secondAttribute="leading" id="8aW-dL-1w1"/>
+                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" constant="61" id="91h-T4-8Xc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zB4-Dq-ma5" secondAttribute="trailing" constant="-16" id="AbI-xV-FrA"/>
+                            <constraint firstItem="O8f-WR-Whl" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" constant="20" id="Hyi-KI-gVF"/>
+                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="leading" secondItem="6Io-gt-hwI" secondAttribute="leadingMargin" constant="-16" id="Jxl-fx-DNZ"/>
+                            <constraint firstItem="WoQ-0w-QR5" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" constant="8" id="ajL-Xy-ICr"/>
+                            <constraint firstItem="O8f-WR-Whl" firstAttribute="centerX" secondItem="6Io-gt-hwI" secondAttribute="centerX" id="bQl-L7-XbE"/>
+                            <constraint firstItem="O8f-WR-Whl" firstAttribute="centerY" secondItem="6Io-gt-hwI" secondAttribute="centerY" constant="-283" id="m7L-Gm-Ghz"/>
                         </constraints>
                     </view>
                     <connections>

@@ -17,20 +17,13 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
 
         self.stripeWebView?.delegate = self
         
-        guard let url = URL(string: "https://connect.stripe.com/") else { return }
-        
-        let urlRequest = URLRequest(url: url)
-        self.stripeWebView.loadRequest(urlRequest)
+        let url = URL(string: "https://connect.stripe.com/login?redirect=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Dca_5VEQajzj4GqzKQc6ggbN8XNd0nELUSli%26scope%3Dread_write&force_login=true")
+        if let url = url {
+            let request = URLRequest(url: url)
+            self.stripeWebView?.loadRequest(request)
+        }
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        self.stripeWebView?.loadRequest(NSURLRequest(url: URL(string: "https://connect.stripe.com/login?redirect=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Dca_5VEQajzj4GqzKQc6ggbN8XNd0nELUSli%26scope%3Dread_write&force_login=true")!) as URLRequest)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func dismissView(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

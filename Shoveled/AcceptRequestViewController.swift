@@ -220,12 +220,6 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         })
     }
     
-    @IBAction func displayStripeWebView(_ sender: AnyObject) {
-        let stripeVC = StripeAccountViewController()
-                
-        self.present(stripeVC, animated: true, completion: nil)
-    }
-    
     func displayCamera() {
         imagePickerView.delegate = self
         
