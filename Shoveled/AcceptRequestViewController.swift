@@ -53,7 +53,8 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureView()
+        self.getCustomers()
+        self.configureView()
     }
     
     func configureView() {
@@ -136,6 +137,10 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         completeRequestView.isHidden = true
         
         self.signUpAsShovelerBtn.isHidden = false
+    }
+    
+    func getCustomers() {
+        StripeManager.getConnectedAccounts()
     }
     
     func showCompleteRequestView() {

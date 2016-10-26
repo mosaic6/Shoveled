@@ -176,10 +176,12 @@ class StripeAPI {
         task.resume()        
     }
     
-    func getConnectedAccounts() {
+    func getConnectedAccounts() -> NSArray {
         
-        guard let URL = URL(string: API_GET_CONNECTED_ACCOUNTS) else { return }
-        var request = URLRequest(url: URL)
+        var dataArray: NSArray = []
+        
+        let URL = NSURL(string: API_GET_CONNECTED_ACCOUNTS)
+        var request = URLRequest(url: URL as! URL)
         request.httpMethod = "GET"
         
         // Headers
@@ -204,14 +206,8 @@ class StripeAPI {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
                             
                             if let object = parsedObject {
-                                print(object["data"])
-                                
-                                if let email = object["data"]?["email"] as? String {
-                                    print(email)
-                                }
-                                else {
-                                    print("No email found")
-                                }
+                                dataArray = (object["data"] as? NSArray)!
+                                print(dataArray)
                             }
                         } catch let error as NSError {
                             serializationError = error
@@ -229,8 +225,9 @@ class StripeAPI {
             }
         })
         task.resume()
+        
+        return dataArray as NSArray
     }
-    
 }
 
 protocol URLQueryParameterStringConvertible {

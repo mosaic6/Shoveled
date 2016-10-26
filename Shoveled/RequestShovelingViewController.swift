@@ -36,6 +36,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var paymentTextField: STPPaymentCardTextField! = nil
     var sendToStripeBtn: UIButton! = nil
     var priceLabel: UILabel! = nil
+    var feeLabel: UILabel!
     var paymentToken: PKPaymentToken!
         
     static let SupportedNetworks = [
@@ -60,6 +61,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.tfDescription.becomeFirstResponder()
         getLocation()
     }
     
@@ -167,14 +169,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             
             if !stripeToken.tokenId.isEmpty {
                 guard let amount = self.tfPrice.text else { return }
-                let price: Int = Int(amount)! * 100
+                let price: Int = Int(amount)! * 100 + 75
                 let stringPrice = String(price)
                 
                 StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())")
-                self.addRequestOnSuccess()
-                                                        
-                // display success message and send email with confirmation
-                
+                self.addRequestOnSuccess()                
                 self.dismiss(animated: true, completion: nil)
                 self.hideActivityIndicator(self.view)
             }
@@ -208,9 +207,14 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         sendToStripeBtn.frame = CGRect(x: 0, y: (self.view.frame.height / 2) + 60, width: view.frame.width, height: 55)
         priceLabel = UILabel(frame: CGRect(x: 0, y: 125, width: view.frame.width, height: 80))
         priceLabel.font = UIFont(name: "Marvel-Bold", size: 50.0)
-        priceLabel.textAlignment = NSTextAlignment.center
+        priceLabel.textAlignment = .center
         guard let price = tfPrice.text else { return }
         priceLabel.text = "💲\(price).00"
+        
+        feeLabel = UILabel(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 40))
+        feeLabel.font = UIFont(name: "Marvel-Regular", size: 18)
+        feeLabel.textAlignment = .center
+        feeLabel.text = "$0.75 processing fee will be applied"
         
         paymentTextField = STPPaymentCardTextField(frame: CGRect(x: 15, y: (self.view.frame.height / 2) - 50, width: view.frame.width - 30, height: 44))
         paymentTextField.delegate = self
@@ -232,6 +236,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 self.view.addSubview(self.sendToStripeBtn)
                 self.view.addSubview(self.paymentTextField)
                 self.view.addSubview(self.priceLabel)
+                self.view.addSubview(self.feeLabel)
                 self.paymentTextField.becomeFirstResponder()
                 self.view.layoutIfNeeded()
             }, completion: nil)
