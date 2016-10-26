@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2548a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I9z-8r-vV3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2553a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I9z-8r-vV3">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -15,6 +15,9 @@
         </array>
         <array key="Rajdhani-Regular.ttf">
             <string>Rajdhani-Regular</string>
+        </array>
+        <array key="Rajdhani-SemiBold.ttf">
+            <string>Rajdhani-Semibold</string>
         </array>
     </customFonts>
     <scenes>
@@ -489,6 +492,15 @@
                                             <action selector="acceptRequest:" destination="dUN-69-lLl" eventType="touchUpInside" id="89H-Tf-wB7"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOu-ks-RDk">
+                                        <frame key="frameInset" minX="8" minY="97" width="359" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.13725490196078433" green="0.52941176470588236" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
+                                        <state key="normal" title="Complete Job">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -545,14 +557,16 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tOu-ks-RDk">
-                                <frame key="frameInset" minX="8" minY="384" width="359" height="45"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.13725490196078433" green="0.52941176470588236" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="30"/>
-                                <state key="normal" title="Complete Job">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I55-07-ils">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="CFO-c8-n0W"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
+                                <state key="normal" title="Sign up as a Shoveler!"/>
+                                <connections>
+                                    <action selector="displayStripeWebView:" destination="dUN-69-lLl" eventType="touchUpInside" id="Sa5-Te-cCx"/>
+                                    <segue destination="a8f-XO-jco" kind="show" id="WFz-KW-LyQ"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -562,6 +576,8 @@
                             <constraint firstItem="gM2-x4-8Gw" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="8" id="5NQ-4t-XOF"/>
                             <constraint firstAttribute="trailingMargin" secondItem="aCB-U0-TdD" secondAttribute="trailing" id="67u-Hx-d1l"/>
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="62" id="6qJ-nt-XPo"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="I55-07-ils" secondAttribute="leading" id="CCf-DG-lg7"/>
+                            <constraint firstItem="I55-07-ils" firstAttribute="top" secondItem="liO-iY-Q7Z" secondAttribute="bottom" constant="89" id="H6j-oi-QkO"/>
                             <constraint firstItem="yAy-77-eci" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="bottom" id="HOE-fv-kfp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FRQ-8e-KGw" secondAttribute="trailing" id="HY9-Sk-TbU"/>
                             <constraint firstItem="liO-iY-Q7Z" firstAttribute="top" secondItem="FRQ-8e-KGw" secondAttribute="bottom" constant="8" id="IfC-p7-rNs"/>
@@ -571,6 +587,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="gM2-x4-8Gw" secondAttribute="trailing" id="Txg-Dv-RlA"/>
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="leading" secondItem="I2q-Ks-OBi" secondAttribute="trailing" constant="114" id="aIZ-Xh-MVc"/>
                             <constraint firstAttribute="leadingMargin" secondItem="FRQ-8e-KGw" secondAttribute="leading" id="bFu-Qj-iuZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="I55-07-ils" secondAttribute="trailing" id="bb0-3C-UWT"/>
                             <constraint firstItem="I2q-Ks-OBi" firstAttribute="top" secondItem="9CQ-NL-s8Q" secondAttribute="bottom" constant="8" id="cTB-QT-BBw"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vzO-8m-fo5" secondAttribute="trailing" constant="158" id="clV-tc-5uq"/>
                             <constraint firstItem="1SJ-mv-4gw" firstAttribute="leading" secondItem="Ubn-s7-HPJ" secondAttribute="leading" id="cyx-o2-4xO"/>
@@ -608,11 +625,44 @@
                         <outlet property="descriptionLabel" destination="aCB-U0-TdD" id="UoG-30-lTy"/>
                         <outlet property="priceLabel" destination="FRQ-8e-KGw" id="snv-CN-pjW"/>
                         <outlet property="shovelTimeLabel" destination="liO-iY-Q7Z" id="igU-Bu-4R2"/>
+                        <outlet property="signUpAsShovelerBtn" destination="I55-07-ils" id="7Zo-i3-nTI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="heh-KL-6Tg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1586.4000000000001" y="2624.4377811094455"/>
+        </scene>
+        <!--Stripe Account View Controller-->
+        <scene sceneID="43z-Fs-SpN">
+            <objects>
+                <viewController id="a8f-XO-jco" customClass="StripeAccountViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MKX-rA-5ZV"/>
+                        <viewControllerLayoutGuide type="bottom" id="pck-Zg-gmi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Io-gt-hwI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zB4-Dq-ma5">
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pck-Zg-gmi" firstAttribute="top" secondItem="zB4-Dq-ma5" secondAttribute="bottom" id="64t-Cx-APb"/>
+                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" id="91h-T4-8Xc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zB4-Dq-ma5" secondAttribute="trailing" constant="-16" id="BLW-0q-Hpj"/>
+                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="leading" secondItem="6Io-gt-hwI" secondAttribute="leadingMargin" constant="-16" id="r2l-7M-pkn"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="stripeWebView" destination="zB4-Dq-ma5" id="ODd-u0-BnL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kCI-cT-GWg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2373.5999999999999" y="2623.5382308845578"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="5mg-xD-AOq">
@@ -881,7 +931,7 @@
                         <color key="backgroundColor" red="0.73716437816619873" green="0.73714232444763184" blue="0.73715484142303467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="a3o-cX-KKN" customClass="MenuItemCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a3o-cX-KKN" id="Zfc-I6-u6C">
                                     <frame key="frameInset" width="375" height="44"/>

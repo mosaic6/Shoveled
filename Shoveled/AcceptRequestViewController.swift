@@ -23,6 +23,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     @IBOutlet weak var acceptBtn: ShoveledButton!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var completeJobBtn: UIButton!
+    @IBOutlet weak var signUpAsShovelerBtn: UIButton!
     
     var closeModalBtn: UIButton!
     var imageView: UIImageView!
@@ -133,6 +134,8 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         completeRequestView.addSubview(instructionsLabel)
         completeRequestView.addSubview(closeModalBtn)
         completeRequestView.isHidden = true
+        
+        self.signUpAsShovelerBtn.isHidden = false
     }
     
     func showCompleteRequestView() {
@@ -215,6 +218,12 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                         
                         self.completeRequestView.isHidden = true
         })
+    }
+    
+    @IBAction func displayStripeWebView(_ sender: AnyObject) {
+        let stripeVC = StripeAccountViewController()
+                
+        self.present(stripeVC, animated: true, completion: nil)
     }
     
     func displayCamera() {
