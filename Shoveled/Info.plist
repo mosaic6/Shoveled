@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>1.2</string>
 	<key>Configuration</key>
 	<string>${CONFIGURATION}</string>
 	<key>Fabric</key>
@@ -62,10 +62,14 @@
 	<true/>
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1IjoibW9zYWljNiIsImEiOiJjaWg5cW91N3cwdTJsdTBrbGc3NTM4YjViIn0.qgFisFtOCn7BcoBiSzTBbA</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Shoveled need access to your camera.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>We need your location to get your current weather.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need your location to get your current weather.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Shoveled need access to your photo library.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Marvel-Regular.ttf</string>
@@ -89,9 +93,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Shoveled need access to your camera.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Shoveled need access to your photo library.</string>
 </dict>
 </plist>

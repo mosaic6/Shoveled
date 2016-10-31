@@ -237,7 +237,8 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     }
     
     func sendCompletedJob() {
-        actInd.startAnimating()
+        
+        self.showActivityIndicatory(self.completeRequestView)
         
         guard let requestId = id,
             let address = addressString,
@@ -245,34 +246,46 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             else { return }
         let price: Int? = Int(priceString!)
         
-        let request: [String: AnyObject] = ["status": "Completed" as AnyObject,
-                                            "address": address as AnyObject,
-                                            "longitude": longitude!,
-                                            "latitude": latitude!,
-                                            "details": description as AnyObject,
-                                            "addedByUser": addedByUser! as AnyObject,
-                                            "otherInfo": "" as AnyObject,
-                                            "price": price! as AnyObject,
-                                            "id": id! as AnyObject,
-                                            "createdAt": createdAt! as AnyObject,
-                                            "acceptedByUser": currentUser! as AnyObject]
-        
-        let childUpdates = ["/\(requestId)": request]
-        ref.updateChildValues(childUpdates)
-        
-        actInd.stopAnimating()
-        
-        let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
-        let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
-            self.ref.updateChildValues(childUpdates)
-            
-            // Remove map pin
-            
-            self.dismiss(animated: true, completion: nil)
+        let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
+        if let uploadData = UIImagePNGRepresentation(self.imageView.image!) {
+            storage.put(uploadData, metadata: nil) { (metaData, error) in
+                if error != nil {
+                    return
+                } else {
+                    let request: [String: AnyObject] = ["status": "Completed" as AnyObject,
+                                                        "address": address as AnyObject,
+                                                        "longitude": self.longitude!,
+                                                        "latitude": self.latitude!,
+                                                        "details": description as AnyObject,
+                                                        "addedByUser": self.addedByUser! as AnyObject,
+                                                        "otherInfo": "" as AnyObject,
+                                                        "price": price! as AnyObject,
+                                                        "id": self.id! as AnyObject,
+                                                        "createdAt": self.createdAt! as AnyObject,
+                                                        "acceptedByUser": self.currentUser! as AnyObject]
+                    
+                    let childUpdates = ["/\(requestId)": request]
+                    self.ref.updateChildValues(childUpdates) { (error, ref) in
+                        if error != nil {
+                            return
+                        } else {
+                            self.hideActivityIndicator(self.completeRequestView)
+                            
+                            let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
+                            let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+                                self.ref.updateChildValues(childUpdates)
+                                
+                                // Remove map pin
+                                
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: { _ in })
+                        }
+                    }
+                }
+            }            
         }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: { _ in })
-
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {

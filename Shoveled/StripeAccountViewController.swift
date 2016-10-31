@@ -9,6 +9,10 @@
 import UIKit
 
 class StripeAccountViewController: UIViewController, UIWebViewDelegate {
+    
+    var container: UIView = UIView()
+    var loadingView: UIView = UIView()
+    var actInd = UIActivityIndicatorView()
 
     @IBOutlet weak var stripeWebView: UIWebView!
     
@@ -22,8 +26,18 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
             let request = URLRequest(url: url)
             self.stripeWebView?.loadRequest(request)
         }
+        
     }
+    
     @IBAction func dismissView(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.showActivityIndicatory(self.view)
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        self.hideActivityIndicator(self.view)
     }
 }
