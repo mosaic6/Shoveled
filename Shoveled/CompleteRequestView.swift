@@ -21,7 +21,7 @@ class CompleteRequestView: UIView {
     }
     
     func addCompleteRequestView() {
-        self.backgroundColor = UIColor(red: 230.0 / 255.0, green: 230.0 / 255.0, blue: 220.0 / 255.0, alpha: 1.0)
+        self.backgroundColor = UIColor(red: 240.0 / 255.0, green: 240.0 / 255.0, blue: 240.0 / 255.0, alpha: 1.0)
         self.layer.cornerRadius = 5.0
     }
 }
