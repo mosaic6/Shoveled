@@ -14,7 +14,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GTMSessionFetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Shoveled.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Stripe-Stripe.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>04494808926D2895F56C2269C86D4270</key>
+		<key>67B6A7E07631381C906A7E2C5E8128D2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>13F6E213A76DC421D2868ED7E63235D3</key>
+		<key>85B1BE137074981A1DFB04166123FE8C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6B5EF7594E91FD2D5446F1989CEA0570</key>
+		<key>A0DECCCFE510E2EF80EBAC31A0F3BFED</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A12B19250442B152C2D562BDEB42ACD9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CE6FE5C0F31DC8C0CDBAF7E714FD5786</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>DA07DADC28458B235995D2AA1C36A8DA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EED050BF8F3C17E86D13E02CB1CC6579</key>
 		<dict>
 			<key>primary</key>
 			<true/>

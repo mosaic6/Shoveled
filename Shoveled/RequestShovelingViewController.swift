@@ -49,7 +49,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureAppearance()
         StripeManager.getCustomers() { (result) in
             
         }
@@ -58,6 +57,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         self.view.addGestureRecognizer(tap)        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.configureAppearance()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -66,16 +70,16 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
     
     func configureAppearance() {
-        tfAddress.delegate = self
-        tfDescription.delegate = self
-        tfShovelTime.delegate = self
-        tfPrice.delegate = self
-        addToolBar(tfAddress)
-        addToolBar(tfShovelTime)
-        addToolBar(tfPrice)
-        addToolBar(tfDescription)
+        self.tfAddress.delegate = self
+        self.tfDescription.delegate = self
+        self.tfShovelTime.delegate = self
+        self.tfPrice.delegate = self
+        self.addToolBar(tfAddress)
+        self.addToolBar(tfShovelTime)
+        self.addToolBar(tfPrice)
+        self.addToolBar(tfDescription)
         
-        payWIthCCButton.setTitle("Submit & Pay", for: UIControlState())
+        self.payWIthCCButton.setTitle("Submit & Pay", for: UIControlState())
         
         actInd.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         actInd.center = self.view.center
@@ -94,10 +98,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
     
     func dismissKeyboards() {
-        tfAddress.resignFirstResponder()
-        tfDescription.resignFirstResponder()
-        tfPrice.resignFirstResponder()
-        tfShovelTime.resignFirstResponder()
+        self.tfAddress.resignFirstResponder()
+        self.tfDescription.resignFirstResponder()
+        self.tfPrice.resignFirstResponder()
+        self.tfShovelTime.resignFirstResponder()
     }
     
     //MARK: - Location Manager Delegate

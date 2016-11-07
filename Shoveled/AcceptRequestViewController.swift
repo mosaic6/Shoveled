@@ -273,11 +273,12 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                             
                             let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
                             let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
-                                self.ref.updateChildValues(childUpdates)
+                                self.ref.updateChildValues(childUpdates)                                                                                                
                                 
                                 // Remove map pin
-                                
-                                self.dismiss(animated: true, completion: nil)
+                                self.dismiss(animated: true, completion: { 
+                                    CompletedJobService.sharedInstance.getCompletedJobImage(fromId: "\(requestId)-completedJob.png")
+                                })
                             }
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: { _ in })
@@ -301,5 +302,56 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 self.uploadCompletedJobBtn.isHidden = false
             }
         }
+    }
+}
+
+extension AcceptRequestViewController {
+    func saveImageDocumentDirectory(){
+        let fileManager = FileManager.default
+        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("completedJob.jpg")
+        let image = UIImage(named: "completedJob.jpg")
+        print(paths)
+        let imageData = UIImageJPEGRepresentation(image!, 0.5)
+        fileManager.createFile(atPath: paths as String, contents: imageData, attributes: nil)
+    }
+    
+    func getDirectoryPath() -> String {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
+    
+    func getImage() -> UIImage {
+        let fileManager = FileManager.default
+        let imagePAth = (self.getDirectoryPath() as NSString).appendingPathComponent("completedJob.jpg")
+        if fileManager.fileExists(atPath: imagePAth){
+            self.imageView.image = UIImage(contentsOfFile: imagePAth)
+            return self.imageView.image!
+        }else{
+            print("No Image")
+        }
+        return self.imageView.image!
+    }
+    
+    func createDirectory(){
+        let fileManager = FileManager.default
+        let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("customDirectory")
+        if !fileManager.fileExists(atPath: paths){
+            try! fileManager.createDirectory(atPath: paths, withIntermediateDirectories: true, attributes: nil)
+        }else{
+            print("Already dictionary created.")
+        }
+    }
+}
+
+extension FileManager {
+    class func documentsDir() -> String {
+        var paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]        
+        return paths[0]
+    }
+    
+    class func cachesDir() -> String {
+        var paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true) as [String]
+        return paths[0]
     }
 }

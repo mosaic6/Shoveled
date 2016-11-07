@@ -13,6 +13,7 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
     var container: UIView = UIView()
     var loadingView: UIView = UIView()
     var actInd = UIActivityIndicatorView()
+    var auth_code: String = ""
 
     @IBOutlet weak var stripeWebView: UIWebView!
     
@@ -21,7 +22,7 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
 
         self.stripeWebView?.delegate = self
         
-        let url = URL(string: "https://connect.stripe.com/login?redirect=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Dca_5VEQajzj4GqzKQc6ggbN8XNd0nELUSli%26scope%3Dread_write&force_login=true")
+        let url = URL(string: "https://connect.stripe.com/login?redirect=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Dca_5VEQihJDtbmZMAE270MnnY17PY2L8VUJ%26scope%3Dread_write")
         if let url = url {
             let request = URLRequest(url: url)
             self.stripeWebView?.loadRequest(request)
@@ -39,5 +40,9 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
         self.hideActivityIndicator(self.view)
+        
+        if let url = webView.request?.url?.absoluteString {
+            print(url)
+        }
     }
 }

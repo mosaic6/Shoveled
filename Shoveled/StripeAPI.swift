@@ -23,20 +23,12 @@ class StripeAPI {
     
     // Get customers with Stripe account
     func getCustomers(_ completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
-        let sessionConfig = URLSessionConfiguration.default
-        
-        /* Create session, and optionally set a NSURLSessionDelegate. */
+        let sessionConfig = URLSessionConfiguration.default        
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
         
-        /* Create the Request:
-         GET Customers (GET https://api.stripe.com/v1/customers)
-         */
-        
-        guard let URL = URL(string: API_GET_CUSTOMERS) else {return}
+        guard let URL = URL(string: API_GET_CUSTOMERS) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
-        
-        // Headers
         
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")

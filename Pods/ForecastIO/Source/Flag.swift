@@ -29,14 +29,14 @@ public struct Flag {
     /// Contains the IDs for each METAR station used in servicing this request.
     public let metarStations: Array<String>?
     
-    /// The presence of this property indicates that data from api.met.no was used to facilitate this request (as per their license agreement with Forecast.io).
+    /// The presence of this property indicates that data from api.met.no was used to facilitate this request (as per their license agreement).
     public let metnoLicense: Bool?
     
     /// Contains the IDs for each data station used in servicing this request.
-    public let sources: Array<String>?
+    public let sources: Array<String>
     
-    /// The presence of this property indicates which units were used for the data in this request. "US" units are default.
-    public let units: String?
+    /// The presence of this property indicates which units were used for the data in this request. `US` units are default.
+    public let units: Units
     
     /**
         Creates a new `Flag` from a JSON object.
@@ -53,7 +53,7 @@ public struct Flag {
         lampStations = json["lamp-stations"] as? Array<String>
         metarStations = json["metar-stations"] as? Array<String>
         metnoLicense = json["metno-license"] as? Bool
-        sources = json["sources"] as? Array<String>
-        units = json["units"] as? String
+        sources = json["sources"] as! Array<String>
+        units = Units(rawValue: json["units"] as! String)!
     }
 }
