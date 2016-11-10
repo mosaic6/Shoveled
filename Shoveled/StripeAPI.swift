@@ -10,12 +10,13 @@ import Foundation
 import Stripe
 
 let testAuthKey = "Bearer sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
-//let prodAuthKey =
+let prodAuthKey = "sk_live_2CJnnLPGLtpNAzd3JB1xaojf"
 
 private let API_POST_CUSTOMER = "https://api.stripe.com/v1/customers"
 private let API_GET_CUSTOMERS = "https://api.stripe.com/v1/customers"
 private let API_POST_CHARGE   = "https://api.stripe.com/v1/charges"
 private let API_GET_CONNECTED_ACCOUNTS = "https://api.stripe.com/v1/accounts"
+private let API_POST_CONNECT_ACCOUNT = "https://connect.stripe.com/oauth/token"
 
 class StripeAPI {
     
@@ -219,6 +220,39 @@ class StripeAPI {
         task.resume()
         
         return dataArray as NSArray
+    }
+    
+    func passCodeToAuthAccount(code: String) {
+        guard let URL = URL(string: API_POST_CONNECT_ACCOUNT) else {return}
+        let request = NSMutableURLRequest(url: URL)
+        request.httpMethod = "POST"
+        
+        // Headers
+        
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.addValue("authorization_code", forHTTPHeaderField: "grant_type")
+        
+        let bodyParameters = [
+            "code": code
+            ]
+        let bodyString = bodyParameters.queryParameters
+        request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        
+        /* Start a new Task */
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            (data, response, error) in
+            if (error == nil) {
+                // Success
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                print(statusCode)
+            }
+            else {
+                // Failure
+                print("URL Session Task Failed: %@", error!.localizedDescription);
+            }
+        })
+        task.resume()
     }
 }
 

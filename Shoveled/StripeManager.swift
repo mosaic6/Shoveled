@@ -58,4 +58,11 @@ class StripeManager {
     class func getConnectedAccounts() {
         StripeAPI.sharedInstance.getConnectedAccounts()
     }
+    
+    // Send Code to Auth User
+    
+    // Eventually have to pass a copmletion block with success
+    class func passCodeToAuthAccount(code: String) {
+        StripeAPI.sharedInstance.passCodeToAuthAccount(code: code)
+    }
 }

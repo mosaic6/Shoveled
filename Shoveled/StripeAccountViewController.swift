@@ -41,8 +41,25 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
     func webViewDidFinishLoad(_ webView: UIWebView) {
         self.hideActivityIndicator(self.view)
         
-        if let url = webView.request?.url?.absoluteString {
-            print(url)
+        
+        // get callback url code
+        if let url = webView.request?.url {
+            guard let code = url.getQueryItemValueForKey(key: "code") else { return }
+            print(code)
+            StripeManager.passCodeToAuthAccount(code: code)            
         }
+    }
+}
+
+extension URL {
+    func getQueryItemValueForKey(key: String) -> String? {
+        guard let components = URLComponents(url: self as URL, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        
+        guard let queryItems = components.queryItems else { return nil }
+        return queryItems.filter {
+            $0.name == key
+            }.first?.value
     }
 }
