@@ -19,40 +19,40 @@ private let API_GET_CONNECTED_ACCOUNTS = "https://api.stripe.com/v1/accounts"
 private let API_POST_CONNECT_ACCOUNT = "https://connect.stripe.com/oauth/token"
 
 class StripeAPI {
-    
+
     static let sharedInstance = StripeAPI()
-    
+
     // Get customers with Stripe account
     func getCustomers(_ completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
-        let sessionConfig = URLSessionConfiguration.default        
+        let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
+
         guard let URL = URL(string: API_GET_CUSTOMERS) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
-        
+
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         let semaphore = DispatchSemaphore(value: 0)
         /* Start a new Task */
         let task = session.dataTask(with: URL, completionHandler: {
             (data, response, error) in
-            
+
             if (error == nil) {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
-                
+
                 var parsedObject: [String: Any]?
                 var serializationError: NSError?
-                
+
                 if statusCode == 200 {
                     print("URL Session Task Succeeded: HTTP \(statusCode)")
-                    
+
                     if let data = data {
                         do {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-                            
+
                         } catch let error as NSError {
                             serializationError = error
                             parsedObject = nil
@@ -63,38 +63,37 @@ class StripeAPI {
                     completion(parsedObject as NSDictionary?, serializationError)
                     semaphore.signal()
                 }
-                
-            }
-            else {
+
+            } else {
                 // Failure
-                print("URL Session Task Failed: %@", error!.localizedDescription);
+                print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
         task.resume()
     }
-    
+
     // Create a new customer if they don't already exist
     func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
         let sessionConfig = URLSessionConfiguration.default
-        
+
         /* Create session, and optionally set a NSURLSessionDelegate. */
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
+
         /* Create the Request:
          POST Customers (POST https://api.stripe.com/v1/customers)
          */
-        
+
         guard let URL = URL(string: API_POST_CUSTOMER) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
-        
+
         // Headers
-        
+
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         // Form URL-Encoded Body
-        
+
         let bodyParameters = [
             "email": email,
             "description": customerDesciption,
@@ -102,41 +101,40 @@ class StripeAPI {
             ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        
+
         /* Start a new Task */
         let task = session.dataTask(with: URL, completionHandler: {
             (data, response, error) in
             if (error == nil) {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
-                
+
                 if statusCode == 200 {
                     completion(true, nil)
                 }
-            }
-            else {
+            } else {
                 // Failure
                 completion(false, error as NSError?)
-                print("URL Session Task Failed: %@", error!.localizedDescription);
+                print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
         task.resume()
     }
-    
+
     // Send the charge to Stripe
     func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
-        
+
         guard let URL = URL(string: API_POST_CHARGE) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
-        
+
         // Headers
-        
+
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         // Form URL-Encoded Body
-        
+
         let bodyParameters = [
             "amount": amount,
             "currency": "usd",
@@ -145,7 +143,7 @@ class StripeAPI {
             ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        
+
         /* Start a new Task */
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
@@ -155,32 +153,30 @@ class StripeAPI {
                 if statusCode == 200 {
                     print("Payment Successful \(statusCode)")
                     completion(true, nil)
-                }
-                else {
+                } else {
                     print(response)
                 }
-            }
-            else {
+            } else {
                 // Failure
                 completion(false, error as NSError?)
-                print("URL Session Task Failed: %@", error!.localizedDescription);
+                print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
-        task.resume()        
+        task.resume()
     }
-    
+
     func getConnectedAccounts() -> NSArray {
-        
+
         var dataArray: NSArray = []
-        
+
         let URL = NSURL(string: API_GET_CONNECTED_ACCOUNTS)
         var request = URLRequest(url: URL as! URL)
         request.httpMethod = "GET"
-        
+
         // Headers
         request.addValue("stripe.csrf=lF5XxRqmAOvjwiLkJBd4Pfli9f97ZU2q5MxeFyPaJPA3u4sUDjSMTu3O2PqRkJZ5rTANI6sA2PAHhmQxSSpEsA%3D%3D", forHTTPHeaderField: "Cookie")
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
-        
+
         let semaphore = DispatchSemaphore(value: 0)
         /* Start a new Task */
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
@@ -189,15 +185,15 @@ class StripeAPI {
                 // Success
                 var parsedObject: [String: AnyObject]?
                 var serializationError: NSError?
-                
+
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 if statusCode == 200 {
                     print("URL Session Task Succeeded: HTTP \(statusCode)")
-                    
+
                     if let data = data {
                         do {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
-                            
+
                             if let object = parsedObject {
                                 dataArray = (object["data"] as? NSArray)!
                                 print(dataArray)
@@ -211,34 +207,33 @@ class StripeAPI {
                     }
                     semaphore.signal()
                 }
-            }
-            else {
+            } else {
                 // Failure
-                print("URL Session Task Failed: %@", error!.localizedDescription);
+                print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
         task.resume()
-        
+
         return dataArray as NSArray
     }
-    
+
     func passCodeToAuthAccount(code: String) {
         guard let URL = URL(string: API_POST_CONNECT_ACCOUNT) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
-        
+
         // Headers
-        
+
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         request.addValue("authorization_code", forHTTPHeaderField: "grant_type")
-        
+
         let bodyParameters = [
             "code": code
             ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        
+
         /* Start a new Task */
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
@@ -246,10 +241,9 @@ class StripeAPI {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 print(statusCode)
-            }
-            else {
+            } else {
                 // Failure
-                print("URL Session Task Failed: %@", error!.localizedDescription);
+                print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
         task.resume()
@@ -277,7 +271,7 @@ extension Dictionary: URLQueryParameterStringConvertible {
         }
         return parts.joined(separator: "&")
     }
-    
+
 }
 
 extension URL {

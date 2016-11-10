@@ -10,16 +10,16 @@ import Foundation
 
 /// Weather data for a specific location over a period of time.
 public struct DataBlock {
-    
+
     /// A human-readable text summary.
     public let summary: String?
-    
+
     /// A machine-readable summary of the weather suitable for selecting an icon for display.
     public let icon: Icon?
-    
+
     /// `DataPoint`s ordered by time, which describe the weather conditions at the requested location over time.
     public let data: Array<DataPoint>
-    
+
     /// Creates a new `DataBlock` from a JSON object.
     ///
     /// - parameter json: A JSON object with keys corresponding to the `DataBlock`'s properties.
@@ -36,7 +36,7 @@ public struct DataBlock {
         } else {
             icon = nil
         }
-        
+
         let jsonData = json["data"] as! Array<NSDictionary>
         var tempData = [DataPoint]()
         for jsonDataPoint in jsonData {

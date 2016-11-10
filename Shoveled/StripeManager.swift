@@ -9,8 +9,7 @@
 import Foundation
 
 class StripeManager {
-    
-    
+
     // Get Customers
     class func getCustomers(_ completion: @escaping (_ customerEmail: String) -> ()) {
         StripeAPI.sharedInstance.getCustomers { (result, error) in
@@ -25,7 +24,7 @@ class StripeManager {
             }
         }
     }
-    
+
     // Send charge to Stripe
     class func sendChargeToStripeWith(amount: String, source: String, description: String) {
         StripeAPI.sharedInstance.sendChargeToStripeWith(amount, source: source, description: description) { (success, error) in
@@ -34,33 +33,32 @@ class StripeManager {
             }
         }
     }
-    
+
     // Create Customer 
     class func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
-        
+
         let error: NSError? = nil
         getCustomers { (customerEmail) in
             if email == customerEmail {
                 completion(false, error)
-            }
-            else {
+            } else {
                 completion(true, nil)
                 StripeAPI.sharedInstance.createCustomerStripeAccountWith(customerDesciption, source: source, email: email) { (success, error) in
                     if success {
                         print("Customer Created!")
                     }
                 }
-            }            
+            }
         }
     }
-    
+
     // GET Connected Accounts
     class func getConnectedAccounts() {
         StripeAPI.sharedInstance.getConnectedAccounts()
     }
-    
+
     // Send Code to Auth User
-    
+
     // Eventually have to pass a copmletion block with success
     class func passCodeToAuthAccount(code: String) {
         StripeAPI.sharedInstance.passCodeToAuthAccount(code: code)

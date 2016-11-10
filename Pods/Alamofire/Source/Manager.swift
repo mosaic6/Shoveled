@@ -156,8 +156,7 @@ public class Manager {
     public init(
         configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(),
         delegate: SessionDelegate = SessionDelegate(),
-        serverTrustPolicyManager: ServerTrustPolicyManager? = nil)
-    {
+        serverTrustPolicyManager: ServerTrustPolicyManager? = nil) {
         self.delegate = delegate
         self.session = NSURLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
 
@@ -177,8 +176,7 @@ public class Manager {
     public init?(
         session: NSURLSession,
         delegate: SessionDelegate,
-        serverTrustPolicyManager: ServerTrustPolicyManager? = nil)
-    {
+        serverTrustPolicyManager: ServerTrustPolicyManager? = nil) {
         guard delegate === session.delegate else { return nil }
 
         self.delegate = delegate
@@ -219,8 +217,7 @@ public class Manager {
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
         headers: [String: String]? = nil)
-        -> Request
-    {
+        -> Request {
         let mutableURLRequest = URLRequest(method, URLString, headers: headers)
         let encodedURLRequest = encoding.encode(mutableURLRequest, parameters: parameters).0
         return request(encodedURLRequest)
@@ -318,8 +315,7 @@ public class Manager {
         public func URLSession(
             session: NSURLSession,
             didReceiveChallenge challenge: NSURLAuthenticationChallenge,
-            completionHandler: ((NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void))
-        {
+            completionHandler: ((NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)) {
             guard sessionDidReceiveChallengeWithCompletion == nil else {
                 sessionDidReceiveChallengeWithCompletion?(session, challenge, completionHandler)
                 return
@@ -335,8 +331,7 @@ public class Manager {
 
                 if let
                     serverTrustPolicy = session.serverTrustPolicyManager?.serverTrustPolicyForHost(host),
-                    serverTrust = challenge.protectionSpace.serverTrust
-                {
+                    serverTrust = challenge.protectionSpace.serverTrust {
                     if serverTrustPolicy.evaluateServerTrust(serverTrust, isValidForHost: host) {
                         disposition = .UseCredential
                         credential = NSURLCredential(forTrust: serverTrust)
@@ -407,8 +402,7 @@ public class Manager {
             task: NSURLSessionTask,
             willPerformHTTPRedirection response: NSHTTPURLResponse,
             newRequest request: NSURLRequest,
-            completionHandler: NSURLRequest? -> Void)
-        {
+            completionHandler: NSURLRequest? -> Void) {
             guard taskWillPerformHTTPRedirectionWithCompletion == nil else {
                 taskWillPerformHTTPRedirectionWithCompletion?(session, task, response, request, completionHandler)
                 return
@@ -435,8 +429,7 @@ public class Manager {
             session: NSURLSession,
             task: NSURLSessionTask,
             didReceiveChallenge challenge: NSURLAuthenticationChallenge,
-            completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
-        {
+            completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void) {
             guard taskDidReceiveChallengeWithCompletion == nil else {
                 taskDidReceiveChallengeWithCompletion?(session, task, challenge, completionHandler)
                 return
@@ -467,8 +460,7 @@ public class Manager {
         public func URLSession(
             session: NSURLSession,
             task: NSURLSessionTask,
-            needNewBodyStream completionHandler: NSInputStream? -> Void)
-        {
+            needNewBodyStream completionHandler: NSInputStream? -> Void) {
             guard taskNeedNewBodyStreamWithCompletion == nil else {
                 taskNeedNewBodyStreamWithCompletion?(session, task, completionHandler)
                 return
@@ -495,8 +487,7 @@ public class Manager {
             task: NSURLSessionTask,
             didSendBodyData bytesSent: Int64,
             totalBytesSent: Int64,
-            totalBytesExpectedToSend: Int64)
-        {
+            totalBytesExpectedToSend: Int64) {
             if let taskDidSendBodyData = taskDidSendBodyData {
                 taskDidSendBodyData(session, task, bytesSent, totalBytesSent, totalBytesExpectedToSend)
             } else if let delegate = self[task] as? Request.UploadTaskDelegate {
@@ -569,8 +560,7 @@ public class Manager {
             session: NSURLSession,
             dataTask: NSURLSessionDataTask,
             didReceiveResponse response: NSURLResponse,
-            completionHandler: NSURLSessionResponseDisposition -> Void)
-        {
+            completionHandler: NSURLSessionResponseDisposition -> Void) {
             guard dataTaskDidReceiveResponseWithCompletion == nil else {
                 dataTaskDidReceiveResponseWithCompletion?(session, dataTask, response, completionHandler)
                 return
@@ -595,8 +585,7 @@ public class Manager {
         public func URLSession(
             session: NSURLSession,
             dataTask: NSURLSessionDataTask,
-            didBecomeDownloadTask downloadTask: NSURLSessionDownloadTask)
-        {
+            didBecomeDownloadTask downloadTask: NSURLSessionDownloadTask) {
             if let dataTaskDidBecomeDownloadTask = dataTaskDidBecomeDownloadTask {
                 dataTaskDidBecomeDownloadTask(session, dataTask, downloadTask)
             } else {
@@ -637,8 +626,7 @@ public class Manager {
             session: NSURLSession,
             dataTask: NSURLSessionDataTask,
             willCacheResponse proposedResponse: NSCachedURLResponse,
-            completionHandler: NSCachedURLResponse? -> Void)
-        {
+            completionHandler: NSCachedURLResponse? -> Void) {
             guard dataTaskWillCacheResponseWithCompletion == nil else {
                 dataTaskWillCacheResponseWithCompletion?(session, dataTask, proposedResponse, completionHandler)
                 return
@@ -685,8 +673,7 @@ public class Manager {
         public func URLSession(
             session: NSURLSession,
             downloadTask: NSURLSessionDownloadTask,
-            didFinishDownloadingToURL location: NSURL)
-        {
+            didFinishDownloadingToURL location: NSURL) {
             if let downloadTaskDidFinishDownloadingToURL = downloadTaskDidFinishDownloadingToURL {
                 downloadTaskDidFinishDownloadingToURL(session, downloadTask, location)
             } else if let delegate = self[downloadTask] as? Request.DownloadTaskDelegate {
@@ -711,8 +698,7 @@ public class Manager {
             downloadTask: NSURLSessionDownloadTask,
             didWriteData bytesWritten: Int64,
             totalBytesWritten: Int64,
-            totalBytesExpectedToWrite: Int64)
-        {
+            totalBytesExpectedToWrite: Int64) {
             if let downloadTaskDidWriteData = downloadTaskDidWriteData {
                 downloadTaskDidWriteData(session, downloadTask, bytesWritten, totalBytesWritten, totalBytesExpectedToWrite)
             } else if let delegate = self[downloadTask] as? Request.DownloadTaskDelegate {
@@ -742,8 +728,7 @@ public class Manager {
             session: NSURLSession,
             downloadTask: NSURLSessionDownloadTask,
             didResumeAtOffset fileOffset: Int64,
-            expectedTotalBytes: Int64)
-        {
+            expectedTotalBytes: Int64) {
             if let downloadTaskDidResumeAtOffset = downloadTaskDidResumeAtOffset {
                 downloadTaskDidResumeAtOffset(session, downloadTask, fileOffset, expectedTotalBytes)
             } else if let delegate = self[downloadTask] as? Request.DownloadTaskDelegate {

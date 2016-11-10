@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C32f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="I9z-8r-vV3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16C32f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tCX-AY-NMz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -303,7 +303,7 @@
                         <outlet property="mapContainerView" destination="SLL-bG-2fj" id="X6e-lW-xQv"/>
                         <outlet property="mapView" destination="nuE-0U-zZI" id="pRM-DI-tkh"/>
                         <outlet property="refreshMapBtn" destination="Au9-9S-VKo" id="Ka5-wG-5dg"/>
-                        <segue destination="I9z-8r-vV3" kind="show" identifier="notLoggedIn" id="2R3-lk-DrQ"/>
+                        <segue destination="I9z-8r-vV3" kind="presentation" identifier="notLoggedIn" id="2R3-lk-DrQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kb0-YE-XKD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -326,13 +326,13 @@
                                 <rect key="frame" x="-4" y="114" width="383" height="255"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELING DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="732-8Z-ymu">
-                                        <rect key="frame" x="20" y="54" width="213" height="20"/>
+                                        <rect key="frame" x="20" y="55" width="150.5" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-IN-Rx2">
-                                        <rect key="frame" x="20" y="0.0" width="79.5" height="20"/>
+                                        <rect key="frame" x="20" y="0.0" width="55.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="77" id="2qv-GZ-cUm"/>
                                         </constraints>
@@ -346,7 +346,7 @@
                                         </variation>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mbm-bp-IFG" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="16" width="340" height="30"/>
+                                        <rect key="frame" x="20" y="17" width="340" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="fwQ-eV-JE3"/>
                                         </constraints>
@@ -363,7 +363,7 @@
                                         <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Other info we should know (optional)" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bof-Wf-8x9" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="128" width="343" height="30"/>
+                                        <rect key="frame" x="20" y="129" width="343" height="30"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="nnW-lD-bLV"/>
@@ -372,13 +372,13 @@
                                         <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET WHAT YOU WANT TO PAY $$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BdP-5G-VDV">
-                                        <rect key="frame" x="20" y="166" width="263.5" height="20"/>
+                                        <rect key="frame" x="20" y="167" width="191" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="$25" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kNJ-1K-BoE" customClass="ShoveledTextField" customModule="Shoveled" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="185" width="343" height="30"/>
+                                        <rect key="frame" x="20" y="187" width="343" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="vbg-aP-mfk"/>
                                         </constraints>
@@ -386,7 +386,7 @@
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OTHER SHOVELING INFO" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kgh-XG-YJJ">
-                                        <rect key="frame" x="20" y="110" width="202" height="20"/>
+                                        <rect key="frame" x="20" y="110" width="143" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -992,49 +992,6 @@
             </objects>
             <point key="canvasLocation" x="2301.5999999999999" y="987.25637181409309"/>
         </scene>
-        <!--Side Menu View Controller Table View Controller-->
-        <scene sceneID="YlF-0P-wXR">
-            <objects>
-                <tableViewController storyboardIdentifier="SideMenuViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="apa-1D-32O" customClass="SideMenuViewControllerTableViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="GFi-Xp-lrr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.73716437816619873" green="0.73714232444763184" blue="0.73715484142303467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="Cell" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="a3o-cX-KKN" customClass="MenuItemCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a3o-cX-KKN" id="Zfc-I6-u6C">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nks-gp-Exh">
-                                            <rect key="frame" x="8" y="11" width="225" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="18"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="lblTitle" destination="Nks-gp-Exh" id="sYe-9t-NIe"/>
-                                    <segue destination="I9z-8r-vV3" kind="show" identifier="notLoggedIn" id="6Et-N2-jBP"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="apa-1D-32O" id="Luo-sE-OFI"/>
-                            <outlet property="delegate" destination="apa-1D-32O" id="8TR-eg-XgK"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="52H-Zk-opo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="823" y="1675"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Thb-BY-HDo">
             <objects>
@@ -1061,7 +1018,4 @@
         <image name="refresh" width="53" height="52"/>
         <image name="snowBG" width="512" height="340"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="2R3-lk-DrQ"/>
-    </inferredMetricsTieBreakers>
 </document>

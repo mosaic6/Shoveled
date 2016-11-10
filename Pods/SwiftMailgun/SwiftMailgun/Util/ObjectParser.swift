@@ -10,9 +10,8 @@ import Foundation
 
 import ObjectMapper
 
-public class ObjectParser
-{
-    
+public class ObjectParser {
+
     /**
      Converts and parse and object from a json file for testing
      
@@ -21,11 +20,10 @@ public class ObjectParser
      - returns: object conforming to Mappable
      */
     public class func objectFromJson<T: Mappable>(json: AnyObject?) -> T? {
-        
+
         return Mapper<T>().map(json)
     }
-    
-    
+
     /**
      Converts and parse and object from a json string
      
@@ -34,10 +32,10 @@ public class ObjectParser
      - returns:
      */
     public class func objectFromJsonString<T: Mappable>(json: String?) -> T? {
-        
+
         return Mapper<T>().map(json)
     }
-    
+
     /**
      Converts and parse and object to an array
      - parameter fileName: filename
@@ -45,9 +43,8 @@ public class ObjectParser
      - returns: array of objects
      */
     public class func objectFromJsonArray<T: Mappable>(json: AnyObject?) -> [T]? {
-        
+
         return Mapper<T>().mapArray(json)
     }
-    
-    
+
 }

@@ -31,18 +31,18 @@ import Foundation
 public class NSDataTransform: TransformType {
 	public typealias Object = NSData
 	public typealias JSON = String
-	
+
 	public init() {}
-	
+
 	public func transformFromJSON(value: AnyObject?) -> NSData? {
-		guard let string = value as? String else{
+		guard let string = value as? String else {
 			return nil
 		}
 		return NSData(base64EncodedString: string, options: [])
 	}
-	
+
 	public func transformToJSON(value: NSData?) -> String? {
-		guard let data = value else{
+		guard let data = value else {
 			return nil
 		}
 		return data.base64EncodedStringWithOptions([])

@@ -11,11 +11,11 @@ import UIKit
 
 class User: NSObject {
     var username: String
-    
+
     init(username: String) {
         self.username = username
     }
-    
+
     convenience override init() {
         self.init(username:  "")
     }

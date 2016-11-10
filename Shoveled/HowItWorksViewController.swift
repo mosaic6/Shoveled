@@ -19,7 +19,7 @@ class HowItWorksViewController: UIViewController {
         let request = NSURLRequest(url: URL as! URL)
         webView.loadRequest(request as URLRequest)
     }
-    
+
     @IBAction func closeView(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }

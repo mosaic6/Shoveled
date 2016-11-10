@@ -9,17 +9,17 @@
 import Foundation
 
 open class AppConfiguration {
-    
+
     static let authKey = "sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
-    
+
     fileprivate struct Bundle {
         static var prefix = Foundation.Bundle.main.object(forInfoDictionaryKey: "merchant.com.mosaic6") as! String
     }
-    
+
     struct UserActivity {
         static let payment = "\(Bundle.prefix).Shoveled.payment"
     }
-    
+
     struct Merchant {
         static let identifier = "merchant.\(Bundle.prefix).Shoveled"
     }

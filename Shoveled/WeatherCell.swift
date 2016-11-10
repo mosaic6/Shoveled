@@ -9,16 +9,15 @@
 import UIKit
 
 class WeatherCell: UICollectionViewCell {
-    
+
     @IBOutlet weak var imgCurrentWeather: UIImageView!
     @IBOutlet weak var lblMinMaxTemp: UILabel!
     @IBOutlet weak var lblAccumulation: UILabel!
     @IBOutlet weak var lblSummary: UILabel!
     @IBOutlet weak var lblDay: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
-    
+
 }

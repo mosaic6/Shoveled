@@ -13,9 +13,9 @@ import FirebaseAuth
 class CompletedJobService {
 
     static let sharedInstance = CompletedJobService()
-    
+
     let currentUser = FIRAuth.auth()?.currentUser?.email
-    
+
     func getCompletedJobImage(fromId: String) {
         let imageRef = FIRStorage.storage().reference().child(fromId)
         imageRef.downloadURL { (url, error) in
@@ -26,7 +26,7 @@ class CompletedJobService {
                     do {
                         let downloadUrl = try String(contentsOf: url)
                         EmailService.sharedInstance.sendEmailTo(email: self.currentUser!, toName: "", subject: "Your Request Is Complete!", text: "", file: downloadUrl)
-                    } catch {                        
+                    } catch {
                         print("error")
                     }
                 }

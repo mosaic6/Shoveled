@@ -33,30 +33,30 @@ extension UIViewController {
     }
 }
 
-extension UIViewController {    
+extension UIViewController {
     func showActivityIndicatory(_ uiView: UIView) {
         container.frame = uiView.frame
         container.center = uiView.center
         container.backgroundColor = UIColor(red: 155.0 / 255.0, green: 155.0 / 255.0, blue: 155.0 / 255.0, alpha: 0.5)
-        
+
         loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
         loadingView.center = uiView.center
         loadingView.backgroundColor = UIColor(red: 68.0 / 255.0, green: 68.0 / 255.0, blue: 68.0 / 255.0, alpha: 0.8)
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
-        
+
         let actInd: UIActivityIndicatorView = UIActivityIndicatorView()
-        actInd.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0);
+        actInd.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
         actInd.activityIndicatorViewStyle =
             UIActivityIndicatorViewStyle.whiteLarge
         actInd.center = CGPoint(x: loadingView.frame.size.width / 2,
-                                    y: loadingView.frame.size.height / 2);
+                                    y: loadingView.frame.size.height / 2)
         loadingView.addSubview(actInd)
         container.addSubview(loadingView)
         uiView.addSubview(container)
         actInd.startAnimating()
     }
-    
+
     func hideActivityIndicator(_ uiView: UIView) {
         actInd.stopAnimating()
         container.removeFromSuperview()

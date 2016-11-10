@@ -627,7 +627,7 @@ public func <- <T: BaseMappable>(inout left: Array<Array<T>>, right: Map) {
 }
 
 /// Optional array of Mappable objects
-public func <- <T: BaseMappable>(inout left:Array<Array<T>>?, right: Map) {
+public func <- <T: BaseMappable>(inout left: Array<Array<T>>?, right: Map) {
 	switch right.mappingType {
 	case .FromJSON where right.isKeyPresent:
 		FromJSON.optionalTwoDimensionalObjectArray(&left, map: right)
@@ -667,7 +667,7 @@ public func <- <Transform: TransformType where Transform.Object: BaseMappable>(i
 }
 
 /// Optional array of Mappable objects with transform
-public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left:Array<Array<Transform.Object>>?, right: (Map, Transform)) {
+public func <- <Transform: TransformType where Transform.Object: BaseMappable>(inout left: Array<Array<Transform.Object>>?, right: (Map, Transform)) {
 	let (map, transform) = right
 	if let original2DArray = map.currentValue as? [[AnyObject]] where map.mappingType == .FromJSON && map.isKeyPresent {
 		let transformed2DArray = original2DArray.flatMap { values in
@@ -711,7 +711,6 @@ public func <- <T: BaseMappable where T: Hashable>(inout left: Set<T>, right: Ma
 	}
 }
 
-
 /// Optional Set of Mappable objects
 public func <- <T: BaseMappable where T: Hashable>(inout left: Set<T>?, right: Map) {
 	switch right.mappingType {
@@ -734,7 +733,6 @@ public func <- <T: BaseMappable where T: Hashable>(inout left: Set<T>!, right: M
 	}
 }
 
-
 // MARK:- Set of Mappable objects with a transform - Set<T: BaseMappable where T: Hashable>
 
 /// Set of Mappable objects with transform
@@ -751,7 +749,6 @@ public func <- <Transform: TransformType where Transform.Object: protocol<Hashab
 	default: ()
 	}
 }
-
 
 /// Optional Set of Mappable objects with transform
 public func <- <Transform: TransformType where Transform.Object: protocol<Hashable, Mappable>>(inout left: Set<Transform.Object>?, right: (Map, Transform)) {

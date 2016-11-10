@@ -22,7 +22,7 @@ class ShovelRequest: NSObject {
     var id: String
     var createdAt: String
     var acceptedByUser: String
-    
+
     init(address: String, addedByUser: String, status: String, latitude: NSNumber, longitude: NSNumber, details: String, otherInfo: String, price: NSNumber, id: String, createdAt: String, acceptedByUser: String) {
         self.address = address
         self.addedByUser = addedByUser
@@ -36,7 +36,7 @@ class ShovelRequest: NSObject {
         self.createdAt = createdAt
         self.acceptedByUser = acceptedByUser
     }
-    
+
     func toAnyObject() -> NSDictionary {
         return [
             "address": address,

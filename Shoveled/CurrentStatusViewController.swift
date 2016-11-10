@@ -1,4 +1,4 @@
-    //
+//
 //  CurrentStatusViewController.swift
 //  Shoveled
 //
@@ -17,26 +17,26 @@ protocol CurrentStatusControllerDelegate {
     @objc optional func toggleLeftPanel()
     @objc optional func collapseSidePanels()
 }
-    
+
 protocol UpdateRequestStatusDelegate {
     func getShovelRequests()
 }
 
 let completedOrCancelledNotification = "com.mosaic6.removePinNotification"
-    
+
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
 
     // MARK: Outlets
-    @IBOutlet weak var lblCurrentTemp: UILabel!
-    @IBOutlet weak var imgCurrentWeatherIcon: UIImageView!
-    @IBOutlet weak var lblCurrentPrecip: UILabel!
-    @IBOutlet weak var currentWeatherView: UIView!
-    @IBOutlet weak var btnGetShoveled: UIButton!
-    @IBOutlet weak var mapContainerView: UIView!
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var refreshMapBtn: UIButton!
-    
+    @IBOutlet weak var lblCurrentTemp: UILabel?
+    @IBOutlet weak var imgCurrentWeatherIcon: UIImageView?
+    @IBOutlet weak var lblCurrentPrecip: UILabel?
+    @IBOutlet weak var currentWeatherView: UIView?
+    @IBOutlet weak var btnGetShoveled: UIButton?
+    @IBOutlet weak var mapContainerView: UIView?
+    @IBOutlet weak var bottomView: UIView?
+    @IBOutlet weak var mapView: MKMapView?
+    @IBOutlet weak var refreshMapBtn: UIButton?
+
     // MARK: Variables
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
     let locationManager = CLLocationManager()
@@ -51,46 +51,47 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var delegate: CurrentStatusControllerDelegate?
     var updateRequestDelegate: UpdateRequestStatusDelegate?
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
-    
+
     // MARK: View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let connectAccounts = StripeManager.getConnectedAccounts()
         print(connectAccounts)
-        
-        mapView?.delegate = self
-        getCurrentLocation()
-        configureView()
-        getShovelRequests()
-        
+
+        self.mapView?.delegate = self
+        self.getCurrentLocation()
+        self.configureView()
+        self.getShovelRequests()
+
         let currentUser = FIRAuth.auth()?.currentUser?.email
-        print(currentUser)
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: NSNotification.Name(rawValue: "cancelRequest"), object: nil)
-        
+
         UIApplication.shared.registerForRemoteNotifications()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        getUserInfo()
-        
+
+        self.getUserInfo()
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        getShovelRequests()
-        
+
+        self.getShovelRequests()
+
     }
-    
+
     func configureView() {
         self.navigationController?.isNavigationBarHidden = true
-        self.view.addSubview(currentWeatherView)
+        if let currentWeatherView = self.currentWeatherView {
+            self.view.addSubview(currentWeatherView)
+        }
     }
-    
+
     func getUserInfo() {
         if FIRAuth.auth()?.currentUser == nil {
             self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
@@ -101,58 +102,58 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     func getCurrentLocation() {
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
-        
+
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.coordinates = manager.location?.coordinate
         self.userLat = coordinates.latitude
         self.userLong = coordinates.longitude
-        
+
         let center = CLLocationCoordinate2D(latitude: userLat, longitude: userLong)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        self.mapView.showsUserLocation = true
-        self.mapView.isUserInteractionEnabled = true
-        self.mapView.setCenter(coordinates, animated: false)
-        self.mapView.setRegion(region, animated: false)
+        self.mapView?.showsUserLocation = true
+        self.mapView?.isUserInteractionEnabled = true
+        self.mapView?.setCenter(coordinates, animated: false)
+        self.mapView?.setRegion(region, animated: false)
         defer { retrieveWeatherForecast() }
         locationManager.stopUpdatingLocation()
     }
-    
+
     // MARK: - Weather Fetching
     func retrieveWeatherForecast() {
         let forecastService = ForecastService(APIKey: forecastAPIKey)
         forecastService.getForecast(userLat, lon: userLong) {
             (forecast) in
-            
+
             if let weatherForecast = forecast,
                 let currentWeather = weatherForecast.currentWeather {
                 DispatchQueue.main.async {
                     if let temp = currentWeather.temperature {
-                        self.lblCurrentTemp.text = "\(temp)º"
+                        self.lblCurrentTemp?.text = "\(temp)º"
                     }
-                    
+
                     if let precip = currentWeather.precipProbability {
-                        self.lblCurrentPrecip.text = "Precip: \(precip)%"
+                        self.lblCurrentPrecip?.text = "Precip: \(precip)%"
                     }
-                    
-                    self.imgCurrentWeatherIcon.image = currentWeather.icon
-                    
+
+                    self.imgCurrentWeatherIcon?.image = currentWeather.icon
+
                 }
             }
         }
     }
-    
+
     // MARK: - Fetch Request
     func getShovelRequests() {
-        
+
         self.removeAnnotations()
-        
+
         self.showActivityIndicatory(self.view)
         ref.observe(.value, with: { snapshot in
             let items = snapshot.value as! [String: AnyObject]
@@ -168,9 +169,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 guard let id = item.value["id"] as? String else { return }
                 guard let createdAt = item.value["createdAt"] as? String else { return }
                 guard let acceptedByUser = item.value["acceptedByUser"] as? String else { return }
-                
+
                 self.requestStatus = status
-                
+
                 self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
                 self.nearArray.append(self.theirLocation)
 
@@ -187,87 +188,80 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     id: id,
                     createdAt: createdAt,
                     acceptedByUser: acceptedByUser)
-                
+
                 DispatchQueue.main.async(execute: {
-                    self.mapView.addAnnotation(mapAnnotation)
+                    self.mapView?.addAnnotation(mapAnnotation)
                     if status == "Completed" {
-                        self.mapView.removeAnnotation(mapAnnotation)
+                        self.mapView?.removeAnnotation(mapAnnotation)
                     }
                     self.hideActivityIndicator(self.view)
                 })
             }
         })
     }
-    
+
     // Make this a delegate method that gets called when completing a request or canceling one
     func removeAnnotations() {
-        let allAnnotations = self.mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
+        guard let allAnnotations = self.mapView?.annotations else { return }
+        self.mapView?.removeAnnotations(allAnnotations)
     }
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-    
+
     // MARK: - Actions
     @IBAction func showMenu(_ sender: AnyObject) {
-        delegate?.toggleLeftPanel?()
+        try! FIRAuth.auth()!.signOut()
+        self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
     }
-    
+
     // MARK: - Request shoveling
     @IBAction func requestShoveling(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "showRequest", sender: self)
     }
-    
+
     @IBAction func refreshMap(_ sender: AnyObject) {
-        
+
         UIView.animate(withDuration: 0.3) {
-            self.refreshMapBtn.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
         }
         UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.refreshMapBtn.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
+            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
             }, completion: nil)
         getShovelRequests()
     }
-    
-}
 
-extension CurrentStatusViewController: SidePanelViewControllerDelegate {
-    func cellSelected(_ cell: MenuItems) {
-        
-        delegate?.collapseSidePanels?()
-    }
 }
 
 extension CurrentStatusViewController: MKMapViewDelegate {
-    
+
     //MARK: - MapView Delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
+
         if (annotation is MKUserLocation) { return nil }
-        
+
         let identifier = "ShovelAnnotation"
         var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
         if view != nil {
             view?.annotation = annotation
-        }
-        else {
+        } else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view!.image = UIImage(named: "mapPin")
-            view!.canShowCallout = true            
+            view!.canShowCallout = true
             view!.calloutOffset = CGPoint(x: 0, y: 0)
             view!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
-        
-        return view        
+
+        return view
     }
-    
+
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        
+
         let shovel = view.annotation as! ShovelAnnotation
-        
+
         let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AcceptRequestViewController") as? AcceptRequestViewController
-        
+
         if let requestVC = requestDetailsView {
             requestVC.addressString = shovel.title
             requestVC.descriptionString = shovel.details
@@ -280,7 +274,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.id = shovel.id
             requestVC.createdAt = shovel.createdAt
             requestVC.acceptedByUser = shovel.acceptedByUser
-            
+
             self.present(requestVC, animated: true, completion: nil)
         }
     }

@@ -20,10 +20,10 @@ enum Icon: String {
     case Cloudy = "cloudy"
     case PartlyCloudyDay = "partly-cloudy-day"
     case PartlyCloudyNight = "partly-cloudy-night"
-    
+
     func toImage() -> (regularIcon: UIImage?, largeIcon: UIImage?) {
         var imageName: String
-        
+
         switch self {
         case .ClearDay:
             imageName = "ClearDay"
@@ -46,7 +46,7 @@ enum Icon: String {
         case .PartlyCloudyNight:
             imageName = "Mostcloudsday"
         }
-        
+
         let regularIcon = UIImage(named: "\(imageName).pdf")
         let largeIcon = UIImage(named: "\(imageName).pdf")
         return (regularIcon, largeIcon)

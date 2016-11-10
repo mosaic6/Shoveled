@@ -13,7 +13,6 @@
 		6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115A52E1D89D601001FC3B6 /* StripeManager.swift */; };
 		6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */; };
 		6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6125EA6C1D37300E006ED343 /* StripeAPI.swift */; };
-		612AB8561C32DBE400779CC9 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612AB8551C32DBE400779CC9 /* MenuItemCell.swift */; };
 		612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612AB8591C32E38400779CC9 /* Extensions.swift */; };
 		612AB85C1C32E38B00779CC9 /* MenuItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 612AB85B1C32E38B00779CC9 /* MenuItems.plist */; };
 		612B41551BB0DC5D00331F9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41541BB0DC5D00331F9B /* LoginViewController.swift */; };
@@ -59,9 +58,6 @@
 		61ED02401BAE43F3006B22B7 /* ShoveledUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ED023F1BAE43F3006B22B7 /* ShoveledUITests.swift */; };
 		61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */; };
 		61FCB9811DC83FFC002DB895 /* EmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCB9801DC83FFC002DB895 /* EmailService.swift */; };
-		61FEC6801C8B575200D25128 /* SideMenuViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FEC67F1C8B575200D25128 /* SideMenuViewControllerTableViewController.swift */; };
-		61FEC6821C8B613F00D25128 /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FEC6811C8B613F00D25128 /* MenuItems.swift */; };
-		61FEC6841C8B64C300D25128 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FEC6831C8B64C300D25128 /* ContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,7 +86,6 @@
 		6115A52E1D89D601001FC3B6 /* StripeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeManager.swift; sourceTree = "<group>"; };
 		6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewController.swift; sourceTree = "<group>"; };
 		6125EA6C1D37300E006ED343 /* StripeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeAPI.swift; sourceTree = "<group>"; };
-		612AB8551C32DBE400779CC9 /* MenuItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
 		612AB8591C32E38400779CC9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		612AB85B1C32E38B00779CC9 /* MenuItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MenuItems.plist; sourceTree = "<group>"; };
 		612B41541BB0DC5D00331F9B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -143,9 +138,6 @@
 		61F2415F1DA15FE8007D3473 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shoveled.entitlements; sourceTree = "<group>"; };
 		61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeAccountViewController.swift; sourceTree = "<group>"; };
 		61FCB9801DC83FFC002DB895 /* EmailService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailService.swift; sourceTree = "<group>"; };
-		61FEC67F1C8B575200D25128 /* SideMenuViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewControllerTableViewController.swift; sourceTree = "<group>"; };
-		61FEC6811C8B613F00D25128 /* MenuItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
-		61FEC6831C8B64C300D25128 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A3455CA64891455419D06E75 /* Pods-Shoveled.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.qa.xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.qa.xcconfig"; sourceTree = "<group>"; };
 		CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shoveled.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -223,7 +215,6 @@
 		614E783D1C0022E000314390 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				612AB8551C32DBE400779CC9 /* MenuItemCell.swift */,
 				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
 			);
 			name = Cells;
@@ -265,7 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				612AB8591C32E38400779CC9 /* Extensions.swift */,
-				61FEC6811C8B613F00D25128 /* MenuItems.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -354,8 +344,6 @@
 				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
 				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
 				6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */,
-				61FEC67F1C8B575200D25128 /* SideMenuViewControllerTableViewController.swift */,
-				61FEC6831C8B64C300D25128 /* ContainerViewController.swift */,
 				6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */,
 				61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */,
 			);
@@ -717,7 +705,6 @@
 				6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */,
 				618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */,
 				612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */,
-				61FEC6841C8B64C300D25128 /* ContainerViewController.swift in Sources */,
 				61A354971BCF3E580071B5BE /* NetworkOperations.swift in Sources */,
 				61FCB9811DC83FFC002DB895 /* EmailService.swift in Sources */,
 				61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */,
@@ -735,17 +722,14 @@
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,
 				617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */,
 				61A354931BCF397B0071B5BE /* Forecast.swift in Sources */,
-				61FEC6801C8B575200D25128 /* SideMenuViewControllerTableViewController.swift in Sources */,
 				6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */,
 				61A354951BCF399A0071B5BE /* CurrentWeather.swift in Sources */,
 				6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */,
 				61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */,
 				61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */,
 				617DF17F1DCACF4900ED2504 /* CompletedJobService.swift in Sources */,
-				612AB8561C32DBE400779CC9 /* MenuItemCell.swift in Sources */,
 				617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */,
 				617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */,
-				61FEC6821C8B613F00D25128 /* MenuItems.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
