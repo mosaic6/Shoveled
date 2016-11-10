@@ -226,11 +226,12 @@ class StripeAPI {
 
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        request.addValue("authorization_code", forHTTPHeaderField: "grant_type")
 
         let bodyParameters = [
-            "code": code
+            "code": code,
+            "grant_type": "authorization_code"
             ]
+        
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
 

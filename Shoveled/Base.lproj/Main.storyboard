@@ -107,17 +107,6 @@
                                             </mask>
                                         </variation>
                                     </imageView>
-                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YR9-dH-xdJ">
-                                        <rect key="frame" x="8" y="25" width="55" height="42"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="55" id="jbm-RO-ywW"/>
-                                            <constraint firstAttribute="height" constant="42" id="uBg-Sm-glX"/>
-                                        </constraints>
-                                        <state key="normal" image="Settings"/>
-                                        <connections>
-                                            <action selector="showMenu:" destination="tCX-AY-NMz" eventType="touchUpInside" id="zzi-Op-6Ha"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="s3z-U7-Vy4">
                                         <rect key="frame" x="175.5" y="129" width="24.5" height="41"/>
                                         <constraints>
@@ -139,6 +128,19 @@
                                             </mask>
                                         </variation>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YR9-dH-xdJ" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="35" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="jbm-RO-ywW"/>
+                                            <constraint firstAttribute="height" constant="40" id="uBg-Sm-glX"/>
+                                        </constraints>
+                                        <state key="normal" image="Logout">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showMenu:" destination="tCX-AY-NMz" eventType="touchUpInside" id="zzi-Op-6Ha"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -181,7 +183,7 @@
                                     <constraint firstItem="5Ci-O4-bL1" firstAttribute="leading" secondItem="ouX-RD-UJK" secondAttribute="trailing" constant="-279" id="wca-bC-e33"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerY" secondItem="5Ci-O4-bL1" secondAttribute="centerY" id="yUz-KL-UUG"/>
                                     <constraint firstItem="s3z-U7-Vy4" firstAttribute="bottom" secondItem="bfk-BZ-nYV" secondAttribute="bottomMargin" constant="-3" id="zLr-j1-j9h"/>
-                                    <constraint firstItem="YR9-dH-xdJ" firstAttribute="top" secondItem="bfk-BZ-nYV" secondAttribute="top" constant="25" id="zn4-E7-LDB"/>
+                                    <constraint firstItem="YR9-dH-xdJ" firstAttribute="top" secondItem="bfk-BZ-nYV" secondAttribute="top" constant="35" id="zn4-E7-LDB"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1014,7 +1016,7 @@
     <resources>
         <image name="ClearDay" width="45" height="45"/>
         <image name="Close" width="45" height="45"/>
-        <image name="Settings" width="20" height="20"/>
+        <image name="Logout" width="49" height="48"/>
         <image name="refresh" width="53" height="52"/>
         <image name="snowBG" width="512" height="340"/>
     </resources>

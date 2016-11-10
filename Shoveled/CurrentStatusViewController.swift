@@ -223,6 +223,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     @IBAction func refreshMap(_ sender: AnyObject) {
 
+        self.getCurrentLocation()
+        
         UIView.animate(withDuration: 0.3) {
             self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
         }
