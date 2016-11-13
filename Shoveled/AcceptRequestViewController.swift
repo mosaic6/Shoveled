@@ -58,7 +58,6 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     }
 
     func configureView() {
-
         cancelBtn.isHidden = true
         completeJobBtn.isHidden = true
         completeJobBtn.layer.cornerRadius = 5.0
@@ -98,40 +97,40 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             cancelBtn.isHidden = false
         }
 
-        closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 45.0, height: 45.0))
-        closeModalBtn.setImage(UIImage(named: "Close"), for: .normal)
-        closeModalBtn.addTarget(self, action: #selector(AcceptRequestViewController.closeModal), for: .touchUpInside)
+        self.closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 28.0, height: 28.0))
+        self.closeModalBtn.setImage(UIImage(named: "Close"), for: .normal)
+        self.closeModalBtn.addTarget(self, action: #selector(AcceptRequestViewController.closeModal), for: .touchUpInside)
 
-        imagePickerView = UIImagePickerController()
-        imageView = UIImageView(frame: CGRect(x: 0, y: 20, width: self.view.frame.width, height: 275.0))
-        imageView.image = UIImage(named: "camera")
-        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayCamera)))
-        imageView.isUserInteractionEnabled = true
-        imageView.contentMode = .center
-        imageView.layer.cornerRadius = 5.0
-        imageView.setNeedsDisplay()
+        self.imagePickerView = UIImagePickerController()
+        self.imageView = UIImageView(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: 275.0))
+        self.imageView.image = UIImage(named: "camera")
+        self.imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayCamera)))
+        self.imageView.isUserInteractionEnabled = true
+        self.imageView.contentMode = .center
+        self.imageView.layer.cornerRadius = 5.0
+        self.imageView.setNeedsDisplay()
 
-        uploadCompletedJobBtn = UIButton(frame: CGRect(x: 10, y: self.view.bounds.height - 70, width: self.view.frame.width - 20, height: 55.0))
-        uploadCompletedJobBtn.setTitle("Send Completed Job", for: .normal)
-        uploadCompletedJobBtn.backgroundColor = UIColor(red: 35.0 / 255.0, green: 135.0 / 255.0, blue: 235.0 / 255.0, alpha: 0.8)
-        uploadCompletedJobBtn.layer.cornerRadius = 5.0
-        uploadCompletedJobBtn.isHidden = true
-        uploadCompletedJobBtn.addTarget(self, action: #selector(sendCompletedJob), for: .touchUpInside)
+        self.uploadCompletedJobBtn = UIButton(frame: CGRect(x: 10, y: self.view.bounds.height - 70, width: self.view.frame.width - 20, height: 55.0))
+        self.uploadCompletedJobBtn.setTitle("Send Completed Job", for: .normal)
+        self.uploadCompletedJobBtn.backgroundColor = UIColor(red: 35.0 / 255.0, green: 135.0 / 255.0, blue: 235.0 / 255.0, alpha: 0.8)
+        self.uploadCompletedJobBtn.layer.cornerRadius = 5.0
+        self.uploadCompletedJobBtn.isHidden = true
+        self.uploadCompletedJobBtn.addTarget(self, action: #selector(sendCompletedJob), for: .touchUpInside)
 
-        instructionsLabel = UILabel(frame: CGRect(x: 10, y: 300, width: self.view.frame.width - 20, height: 50))
-        instructionsLabel.numberOfLines = 3
-        instructionsLabel.textAlignment = NSTextAlignment.center
+        self.instructionsLabel = UILabel(frame: CGRect(x: 10, y: 380, width: self.view.frame.width - 20, height: 50))
+        self.instructionsLabel.font = UIFont(name: "Marvel", size: 18)
+        self.instructionsLabel.numberOfLines = 3
+        self.instructionsLabel.textAlignment = NSTextAlignment.center
+        self.instructionsLabel.text = "Once your job is complete, please upload a photo and you'll get paid 💰"
 
-        instructionsLabel.text = "Once your job is complete, please upload a photo and you'll get paid 💰"
-
-        completeRequestView.center.y -= view.bounds.height
-        completeRequestView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        view.addSubview(completeRequestView)
-        completeRequestView.addSubview(imageView)
-        completeRequestView.addSubview(uploadCompletedJobBtn)
-        completeRequestView.addSubview(instructionsLabel)
-        completeRequestView.addSubview(closeModalBtn)
-        completeRequestView.isHidden = true
+        self.completeRequestView.center.y -= view.bounds.height
+        self.completeRequestView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        self.view.addSubview(completeRequestView)
+        self.completeRequestView.addSubview(imageView)
+        self.completeRequestView.addSubview(uploadCompletedJobBtn)
+        self.completeRequestView.addSubview(instructionsLabel)
+        self.completeRequestView.addSubview(closeModalBtn)
+        self.completeRequestView.isHidden = true
 
         self.signUpAsShovelerBtn.isHidden = false
     }
@@ -243,44 +242,41 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             else { return }
         let price: Int? = Int(priceString!)
 
+        let request: [String: AnyObject] = ["status": "Completed" as AnyObject,
+                                            "address": address as AnyObject,
+                                            "longitude": self.longitude!,
+                                            "latitude": self.latitude!,
+                                            "details": description as AnyObject,
+                                            "addedByUser": self.addedByUser! as AnyObject,
+                                            "otherInfo": "" as AnyObject,
+                                            "price": price! as AnyObject,
+                                            "id": self.id! as AnyObject,
+                                            "createdAt": self.createdAt! as AnyObject,
+                                            "acceptedByUser": self.currentUser! as AnyObject]
+
+        let childUpdates = ["/\(requestId)": request]
+        self.ref.updateChildValues(childUpdates) { (error, ref) in
+            if error != nil {
+                return
+            } else {
+                self.hideActivityIndicator(self.completeRequestView)
+//                self.ref.updateChildValues(childUpdates)
+                let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
+                let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: { _ in })
+            }
+        }
+
         let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
         if let uploadData = UIImagePNGRepresentation(self.imageView.image!) {
             storage.put(uploadData, metadata: nil) { (metaData, error) in
                 if error != nil {
                     return
                 } else {
-                    let request: [String: AnyObject] = ["status": "Completed" as AnyObject,
-                                                        "address": address as AnyObject,
-                                                        "longitude": self.longitude!,
-                                                        "latitude": self.latitude!,
-                                                        "details": description as AnyObject,
-                                                        "addedByUser": self.addedByUser! as AnyObject,
-                                                        "otherInfo": "" as AnyObject,
-                                                        "price": price! as AnyObject,
-                                                        "id": self.id! as AnyObject,
-                                                        "createdAt": self.createdAt! as AnyObject,
-                                                        "acceptedByUser": self.currentUser! as AnyObject]
-
-                    let childUpdates = ["/\(requestId)": request]
-                    self.ref.updateChildValues(childUpdates) { (error, ref) in
-                        if error != nil {
-                            return
-                        } else {
-                            self.hideActivityIndicator(self.completeRequestView)
-
-                            let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
-                            let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
-                                self.ref.updateChildValues(childUpdates)
-
-                                // Remove map pin
-                                self.dismiss(animated: true, completion: {
-                                    CompletedJobService.sharedInstance.getCompletedJobImage(fromId: "\(requestId)-completedJob.png")
-                                })
-                            }
-                            alert.addAction(okAction)
-                            self.present(alert, animated: true, completion: { _ in })
-                        }
-                    }
+                    CompletedJobService.sharedInstance.getCompletedJobImage(fromId: "\(requestId)-completedJob.png")
                 }
             }
         }

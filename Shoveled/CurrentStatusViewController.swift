@@ -50,12 +50,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var requestStatus: String!
     var delegate: CurrentStatusControllerDelegate?
     var updateRequestDelegate: UpdateRequestStatusDelegate?
-    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
+    var ref: FIRDatabaseReference?
 
     // MARK: View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.ref = FIRDatabase.database().reference(withPath: "requests")
         let connectAccounts = StripeManager.getConnectedAccounts()
         print(connectAccounts)
 
@@ -155,7 +156,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.removeAnnotations()
 
         self.showActivityIndicatory(self.view)
-        ref.observe(.value, with: { snapshot in
+        self.ref?.observe(.value, with: { snapshot in
             let items = snapshot.value as! [String: AnyObject]
             for item in items {
                 guard let address = item.value["address"] as? String else { return }
@@ -212,8 +213,16 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     // MARK: - Actions
     @IBAction func showMenu(_ sender: AnyObject) {
-        try! FIRAuth.auth()!.signOut()
-        self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
+        let logoutAction = UIAlertController(title: "ARE YOU SURE YOU WANT TO LOGOUT?", message: nil, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "LOGOUT", style: .destructive) { action in
+            try! FIRAuth.auth()!.signOut()
+            self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        logoutAction.addAction(okAction)
+        logoutAction.addAction(cancelAction)
+        self.present(logoutAction, animated: true, completion: nil)
+
     }
 
     // MARK: - Request shoveling
@@ -224,7 +233,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBAction func refreshMap(_ sender: AnyObject) {
 
         self.getCurrentLocation()
-        
+
         UIView.animate(withDuration: 0.3) {
             self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
         }

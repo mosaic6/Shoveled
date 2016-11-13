@@ -231,7 +231,7 @@ class StripeAPI {
             "code": code,
             "grant_type": "authorization_code"
             ]
-        
+
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
 

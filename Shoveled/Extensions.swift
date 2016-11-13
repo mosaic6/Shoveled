@@ -31,6 +31,10 @@ extension UIViewController {
         view.addSubview(actInd)
         actInd.startAnimating()
     }
+
+    func hideSpinner() {
+        actInd.isHidden = true
+    }
 }
 
 extension UIViewController {

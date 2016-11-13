@@ -121,7 +121,6 @@ class LoginViewController: UIViewController {
             self.present(alert, animated: true, completion: .none)
         } else {
             let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 150, height: 150)) as UIActivityIndicatorView
-            spinner.startAnimating()
 
             FIRAuth.auth()?.createUser(withEmail: emailString, password: passwordString) { (user, error) in
                 if let error = error {
@@ -129,6 +128,7 @@ class LoginViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
                     self.present(alert, animated: true, completion: .none)
                 } else {
+                    spinner.startAnimating()
                     self.ref.child("users").child(user!.uid).setValue(["username": emailString])
                     self.dismiss(animated: true, completion: nil)
                     let currentVC = CurrentStatusViewController()
@@ -194,7 +194,7 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginUser(_ sender: AnyObject) {
-        showSpinner(.whiteLarge)
+        self.showActivityIndicatory(self.view)
         self.resignFirstResponder()
         guard let usernameString = tfExistingUsername.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
         guard let passwordString = tfExistingPassword.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
@@ -206,6 +206,7 @@ class LoginViewController: UIViewController {
         } else {
             FIRAuth.auth()?.signIn(withEmail: usernameString, password: passwordString, completion: { (user, error) in
                 if let error = error {
+                    self.hideActivityIndicator(self.view)
                     let alert = UIAlertController(title: "There was an error logging in", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
                     self.present(alert, animated: true, completion: .none)

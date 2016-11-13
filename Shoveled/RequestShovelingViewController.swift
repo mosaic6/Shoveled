@@ -33,11 +33,15 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var items = [ShovelRequest]()
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     weak var toolBar: UIToolbar!
-    var paymentTextField: STPPaymentCardTextField! = nil
+    var paymentTextField: STPPaymentCardTextField? = nil
     var sendToStripeBtn: UIButton! = nil
     var priceLabel: UILabel! = nil
     var feeLabel: UILabel!
     var paymentToken: PKPaymentToken!
+
+    // MARK: - Private Variables
+    private var confirmView: ConfirmRequestView?
+    private var shovelRequest: ShovelRequest?
 
     static let SupportedNetworks = [
         PKPaymentNetwork.amex,
@@ -152,18 +156,23 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
     //MARK: Stripe payment delegate
     func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
-        payWIthCCButton.isEnabled = textField.valid
+        self.sendToStripeBtn.isEnabled = textField.valid
+        self.sendToStripeBtn.isEnabled = false
+        sendToStripeBtn.backgroundColor = UIColor(red: 78.0 / 255.0, green: 68.0 / 255.0, blue: 77.0 / 255.0, alpha: 0.5)
+        if textField.valid {
+            self.sendToStripeBtn.backgroundColor = UIColor(red: 78.0 / 255.0, green: 168.0 / 255.0, blue: 177.0 / 255.0, alpha: 1)
+            self.sendToStripeBtn.isEnabled = true
+        }
     }
 
     @IBAction func submitCard(_ sender: AnyObject?) {
 
         DispatchQueue.main.async {
-            self.paymentTextField.resignFirstResponder()
+            self.paymentTextField?.resignFirstResponder()
         }
 
         showActivityIndicatory(self.view)
-
-        let card = paymentTextField.cardParams
+        guard let card = paymentTextField?.cardParams else { return }
 
         STPAPIClient.shared().createToken(withCard: card) { token, error in
             guard let stripeToken = token else {
@@ -177,6 +186,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 let stringPrice = String(price)
 
                 StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())")
+                self.resignFirstResponder()
                 self.addRequestOnSuccess()
                 self.dismiss(animated: true, completion: nil)
                 self.hideActivityIndicator(self.view)
@@ -201,14 +211,13 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
 
     @IBAction func payWithCreditCard(_ sender: AnyObject) {
-
         sendToStripeBtn = UIButton(type: .system)
         sendToStripeBtn.setTitle("Pay Now", for: UIControlState())
         sendToStripeBtn.titleLabel?.font = UIFont(name: "Rajdhani", size: 30)
-        sendToStripeBtn.backgroundColor = UIColor(red: 78.0 / 255.0, green: 168.0 / 255.0, blue: 177.0 / 255.0, alpha: 1)
         sendToStripeBtn.setTitleColor(UIColor.white, for: UIControlState())
         sendToStripeBtn.addTarget(self, action: #selector(self.submitCard(_: )), for: UIControlEvents.touchUpInside)
         sendToStripeBtn.frame = CGRect(x: 0, y: (self.view.frame.height / 2) + 60, width: view.frame.width, height: 55)
+        sendToStripeBtn.isEnabled = false
         priceLabel = UILabel(frame: CGRect(x: 0, y: 125, width: view.frame.width, height: 80))
         priceLabel.font = UIFont(name: "Marvel-Bold", size: 50.0)
         priceLabel.textAlignment = .center
@@ -221,7 +230,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         feeLabel.text = "$0.75 processing fee will be applied"
 
         paymentTextField = STPPaymentCardTextField(frame: CGRect(x: 15, y: (self.view.frame.height / 2) - 50, width: view.frame.width - 30, height: 44))
-        paymentTextField.delegate = self
+        paymentTextField?.delegate = self
 
         if tfAddress.text == "" || tfDescription.text == "" || tfPrice.text == "" {
             let alert = UIAlertController(title: "Eh!", message: "Looks like you missed something", preferredStyle: .alert)
@@ -237,10 +246,12 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
             UIView.animate(withDuration: 0.3, delay: 0.4, options: UIViewAnimationOptions(), animations: {
                 self.view.addSubview(self.sendToStripeBtn)
-                self.view.addSubview(self.paymentTextField)
+                if let paymentTextField = self.paymentTextField {
+                    self.view.addSubview(paymentTextField)
+                }
                 self.view.addSubview(self.priceLabel)
                 self.view.addSubview(self.feeLabel)
-                self.paymentTextField.becomeFirstResponder()
+                self.paymentTextField?.becomeFirstResponder()
                 self.view.layoutIfNeeded()
             }, completion: nil)
         }
@@ -268,11 +279,15 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
 
-        let shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "")
-
+        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "")
+        if self.confirmView == nil {
+            if let request = self.shovelRequest {
+                self.confirmView? = ConfirmRequestView.create(viewController: self, request: request)
+            }   
+        }
         let requestName = self.ref.child("/requests/\(postId)")
 
-        requestName.setValue(shovelRequest.toAnyObject(), withCompletionBlock: { (error, ref) in
+        requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, ref) in
             if error != nil {
                 let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)

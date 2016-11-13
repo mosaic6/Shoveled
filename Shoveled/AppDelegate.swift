@@ -25,12 +25,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         super.init()
-
+        FIRApp.configure()
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        FIRApp.configure()
-
         self.registerForPushNotifications(application)
 
         let configuration = Bundle.main.object(forInfoDictionaryKey: "Configuration")

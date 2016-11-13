@@ -25,7 +25,9 @@ class CompletedJobService {
                 if let url = url {
                     do {
                         let downloadUrl = try String(contentsOf: url)
-                        EmailService.sharedInstance.sendEmailTo(email: self.currentUser!, toName: "", subject: "Your Request Is Complete!", text: "", file: downloadUrl)
+                        DispatchQueue.global(qos: .background).async {
+                            EmailService.sharedInstance.sendEmailTo(email: self.currentUser!, toName: "", subject: "Your Request Is Complete!", text: "", file: downloadUrl)
+                        }
                     } catch {
                         print("error")
                     }

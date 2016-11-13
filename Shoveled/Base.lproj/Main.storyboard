@@ -42,13 +42,13 @@
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuE-0U-zZI">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="487"/>
                                     </mapView>
-                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au9-9S-VKo">
+                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Au9-9S-VKo">
                                         <rect key="frame" x="8" y="8" width="45" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="45" id="iPN-1W-cOH"/>
                                             <constraint firstAttribute="height" constant="45" id="kaa-nZ-Acj"/>
                                         </constraints>
-                                        <state key="normal" image="refresh"/>
+                                        <state key="normal" image="location-red"/>
                                         <connections>
                                             <action selector="refreshMap:" destination="tCX-AY-NMz" eventType="touchUpInside" id="goU-nJ-1Ye"/>
                                         </connections>
@@ -128,7 +128,7 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YR9-dH-xdJ" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YR9-dH-xdJ">
                                         <rect key="frame" x="8" y="35" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="jbm-RO-ywW"/>
@@ -498,7 +498,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2q-Ks-OBi">
-                                <rect key="frame" x="16" y="28" width="45" height="45"/>
+                                <rect key="frame" x="16" y="28" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="72z-t8-gqA"/>
+                                    <constraint firstAttribute="width" constant="28" id="HiR-dB-nFo"/>
+                                </constraints>
                                 <state key="normal" image="Close"/>
                                 <connections>
                                     <action selector="dismissView:" destination="dUN-69-lLl" eventType="touchUpInside" id="7nu-C1-xve"/>
@@ -577,9 +581,9 @@
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gM2-x4-8Gw">
-                                <rect key="frame" x="238" y="28" width="121" height="40"/>
+                                <rect key="frame" x="307" y="28" width="52" height="40"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="23"/>
-                                <state key="normal" title="Cancel Request">
+                                <state key="normal" title="Cancel">
                                     <color key="titleColor" red="0.74043166637420654" green="0.0" blue="0.33412215113639832" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -689,7 +693,11 @@
                                 </connections>
                             </webView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoQ-0w-QR5">
-                                <rect key="frame" x="16" y="28" width="45" height="45"/>
+                                <rect key="frame" x="16" y="28" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="28" id="ftv-wl-L1X"/>
+                                    <constraint firstAttribute="height" constant="28" id="kb5-qv-3qQ"/>
+                                </constraints>
                                 <state key="normal" image="Close"/>
                                 <connections>
                                     <action selector="dismissView:" destination="a8f-XO-jco" eventType="touchUpInside" id="yo7-3e-fUr"/>
@@ -1017,7 +1025,7 @@
         <image name="ClearDay" width="45" height="45"/>
         <image name="Close" width="45" height="45"/>
         <image name="Logout" width="49" height="48"/>
-        <image name="refresh" width="53" height="52"/>
+        <image name="location-red" width="50" height="50"/>
         <image name="snowBG" width="512" height="340"/>
     </resources>
 </document>
