@@ -57,8 +57,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidLoad()
 
         self.ref = FIRDatabase.database().reference(withPath: "requests")
-        let connectAccounts = StripeManager.getConnectedAccounts()
-        print(connectAccounts)
+//        let connectAccounts = StripeManager.getConnectedAccounts()
+//        print(connectAccounts)
 
         self.mapView?.delegate = self
         self.getCurrentLocation()
@@ -269,10 +269,12 @@ extension CurrentStatusViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
+        let currentUser = FIRAuth.auth()?.currentUser
+        
         let shovel = view.annotation as! ShovelAnnotation
 
         let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AcceptRequestViewController") as? AcceptRequestViewController
-
+        
         if let requestVC = requestDetailsView {
             requestVC.addressString = shovel.title
             requestVC.descriptionString = shovel.details
@@ -285,6 +287,12 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.id = shovel.id
             requestVC.createdAt = shovel.createdAt
             requestVC.acceptedByUser = shovel.acceptedByUser
+            
+            if let user = currentUser?.email, shovel.addedByUser == user {
+                 requestVC.titleString = "My Request"
+            } else {
+                requestVC.titleString = "Accept Your Mission"
+            }
 
             self.present(requestVC, animated: true, completion: nil)
         }

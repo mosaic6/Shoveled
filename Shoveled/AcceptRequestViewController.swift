@@ -16,6 +16,7 @@ protocol CompletedRequestDelegate {
 
 class AcceptRequestViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    @IBOutlet weak var titleLabel: UILabel?
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -33,6 +34,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
 
     var completeRequestBtn: UIButton!
 
+    var titleString: String?
     var addressString: String?
     var descriptionString: String?
     var priceString: String?
@@ -66,10 +68,11 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         guard let description = descriptionString else { return }
         guard let price = priceString else { return }
 
-        addressLabel.text = addressString?.uppercased()
-        descriptionLabel.text = "Please Shovel: \(description)".uppercased()
-        priceLabel.text = "Will Pay: $\(price).00".uppercased()
-        if let moreInfoString = otherInfoString, moreInfoString == "" {
+        self.titleLabel?.text = self.titleString?.uppercased()
+        self.addressLabel.text = self.addressString?.uppercased()
+        self.descriptionLabel.text = "Please Shovel: \(description)".uppercased()
+        self.priceLabel.text = "Will Pay: $\(price).00".uppercased()
+        if let moreInfoString = self.otherInfoString, moreInfoString == "" {
             shovelTimeLabel.text = "No more details for you!".uppercased()
         } else {
             shovelTimeLabel.text = "Other Info: \(otherInfoString)".uppercased()
@@ -275,7 +278,8 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             storage.put(uploadData, metadata: nil) { (metaData, error) in
                 if error != nil {
                     return
-                } else {
+                }
+                else {
                     CompletedJobService.sharedInstance.getCompletedJobImage(fromId: "\(requestId)-completedJob.png")
                 }
             }

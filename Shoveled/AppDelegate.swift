@@ -98,9 +98,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // [START refresh_token]
     func tokenRefreshNotification(notification: NSNotification) {
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
-            print("InstanceID token: \(refreshedToken)")
-        }
+        guard let refreshedToken = FIRInstanceID.instanceID().token() else { return }
+        print("InstanceID token: \(refreshedToken)")
 
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
@@ -136,7 +135,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
 
-        print("TOKEN: \(token)")
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+        print("Device Token:", token)
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
@@ -172,17 +172,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 // [START ios_10_message_handling]
 @available(iOS 10, *)
-extension AppDelegate: UNUserNotificationCenterDelegate {
-
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    
     // Receive displayed notifications for iOS 10 devices.
-    private func userNotificationCenter(center: UNUserNotificationCenter,
-                                willPresentNotification notification: UNNotification,
-                                withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         // Print message ID.
         print("Message ID: \(userInfo["gcm.message_id"]!)")
-
+        
         // Print full message.
         print("%@", userInfo)
+    }
+}
+
+extension AppDelegate : FIRMessagingDelegate {
+    // Receive data message on iOS 10 devices.
+    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+        print("%@", remoteMessage.appData)
     }
 }
