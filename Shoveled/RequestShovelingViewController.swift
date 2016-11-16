@@ -40,7 +40,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var paymentToken: PKPaymentToken!
 
     // MARK: - Private Variables
-    private var confirmView: ConfirmRequestView?
     private var shovelRequest: ShovelRequest?
 
     static let SupportedNetworks = [
@@ -188,7 +187,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())")
                 self.resignFirstResponder()
                 self.addRequestOnSuccess()
-                self.dismiss(animated: true, completion: nil)
                 self.hideActivityIndicator(self.view)
             }
         }
@@ -280,22 +278,24 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         let dateString = dateFormatter.string(from: date)
 
         self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "")
-        if self.confirmView == nil {
-            if let request = self.shovelRequest {
-                self.confirmView? = ConfirmRequestView.create(viewController: self, request: request)
-            }   
+        
+        let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { alert in
+            let requestName = self.ref.child("/requests/\(postId)")
+            
+            requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, ref) in
+                if error != nil {
+                    let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                    Crashlytics.sharedInstance().recordError(error!)
+                }
+            })
+            self.dismiss(animated: true, completion: nil)
         }
-        let requestName = self.ref.child("/requests/\(postId)")
-
-        requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, ref) in
-            if error != nil {
-                let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
-                Crashlytics.sharedInstance().recordError(error!)
-            }
-        })
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 
     func addToolBar(_ textField: UITextField) {

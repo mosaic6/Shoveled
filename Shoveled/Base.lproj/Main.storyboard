@@ -704,7 +704,7 @@
                                 </constraints>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zB4-Dq-ma5">
-                                <rect key="frame" x="0.0" y="81" width="375" height="586"/>
+                                <rect key="frame" x="0.0" y="69" width="375" height="598"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="a8f-XO-jco" id="cDd-cr-coJ"/>
@@ -732,7 +732,6 @@
                         <constraints>
                             <constraint firstItem="pck-Zg-gmi" firstAttribute="top" secondItem="zB4-Dq-ma5" secondAttribute="bottom" id="64t-Cx-APb"/>
                             <constraint firstAttribute="leadingMargin" secondItem="WoQ-0w-QR5" secondAttribute="leading" id="8aW-dL-1w1"/>
-                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" constant="61" id="91h-T4-8Xc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zB4-Dq-ma5" secondAttribute="trailing" constant="-16" id="AbI-xV-FrA"/>
                             <constraint firstItem="P0L-Ay-TRM" firstAttribute="leading" secondItem="6Io-gt-hwI" secondAttribute="leadingMargin" constant="-16" id="C6R-ty-WLP"/>
                             <constraint firstItem="P0L-Ay-TRM" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" constant="-20" id="CvX-Nw-ksc"/>
@@ -741,6 +740,7 @@
                             <constraint firstItem="WoQ-0w-QR5" firstAttribute="top" secondItem="MKX-rA-5ZV" secondAttribute="bottom" constant="8" id="ajL-Xy-ICr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="P0L-Ay-TRM" secondAttribute="trailing" constant="-16" id="bA4-Ao-stP"/>
                             <constraint firstItem="O8f-WR-Whl" firstAttribute="centerX" secondItem="6Io-gt-hwI" secondAttribute="centerX" id="bQl-L7-XbE"/>
+                            <constraint firstItem="zB4-Dq-ma5" firstAttribute="top" secondItem="P0L-Ay-TRM" secondAttribute="bottom" constant="-1" id="dsS-Kk-TgA"/>
                             <constraint firstItem="O8f-WR-Whl" firstAttribute="centerY" secondItem="6Io-gt-hwI" secondAttribute="centerY" constant="-283" id="m7L-Gm-Ghz"/>
                         </constraints>
                     </view>
@@ -1028,7 +1028,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bkD-nG-HQT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRc-yD-JAX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dRc-yD-JAX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -18,8 +18,6 @@
 		612B41551BB0DC5D00331F9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41541BB0DC5D00331F9B /* LoginViewController.swift */; };
 		612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */; };
 		61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61369D121CEBF6CF00079734 /* CustomTextField.swift */; };
-		613D38F81DD7719900C71382 /* ConfirmRequestView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 613D38F71DD7719900C71382 /* ConfirmRequestView.xib */; };
-		613D38FA1DD7726C00C71382 /* ConfirmRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613D38F91DD7726C00C71382 /* ConfirmRequestView.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
 		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
 		615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526301BF90BB5006D7862 /* Marvel-Bold.ttf */; };
@@ -93,8 +91,6 @@
 		612B41541BB0DC5D00331F9B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
 		61369D121CEBF6CF00079734 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		613D38F71DD7719900C71382 /* ConfirmRequestView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmRequestView.xib; sourceTree = "<group>"; };
-		613D38F91DD7726C00C71382 /* ConfirmRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmRequestView.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
@@ -207,7 +203,6 @@
 		613D38F61DD7717500C71382 /* Nibs */ = {
 			isa = PBXGroup;
 			children = (
-				613D38F71DD7719900C71382 /* ConfirmRequestView.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -346,7 +341,6 @@
 				617031381C7D53B100297A25 /* ShovelAnnotationView.swift */,
 				61369D121CEBF6CF00079734 /* CustomTextField.swift */,
 				61A932511D90BDF100E07134 /* CompleteRequestView.swift */,
-				613D38F91DD7726C00C71382 /* ConfirmRequestView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -542,7 +536,6 @@
 				6155263F1BF90BDE006D7862 /* Rajdhani-Bold.ttf in Resources */,
 				615526401BF90BDE006D7862 /* Rajdhani-Light.ttf in Resources */,
 				612AB85C1C32E38B00779CC9 /* MenuItems.plist in Resources */,
-				613D38F81DD7719900C71382 /* ConfirmRequestView.xib in Resources */,
 				615526411BF90BDE006D7862 /* Rajdhani-Medium.ttf in Resources */,
 				615526421BF90BDE006D7862 /* Rajdhani-Regular.ttf in Resources */,
 				615526431BF90BDE006D7862 /* Rajdhani-SemiBold.ttf in Resources */,
@@ -729,7 +722,6 @@
 				6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */,
 				612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */,
 				618595B71D1CC38C004EB4D4 /* User.swift in Sources */,
-				613D38FA1DD7726C00C71382 /* ConfirmRequestView.swift in Sources */,
 				617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
 				61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */,
