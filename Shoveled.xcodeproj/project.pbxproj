@@ -15,7 +15,7 @@
 		6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6125EA6C1D37300E006ED343 /* StripeAPI.swift */; };
 		612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612AB8591C32E38400779CC9 /* Extensions.swift */; };
 		612AB85C1C32E38B00779CC9 /* MenuItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 612AB85B1C32E38B00779CC9 /* MenuItems.plist */; };
-		612B41551BB0DC5D00331F9B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41541BB0DC5D00331F9B /* LoginViewController.swift */; };
+		612B41551BB0DC5D00331F9B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41541BB0DC5D00331F9B /* SignUpViewController.swift */; };
 		612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */; };
 		61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61369D121CEBF6CF00079734 /* CustomTextField.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
@@ -49,6 +49,8 @@
 		61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */; };
 		61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A932511D90BDF100E07134 /* CompleteRequestView.swift */; };
 		61D22A861DA4A3E900D6AE0F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D22A851DA4A3E900D6AE0F /* DataManager.swift */; };
+		61EBB9E61DDE9F7900841A3F /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */; };
+		61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E71DDF30D400841A3F /* LoginViewController.swift */; };
 		61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ED021C1BAE43F3006B22B7 /* AppDelegate.swift */; };
 		61ED02221BAE43F3006B22B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61ED02201BAE43F3006B22B7 /* Main.storyboard */; };
 		61ED02251BAE43F3006B22B7 /* Shoveled.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 61ED02231BAE43F3006B22B7 /* Shoveled.xcdatamodeld */; };
@@ -88,7 +90,7 @@
 		6125EA6C1D37300E006ED343 /* StripeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeAPI.swift; sourceTree = "<group>"; };
 		612AB8591C32E38400779CC9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		612AB85B1C32E38B00779CC9 /* MenuItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MenuItems.plist; sourceTree = "<group>"; };
-		612B41541BB0DC5D00331F9B /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		612B41541BB0DC5D00331F9B /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
 		61369D121CEBF6CF00079734 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
@@ -122,6 +124,8 @@
 		61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		61A932511D90BDF100E07134 /* CompleteRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestView.swift; sourceTree = "<group>"; };
 		61D22A851DA4A3E900D6AE0F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		61EBB9E71DDF30D400841A3F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		61ED02191BAE43F3006B22B7 /* Shoveled.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoveled.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61ED021C1BAE43F3006B22B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61ED02211BAE43F3006B22B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -348,12 +352,14 @@
 		61ED024E1BAE4691006B22B7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				612B41541BB0DC5D00331F9B /* LoginViewController.swift */,
-				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
-				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
 				6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */,
+				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
+				61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */,
 				6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */,
+				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
+				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
 				61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */,
+				61EBB9E71DDF30D400841A3F /* LoginViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -712,11 +718,12 @@
 				61D22A861DA4A3E900D6AE0F /* DataManager.swift in Sources */,
 				6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */,
 				618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */,
+				61EBB9E61DDE9F7900841A3F /* FAQViewController.swift in Sources */,
 				612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */,
 				61A354971BCF3E580071B5BE /* NetworkOperations.swift in Sources */,
 				61FCB9811DC83FFC002DB895 /* EmailService.swift in Sources */,
 				61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */,
-				612B41551BB0DC5D00331F9B /* LoginViewController.swift in Sources */,
+				612B41551BB0DC5D00331F9B /* SignUpViewController.swift in Sources */,
 				61ED02251BAE43F3006B22B7 /* Shoveled.xcdatamodeld in Sources */,
 				6165CAD81DA7349C00375D29 /* HowItWorksViewController.swift in Sources */,
 				6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */,
@@ -724,6 +731,7 @@
 				618595B71D1CC38C004EB4D4 /* User.swift in Sources */,
 				617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
+				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
 				61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */,
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,

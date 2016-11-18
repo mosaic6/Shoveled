@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Shoveled/LoginViewController.swift"
-            timestampString = "500525955.120341"
+            timestampString = "501168506.094409"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295">
+            startingLineNumber = "361"
+            endingLineNumber = "361">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -63,6 +63,102 @@
             endingLineNumber = "193"
             landmarkName = "applicationReceivedRemoteMessage(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shoveled/LoginViewController.swift"
+            timestampString = "501168883.722607"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "loginUser(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shoveled.LoginViewController.(loginUser (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "Shoveled"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/LoginViewController.swift"
+                  timestampString = "501169415.061356"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "67"
+                  endingLineNumber = "67"
+                  offsetFromSymbolStart = "1528">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shoveled.LoginViewController.(loginUser (Swift.AnyObject) -&gt; ()).(closure #1).(closure #1)"
+                  moduleName = "Shoveled"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/LoginViewController.swift"
+                  timestampString = "501169415.064884"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "68"
+                  endingLineNumber = "68"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Shoveled/LoginViewController.swift"
+            timestampString = "501169112.229634"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
+            landmarkName = "loginUser(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shoveled.LoginViewController.loginUser (Swift.AnyObject) -&gt; ()"
+                  moduleName = "Shoveled"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/LoginViewController.swift"
+                  timestampString = "501169415.070994"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "60"
+                  endingLineNumber = "60"
+                  offsetFromSymbolStart = "2938">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Shoveled.LoginViewController.(loginUser (Swift.AnyObject) -&gt; ()).(closure #1)"
+                  moduleName = "Shoveled"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/LoginViewController.swift"
+                  timestampString = "501169415.073805"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "61"
+                  endingLineNumber = "61"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

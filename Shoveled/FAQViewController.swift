@@ -10,10 +10,12 @@ import UIKit
 
 class FAQViewController: UIViewController {
 
+    @IBOutlet weak var guideLabel: UILabel?
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        
+        self.guideDescription()
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,14 +24,15 @@ class FAQViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func guideDescription() {
+        let info = "What happens when I send a shovel request?\nOnce your request is out in the wild, one of our shovelers will accept your request, and you'll be notified.\n"
+        
+        self.guideLabel?.text = info
     }
-    */
+
+    
+    @IBAction func dismissView(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
 }
