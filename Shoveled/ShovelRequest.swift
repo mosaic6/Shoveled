@@ -22,8 +22,9 @@ class ShovelRequest: NSObject {
     var id: String
     var createdAt: String
     var acceptedByUser: String
+    var stripeChargeToken: String
 
-    init(address: String, addedByUser: String, status: String, latitude: NSNumber, longitude: NSNumber, details: String, otherInfo: String, price: NSNumber, id: String, createdAt: String, acceptedByUser: String) {
+    init(address: String, addedByUser: String, status: String, latitude: NSNumber, longitude: NSNumber, details: String, otherInfo: String, price: NSNumber, id: String, createdAt: String, acceptedByUser: String, stripeChargeToken: String) {
         self.address = address
         self.addedByUser = addedByUser
         self.status = status
@@ -35,6 +36,7 @@ class ShovelRequest: NSObject {
         self.id = id
         self.createdAt = createdAt
         self.acceptedByUser = acceptedByUser
+        self.stripeChargeToken = stripeChargeToken
     }
 
     func toAnyObject() -> NSDictionary {
@@ -49,7 +51,8 @@ class ShovelRequest: NSObject {
             "status": status,
             "id": id,
             "createdAt": createdAt,
-            "acceptedByUser": acceptedByUser
+            "acceptedByUser": acceptedByUser,
+            "stripeChargeToken": stripeChargeToken
         ]
     }
     convenience override init() {
@@ -63,6 +66,7 @@ class ShovelRequest: NSObject {
                   price: 0.0,
                   id: "",
                   createdAt: "",
-                  acceptedByUser: "")
+                  acceptedByUser: "",
+                  stripeChargeToken: "")
     }
 }

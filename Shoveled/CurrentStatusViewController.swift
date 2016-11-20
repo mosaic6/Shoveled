@@ -40,7 +40,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     // MARK: Variables
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
     let locationManager = CLLocationManager()
-    var coordinates: CLLocationCoordinate2D!
+    var coordinates: CLLocationCoordinate2D?
     var theirLocation = CLLocationCoordinate2D()
     let dateFormatter = DateFormatter()
     var radius = 200.0
@@ -57,19 +57,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidLoad()
 
         self.ref = FIRDatabase.database().reference(withPath: "requests")
-//        let connectAccounts = StripeManager.getConnectedAccounts()
-//        print(connectAccounts)
 
         self.mapView?.delegate = self
         self.getCurrentLocation()
         self.configureView()
-        self.getShovelRequests()
-
-        let currentUser = FIRAuth.auth()?.currentUser?.email
 
         NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: NSNotification.Name(rawValue: "cancelRequest"), object: nil)
-
-        UIApplication.shared.registerForRemoteNotifications()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -101,7 +94,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     // MARK: - Get users location
     func getCurrentLocation() {
-        self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
 
         if CLLocationManager.locationServicesEnabled() {
@@ -113,14 +105,16 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.coordinates = manager.location?.coordinate
-        self.userLat = coordinates.latitude
-        self.userLong = coordinates.longitude
+        self.userLat = coordinates?.latitude
+        self.userLong = coordinates?.longitude
 
         let center = CLLocationCoordinate2D(latitude: userLat, longitude: userLong)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         self.mapView?.showsUserLocation = true
         self.mapView?.isUserInteractionEnabled = true
-        self.mapView?.setCenter(coordinates, animated: false)
+        if let coords = self.coordinates {
+            self.mapView?.setCenter(coords, animated: false)
+        }
         self.mapView?.setRegion(region, animated: false)
         defer { retrieveWeatherForecast() }
         locationManager.stopUpdatingLocation()
@@ -157,46 +151,51 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
         self.showActivityIndicatory(self.view)
         self.ref?.observe(.value, with: { snapshot in
-            let items = snapshot.value as! [String: AnyObject]
-            for item in items {
-                guard let address = item.value["address"] as? String else { return }
-                guard let addedByUser = item.value["addedByUser"] as? String else { return }
-                guard let status = item.value["status"] as? String else { return }
-                guard let latitude = item.value["latitude"] as? NSNumber else { return }
-                guard let longitude = item.value["longitude"] as? NSNumber else { return }
-                guard let details = item.value["details"] as? String else { return }
-                guard let otherInfo = item.value["otherInfo"] as? String else { return }
-                guard let price = item.value["price"] as? NSNumber else { return }
-                guard let id = item.value["id"] as? String else { return }
-                guard let createdAt = item.value["createdAt"] as? String else { return }
-                guard let acceptedByUser = item.value["acceptedByUser"] as? String else { return }
+            if let items = snapshot.value as? [String: AnyObject] {
+                for item in items {
+                    guard let address = item.value["address"] as? String else { return }
+                    guard let addedByUser = item.value["addedByUser"] as? String else { return }
+                    guard let status = item.value["status"] as? String else { return }
+                    guard let latitude = item.value["latitude"] as? NSNumber else { return }
+                    guard let longitude = item.value["longitude"] as? NSNumber else { return }
+                    guard let details = item.value["details"] as? String else { return }
+                    guard let otherInfo = item.value["otherInfo"] as? String else { return }
+                    guard let price = item.value["price"] as? NSNumber else { return }
+                    guard let id = item.value["id"] as? String else { return }
+                    guard let createdAt = item.value["createdAt"] as? String else { return }
+                    guard let acceptedByUser = item.value["acceptedByUser"] as? String else { return }
+                    guard let stripeChargeToken = item.value["stripeChargeToken"] as? String else { return }
 
-                self.requestStatus = status
+                    self.requestStatus = status
 
-                self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
-                self.nearArray.append(self.theirLocation)
+                    self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
+                    self.nearArray.append(self.theirLocation)
 
-                let mapAnnotation = ShovelAnnotation(
-                    address: address,
-                    coordinate: self.theirLocation,
-                    latitude: latitude,
-                    longitude: longitude,
-                    status: status,
-                    price: String(describing: price),
-                    details: details,
-                    otherInfo: otherInfo,
-                    addedByUser: addedByUser,
-                    id: id,
-                    createdAt: createdAt,
-                    acceptedByUser: acceptedByUser)
+                    let mapAnnotation = ShovelAnnotation(
+                        address: address,
+                        coordinate: self.theirLocation,
+                        latitude: latitude,
+                        longitude: longitude,
+                        status: status,
+                        price: String(describing: price),
+                        details: details,
+                        otherInfo: otherInfo,
+                        addedByUser: addedByUser,
+                        id: id,
+                        createdAt: createdAt,
+                        acceptedByUser: acceptedByUser,
+                        stripeChargeToken: stripeChargeToken)
 
-                DispatchQueue.main.async(execute: {
-                    self.mapView?.addAnnotation(mapAnnotation)
-                    if status == "Completed" {
-                        self.mapView?.removeAnnotation(mapAnnotation)
-                    }
-                    self.hideActivityIndicator(self.view)
-                })
+                    DispatchQueue.main.async(execute: {
+                        self.mapView?.addAnnotation(mapAnnotation)
+                        if status == "Completed" {
+                            self.mapView?.removeAnnotation(mapAnnotation)
+                        }
+                        self.hideActivityIndicator(self.view)
+                    })
+                }
+            } else {
+                self.hideActivityIndicator(self.view)
             }
         })
     }
@@ -287,6 +286,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.id = shovel.id
             requestVC.createdAt = shovel.createdAt
             requestVC.acceptedByUser = shovel.acceptedByUser
+            requestVC.stripeChargeToken = shovel.stripeChargeToken
             
             if let user = currentUser?.email, shovel.addedByUser == user {
                  requestVC.titleString = "My Request"

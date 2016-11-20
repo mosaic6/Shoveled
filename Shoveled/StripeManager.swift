@@ -26,12 +26,16 @@ class StripeManager {
     }
 
     // Send charge to Stripe
-    class func sendChargeToStripeWith(amount: String, source: String, description: String) {
-        StripeAPI.sharedInstance.sendChargeToStripeWith(amount, source: source, description: description) { (success, error) in
-            if success {
-                print("Credit Card was charged with token: \(source)")
+    class func sendChargeToStripeWith(amount: String, source: String, description: String, completion: @escaping (_ chargeId: String) -> ()) {
+        var chargeId = ""
+        StripeAPI.sharedInstance.sendChargeToStripeWith(amount, source: source, description: description, completion: { result, error
+            in
+            if let result = result {
+                guard let id = result.object(forKey: "id") as? String else { return }
+                chargeId = id
+                completion(chargeId)
             }
-        }
+        })
     }
 
     // Create Customer 
@@ -50,6 +54,12 @@ class StripeManager {
                 }
             }
         }
+    }
+    
+    // Send Refund
+    
+    class func sendRefundToCharge(chargeId: String) {
+        StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
     }
 
     // GET Connected Accounts

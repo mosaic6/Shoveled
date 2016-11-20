@@ -184,9 +184,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 let price: Int = Int(amount)! * 100 + 75
                 let stringPrice = String(price)
 
-                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())")
+                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (chargeId) in
+                    self.addRequestOnSuccess(stripeToken: chargeId)
+                })
                 self.resignFirstResponder()
-                self.addRequestOnSuccess()
+                
                 self.hideActivityIndicator(self.view)
             }
         }
@@ -263,7 +265,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         controller.dismiss(animated: true, completion: nil)
     }
 
-    func addRequestOnSuccess() {
+    func addRequestOnSuccess(stripeToken: String) {
         let postId = Int(arc4random_uniform(10000) + 1)
         guard let address = self.tfAddress.text else { return }
         guard let lat = self.latitude else { return }
@@ -277,7 +279,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
 
-        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "")
+        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
         
         let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in

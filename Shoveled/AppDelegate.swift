@@ -29,9 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        self.registerForPushNotifications(application)
-
-        let configuration = Bundle.main.object(forInfoDictionaryKey: "Configuration")
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
@@ -64,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         application.registerForRemoteNotifications()
-
+        self.registerForPushNotifications(application) 
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self,
                                                          selector: #selector(self.tokenRefreshNotification),

@@ -47,6 +47,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     var id: String?
     var createdAt: String?
     var acceptedByUser: String?
+    var stripeChargeToken: String?
     var completeRequestView = CompleteRequestView()
 
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
@@ -157,22 +158,6 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         deleteRequest()
     }
 
-    func deleteRequest() {
-        let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?", preferredStyle: .alert)
-        let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-        let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-
-            guard let requestId = self.id else { return }
-            let requestToDelete = self.ref.child(requestId)
-            requestToDelete.removeValue()
-
-            self.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(cancelAction)
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: { _ in })
-    }
-
     @IBAction func acceptRequest(_ sender: AnyObject) {
 
         actInd.startAnimating()
@@ -214,6 +199,29 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
 
     @IBAction func dismissView(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func deleteRequest() {
+        let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
+        let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            
+            guard let requestId = self.id else { return }
+            let requestToDelete = self.ref.child(requestId)
+            requestToDelete.removeValue()
+            self.issueRefund()
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: { _ in })
+    }
+    
+    func issueRefund() {
+        if let chargeId = self.stripeChargeToken {
+            StripeManager.sendRefundToCharge(chargeId: chargeId)
+        }
     }
 
     func closeModal() {
@@ -263,7 +271,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 return
             } else {
                 self.hideActivityIndicator(self.completeRequestView)
-//                self.ref.updateChildValues(childUpdates)
+
                 let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
                 let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
                     self.dismiss(animated: true, completion: nil)

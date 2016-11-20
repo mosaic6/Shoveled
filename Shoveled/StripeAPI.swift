@@ -17,6 +17,7 @@ private let API_GET_CUSTOMERS = "https://api.stripe.com/v1/customers"
 private let API_POST_CHARGE   = "https://api.stripe.com/v1/charges"
 private let API_GET_CONNECTED_ACCOUNTS = "https://api.stripe.com/v1/accounts"
 private let API_POST_CONNECT_ACCOUNT = "https://connect.stripe.com/oauth/token"
+private let API_POST_REFUND = "https://api.stripe.com/v1/refunds"
 
 class StripeAPI {
 
@@ -75,13 +76,7 @@ class StripeAPI {
     // Create a new customer if they don't already exist
     func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
         let sessionConfig = URLSessionConfiguration.default
-
-        /* Create session, and optionally set a NSURLSessionDelegate. */
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-
-        /* Create the Request:
-         POST Customers (POST https://api.stripe.com/v1/customers)
-         */
 
         guard let URL = URL(string: API_POST_CUSTOMER) else {return}
         let request = NSMutableURLRequest(url: URL)
@@ -122,18 +117,14 @@ class StripeAPI {
     }
 
     // Send the charge to Stripe
-    func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
+    func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
 
         guard let URL = URL(string: API_POST_CHARGE) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
 
-        // Headers
-
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-
-        // Form URL-Encoded Body
 
         let bodyParameters = [
             "amount": amount,
@@ -143,22 +134,32 @@ class StripeAPI {
             ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-
-        /* Start a new Task */
+        
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
-            if (error == nil) {
-                // Success
+            if (error == nil) {                
                 let statusCode = (response as! HTTPURLResponse).statusCode
+                var parsedObject: [String: Any]?
+                var serializationError: NSError?
                 if statusCode == 200 {
-                    print("Payment Successful \(statusCode)")
-                    completion(true, nil)
-                } else {
-                    print(response)
+                    print("URL Session Task Succeeded: HTTP \(statusCode)")
+                    
+                    if let data = data {
+                        do {
+                            parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
+                            
+                        } catch let error as NSError {
+                            serializationError = error
+                            parsedObject = nil
+                        } catch {
+                            fatalError()
+                        }
+                    }
+                    completion(parsedObject as NSDictionary?, serializationError)
                 }
             } else {
                 // Failure
-                completion(false, error as NSError?)
+                completion(nil, error as NSError?)
                 print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
@@ -221,9 +222,6 @@ class StripeAPI {
         guard let URL = URL(string: API_POST_CONNECT_ACCOUNT) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
-
-        // Headers
-
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
@@ -249,6 +247,40 @@ class StripeAPI {
         })
         task.resume()
     }
+    
+    
+    // MARK: Issue Refund
+    func sendRefundToCharge(chargeId: String) {
+        guard let URL = URL(string: API_POST_REFUND) else {return}
+        var request = URLRequest(url: URL)
+        request.httpMethod = "POST"
+        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        let bodyParameters = [
+            "charge": chargeId,
+            ]
+        let bodyString = bodyParameters.queryParameters
+        request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            (data, response, error) in
+            if (error == nil) {
+                // Success
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                if statusCode == 200 {
+                    print("Refund issued")
+                } else {
+                    print(statusCode)
+                }
+            } else {
+                // Failure
+                print("URL Session Task Failed: %@", error!.localizedDescription)
+            }
+        })
+        task.resume()
+    }
+
 }
 
 protocol URLQueryParameterStringConvertible {
@@ -256,12 +288,6 @@ protocol URLQueryParameterStringConvertible {
 }
 
 extension Dictionary: URLQueryParameterStringConvertible {
-    /**
-     This computed property returns a query parameters string from the given NSDictionary. For
-     example, if the input is @{@"day":@"Tuesday", @"month":@"January"}, the output
-     string will be @"day=Tuesday&month=January".
-     @return The computed parameters string.
-     */
     var queryParameters: String {
         var parts: [String] = []
         for (key, value) in self {
@@ -276,11 +302,6 @@ extension Dictionary: URLQueryParameterStringConvertible {
 }
 
 extension URL {
-    /**
-     Creates a new URL by adding the given query parameters.
-     @param parametersDictionary The query parameter dictionary to add.
-     @return A new NSURL.
-     */
     func URLByAppendingQueryParameters(_ parametersDictionary: Dictionary<String, String>) -> URL {
         let URLString: NSString = NSString(format: "%@?%@", self.absoluteString, parametersDictionary.queryParameters)
         return URL(string: URLString as String)!
