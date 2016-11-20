@@ -119,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // [END connect_to_fcm]
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        application.applicationIconBadgeNumber = 0
         connectToFcm()
     }
 

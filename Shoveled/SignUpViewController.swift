@@ -18,8 +18,8 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var tfEmail: UITextField!
     @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
-
-    let lblWelcome3 = UILabel()
+    @IBOutlet weak var welcomeTitleLabel: UILabel!
+    @IBOutlet weak var signupTitleLabel: UILabel!
 
     var currentStatusVC = CurrentStatusViewController()
     var ref: FIRDatabaseReference!
@@ -75,6 +75,7 @@ class SignUpViewController: UIViewController {
                     let alert = UIAlertController(title: "There was an error signing you up", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
                     self.present(alert, animated: true, completion: .none)
+                    self.hideActivityIndicator(self.view)
                 } else {
                     spinner.startAnimating()
                     self.ref.child("users").child(user!.uid).setValue(["username": emailString])
@@ -90,7 +91,8 @@ class SignUpViewController: UIViewController {
     // MARK: - ANIMATE FIELDS
     func animateLaunchView() {        
         UIView.animate(withDuration: 0.5, delay: 0.3, options: UIViewAnimationOptions(), animations: {
-            self.lblWelcome3.center.x += self.view.bounds.width
+            self.welcomeTitleLabel.center.x += self.view.bounds.width
+            self.signupTitleLabel.center.x += self.view.bounds.width
             self.tfEmail.center.x += self.view.bounds.width
             self.tfPassword.center.x += self.view.bounds.width
             self.btnSignUp.center.x += self.view.bounds.width

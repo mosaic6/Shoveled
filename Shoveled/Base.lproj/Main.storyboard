@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="Marvel-Bold.ttf">
+            <string>Marvel-Bold</string>
+        </array>
         <array key="Marvel-Regular.ttf">
             <string>Marvel-Regular</string>
         </array>
@@ -341,13 +344,13 @@
                                 <rect key="frame" x="-4" y="114" width="383" height="255"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELING DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="732-8Z-ymu">
-                                        <rect key="frame" x="20" y="55" width="151" height="21"/>
+                                        <rect key="frame" x="20" y="55" width="150.5" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-IN-Rx2">
-                                        <rect key="frame" x="20" y="0.0" width="56" height="21"/>
+                                        <rect key="frame" x="20" y="0.0" width="55.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="77" id="2qv-GZ-cUm"/>
                                         </constraints>
@@ -585,7 +588,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
-                                <rect key="frame" x="66" y="82" width="243" height="37"/>
+                                <rect key="frame" x="66.5" y="82" width="242.5" height="36.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="243" id="06C-Zk-1PU"/>
                                     <constraint firstAttribute="width" constant="243" id="M0h-1t-7oF"/>
@@ -833,29 +836,53 @@
                                     <outlet property="delegate" destination="I9z-8r-vV3" id="GDE-Dk-5pH"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wecome to Shoveled!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="koj-6X-vcd">
+                                <rect key="frame" x="16" y="28" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="20B-57-bDq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Marvel-Bold" family="Marvel" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign up to get started" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmW-ml-ads">
+                                <rect key="frame" x="16" y="57" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="z1f-Il-R82"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.34509803919999998" green="0.76470588240000004" blue="0.75686274509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="gxE-ji-b1d" firstAttribute="centerY" secondItem="wqs-hU-war" secondAttribute="centerY" constant="-32" id="3HX-wn-3nO"/>
                             <constraint firstItem="bQg-YC-8pj" firstAttribute="top" secondItem="4yX-nl-oX4" secondAttribute="bottom" constant="103" id="3LV-o5-jRM"/>
+                            <constraint firstItem="dmW-ml-ads" firstAttribute="top" secondItem="koj-6X-vcd" secondAttribute="bottom" constant="8" id="41C-rr-zRb"/>
+                            <constraint firstItem="koj-6X-vcd" firstAttribute="top" secondItem="4yX-nl-oX4" secondAttribute="bottom" constant="8" id="8Zu-NP-hoT"/>
                             <constraint firstItem="mDs-Qq-bKx" firstAttribute="centerY" secondItem="wqs-hU-war" secondAttribute="centerY" id="99D-Wi-Gz3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bQg-YC-8pj" secondAttribute="trailing" id="9FM-ET-LZP"/>
                             <constraint firstItem="gxE-ji-b1d" firstAttribute="leading" secondItem="wqs-hU-war" secondAttribute="leading" id="Ab5-XS-n2N"/>
                             <constraint firstAttribute="trailing" secondItem="gxE-ji-b1d" secondAttribute="trailing" id="Bm5-Tp-RPY"/>
                             <constraint firstAttribute="leadingMargin" secondItem="bQg-YC-8pj" secondAttribute="leading" id="DCv-Fr-yfH"/>
                             <constraint firstItem="gxE-ji-b1d" firstAttribute="top" secondItem="wqs-hU-war" secondAttribute="top" constant="-64" id="FF8-Hq-6hw"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="koj-6X-vcd" secondAttribute="trailing" id="Iam-YB-a20"/>
                             <constraint firstAttribute="leadingMargin" secondItem="mDs-Qq-bKx" secondAttribute="leading" id="IqM-ZF-rux"/>
                             <constraint firstAttribute="leadingMargin" secondItem="pfP-Xh-lmB" secondAttribute="leading" id="IvT-Iv-lYR"/>
                             <constraint firstItem="gxE-ji-b1d" firstAttribute="centerX" secondItem="wqs-hU-war" secondAttribute="centerX" id="So7-Ao-dMM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hrF-VP-y7g" secondAttribute="trailing" constant="211" id="U5y-19-g7S"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="dmW-ml-ads" secondAttribute="leading" id="WdA-Ak-Ggo"/>
                             <constraint firstItem="mDs-Qq-bKx" firstAttribute="centerX" secondItem="wqs-hU-war" secondAttribute="centerX" id="Xei-rw-NGH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="mDs-Qq-bKx" secondAttribute="trailing" id="ZOo-nb-j1o"/>
                             <constraint firstItem="pfP-Xh-lmB" firstAttribute="top" secondItem="bQg-YC-8pj" secondAttribute="bottom" constant="8" id="Zpj-Kn-FxZ"/>
                             <constraint firstItem="K3q-AT-TFX" firstAttribute="top" secondItem="gxE-ji-b1d" secondAttribute="bottom" id="c0o-PB-6VD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="pfP-Xh-lmB" secondAttribute="trailing" id="cf5-TP-oUe"/>
                             <constraint firstItem="hrF-VP-y7g" firstAttribute="leading" secondItem="wqs-hU-war" secondAttribute="leadingMargin" constant="212" id="kYM-0i-u8j"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dmW-ml-ads" secondAttribute="trailing" id="kim-bo-hS5"/>
                             <constraint firstItem="hrF-VP-y7g" firstAttribute="top" secondItem="mDs-Qq-bKx" secondAttribute="bottom" constant="49" id="lK5-3z-3A7"/>
                             <constraint firstItem="eyn-7W-ixN" firstAttribute="centerX" secondItem="wqs-hU-war" secondAttribute="centerX" id="ofy-Xi-Lj4"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="koj-6X-vcd" secondAttribute="leading" id="oyv-QU-Uq9"/>
                             <constraint firstItem="K3q-AT-TFX" firstAttribute="top" secondItem="eyn-7W-ixN" secondAttribute="bottom" constant="20" id="syT-w4-xo4"/>
                             <constraint firstItem="hrF-VP-y7g" firstAttribute="centerX" secondItem="wqs-hU-war" secondAttribute="centerX" id="udB-7f-uvR"/>
                         </constraints>
@@ -872,8 +899,10 @@
                         <outlet property="btnLogin" destination="hrF-VP-y7g" id="LmH-FY-YHa"/>
                         <outlet property="btnSignUp" destination="mDs-Qq-bKx" id="kna-SJ-fI5"/>
                         <outlet property="imgBackground" destination="gxE-ji-b1d" id="ffK-vr-Mtm"/>
+                        <outlet property="signupTitleLabel" destination="dmW-ml-ads" id="Z5T-s5-jzD"/>
                         <outlet property="tfEmail" destination="bQg-YC-8pj" id="l5z-XY-bR3"/>
                         <outlet property="tfPassword" destination="pfP-Xh-lmB" id="c1n-NC-IXG"/>
+                        <outlet property="welcomeTitleLabel" destination="koj-6X-vcd" id="FRf-0F-Knf"/>
                         <segue destination="tCX-AY-NMz" kind="show" identifier="AuthUser" id="kV1-2K-b4f"/>
                     </connections>
                 </viewController>

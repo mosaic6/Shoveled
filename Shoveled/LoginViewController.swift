@@ -19,14 +19,12 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var btnForgotPassword: UIButton!
     @IBOutlet weak var imgBackground: UIImageView!
     
-    var currentStatusVC = CurrentStatusViewController()
+    var currentStatusVC: CurrentStatusViewController?
     var ref: FIRDatabaseReference?
     var alert: UIAlertController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.configureView()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
         self.view.addGestureRecognizer(tap)
@@ -34,8 +32,13 @@ class LoginViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.configureView()
         self.navigationController?.navigationBar.isHidden = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.imgBackground.isHidden = true
     }
     
     func configureView() {
@@ -67,8 +70,10 @@ class LoginViewController: UIViewController {
                     self.ref?.child("users").child(user.uid).observeSingleEvent(of: .value, with: { snapshot in
                     })
                     self.dismiss(animated: true, completion: nil)
-                    let currentVC = CurrentStatusViewController()
-                    self.present(currentVC, animated: true, completion: nil)
+                    
+                    if let currentVC = self.currentStatusVC {
+                        self.present(currentVC, animated: true, completion: nil)
+                    }
                 }
             })
         }
