@@ -40,7 +40,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     // MARK: Variables
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
     let locationManager = CLLocationManager()
-    var coordinates: CLLocationCoordinate2D?
+    var coordinates: CLLocationCoordinate2D!
     var theirLocation = CLLocationCoordinate2D()
     let dateFormatter = DateFormatter()
     var radius = 200.0
@@ -61,6 +61,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.mapView?.delegate = self
         self.getCurrentLocation()
         self.configureView()
+        self.getShovelRequests()
 
         NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: NSNotification.Name(rawValue: "cancelRequest"), object: nil)
     }
@@ -71,12 +72,10 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.getUserInfo()
 
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
         self.getShovelRequests()
-
     }
 
     func configureView() {
@@ -105,16 +104,15 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.coordinates = manager.location?.coordinate
-        self.userLat = coordinates?.latitude
-        self.userLong = coordinates?.longitude
+        self.userLat = coordinates.latitude
+        self.userLong = coordinates.longitude
 
         let center = CLLocationCoordinate2D(latitude: userLat, longitude: userLong)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         self.mapView?.showsUserLocation = true
         self.mapView?.isUserInteractionEnabled = true
-        if let coords = self.coordinates {
-            self.mapView?.setCenter(coords, animated: false)
-        }
+        self.mapView?.setCenter(coordinates, animated: false)
+        
         self.mapView?.setRegion(region, animated: false)
         defer { retrieveWeatherForecast() }
         locationManager.stopUpdatingLocation()
@@ -186,16 +184,19 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                         acceptedByUser: acceptedByUser,
                         stripeChargeToken: stripeChargeToken)
 
-                    DispatchQueue.main.async(execute: {
+                    DispatchQueue.main.async {
                         self.mapView?.addAnnotation(mapAnnotation)
                         if status == "Completed" {
                             self.mapView?.removeAnnotation(mapAnnotation)
                         }
                         self.hideActivityIndicator(self.view)
-                    })
+                    }
                 }
             } else {
-                self.hideActivityIndicator(self.view)
+                DispatchQueue.main.async {
+                    self.hideActivityIndicator(self.view)
+                }
+                
             }
         })
     }

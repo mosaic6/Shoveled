@@ -24,7 +24,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     @IBOutlet weak var acceptBtn: ShoveledButton!
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var completeJobBtn: UIButton!
-    @IBOutlet weak var signUpAsShovelerBtn: UIButton!
+    @IBOutlet weak var signUpAsShovelerBtn: UIButton?
 
     var closeModalBtn: UIButton!
     var imageView: UIImageView!
@@ -55,9 +55,12 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.getCustomers()
+        
         self.configureView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
     func configureView() {
@@ -136,11 +139,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         self.completeRequestView.addSubview(closeModalBtn)
         self.completeRequestView.isHidden = true
 
-        self.signUpAsShovelerBtn.isHidden = false
-    }
-
-    func getCustomers() {
-        StripeManager.getConnectedAccounts()
+        self.getConnectedAccountEmails()
     }
 
     func showCompleteRequestView() {
@@ -178,7 +177,8 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                                             "price": price! as AnyObject,
                                             "id": id! as AnyObject,
                                             "createdAt": createdAt! as AnyObject,
-                                            "acceptedByUser": currentUser! as AnyObject]
+                                            "acceptedByUser": currentUser! as AnyObject,
+                                            "stripeChargeToken": self.stripeChargeToken as AnyObject]
 
         let childUpdates = ["/\(requestId)": request]
         ref.updateChildValues(childUpdates)
@@ -263,7 +263,8 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                                             "price": price! as AnyObject,
                                             "id": self.id! as AnyObject,
                                             "createdAt": self.createdAt! as AnyObject,
-                                            "acceptedByUser": self.currentUser! as AnyObject]
+                                            "acceptedByUser": self.currentUser! as AnyObject,
+                                            "stripeChargeToken": self.stripeChargeToken as AnyObject]
 
         let childUpdates = ["/\(requestId)": request]
         self.ref.updateChildValues(childUpdates) { (error, ref) in
@@ -344,6 +345,19 @@ extension AcceptRequestViewController {
             try! fileManager.createDirectory(atPath: paths, withIntermediateDirectories: true, attributes: nil)
         } else {
             print("Already dictionary created.")
+        }
+    }
+}
+
+extension AcceptRequestViewController {
+    
+    fileprivate func getConnectedAccountEmails() {
+        StripeManager.getConnectedAccounts { (stripeEmail) in
+            if self.currentUser == stripeEmail {
+                DispatchQueue.main.async {
+                    self.signUpAsShovelerBtn?.isHidden = true
+                }
+            }
         }
     }
 }

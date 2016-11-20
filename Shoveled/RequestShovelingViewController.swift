@@ -52,9 +52,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
-        StripeManager.getCustomers() { (result) in
 
-        }
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
         self.view.addGestureRecognizer(tap)
@@ -189,7 +187,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 })
                 self.resignFirstResponder()
                 
-                self.hideActivityIndicator(self.view)
+                
             }
         }
     }
@@ -284,7 +282,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in
             let requestName = self.ref.child("/requests/\(postId)")
-            
+            self.hideActivityIndicator(self.view)
             requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, ref) in
                 if error != nil {
                     let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)

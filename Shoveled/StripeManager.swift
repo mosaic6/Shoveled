@@ -63,8 +63,21 @@ class StripeManager {
     }
 
     // GET Connected Accounts
-    class func getConnectedAccounts() {
-        StripeAPI.sharedInstance.getConnectedAccounts()
+    class func getConnectedAccounts(completion: @escaping (_ email: String) -> ()) {
+        var userEmail = ""
+        StripeAPI.sharedInstance.getConnectedAccounts { (result, error) in
+            if let objects = result {
+                for item in objects {
+                    if let item = item as? [String: AnyObject] {
+                        guard let email = item["email"] as? String else { return }
+                        userEmail = email
+                        completion(userEmail)
+                    }
+                }
+            } else {
+                completion("")
+            }
+        }
     }
 
     // Send Code to Auth User

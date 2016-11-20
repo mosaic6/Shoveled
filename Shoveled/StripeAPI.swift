@@ -166,10 +166,9 @@ class StripeAPI {
         task.resume()
     }
 
-    func getConnectedAccounts() -> NSArray {
-
-        var dataArray: NSArray = []
-
+    func getConnectedAccounts(completion: @escaping (_ result: NSArray?, _ error: NSError?) -> ()) {
+        var resultArray: NSArray = []
+        var resultError: NSError?
         let URL = NSURL(string: API_GET_CONNECTED_ACCOUNTS)
         var request = URLRequest(url: URL as! URL)
         request.httpMethod = "GET"
@@ -185,7 +184,6 @@ class StripeAPI {
             if (error == nil) {
                 // Success
                 var parsedObject: [String: AnyObject]?
-                var serializationError: NSError?
 
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 if statusCode == 200 {
@@ -196,11 +194,11 @@ class StripeAPI {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
 
                             if let object = parsedObject {
-                                dataArray = (object["data"] as? NSArray)!
-                                print(dataArray)
+                                resultArray = (object["data"] as? NSArray)!
+                                completion(resultArray, nil)
                             }
                         } catch let error as NSError {
-                            serializationError = error
+                            resultError = error
                             parsedObject = nil
                         } catch {
                             fatalError()
@@ -209,13 +207,11 @@ class StripeAPI {
                     semaphore.signal()
                 }
             } else {
-                // Failure
+                completion(nil, resultError)
                 print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
         task.resume()
-
-        return dataArray as NSArray
     }
 
     func passCodeToAuthAccount(code: String) {
