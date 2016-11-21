@@ -72,7 +72,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.getUserInfo()
 
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.getShovelRequests()
@@ -112,7 +112,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.mapView?.showsUserLocation = true
         self.mapView?.isUserInteractionEnabled = true
         self.mapView?.setCenter(coordinates, animated: false)
-        
+
         self.mapView?.setRegion(region, animated: false)
         defer { retrieveWeatherForecast() }
         locationManager.stopUpdatingLocation()
@@ -196,7 +196,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 DispatchQueue.main.async {
                     self.hideActivityIndicator(self.view)
                 }
-                
+
             }
         })
     }
@@ -270,11 +270,11 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
 
         let currentUser = FIRAuth.auth()?.currentUser
-        
+
         let shovel = view.annotation as! ShovelAnnotation
 
         let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AcceptRequestViewController") as? AcceptRequestViewController
-        
+
         if let requestVC = requestDetailsView {
             requestVC.addressString = shovel.title
             requestVC.descriptionString = shovel.details
@@ -288,7 +288,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.createdAt = shovel.createdAt
             requestVC.acceptedByUser = shovel.acceptedByUser
             requestVC.stripeChargeToken = shovel.stripeChargeToken
-            
+
             if let user = currentUser?.email, shovel.addedByUser == user {
                  requestVC.titleString = "My Request"
             } else {

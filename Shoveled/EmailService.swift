@@ -14,7 +14,7 @@ class EmailService {
 
     static let sharedInstance = EmailService()
 
-    func sendEmailTo(email: String, toName: String, subject: String, text: String, file: String) {
+    func sendEmailTo(email: String, toName: String, subject: String, text: String) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
 
@@ -25,9 +25,8 @@ class EmailService {
             "to": email,
             "toname": toName,
             "subject": subject,
-            "text": file,
-            "from": "noreply@shoveled.work",
-            "files": file
+            "text": text,
+            "from": "noreply@shoveled.work"
             ]
         URL = URL.URLByAppendingQueryParameters(URLParams)
         var request = URLRequest(url: URL)

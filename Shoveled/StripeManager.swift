@@ -55,9 +55,9 @@ class StripeManager {
             }
         }
     }
-    
+
     // Send Refund
-    
+
     class func sendRefundToCharge(chargeId: String) {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
     }

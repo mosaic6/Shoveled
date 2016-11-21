@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         application.registerForRemoteNotifications()
-        self.registerForPushNotifications(application) 
+        self.registerForPushNotifications(application)
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self,
                                                          selector: #selector(self.tokenRefreshNotification),
@@ -171,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // [START ios_10_message_handling]
 @available(iOS 10, *)
 extension AppDelegate : UNUserNotificationCenterDelegate {
-    
+
     // Receive displayed notifications for iOS 10 devices.
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
@@ -179,7 +179,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let userInfo = notification.request.content.userInfo
         // Print message ID.
         print("Message ID: \(userInfo["gcm.message_id"]!)")
-        
+
         // Print full message.
         print("%@", userInfo)
     }
@@ -190,7 +190,7 @@ extension AppDelegate : FIRMessagingDelegate {
     func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
         print("%@", remoteMessage.appData)
     }
-    
+
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         // Let FCM know about the message for analytics etc.
         FIRMessaging.messaging().appDidReceiveMessage(userInfo)

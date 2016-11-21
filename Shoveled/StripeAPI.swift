@@ -134,20 +134,20 @@ class StripeAPI {
             ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        
+
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
-            if (error == nil) {                
+            if (error == nil) {
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 var parsedObject: [String: Any]?
                 var serializationError: NSError?
                 if statusCode == 200 {
                     print("URL Session Task Succeeded: HTTP \(statusCode)")
-                    
+
                     if let data = data {
                         do {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-                            
+
                         } catch let error as NSError {
                             serializationError = error
                             parsedObject = nil
@@ -243,8 +243,7 @@ class StripeAPI {
         })
         task.resume()
     }
-    
-    
+
     // MARK: Issue Refund
     func sendRefundToCharge(chargeId: String) {
         guard let URL = URL(string: API_POST_REFUND) else {return}
@@ -252,13 +251,13 @@ class StripeAPI {
         request.httpMethod = "POST"
         request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         let bodyParameters = [
             "charge": chargeId,
             ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        
+
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
             if (error == nil) {

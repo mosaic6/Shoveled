@@ -12,20 +12,20 @@ import FirebaseAuth
 import Crashlytics
 
 class LoginViewController: UIViewController {
-    
+
     @IBOutlet weak var tfExistingUsername: UITextField!
     @IBOutlet weak var tfExistingPassword: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnForgotPassword: UIButton!
     @IBOutlet weak var imgBackground: UIImageView!
-    
+
     var currentStatusVC: CurrentStatusViewController?
     var ref: FIRDatabaseReference?
     var alert: UIAlertController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
         self.view.addGestureRecognizer(tap)
     }
@@ -35,12 +35,12 @@ class LoginViewController: UIViewController {
         self.configureView()
         self.navigationController?.navigationBar.isHidden = false
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.imgBackground.isHidden = true
     }
-    
+
     func configureView() {
         let darkBlur = UIBlurEffect(style: .light)
         let blurView = UIVisualEffectView(effect: darkBlur)
@@ -48,13 +48,13 @@ class LoginViewController: UIViewController {
         blurView.frame = self.imgBackground.bounds
         self.imgBackground.insertSubview(blurView, at: 0)
     }
-    
+
     @IBAction func loginUser(_ sender: AnyObject) {
         self.dismissKeyboards()
-        self.showActivityIndicatory(self.view)        
+        self.showActivityIndicatory(self.view)
         guard let usernameString = tfExistingUsername.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
         guard let passwordString = tfExistingPassword.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
-        
+
         if usernameString.characters.count == 0 || passwordString.characters.count == 0 {
             let alert = UIAlertController(title: "There was an error logging in", message: "Please fill out all fields", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
@@ -70,7 +70,7 @@ class LoginViewController: UIViewController {
                     self.ref?.child("users").child(user.uid).observeSingleEvent(of: .value, with: { snapshot in
                     })
                     self.dismiss(animated: true, completion: nil)
-                    
+
                     if let currentVC = self.currentStatusVC {
                         self.present(currentVC, animated: true, completion: nil)
                     }
@@ -78,11 +78,11 @@ class LoginViewController: UIViewController {
             })
         }
     }
-    
+
     // Reset Password
     @IBAction func resetPassword(_ sender: AnyObject) {
         guard let usernameString = tfExistingUsername.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
-        
+
         FIRAuth.auth()?.sendPasswordReset(withEmail: usernameString) { error in
             if let error = error {
                 let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .alert)
@@ -97,7 +97,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
+
     func dismissKeyboards() {
         tfExistingUsername.resignFirstResponder()
         tfExistingPassword.resignFirstResponder()

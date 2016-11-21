@@ -20,28 +20,28 @@ class NotificationManager {
         for i in 0..<deviceToken.count {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
-        
+
         FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
         print("Device Token:", token)
     }
-    
+
     // MARK: Register for push
     class func registerForPushNotifications(_ application: UIApplication) {
         let viewAction = UIMutableUserNotificationAction()
         viewAction.identifier = "VIEW_IDENTIFIER"
         viewAction.title = "View"
         viewAction.activationMode = .foreground
-        
+
         let newsCategory = UIMutableUserNotificationCategory()
         newsCategory.identifier = "NEWS_CATEGORY"
         newsCategory.setActions([viewAction], for: .default)
-        
+
         let categories: Set <UIUserNotificationCategory> = [newsCategory]
-        
+
         let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: categories)
         application.registerUserNotificationSettings(notificationSettings)
     }
-    
+
     func setNotificationSettings(application: UIApplication) {
         // [START register_for_notifications]
         if #available(iOS 10.0, *) {
@@ -49,36 +49,36 @@ class NotificationManager {
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
-            
+
             // For iOS 10 display notification (sent via APNS)
 //            UNUserNotificationCenter.current().delegate = UIApplication.shared.
-            
+
         } else {
             let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
         }
-        
+
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.tokenRefreshNotification),
                                                name: NSNotification.Name.firInstanceIDTokenRefresh,
                                                object: nil)
-        
+
         let notificationTypes: UIUserNotificationType = [.alert, .badge, .sound]
         let pushNotificationSettings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
         application.registerUserNotificationSettings(pushNotificationSettings)
         application.registerForRemoteNotifications()
     }
-    
+
     // [START refresh_token]
     @objc func tokenRefreshNotification(notification: NSNotification) {
         guard let refreshedToken = FIRInstanceID.instanceID().token() else { return }
         print("InstanceID token: \(refreshedToken)")
-        
+
         // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
     }
-    
+
     // [START connect_to_fcm]
     func connectToFcm() {
         FIRMessaging.messaging().connect { (error) in
@@ -90,21 +90,19 @@ class NotificationManager {
         }
     }
     // [END connect_to_fcm]
-    
+
     func applicationDidBecomeActive(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
         connectToFcm()
     }
-    
+
     // [START disconnect_from_fcm]
     func applicationDidEnterBackground(_ application: UIApplication) {
         FIRMessaging.messaging().disconnect()
         print("Disconnected from FCM.")
     }
     // [END disconnect_from_fcm]
-    
-    
-    
+
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         if error._code == 3010 {
             print("Push notifications are not supported in the iOS Simulator.")

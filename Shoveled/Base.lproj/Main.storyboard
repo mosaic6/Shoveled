@@ -588,7 +588,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
-                                <rect key="frame" x="67" y="82" width="242.5" height="36.5"/>
+                                <rect key="frame" x="66" y="82" width="243" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="243" id="06C-Zk-1PU"/>
                                     <constraint firstAttribute="width" constant="243" id="M0h-1t-7oF"/>
@@ -1079,21 +1079,76 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="40" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJs-qV-nr2">
-                                <rect key="frame" x="16" y="133" width="343" height="206"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happens when I send a shovel request?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BJs-qV-nr2">
+                                <rect key="frame" x="16" y="133" width="343" height="22"/>
+                                <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Once your request is out in the wild, one of our shovelers will accept your request, and you'll be notified." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QOz-zJ-a3c">
+                                <rect key="frame" x="16" y="163" width="343" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="ajr-7U-YPw"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When will my request be completed?" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="weH-ta-nzz">
+                                <rect key="frame" x="16" y="235" width="343" height="22"/>
+                                <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mm1-hW-yVj">
+                                <rect key="frame" x="16" y="265" width="343" height="99"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="99" id="lpQ-VY-M65"/>
+                                </constraints>
+                                <string key="text">We urge our Shovelers to complete a request ASAP. If your request takes longer than an hour to be accepted, there may not be any shoveler in your area. </string>
+                                <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For more information please reach out to" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1rw-l5-IAn">
+                                <rect key="frame" x="16" y="537" width="343" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="UE5-eb-JTJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ez4-u6-Qs5">
+                                <rect key="frame" x="16" y="617" width="343" height="30"/>
+                                <state key="normal" title="shoveled.support@shoveled.works"/>
+                                <connections>
+                                    <action selector="contactSupport:" destination="dHn-RV-6FT" eventType="touchUpInside" id="tGM-ds-XWi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="Ez4-u6-Qs5" secondAttribute="leading" id="EcT-Xa-rQP"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="1rw-l5-IAn" secondAttribute="leading" id="Jji-yh-mwo"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="QOz-zJ-a3c" secondAttribute="leading" id="MNS-6Z-uHF"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="weH-ta-nzz" secondAttribute="leading" id="NyQ-S9-LrV"/>
+                            <constraint firstItem="weH-ta-nzz" firstAttribute="top" secondItem="QOz-zJ-a3c" secondAttribute="bottom" constant="8" id="RCT-qY-lIY"/>
                             <constraint firstItem="BJs-qV-nr2" firstAttribute="top" secondItem="Vfy-cZ-pBd" secondAttribute="bottom" constant="8" id="S5r-JY-1mN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ez4-u6-Qs5" secondAttribute="trailing" id="UFe-K1-A19"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="weH-ta-nzz" secondAttribute="trailing" id="Vqi-UZ-Z4R"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Mm1-hW-yVj" secondAttribute="trailing" id="W7l-Md-fzA"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vfy-cZ-pBd" secondAttribute="trailing" id="ZAZ-a2-psp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BJs-qV-nr2" secondAttribute="trailing" id="cri-Rm-18X"/>
                             <constraint firstAttribute="leadingMargin" secondItem="BJs-qV-nr2" secondAttribute="leading" id="eNm-Tm-vzx"/>
+                            <constraint firstItem="QOz-zJ-a3c" firstAttribute="top" secondItem="BJs-qV-nr2" secondAttribute="bottom" constant="8" id="g8A-61-4Uq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1rw-l5-IAn" secondAttribute="trailing" id="hfs-xv-jwX"/>
+                            <constraint firstItem="Ez4-u6-Qs5" firstAttribute="top" secondItem="1rw-l5-IAn" secondAttribute="bottom" constant="38" id="iGR-sa-CmI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QOz-zJ-a3c" secondAttribute="trailing" id="ohP-Cx-BA5"/>
                             <constraint firstItem="Vfy-cZ-pBd" firstAttribute="top" secondItem="hos-Lx-wjq" secondAttribute="bottom" constant="16" id="p6K-Lw-BVc"/>
-                            <constraint firstItem="vCF-hy-whr" firstAttribute="top" secondItem="BJs-qV-nr2" secondAttribute="bottom" constant="328" id="t2s-Qj-LBy"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Mm1-hW-yVj" secondAttribute="leading" id="vOg-Fk-sNU"/>
+                            <constraint firstItem="Mm1-hW-yVj" firstAttribute="top" secondItem="weH-ta-nzz" secondAttribute="bottom" constant="8" id="x56-cX-CyJ"/>
+                            <constraint firstItem="vCF-hy-whr" firstAttribute="top" secondItem="Ez4-u6-Qs5" secondAttribute="bottom" constant="20" id="xjI-mg-pO7"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Vfy-cZ-pBd" secondAttribute="leading" id="y7r-lk-rMn"/>
                         </constraints>
                     </view>
@@ -1122,7 +1177,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bkD-nG-HQT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRc-yD-JAX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dRc-yD-JAX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

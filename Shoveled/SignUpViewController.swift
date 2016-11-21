@@ -89,7 +89,7 @@ class SignUpViewController: UIViewController {
     }
 
     // MARK: - ANIMATE FIELDS
-    func animateLaunchView() {        
+    func animateLaunchView() {
         UIView.animate(withDuration: 0.5, delay: 0.3, options: UIViewAnimationOptions(), animations: {
             self.welcomeTitleLabel.center.x += self.view.bounds.width
             self.signupTitleLabel.center.x += self.view.bounds.width

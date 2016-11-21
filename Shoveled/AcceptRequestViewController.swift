@@ -55,10 +55,10 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.configureView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
@@ -200,13 +200,12 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     @IBAction func dismissView(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
+
     func deleteRequest() {
         let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
         let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            
+
             guard let requestId = self.id else { return }
             let requestToDelete = self.ref.child(requestId)
             requestToDelete.removeValue()
@@ -217,7 +216,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: { _ in })
     }
-    
+
     func issueRefund() {
         if let chargeId = self.stripeChargeToken {
             StripeManager.sendRefundToCharge(chargeId: chargeId)
@@ -279,6 +278,10 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 }
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: { _ in })
+
+                if let addedByUser = self.addedByUser {
+                    EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: \(self.stripeChargeToken) when contacting support.")
+                }
             }
         }
 
@@ -287,9 +290,6 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             storage.put(uploadData, metadata: nil) { (metaData, error) in
                 if error != nil {
                     return
-                }
-                else {
-                    CompletedJobService.sharedInstance.getCompletedJobImage(fromId: "\(requestId)-completedJob.png")
                 }
             }
         }
@@ -350,7 +350,7 @@ extension AcceptRequestViewController {
 }
 
 extension AcceptRequestViewController {
-    
+
     fileprivate func getConnectedAccountEmails() {
         StripeManager.getConnectedAccounts { (stripeEmail) in
             if self.currentUser == stripeEmail {

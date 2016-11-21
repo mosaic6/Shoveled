@@ -53,7 +53,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
         self.view.addGestureRecognizer(tap)
     }
@@ -184,10 +183,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
                 StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (chargeId) in
                     self.addRequestOnSuccess(stripeToken: chargeId)
+                    self.sendConfirmationEmail(email: self.getUserEmail(), subject: "Your Shovel request has been sent!", text: "Great news, your request is ready to be accepted. Hold tight and we'll get you shoveled out in no time.\nFor you reference, your payment ID is \(chargeId).\nIf you should have any issues canceling your request, please use this ID as a reference and email support.")
                 })
                 self.resignFirstResponder()
-                
-                
+
             }
         }
     }
@@ -278,7 +277,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         let dateString = dateFormatter.string(from: date)
 
         self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
-        
+
         let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in
             let requestName = self.ref.child("/requests/\(postId)")
@@ -316,5 +315,12 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
     func done() {
         self.view.endEditing(true)
+    }
+}
+
+extension RequestShovelingViewController {
+
+    fileprivate func sendConfirmationEmail(email: String, subject: String, text: String) {
+        EmailService.sharedInstance.sendEmailTo(email: email, toName: "", subject: subject, text: text)
     }
 }

@@ -33,7 +33,6 @@
 		6165CAD81DA7349C00375D29 /* HowItWorksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */; };
 		616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 616A5F561C728B0500A81AE5 /* Localizable.strings */; };
 		617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617031381C7D53B100297A25 /* ShovelAnnotationView.swift */; };
-		617DF17F1DCACF4900ED2504 /* CompletedJobService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617DF17E1DCACF4900ED2504 /* CompletedJobService.swift */; };
 		617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFC81BE306E000E61546 /* WelcomeView.swift */; };
 		617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCD1BE59B7300E61546 /* WeatherCell.swift */; };
 		617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */; };
@@ -50,6 +49,7 @@
 		61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */; };
 		61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A932511D90BDF100E07134 /* CompleteRequestView.swift */; };
 		61D22A861DA4A3E900D6AE0F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D22A851DA4A3E900D6AE0F /* DataManager.swift */; };
+		61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E46A921DE2970D0049A2A2 /* EmailManager.swift */; };
 		61EBB9E61DDE9F7900841A3F /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */; };
 		61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E71DDF30D400841A3F /* LoginViewController.swift */; };
 		61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ED021C1BAE43F3006B22B7 /* AppDelegate.swift */; };
@@ -109,7 +109,6 @@
 		6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowItWorksViewController.swift; sourceTree = "<group>"; };
 		616A5F561C728B0500A81AE5 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		617031381C7D53B100297A25 /* ShovelAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelAnnotationView.swift; sourceTree = "<group>"; };
-		617DF17E1DCACF4900ED2504 /* CompletedJobService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedJobService.swift; sourceTree = "<group>"; };
 		617ECFC81BE306E000E61546 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		617ECFCD1BE59B7300E61546 /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoveledButton.swift; sourceTree = "<group>"; };
@@ -126,6 +125,7 @@
 		61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		61A932511D90BDF100E07134 /* CompleteRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestView.swift; sourceTree = "<group>"; };
 		61D22A851DA4A3E900D6AE0F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		61E46A921DE2970D0049A2A2 /* EmailManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
 		61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		61EBB9E71DDF30D400841A3F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		61ED02191BAE43F3006B22B7 /* Shoveled.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shoveled.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,6 +191,7 @@
 				6115A52E1D89D601001FC3B6 /* StripeManager.swift */,
 				61D22A851DA4A3E900D6AE0F /* DataManager.swift */,
 				6199E08E1DE133F4009A4F22 /* NotificationManager.swift */,
+				61E46A921DE2970D0049A2A2 /* EmailManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -202,7 +203,6 @@
 				6125EA6C1D37300E006ED343 /* StripeAPI.swift */,
 				61A354981BCF3EA00071B5BE /* ForecastService.swift */,
 				61FCB9801DC83FFC002DB895 /* EmailService.swift */,
-				617DF17E1DCACF4900ED2504 /* CompletedJobService.swift */,
 			);
 			name = WebServices;
 			sourceTree = "<group>";
@@ -734,6 +734,7 @@
 				618595B71D1CC38C004EB4D4 /* User.swift in Sources */,
 				617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
+				61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */,
 				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
 				61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */,
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
@@ -747,7 +748,6 @@
 				6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */,
 				61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */,
 				61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */,
-				617DF17F1DCACF4900ED2504 /* CompletedJobService.swift in Sources */,
 				617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */,
 				617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */,
 			);
