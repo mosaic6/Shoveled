@@ -38,6 +38,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var priceLabel: UILabel! = nil
     var feeLabel: UILabel!
     var paymentToken: PKPaymentToken!
+    var chargeId: String?
 
     // MARK: - Private Variables
     private var shovelRequest: ShovelRequest?
@@ -172,7 +173,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
         STPAPIClient.shared().createToken(withCard: card) { token, error in
             guard let stripeToken = token else {
-                NSLog("Error creating token: %@", error!.localizedDescription)
+                let alert = UIAlertController(title: "Something went wrong", message: error!.localizedDescription, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "Try again", style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                self.hideActivityIndicator(self.view)
                 return
             }
 
@@ -181,12 +186,22 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 let price: Int = Int(amount)! * 100 + 75
                 let stringPrice = String(price)
 
-                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { (chargeId) in
-                    self.addRequestOnSuccess(stripeToken: chargeId)
-                    self.sendConfirmationEmail(email: self.getUserEmail(), subject: "Your Shovel request has been sent!", text: "Great news, your request is ready to be accepted. Hold tight and we'll get you shoveled out in no time.\nFor you reference, your payment ID is \(chargeId).\nIf you should have any issues canceling your request, please use this ID as a reference and email support.")
+                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { chargeId in
+                    if !chargeId.isEmpty {
+                        self.addRequestOnSuccess(stripeToken: chargeId)
+                        self.chargeId = chargeId
+                        self.sendConfirmationEmail(email: self.getUserEmail(), subject: "Your Shovel request has been sent!", text: "Great news, your request is ready to be accepted. Hold tight and we'll get you shoveled out in no time.\nFor you reference, your payment ID is <b>\(chargeId)</b>.<br/>If you should have any issues canceling your request, please use this ID as a reference and email support.</div>")
+                        self.hideActivityIndicator(self.view)
+                    } else {
+                        let alert = UIAlertController(title: "Something went wrong", message: "We could not complete your request. Please check that your card information is correct.", preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Try again", style: .default) { alert in
+                            self.hideActivityIndicator(self.view)
+                        }
+                        alert.addAction(okAction)
+                        self.present(alert, animated: true, completion: nil)
+                    }
                 })
                 self.resignFirstResponder()
-
             }
         }
     }
