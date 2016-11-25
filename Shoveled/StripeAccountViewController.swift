@@ -44,7 +44,6 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
         // get callback url code
         if let url = webView.request?.url {
             guard let code = url.getQueryItemValueForKey(key: "code") else { return }
-            print(code)
             StripeManager.passCodeToAuthAccount(code: code)
         }
     }

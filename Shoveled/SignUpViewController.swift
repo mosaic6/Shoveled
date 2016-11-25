@@ -83,6 +83,7 @@ class SignUpViewController: UIViewController {
                     let currentVC = CurrentStatusViewController()
                     self.present(currentVC, animated: true, completion: nil)
                     self.hideActivityIndicator(self.view)
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: userLocationNoticationKey), object: self)
                 }
             }
         }

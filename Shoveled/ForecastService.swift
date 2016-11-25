@@ -28,8 +28,6 @@ struct ForecastService {
                 let forecast = Forecast(weatherDictionary: JSONDictionary)
                 completion(forecast)
             }
-        } else {
-            print("Could not construct a valid URL")
         }
     }
 

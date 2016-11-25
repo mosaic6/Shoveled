@@ -19,7 +19,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var btnForgotPassword: UIButton!
     @IBOutlet weak var imgBackground: UIImageView!
 
-    var currentStatusVC: CurrentStatusViewController?
     var ref: FIRDatabaseReference?
     var alert: UIAlertController!
 
@@ -70,10 +69,7 @@ class LoginViewController: UIViewController {
                     self.ref?.child("users").child(user.uid).observeSingleEvent(of: .value, with: { snapshot in
                     })
                     self.dismiss(animated: true, completion: nil)
-
-                    if let currentVC = self.currentStatusVC {
-                        self.present(currentVC, animated: true, completion: nil)
-                    }
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: userLocationNoticationKey), object: self)
                 }
             })
         }
@@ -83,17 +79,24 @@ class LoginViewController: UIViewController {
     @IBAction func resetPassword(_ sender: AnyObject) {
         guard let usernameString = tfExistingUsername.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
 
-        FIRAuth.auth()?.sendPasswordReset(withEmail: usernameString) { error in
-            if let error = error {
-                let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .alert)
-                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: { _ in })
-            } else {
-                let alert: UIAlertController = UIAlertController(title: nil, message: "Your reset password link has been emailed to you.", preferredStyle: .alert)
-                let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: { _ in })
+        if usernameString == "" {
+            let alert: UIAlertController = UIAlertController(title: "Whoops", message: "Please enter your email address and then press the forgot password button.", preferredStyle: .alert)
+            let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: { _ in })
+        } else {
+            FIRAuth.auth()?.sendPasswordReset(withEmail: usernameString) { error in
+                if let error = error {
+                    let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: { _ in })
+                } else {
+                    let alert: UIAlertController = UIAlertController(title: nil, message: "Your reset password link has been emailed to you.", preferredStyle: .alert)
+                    let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: { _ in })
+                }
             }
         }
     }

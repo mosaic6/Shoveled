@@ -28,6 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "61ED022F1BAE43F3006B22B7"
+               BuildableName = "ShoveledTests.xctest"
+               BlueprintName = "ShoveledTests"
+               ReferencedContainer = "container:Shoveled.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "61ED023A1BAE43F3006B22B7"
+               BuildableName = "ShoveledUITests.xctest"
+               BlueprintName = "ShoveledUITests"
+               ReferencedContainer = "container:Shoveled.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

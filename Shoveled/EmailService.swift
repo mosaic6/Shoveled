@@ -36,11 +36,10 @@ class EmailService {
             (data, response, error) in
             if (error == nil) {
                 // Success
-                let statusCode = (response as! HTTPURLResponse).statusCode
-                print("URL Session Task Succeeded: HTTP \(statusCode)")
+
             } else {
                 // Failure
-                print("URL Session Task Failed: %@", error!.localizedDescription)
+
             }
         })
         task.resume()

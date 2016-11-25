@@ -27,7 +27,7 @@ class FAQViewController: UIViewController {
 
     @IBAction func contactSupport(_ sender: Any) {
 
-        let email = "shoveled.support@shoveled.com"
+        let email = "support@shoveled.com"
         let url = URL(string: "mailto:\(email)")
         if let url = url {
             UIApplication.shared.openURL(url)

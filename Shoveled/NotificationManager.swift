@@ -14,6 +14,8 @@ import FirebaseMessaging
 import UserNotifications
 import FirebaseInstanceID
 
+let userLocationNoticationKey = "com.mosaic6.userLocationKey"
+
 class NotificationManager {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         var token: String = ""

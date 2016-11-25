@@ -190,6 +190,12 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         let okAction: UIAlertAction = UIAlertAction(title: "Let's Go", style: .default) { (action) in
             self.ref.updateChildValues(childUpdates)
 
+            if let addedByUser = self.addedByUser, let currentUser = self.currentUser {
+                if let token = self.stripeChargeToken {
+                    EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "\(currentUser) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.")
+                }
+            }
+
             self.showCompleteRequestView()
         }
         alert.addAction(cancelAction)
@@ -280,7 +286,9 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 self.present(alert, animated: true, completion: { _ in })
 
                 if let addedByUser = self.addedByUser {
-                    EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: \(self.stripeChargeToken) when contacting support.")
+                    if let token = self.stripeChargeToken {
+                        EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.")
+                    }
                 }
             }
         }
@@ -299,8 +307,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
 
         imagePickerView.dismiss(animated: true) {
             if info.isEmpty {
-                print("No photo selected")
-
+                return
             } else {
                 self.imageView.contentMode = UIViewContentMode.scaleAspectFit
                 self.imageView.image = info[UIImagePickerControllerOriginalImage] as? UIImage
@@ -315,7 +322,6 @@ extension AcceptRequestViewController {
         let fileManager = FileManager.default
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("completedJob.jpg")
         let image = UIImage(named: "completedJob.jpg")
-        print(paths)
         let imageData = UIImageJPEGRepresentation(image!, 0.5)
         fileManager.createFile(atPath: paths as String, contents: imageData, attributes: nil)
     }
@@ -332,8 +338,6 @@ extension AcceptRequestViewController {
         if fileManager.fileExists(atPath: imagePAth) {
             self.imageView.image = UIImage(contentsOfFile: imagePAth)
             return self.imageView.image!
-        } else {
-            print("No Image")
         }
         return self.imageView.image!
     }
@@ -343,8 +347,6 @@ extension AcceptRequestViewController {
         let paths = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent("customDirectory")
         if !fileManager.fileExists(atPath: paths) {
             try! fileManager.createDirectory(atPath: paths, withIntermediateDirectories: true, attributes: nil)
-        } else {
-            print("Already dictionary created.")
         }
     }
 }

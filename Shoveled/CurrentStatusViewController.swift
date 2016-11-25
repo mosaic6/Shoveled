@@ -12,12 +12,6 @@ import MapKit
 import Firebase
 import FirebaseDatabase
 
-@objc
-protocol CurrentStatusControllerDelegate {
-    @objc optional func toggleLeftPanel()
-    @objc optional func collapseSidePanels()
-}
-
 protocol UpdateRequestStatusDelegate {
     func getShovelRequests()
 }
@@ -48,9 +42,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var userLat: Double!
     var userLong: Double!
     var requestStatus: String!
-    var delegate: CurrentStatusControllerDelegate?
     var updateRequestDelegate: UpdateRequestStatusDelegate?
     var ref: FIRDatabaseReference?
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
 
     // MARK: View Methods
     override func viewDidLoad() {
@@ -59,11 +56,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.ref = FIRDatabase.database().reference(withPath: "requests")
 
         self.mapView?.delegate = self
-        self.getCurrentLocation()
         self.configureView()
         self.getShovelRequests()
+        self.checkLocationServices()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: NSNotification.Name(rawValue: "cancelRequest"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -76,6 +74,17 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.getShovelRequests()
+    }
+
+    func checkLocationServices() {
+        if CLLocationManager.locationServicesEnabled() {
+            switch(CLLocationManager.authorizationStatus()) {
+            case .notDetermined, .restricted, .denied:
+                print("no access")
+            case .authorizedAlways, .authorizedWhenInUse:
+                self.getCurrentLocation()
+            }
+        }
     }
 
     func configureView() {

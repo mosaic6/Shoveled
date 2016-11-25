@@ -93,17 +93,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerUserNotificationSettings(notificationSettings)
     }
 
-    // [START refresh_token]
     func tokenRefreshNotification(notification: NSNotification) {
-        guard let refreshedToken = FIRInstanceID.instanceID().token() else { return }
-        print("InstanceID token: \(refreshedToken)")
-
-        // Connect to FCM since connection may have failed when attempted before having a token.
+        FIRInstanceID.instanceID().token()
         connectToFcm()
     }
-    // [END refresh_token]
 
-    // [START connect_to_fcm]
     func connectToFcm() {
         FIRMessaging.messaging().connect { (error) in
             if (error != nil) {
@@ -113,19 +107,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    // [END connect_to_fcm]
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
         connectToFcm()
     }
 
-    // [START disconnect_from_fcm]
     func applicationDidEnterBackground(_ application: UIApplication) {
         FIRMessaging.messaging().disconnect()
-        print("Disconnected from FCM.")
     }
-    // [END disconnect_from_fcm]
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         var token: String = ""
