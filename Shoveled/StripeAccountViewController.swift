@@ -8,6 +8,9 @@
 
 import UIKit
 
+fileprivate let dev_client_id = "ca_5VEQajzj4GqzKQc6ggbN8XNd0nELUSli"
+fileprivate let prod_client_id = "ca_5VEQihJDtbmZMAE270MnnY17PY2L8VUJ"
+
 class StripeAccountViewController: UIViewController, UIWebViewDelegate {
 
     var container: UIView = UIView()
@@ -22,7 +25,7 @@ class StripeAccountViewController: UIViewController, UIWebViewDelegate {
 
         self.stripeWebView?.delegate = self
 
-        let url = URL(string: "https://connect.stripe.com/login?redirect=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3Dca_5VEQajzj4GqzKQc6ggbN8XNd0nELUSli%26scope%3Dread_write")
+        let url = URL(string: "https://connect.stripe.com/login?redirect=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26client_id%3D\(prod_client_id)%26scope%3Dread_write")
         if let url = url {
             let request = URLRequest(url: url)
             self.stripeWebView?.loadRequest(request)
