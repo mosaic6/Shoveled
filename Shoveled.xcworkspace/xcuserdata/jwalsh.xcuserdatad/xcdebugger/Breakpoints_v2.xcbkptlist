@@ -136,7 +136,7 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "501819574.316991"
+                  timestampString = "501821831.289098"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
@@ -151,7 +151,7 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "501819574.319096"
+                  timestampString = "501821831.292861"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
@@ -200,7 +200,7 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501819574.32705"
+                  timestampString = "501821831.305139"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "192"
@@ -215,7 +215,7 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501819574.329174"
+                  timestampString = "501821831.307959"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
@@ -264,7 +264,7 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501819574.337281"
+                  timestampString = "501821831.32072"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "192"
@@ -279,7 +279,7 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501819574.339368"
+                  timestampString = "501821831.322908"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "193"
@@ -302,22 +302,6 @@
             startingLineNumber = "198"
             endingLineNumber = "198"
             landmarkName = "submitCard(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shoveled/AcceptRequestViewController.swift"
-            timestampString = "501819574.033272"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "configureView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

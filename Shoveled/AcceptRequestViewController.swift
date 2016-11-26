@@ -63,89 +63,6 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         super.viewWillAppear(animated)
     }
 
-    func configureView() {
-        self.cancelBtn?.isHidden = true
-        self.completeJobBtn?.isHidden = true
-        self.completeJobBtn?.layer.cornerRadius = 5.0
-        self.completeJobBtn?.addTarget(self, action: #selector(showCompleteRequestView), for: .touchUpInside)
-
-        guard let description = descriptionString else { return }
-        guard let price = priceString else { return }
-
-        self.titleLabel?.text = self.titleString?.uppercased()
-        self.addressLabel?.text = self.addressString?.uppercased()
-        self.descriptionLabel?.text = "Please Shovel: \(description)".uppercased()
-        self.priceLabel?.text = "Will Pay: $\(price).00".uppercased()
-        if let moreInfoString = self.otherInfoString {
-            shovelTimeLabel?.text = "Other Info: \(moreInfoString)".uppercased()
-        } else {
-            shovelTimeLabel?.text = "No more details for you!".uppercased()            
-        }
-
-        guard let rStatus = status else { return }
-        if rStatus == "Accepted" {
-            self.acceptBtn?.setTitle("In Progress", for: UIControlState())
-            self.acceptBtn?.backgroundColor = UIColor(red: 235.0 / 255.0, green: 135.0 / 255.0, blue: 35.0 / 255.0, alpha: 0.8)
-            self.acceptBtn?.isEnabled = false
-            if currentUser == acceptedByUser {
-                self.completeJobBtn?.isHidden = false
-            }
-        } else if rStatus == "Completed" {
-            self.acceptBtn?.setTitle("Completed", for: UIControlState())
-            self.acceptBtn?.backgroundColor = UIColor(red: 35.0 / 255.0, green: 135.0 / 255.0, blue: 235.0 / 255.0, alpha: 0.8)
-            self.acceptBtn?.isEnabled = false
-        } else {
-            self.acceptBtn?.setTitle("Accept", for: UIControlState())
-        }
-
-        if currentUser == addedByUser {
-            self.acceptBtn?.isHidden = true
-
-            self.cancelBtn?.isHidden = false
-        }
-
-        self.closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 28.0, height: 28.0))
-        self.closeModalBtn?.setImage(UIImage(named: "Close"), for: .normal)
-        self.closeModalBtn?.addTarget(self, action: #selector(AcceptRequestViewController.closeModal), for: .touchUpInside)
-
-        self.imagePickerView = UIImagePickerController()
-        self.imageView = UIImageView(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: 275.0))
-        self.imageView?.image = UIImage(named: "camera")
-        self.imageView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayCamera)))
-        self.imageView?.isUserInteractionEnabled = true
-        self.imageView?.contentMode = .center
-        self.imageView?.layer.cornerRadius = 5.0
-        self.imageView?.setNeedsDisplay()
-
-        self.uploadCompletedJobBtn = UIButton(frame: CGRect(x: 10, y: self.view.bounds.height - 70, width: self.view.frame.width - 20, height: 55.0))
-        self.uploadCompletedJobBtn?.setTitle("Send Completed Job", for: .normal)
-        self.uploadCompletedJobBtn?.backgroundColor = UIColor(red: 35.0 / 255.0, green: 135.0 / 255.0, blue: 235.0 / 255.0, alpha: 0.8)
-        self.uploadCompletedJobBtn?.layer.cornerRadius = 5.0
-        self.uploadCompletedJobBtn?.isHidden = true
-        self.uploadCompletedJobBtn?.addTarget(self, action: #selector(sendCompletedJob), for: .touchUpInside)
-
-        self.instructionsLabel = UILabel(frame: CGRect(x: 10, y: 380, width: self.view.frame.width - 20, height: 50))
-        self.instructionsLabel?.font = UIFont(name: "Marvel", size: 18)
-        self.instructionsLabel?.numberOfLines = 3
-        self.instructionsLabel?.textAlignment = NSTextAlignment.center
-        self.instructionsLabel?.text = "Once your job is complete, please upload a photo and you'll get paid 💰"
-
-        self.completeRequestView.center.y -= view.bounds.height
-        self.completeRequestView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
-        self.view.addSubview(completeRequestView)
-        guard let imageView = self.imageView else { return }
-        guard let uploadCompleteJobBtn = self.uploadCompletedJobBtn else { return }
-        guard let instructionsLabel = self.instructionsLabel else { return }
-        guard let closeModalBtn = self.closeModalBtn else { return }
-        self.completeRequestView.addSubview(imageView)
-        self.completeRequestView.addSubview(uploadCompleteJobBtn)
-        self.completeRequestView.addSubview(instructionsLabel)
-        self.completeRequestView.addSubview(closeModalBtn)
-        self.completeRequestView.isHidden = true
-
-        self.getConnectedAccountEmails()
-    }
-
     func showCompleteRequestView() {
         self.completeRequestView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
         UIView.animate(withDuration: 1.0, delay: 0, usingSpringWithDamping: 0.2, initialSpringVelocity: 5.0,
@@ -253,7 +170,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     }
 
     func sendCompletedJob() {
-
+//        self.completeJobBtn?.
         self.showActivityIndicatory(self.completeRequestView)
 
         guard let requestId = id,
@@ -280,15 +197,13 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             if error != nil {
                 return
             } else {
-                self.hideActivityIndicator(self.completeRequestView)
-
                 let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
                 let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
                     self.dismiss(animated: true, completion: nil)
                 }
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: { _ in })
-
+                self.hideActivityIndicator(self.completeRequestView)
                 if let addedByUser = self.addedByUser {
                     if let token = self.stripeChargeToken {
                         EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.")
@@ -354,6 +269,93 @@ extension AcceptRequestViewController {
         if !fileManager.fileExists(atPath: paths) {
             try! fileManager.createDirectory(atPath: paths, withIntermediateDirectories: true, attributes: nil)
         }
+    }
+}
+
+extension AcceptRequestViewController {
+    func configureView() {
+        self.cancelBtn?.isHidden = true
+        self.completeJobBtn?.isHidden = true
+        self.completeJobBtn?.layer.cornerRadius = 5.0
+        self.completeJobBtn?.addTarget(self, action: #selector(showCompleteRequestView), for: .touchUpInside)
+        
+        guard let description = descriptionString else { return }
+        guard let price = priceString else { return }
+        
+        self.titleLabel?.text = self.titleString?.uppercased()
+        self.addressLabel?.text = self.addressString?.uppercased()
+        self.descriptionLabel?.text = "Please Shovel: \(description)".uppercased()
+        self.priceLabel?.text = "Will Pay: $\(price).00".uppercased()
+        if let moreInfoString = self.otherInfoString {
+            shovelTimeLabel?.text = "Other Info: \(moreInfoString)".uppercased()
+        } else {
+            shovelTimeLabel?.text = "No more details for you!".uppercased()
+        }
+        
+        guard let rStatus = status else { return }
+        if rStatus == "Accepted" {
+            self.acceptBtn?.setTitle("In Progress", for: UIControlState())
+            self.acceptBtn?.backgroundColor = UIColor(red: 235.0 / 255.0, green: 135.0 / 255.0, blue: 35.0 / 255.0, alpha: 0.8)
+            self.acceptBtn?.isEnabled = false
+            if currentUser == acceptedByUser {
+                self.completeJobBtn?.isHidden = false
+            }
+        } else if rStatus == "Completed" {
+            self.acceptBtn?.setTitle("Completed", for: UIControlState())
+            self.acceptBtn?.backgroundColor = UIColor(red: 35.0 / 255.0, green: 135.0 / 255.0, blue: 235.0 / 255.0, alpha: 0.8)
+            self.acceptBtn?.isEnabled = false
+        } else {
+            self.acceptBtn?.setTitle("Accept", for: UIControlState())
+        }
+        
+        if currentUser == addedByUser {
+            self.acceptBtn?.isHidden = true
+            
+            self.cancelBtn?.isHidden = false
+        }
+        
+        self.closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 28.0, height: 28.0))
+        self.closeModalBtn?.setImage(UIImage(named: "Close"), for: .normal)
+        self.closeModalBtn?.addTarget(self, action: #selector(AcceptRequestViewController.closeModal), for: .touchUpInside)
+        
+        self.imagePickerView = UIImagePickerController()
+        self.imageView = UIImageView(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: 275.0))
+        self.imageView?.image = UIImage(named: "camera")
+        self.imageView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(displayCamera)))
+        self.imageView?.isUserInteractionEnabled = true
+        self.imageView?.contentMode = .center
+        self.imageView?.layer.cornerRadius = 5.0
+        self.imageView?.setNeedsDisplay()
+        
+        self.uploadCompletedJobBtn = UIButton(frame: CGRect(x: 10, y: self.view.bounds.height - 70, width: self.view.frame.width - 20, height: 55.0))
+        self.uploadCompletedJobBtn?.setTitle("Send Completed Job", for: .normal)
+        self.uploadCompletedJobBtn?.backgroundColor = UIColor(red: 35.0 / 255.0, green: 135.0 / 255.0, blue: 235.0 / 255.0, alpha: 0.8)
+        self.uploadCompletedJobBtn?.layer.cornerRadius = 5.0
+        self.uploadCompletedJobBtn?.isHidden = true
+        self.uploadCompletedJobBtn?.addTarget(self, action: #selector(sendCompletedJob), for: .touchUpInside)
+        
+        self.instructionsLabel = UILabel(frame: CGRect(x: 10, y: 380, width: self.view.frame.width - 20, height: 50))
+        self.instructionsLabel?.font = UIFont(name: "Marvel", size: 22)
+        //        self.instructionsLabel?.numberOfLines = 3
+        self.instructionsLabel?.textAlignment = NSTextAlignment.center
+        self.instructionsLabel?.text = "Once your job is complete, please upload a photo and you'll get paid 💰"
+        
+        self.completeRequestView.center.y -= view.bounds.height
+        self.completeRequestView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        self.view.addSubview(completeRequestView)
+        guard let imageView = self.imageView else { return }
+        guard let uploadCompleteJobBtn = self.uploadCompletedJobBtn else { return }
+        guard let instructionsLabel = self.instructionsLabel else { return }
+        guard let closeModalBtn = self.closeModalBtn else { return }
+        self.completeRequestView.addSubview(imageView)
+        self.completeRequestView.addSubview(uploadCompleteJobBtn)
+        self.completeRequestView.addSubview(instructionsLabel)
+        self.completeRequestView.addSubview(closeModalBtn)
+        self.completeRequestView.isHidden = true
+        
+        self.getConnectedAccountEmails()
+        
+        self.completeRequestView.setNeedsLayout()
     }
 }
 
