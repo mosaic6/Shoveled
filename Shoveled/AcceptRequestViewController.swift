@@ -170,7 +170,8 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     }
 
     func sendCompletedJob() {
-//        self.completeJobBtn?.
+        self.completeJobBtn?.isEnabled = false
+        self.completeJobBtn?.backgroundColor = UIColor.lightGray
         self.showActivityIndicatory(self.completeRequestView)
 
         guard let requestId = id,
@@ -279,13 +280,19 @@ extension AcceptRequestViewController {
         self.completeJobBtn?.layer.cornerRadius = 5.0
         self.completeJobBtn?.addTarget(self, action: #selector(showCompleteRequestView), for: .touchUpInside)
         
-        guard let description = descriptionString else { return }
-        guard let price = priceString else { return }
+        guard let description = self.descriptionString else { return }
+        guard let price = self.priceString else { return }
+        let convertedPrice: Float = Float(price)!
+        let percentageChange: Float = Float(convertedPrice) * 0.10
+        let updatedPrice = convertedPrice - percentageChange
+        print(updatedPrice)
+        let newPriceString = String(updatedPrice)
+        
         
         self.titleLabel?.text = self.titleString?.uppercased()
         self.addressLabel?.text = self.addressString?.uppercased()
         self.descriptionLabel?.text = "Please Shovel: \(description)".uppercased()
-        self.priceLabel?.text = "Will Pay: $\(price).00".uppercased()
+        self.priceLabel?.text = "Will Pay: $\(newPriceString)".uppercased()
         if let moreInfoString = self.otherInfoString {
             shovelTimeLabel?.text = "Other Info: \(moreInfoString)".uppercased()
         } else {

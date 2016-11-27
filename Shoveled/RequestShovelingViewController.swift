@@ -36,7 +36,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var paymentTextField: STPPaymentCardTextField? = nil
     var sendToStripeBtn: UIButton! = nil
     var priceLabel: UILabel! = nil
-    var feeLabel: UILabel!
     var paymentToken: PKPaymentToken!
     var chargeId: String?
 
@@ -186,7 +185,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
             if !stripeToken.tokenId.isEmpty {
                 guard let amount = self.tfPrice.text else { return }
-                let price: Int = Int(amount)! * 100 + 75
+                let price: Int = Int(amount)! * 100
                 let stringPrice = String(price)
 
                 StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { chargeId in
@@ -239,11 +238,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         guard let price = tfPrice.text else { return }
         priceLabel.text = "💲\(price).00"
 
-        feeLabel = UILabel(frame: CGRect(x: 0, y: 200, width: view.frame.width, height: 40))
-        feeLabel.font = UIFont(name: "Marvel-Regular", size: 18)
-        feeLabel.textAlignment = .center
-        feeLabel.text = "$0.75 processing fee will be applied"
-
         paymentTextField = STPPaymentCardTextField(frame: CGRect(x: 15, y: (self.view.frame.height / 2) - 50, width: view.frame.width - 30, height: 44))
         paymentTextField?.delegate = self
 
@@ -265,7 +259,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                     self.view.addSubview(paymentTextField)
                 }
                 self.view.addSubview(self.priceLabel)
-                self.view.addSubview(self.feeLabel)
                 self.paymentTextField?.becomeFirstResponder()
                 self.view.layoutIfNeeded()
             }, completion: nil)

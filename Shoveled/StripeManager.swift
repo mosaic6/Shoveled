@@ -55,9 +55,15 @@ class StripeManager {
             }
         }
     }
+    
+    // Create Managed Account
+    class func createManagedAccount() {
+        StripeAPI.sharedInstance.createManagedAccount(accountDict: [:]) { result, error in
+        
+        }
+    }
 
     // Send Refund
-
     class func sendRefundToCharge(chargeId: String) {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
     }
