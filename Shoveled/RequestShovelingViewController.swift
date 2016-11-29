@@ -192,7 +192,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                     if !chargeId.isEmpty {
                         self.addRequestOnSuccess(stripeToken: chargeId)
                         self.chargeId = chargeId
-                        self.sendConfirmationEmail(email: self.getUserEmail(), subject: "Your Shovel request has been sent!", text: "Great news, your request is ready to be accepted. Hold tight and we'll get you shoveled out in no time.\nFor you reference, your payment ID is <b>\(chargeId)</b>.<br/>If you should have any issues canceling your request, please use this ID as a reference and email support.</div>")
+                        self.sendConfirmationEmail(email: self.getUserEmail(), subject: "Your Shovel request has been sent!", text: "<html><div>Great news, your request is ready to be accepted. Hold tight and we'll get you shoveled out in no time.\nFor you reference, your payment ID is <b>\(chargeId)</b>.<br/>If you should have any issues canceling your request, please use this ID as a reference and email support.</div></html>")
                         self.hideActivityIndicator(self.view)
                     } else {
                         let alert = UIAlertController(title: "Something went wrong", message: "We could not complete your request. Please check that your card information is correct.", preferredStyle: .alert)

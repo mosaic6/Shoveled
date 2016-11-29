@@ -18,6 +18,8 @@
 		612B41551BB0DC5D00331F9B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41541BB0DC5D00331F9B /* SignUpViewController.swift */; };
 		612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */; };
 		61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61369D121CEBF6CF00079734 /* CustomTextField.swift */; };
+		613FCB6E1DED0B6D00ED991B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */; };
+		613FCB741DED174000ED991B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB731DED174000ED991B /* SettingsCell.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
 		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
 		615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526301BF90BB5006D7862 /* Marvel-Bold.ttf */; };
@@ -94,6 +96,8 @@
 		612B41541BB0DC5D00331F9B /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
 		61369D121CEBF6CF00079734 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		613FCB731DED174000ED991B /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
@@ -231,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
+				613FCB731DED174000ED991B /* SettingsCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -363,6 +368,7 @@
 				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
 				61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */,
 				61EBB9E71DDF30D400841A3F /* LoginViewController.swift */,
+				613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -732,11 +738,13 @@
 				6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */,
 				612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */,
 				618595B71D1CC38C004EB4D4 /* User.swift in Sources */,
+				613FCB6E1DED0B6D00ED991B /* SettingsTableViewController.swift in Sources */,
 				617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
 				61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */,
 				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
 				61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */,
+				613FCB741DED174000ED991B /* SettingsCell.swift in Sources */,
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,

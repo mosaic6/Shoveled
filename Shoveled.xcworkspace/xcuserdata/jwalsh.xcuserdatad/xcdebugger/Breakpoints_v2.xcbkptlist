@@ -136,12 +136,12 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "501821831.289098"
+                  timestampString = "502079358.357051"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
                   endingLineNumber = "33"
-                  offsetFromSymbolStart = "44">
+                  offsetFromSymbolStart = "38">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -151,12 +151,12 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "501821831.292861"
+                  timestampString = "502079358.360192"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
                   endingLineNumber = "33"
-                  offsetFromSymbolStart = "96">
+                  offsetFromSymbolStart = "121">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -174,134 +174,6 @@
             startingLineNumber = "36"
             endingLineNumber = "36"
             landmarkName = "sendChargeToStripeWith(amount:source:description:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shoveled/RequestShovelingViewController.swift"
-            timestampString = "501513704.890451"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "submitCard(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shoveled.RequestShovelingViewController.(submitCard (Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; ()).(closure #2)"
-                  moduleName = "Shoveled"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501821831.305139"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
-                  offsetFromSymbolStart = "760">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shoveled.RequestShovelingViewController.(submitCard (Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; ()).(closure #2).(closure #1)"
-                  moduleName = "Shoveled"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501821831.307959"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "193"
-                  endingLineNumber = "193"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shoveled/RequestShovelingViewController.swift"
-            timestampString = "501513704.890451"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "submitCard(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shoveled/RequestShovelingViewController.swift"
-            timestampString = "501513704.890451"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "submitCard(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shoveled.RequestShovelingViewController.(submitCard (Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; ()).(closure #2)"
-                  moduleName = "Shoveled"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501821831.32072"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "192"
-                  endingLineNumber = "192"
-                  offsetFromSymbolStart = "760">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Shoveled.RequestShovelingViewController.(submitCard (Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; ()).(closure #2).(closure #1)"
-                  moduleName = "Shoveled"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/RequestShovelingViewController.swift"
-                  timestampString = "501821831.322908"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "193"
-                  endingLineNumber = "193"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shoveled/RequestShovelingViewController.swift"
-            timestampString = "501513704.890451"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
-            landmarkName = "submitCard(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

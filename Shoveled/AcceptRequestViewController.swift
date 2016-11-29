@@ -113,7 +113,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
 
             if let addedByUser = self.addedByUser, let currentUser = self.currentUser {
                 if let token = self.stripeChargeToken {
-                    EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "\(currentUser) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.")
+                    EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "<html><div>\(currentUser) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.</div></html>")
                 }
             }
 
@@ -207,7 +207,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 self.hideActivityIndicator(self.completeRequestView)
                 if let addedByUser = self.addedByUser {
                     if let token = self.stripeChargeToken {
-                        EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.")
+                        EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "<html><div>Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.</div></html>")
                     }
                 }
             }
@@ -285,15 +285,13 @@ extension AcceptRequestViewController {
         let convertedPrice: Float = Float(price)!
         let percentageChange: Float = Float(convertedPrice) * 0.10
         let updatedPrice = convertedPrice - percentageChange
-        print(updatedPrice)
         let newPriceString = String(updatedPrice)
-        
         
         self.titleLabel?.text = self.titleString?.uppercased()
         self.addressLabel?.text = self.addressString?.uppercased()
         self.descriptionLabel?.text = "Please Shovel: \(description)".uppercased()
-        self.priceLabel?.text = "Will Pay: $\(newPriceString)".uppercased()
-        if let moreInfoString = self.otherInfoString {
+        self.priceLabel?.text = "You'll make: $\(newPriceString)0".uppercased()
+        if let moreInfoString = self.otherInfoString, moreInfoString != "" {
             shovelTimeLabel?.text = "Other Info: \(moreInfoString)".uppercased()
         } else {
             shovelTimeLabel?.text = "No more details for you!".uppercased()
@@ -341,9 +339,9 @@ extension AcceptRequestViewController {
         self.uploadCompletedJobBtn?.isHidden = true
         self.uploadCompletedJobBtn?.addTarget(self, action: #selector(sendCompletedJob), for: .touchUpInside)
         
-        self.instructionsLabel = UILabel(frame: CGRect(x: 10, y: 380, width: self.view.frame.width - 20, height: 50))
+        self.instructionsLabel = UILabel(frame: CGRect(x: 10, y: 380, width: self.view.frame.width - 20, height: 80))
         self.instructionsLabel?.font = UIFont(name: "Marvel", size: 22)
-        //        self.instructionsLabel?.numberOfLines = 3
+        self.instructionsLabel?.numberOfLines = 3
         self.instructionsLabel?.textAlignment = NSTextAlignment.center
         self.instructionsLabel?.text = "Once your job is complete, please upload a photo and you'll get paid 💰"
         
