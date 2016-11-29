@@ -24,6 +24,7 @@ class FAQViewController: UIViewController {
     @IBAction func dismissView(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 
     @IBAction func contactSupport(_ sender: Any) {
 

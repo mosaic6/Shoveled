@@ -38,6 +38,15 @@ class SettingsTableViewController: UITableViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let currentCell = tableView.cellForRow(at: indexPath) as! SettingsCell
+        if currentCell.cellTitleLabel?.text == "FAQs" {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = storyboard.instantiateViewController(withIdentifier: "FAQViewController") as! FAQViewController
+            self.present(viewController, animated: true, completion: nil)
+        }
+    }
 
     /*
     // MARK: - Navigation

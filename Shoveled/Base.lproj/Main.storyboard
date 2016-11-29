@@ -344,13 +344,13 @@
                                 <rect key="frame" x="-4" y="114" width="383" height="255"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELING DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="732-8Z-ymu">
-                                        <rect key="frame" x="20" y="55" width="150.5" height="21"/>
+                                        <rect key="frame" x="20" y="55" width="151" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-IN-Rx2">
-                                        <rect key="frame" x="20" y="0.0" width="55.5" height="21"/>
+                                        <rect key="frame" x="20" y="0.0" width="56" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="77" id="2qv-GZ-cUm"/>
                                         </constraints>
@@ -593,7 +593,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
-                                <rect key="frame" x="67" y="82" width="242.5" height="36.5"/>
+                                <rect key="frame" x="66" y="82" width="243" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="243" id="06C-Zk-1PU"/>
                                     <constraint firstAttribute="width" constant="243" id="M0h-1t-7oF"/>
@@ -811,7 +811,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-VP-y7g">
-                                <rect key="frame" x="105.5" y="405" width="164" height="35"/>
+                                <rect key="frame" x="106" y="405" width="164" height="35"/>
                                 <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="18"/>
                                 <state key="normal" title="Already a user? Log in">
                                     <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1018,10 +1018,10 @@
             </objects>
             <point key="canvasLocation" x="3320.8000000000002" y="375.56221889055473"/>
         </scene>
-        <!--How It Works View Controller-->
+        <!--Privacy Policy View Controller-->
         <scene sceneID="HaU-n1-1pD">
             <objects>
-                <viewController id="m70-Jr-je4" customClass="HowItWorksViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="m70-Jr-je4" userLabel="Privacy Policy View Controller" customClass="HowItWorksViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jtJ-ge-7e4"/>
                         <viewControllerLayoutGuide type="bottom" id="7Uz-Ev-9V5"/>
@@ -1063,10 +1063,10 @@
             </objects>
             <point key="canvasLocation" x="4217" y="367"/>
         </scene>
-        <!--HOW IT WORKS-->
+        <!--FAQs View Controller-->
         <scene sceneID="QEb-RU-D1Y">
             <objects>
-                <viewController id="dHn-RV-6FT" customClass="FAQViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FAQViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="dHn-RV-6FT" userLabel="FAQs View Controller" customClass="FAQViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hos-Lx-wjq"/>
                         <viewControllerLayoutGuide type="bottom" id="vCF-hy-whr"/>
@@ -1131,11 +1131,24 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdN-cl-0wk">
+                                <rect key="frame" x="16" y="28" width="28" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="28" id="1M9-17-bAP"/>
+                                    <constraint firstAttribute="width" constant="28" id="4Qb-CX-AAg"/>
+                                </constraints>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="dismissView:" destination="dHn-RV-6FT" eventType="touchUpInside" id="GiR-4o-sTy"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="Ez4-u6-Qs5" secondAttribute="leading" id="EcT-Xa-rQP"/>
+                            <constraint firstItem="YdN-cl-0wk" firstAttribute="top" secondItem="hos-Lx-wjq" secondAttribute="bottom" constant="8" id="JfR-Du-Dt7"/>
                             <constraint firstAttribute="leadingMargin" secondItem="1rw-l5-IAn" secondAttribute="leading" id="Jji-yh-mwo"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="YdN-cl-0wk" secondAttribute="leading" id="JlR-4i-5Jk"/>
                             <constraint firstAttribute="leadingMargin" secondItem="QOz-zJ-a3c" secondAttribute="leading" id="MNS-6Z-uHF"/>
                             <constraint firstAttribute="leadingMargin" secondItem="weH-ta-nzz" secondAttribute="leading" id="NyQ-S9-LrV"/>
                             <constraint firstItem="weH-ta-nzz" firstAttribute="top" secondItem="QOz-zJ-a3c" secondAttribute="bottom" constant="8" id="RCT-qY-lIY"/>
@@ -1175,7 +1188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d3S-pM-hra" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4857" y="1206"/>
+            <point key="canvasLocation" x="4862" y="1206"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Thb-BY-HDo">
@@ -1212,7 +1225,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GTk-F2-Grd">
-                                            <rect key="frame" x="18" y="11" width="202" height="21"/>
+                                            <rect key="frame" x="18" y="14" width="202" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="22"/>
                                             <nil key="textColor"/>
