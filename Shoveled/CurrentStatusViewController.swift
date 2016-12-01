@@ -220,20 +220,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         return UIStatusBarStyle.lightContent
     }
 
-    // MARK: - Actions
-    @IBAction func showMenu(_ sender: AnyObject) {
-        let logoutAction = UIAlertController(title: "ARE YOU SURE YOU WANT TO LOGOUT?", message: nil, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "LOGOUT", style: .destructive) { action in
-            try! FIRAuth.auth()!.signOut()
-            self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        logoutAction.addAction(okAction)
-        logoutAction.addAction(cancelAction)
-        self.present(logoutAction, animated: true, completion: nil)
-
-    }
-
     // MARK: - Request shoveling
     @IBAction func requestShoveling(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "showRequest", sender: self)

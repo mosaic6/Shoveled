@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SettingsTableViewController: UITableViewController {
     
     // MARK: Variables
-    let settingsData = ["Personal Information", "FAQs"]
+    let settingsData = ["Personal Information", "FAQs", "Logout"]
 
     // MARK: Outlets
     override func viewDidLoad() {
@@ -41,22 +42,31 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentCell = tableView.cellForRow(at: indexPath) as! SettingsCell
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if currentCell.cellTitleLabel?.text == "FAQs" {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let viewController = storyboard.instantiateViewController(withIdentifier: "FAQViewController") as! FAQViewController
-            self.present(viewController, animated: true, completion: nil)
+            self.navigationController?.pushViewController(viewController, animated: true)
+        } else if currentCell.cellTitleLabel?.text == "Personal Information" {
+            let viewController = storyboard.instantiateViewController(withIdentifier: "PersonalInformationViewController") as! PersonalInformationViewController
+            self.navigationController?.pushViewController(viewController, animated: true)
+        } else if currentCell.cellTitleLabel?.text == "Logout" {
+            self.showMenu()
         }
     }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+extension SettingsTableViewController {
+    // MARK: - Actions
+    func showMenu() {
+        let logoutAction = UIAlertController(title: "ARE YOU SURE YOU WANT TO LOGOUT?", message: nil, preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "LOGOUT", style: .destructive) { action in
+            try! FIRAuth.auth()!.signOut()
+            self.dismiss(animated: true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        logoutAction.addAction(okAction)
+        logoutAction.addAction(cancelAction)
+        self.present(logoutAction, animated: true, completion: nil)
     }
-    */
-
 }
 

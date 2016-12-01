@@ -20,6 +20,8 @@
 		61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61369D121CEBF6CF00079734 /* CustomTextField.swift */; };
 		613FCB6E1DED0B6D00ED991B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */; };
 		613FCB741DED174000ED991B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB731DED174000ED991B /* SettingsCell.swift */; };
+		613FCB761DEE58F700ED991B /* PersonalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB751DEE58F700ED991B /* PersonalInformationViewController.swift */; };
+		613FCB781DEE6F3A00ED991B /* PersonalInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
 		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
 		615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526301BF90BB5006D7862 /* Marvel-Bold.ttf */; };
@@ -98,6 +100,8 @@
 		61369D121CEBF6CF00079734 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		613FCB731DED174000ED991B /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		613FCB751DEE58F700ED991B /* PersonalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInformationViewController.swift; sourceTree = "<group>"; };
+		613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoCell.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 			children = (
 				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
 				613FCB731DED174000ED991B /* SettingsCell.swift */,
+				613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -364,11 +369,12 @@
 				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
 				61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */,
 				6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */,
-				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
-				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
-				61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */,
 				61EBB9E71DDF30D400841A3F /* LoginViewController.swift */,
+				613FCB751DEE58F700ED991B /* PersonalInformationViewController.swift */,
+				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
 				613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */,
+				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
+				61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -734,6 +740,7 @@
 				61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */,
 				612B41551BB0DC5D00331F9B /* SignUpViewController.swift in Sources */,
 				61ED02251BAE43F3006B22B7 /* Shoveled.xcdatamodeld in Sources */,
+				613FCB761DEE58F700ED991B /* PersonalInformationViewController.swift in Sources */,
 				6165CAD81DA7349C00375D29 /* HowItWorksViewController.swift in Sources */,
 				6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */,
 				612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */,
@@ -752,6 +759,7 @@
 				6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */,
 				61A354931BCF397B0071B5BE /* Forecast.swift in Sources */,
 				6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */,
+				613FCB781DEE6F3A00ED991B /* PersonalInfoCell.swift in Sources */,
 				61A354951BCF399A0071B5BE /* CurrentWeather.swift in Sources */,
 				6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */,
 				61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */,

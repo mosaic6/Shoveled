@@ -88,7 +88,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         actInd.isHidden = true
         view.addSubview(actInd)
 
-        self.title = "Request"
+        self.title = "REQUEST"
 
     }
 
