@@ -19,6 +19,7 @@ private let API_POST_CHARGE   = "https://api.stripe.com/v1/charges"
 private let API_GET_CONNECTED_ACCOUNTS = "https://api.stripe.com/v1/accounts"
 private let API_POST_CONNECT_ACCOUNT = "https://connect.stripe.com/oauth/token"
 private let API_POST_REFUND = "https://api.stripe.com/v1/refunds"
+private let API_POST_TRANSFER = "https://api.stripe.com/v1/transfers"
 
 class StripeAPI {
 
@@ -329,6 +330,38 @@ class StripeAPI {
                 }
             } else {
                 // Failure
+                print("URL Session Task Failed: %@", error!.localizedDescription)
+            }
+        })
+        task.resume()
+    }
+    
+    // MARK: Send Transfer 
+    func transferFundsToAccount(amount: String, destination: String) {
+        guard let URL = URL(string: API_POST_TRANSFER) else { return }
+        var request = URLRequest(url: URL)
+        request.httpMethod = "POST"
+        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        let bodyParameters = [
+            "amount": amount,
+            "currency": "usd",
+            "destination": destination
+        ]
+        let bodyString = bodyParameters.queryParameters
+        request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
+            (data, response, error) in
+            if (error == nil) {
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                if statusCode == 200 {
+                    print("Transfer complete")
+                } else {
+                    print(statusCode)
+                }
+            } else {
                 print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })

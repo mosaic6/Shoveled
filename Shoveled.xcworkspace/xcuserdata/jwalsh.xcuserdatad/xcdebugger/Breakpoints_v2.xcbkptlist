@@ -136,12 +136,12 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "502166658.157735"
+                  timestampString = "502255192.887668"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
                   endingLineNumber = "33"
-                  offsetFromSymbolStart = "44">
+                  offsetFromSymbolStart = "38">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -151,12 +151,12 @@
                   moduleName = "Shoveled"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "502166658.161015"
+                  timestampString = "502255192.890949"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "33"
                   endingLineNumber = "33"
-                  offsetFromSymbolStart = "96">
+                  offsetFromSymbolStart = "121">
                </Location>
             </Locations>
          </BreakpointContent>

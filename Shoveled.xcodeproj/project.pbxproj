@@ -53,6 +53,7 @@
 		61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */; };
 		61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A932511D90BDF100E07134 /* CompleteRequestView.swift */; };
 		61D22A861DA4A3E900D6AE0F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D22A851DA4A3E900D6AE0F /* DataManager.swift */; };
+		61D27B111DEFBAF5003BFBB6 /* DebitCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D27B101DEFBAF5003BFBB6 /* DebitCardCell.swift */; };
 		61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E46A921DE2970D0049A2A2 /* EmailManager.swift */; };
 		61EBB9E61DDE9F7900841A3F /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */; };
 		61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E71DDF30D400841A3F /* LoginViewController.swift */; };
@@ -133,6 +134,7 @@
 		61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		61A932511D90BDF100E07134 /* CompleteRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestView.swift; sourceTree = "<group>"; };
 		61D22A851DA4A3E900D6AE0F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		61D27B101DEFBAF5003BFBB6 /* DebitCardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebitCardCell.swift; sourceTree = "<group>"; };
 		61E46A921DE2970D0049A2A2 /* EmailManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
 		61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		61EBB9E71DDF30D400841A3F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
 				613FCB731DED174000ED991B /* SettingsCell.swift */,
 				613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */,
+				61D27B101DEFBAF5003BFBB6 /* DebitCardCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
 				61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */,
 				613FCB741DED174000ED991B /* SettingsCell.swift in Sources */,
+				61D27B111DEFBAF5003BFBB6 /* DebitCardCell.swift in Sources */,
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,
