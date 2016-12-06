@@ -119,61 +119,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Shoveled/StripeManager.swift"
-            timestampString = "501472484.356026"
+            filePath = "Shoveled/StripeAPI.swift"
+            timestampString = "502600407.351502"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "sendChargeToStripeWith(amount:source:description:completion:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static Shoveled.StripeManager.(sendChargeToStripeWith (amount : Swift.String, source : Swift.String, description : Swift.String, completion : (Swift.String) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "Shoveled"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "502255192.887668"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "38">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "static Shoveled.StripeManager.(sendChargeToStripeWith (amount : Swift.String, source : Swift.String, description : Swift.String, completion : (Swift.String) -&gt; ()) -&gt; ()).(closure #1)"
-                  moduleName = "Shoveled"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/jwalsh/Desktop/Shoveled/Shoveled/StripeManager.swift"
-                  timestampString = "502255192.890949"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "121">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Shoveled/StripeManager.swift"
-            timestampString = "501473045.844309"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "sendChargeToStripeWith(amount:source:description:completion:)"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "createManagedAccount(accountDict:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

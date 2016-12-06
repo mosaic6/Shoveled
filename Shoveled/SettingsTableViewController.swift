@@ -12,7 +12,7 @@ import FirebaseAuth
 class SettingsTableViewController: UITableViewController {
     
     // MARK: Variables
-    let settingsData = ["Personal Information", "FAQs", "Logout"]
+    let settingsData = ["Shovelers Information", "FAQs", "Logout"]
 
     // MARK: Outlets
     override func viewDidLoad() {
@@ -46,7 +46,7 @@ class SettingsTableViewController: UITableViewController {
         if currentCell.cellTitleLabel?.text == "FAQs" {
             let viewController = storyboard.instantiateViewController(withIdentifier: "FAQViewController") as! FAQViewController
             self.navigationController?.pushViewController(viewController, animated: true)
-        } else if currentCell.cellTitleLabel?.text == "Personal Information" {
+        } else if currentCell.cellTitleLabel?.text == "Shovelers Information" {
             let viewController = storyboard.instantiateViewController(withIdentifier: "PersonalInformationViewController") as! PersonalInformationViewController
             self.navigationController?.pushViewController(viewController, animated: true)
         } else if currentCell.cellTitleLabel?.text == "Logout" {

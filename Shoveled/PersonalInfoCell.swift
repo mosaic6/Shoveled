@@ -16,7 +16,9 @@ class PersonalInfoCell: UITableViewCell {
     @IBOutlet weak var cityTF: UITextField?
     @IBOutlet weak var stateTF: UITextField?
     @IBOutlet weak var zipTF: UITextField?
-    @IBOutlet weak var dobTF: UITextField?
+    @IBOutlet weak var dobMonthTF: UITextField?
+    @IBOutlet weak var dobYearTF: UITextField?
+    @IBOutlet weak var dobDayTF: UITextField?
     @IBOutlet weak var ssTF: UITextField?
     @IBOutlet weak var ssInfoButton: UIButton?
     
@@ -53,6 +55,6 @@ class PersonalInfoCell: UITableViewCell {
         self.dobLabel?.text = "DATE OF BIRTH"
         self.ssLabel?.text = "SS LAST 4"
         
-        self.dobTF?.placeholder = "03/21/1975"
+        self.dobMonthTF?.placeholder = "03/21/1975"
     }
 }

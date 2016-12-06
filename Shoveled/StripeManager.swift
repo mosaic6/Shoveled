@@ -57,15 +57,22 @@ class StripeManager {
     }
     
     // Create Managed Account
-    class func createManagedAccount() {
-        StripeAPI.sharedInstance.createManagedAccount(accountDict: [:]) { result, error in
+    class func createManagedAccount(accountDict: [String: AnyObject]) {
+        StripeAPI.sharedInstance.createManagedAccount(accountDict: accountDict) { result, error in
         
+            if error == nil {
+                print("OK")
+            }
         }
     }
 
     // Send Refund
     class func sendRefundToCharge(chargeId: String) {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
+    }
+    
+    class func transferFundsToAccount(amount: String, destination: String) {
+        StripeAPI.sharedInstance.transferFundsToAccount(amount: amount, destination: destination)
     }
 
     // GET Connected Accounts

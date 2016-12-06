@@ -58,7 +58,7 @@ class StripeAPI {
     
     // MARK: Create Managed Account
     
-    func createManagedAccount(accountDict: NSDictionary, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
+    func createManagedAccount(accountDict: [String: AnyObject], completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
         
@@ -70,10 +70,10 @@ class StripeAPI {
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
         // TODO: Need to pass
-        let bodyParameters = accountDict as? [String: AnyObject]
+        let bodyParameters = accountDict
         
-        let bodyString = bodyParameters?.queryParameters
-        request.httpBody = bodyString?.data(using: String.Encoding.utf8, allowLossyConversion: true)
+        let bodyString = bodyParameters.queryParameters
+        request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
         
         let semaphore = DispatchSemaphore(value: 0)
         let task = session.dataTask(with: URL, completionHandler: {
@@ -336,7 +336,7 @@ class StripeAPI {
         task.resume()
     }
     
-    // MARK: Send Transfer 
+    // MARK: Send Transfer
     func transferFundsToAccount(amount: String, destination: String) {
         guard let URL = URL(string: API_POST_TRANSFER) else { return }
         var request = URLRequest(url: URL)
