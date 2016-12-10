@@ -156,7 +156,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
         self.removeAnnotations()
 
-        self.showActivityIndicatory(self.view)
+//        self.showActivityIndicatory(self.view)
         self.ref?.observe(.value, with: { snapshot in
             if let items = snapshot.value as? [String: AnyObject] {
                 for item in items {

@@ -12,14 +12,14 @@ import Stripe
 let testAuthKey = "Bearer sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
 let prodAuthKey = "Bearer sk_live_2CJnnLPGLtpNAzd3JB1xaojf"
 
-private let API_POST_CUSTOMER = "https://api.stripe.com/v1/customers"
-private let API_GET_CUSTOMERS = "https://api.stripe.com/v1/customers"
-private let API_POST_MANAGED_CUSTOMER = "https://api.stripe.com/v1/accounts"
-private let API_POST_CHARGE   = "https://api.stripe.com/v1/charges"
-private let API_GET_CONNECTED_ACCOUNTS = "https://api.stripe.com/v1/accounts"
-private let API_POST_CONNECT_ACCOUNT = "https://connect.stripe.com/oauth/token"
-private let API_POST_REFUND = "https://api.stripe.com/v1/refunds"
-private let API_POST_TRANSFER = "https://api.stripe.com/v1/transfers"
+private let API_POST_CUSTOMER           = "https://api.stripe.com/v1/customers"
+private let API_GET_CUSTOMERS           = "https://api.stripe.com/v1/customers"
+private let API_POST_MANAGED_CUSTOMER   = "https://api.stripe.com/v1/accounts"
+private let API_POST_CHARGE             = "https://api.stripe.com/v1/charges"
+private let API_GET_CONNECTED_ACCOUNTS  = "https://api.stripe.com/v1/accounts"
+private let API_POST_CONNECT_ACCOUNT    = "https://connect.stripe.com/oauth/token"
+private let API_POST_REFUND             = "https://api.stripe.com/v1/refunds"
+private let API_POST_TRANSFER           = "https://api.stripe.com/v1/transfers"
 
 class StripeAPI {
 
@@ -31,7 +31,7 @@ class StripeAPI {
         guard let URL = URL(string: API_POST_CONNECT_ACCOUNT) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
         let bodyParameters = [
@@ -58,9 +58,20 @@ class StripeAPI {
     
     // MARK: Create Managed Account
     
-    func createManagedAccount(accountDict: [String: AnyObject], completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
+    func createManagedAccount(firstName: String,
+                              lastName: String,
+                              address1: String,
+                              city: String,
+                              state: String,
+                              zip: String,
+                              dobDay: String,
+                              dobMonth: String,
+                              dobYear: String,
+                              last4: String,
+                              cardNumber: String,
+                              expMonth: String,
+                              expYear: String,
+                              cvc: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
         
         guard let URL = URL(string: API_POST_MANAGED_CUSTOMER) else { return }
         var request = URLRequest(url: URL)
@@ -70,13 +81,35 @@ class StripeAPI {
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
         // TODO: Need to pass
-        let bodyParameters = accountDict
+        let bodyParameters = [
+            "country": "us",
+            "legal_entity[ssn_last_4]": last4,
+            "legal_entity[dob][year]": dobYear,
+            "legal_entity[address][postal_code]": zip,
+            "external_account[object]": "card",
+            "external_account[exp_year]": expYear,
+            "legal_entity[first_name]": firstName,
+            "legal_entity[type]": "individual",
+            "legal_entity[address][line1]": address1,
+            "tos_acceptance[ip]": "8.8.8.8",
+            "legal_entity[last_name]": lastName,
+            "external_account[cvc]": cvc,
+            "email": currentUserEmail,
+            "legal_entity[address][city]": city,
+            "external_account[exp_month]": expMonth,
+            "legal_entity[dob][day]": dobDay,
+            "legal_entity[address][state]": state,
+            "external_account[currency]": "USD",
+            "managed": "true",
+            "tos_acceptance[date]": "1476668004",
+            "legal_entity[dob][month]": dobMonth,
+            "external_account[number]": cardNumber,
+            ]
         
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
         
-        let semaphore = DispatchSemaphore(value: 0)
-        let task = session.dataTask(with: URL, completionHandler: {
+        let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
             if (error == nil) {
                 // Success
@@ -99,13 +132,13 @@ class StripeAPI {
                             fatalError()
                         }
                     }
-                    completion(parsedObject as NSDictionary?, serializationError)
-                    semaphore.signal()
+                    completion(parsedObject as NSDictionary?, nil)
+                } else {
+                    completion(nil, serializationError)
                 }
-                
             } else {
                 // Failure
-                print("URL Session Task Failed: %@", error!.localizedDescription)
+                completion(nil, error as? NSError)
             }
         })
         task.resume()
@@ -121,7 +154,7 @@ class StripeAPI {
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let semaphore = DispatchSemaphore(value: 0)
@@ -173,7 +206,7 @@ class StripeAPI {
 
         // Headers
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         // Form URL-Encoded Body
@@ -212,7 +245,7 @@ class StripeAPI {
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let bodyParameters = [
@@ -265,7 +298,7 @@ class StripeAPI {
 
         // Headers
         request.addValue("stripe.csrf=lF5XxRqmAOvjwiLkJBd4Pfli9f97ZU2q5MxeFyPaJPA3u4sUDjSMTu3O2PqRkJZ5rTANI6sA2PAHhmQxSSpEsA%3D%3D", forHTTPHeaderField: "Cookie")
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
 
         let semaphore = DispatchSemaphore(value: 0)
         /* Start a new Task */
@@ -309,7 +342,7 @@ class StripeAPI {
         guard let URL = URL(string: API_POST_REFUND) else {return}
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let bodyParameters = [
@@ -341,7 +374,7 @@ class StripeAPI {
         guard let URL = URL(string: API_POST_TRANSFER) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
         let bodyParameters = [

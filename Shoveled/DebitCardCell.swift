@@ -28,10 +28,12 @@ class DebitCardCell: UITableViewCell {
     
     func configureCells() {
         self.debitCardNumberLabel?.text = "DEBIT CARD #"
+        self.debitCardNumberTF?.placeholder = "XXXX XXXX XXXX XXXX"
         self.debitCardExpMonthLabel?.text = "EXP MONTH"
         self.debitCardExpMonthTF?.placeholder = "03"
         self.debitCardExpYearLabel?.text = "EXP YEAR"
         self.debitCardExpYearTF?.placeholder = "19"
         self.debitCardCVCLabel?.text = "CVC"
+        self.debitCardCVCTF?.placeholder = "123"
     }
 }

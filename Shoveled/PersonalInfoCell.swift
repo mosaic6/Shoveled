@@ -34,14 +34,6 @@ class PersonalInfoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        self.firstNameTF?.delegate = self
-//        self.lastNameTF?.delegate = self
-//        self.addressTF?.delegate = self
-//        self.cityTF?.delegate = self
-//        self.stateTF?.delegate = self
-//        self.zipTF?.delegate = self
-//        self.dobTF?.delegate = self
-//        self.ssTF?.delegate = self
         self.configureCells()
     }
 
@@ -54,7 +46,6 @@ class PersonalInfoCell: UITableViewCell {
         self.zipLabel?.text = "ZIP"
         self.dobLabel?.text = "DATE OF BIRTH"
         self.ssLabel?.text = "SS LAST 4"
-        
-        self.dobMonthTF?.placeholder = "03/21/1975"
+        self.ssTF?.placeholder = "XXXX"
     }
 }

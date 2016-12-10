@@ -57,11 +57,40 @@ class StripeManager {
     }
     
     // Create Managed Account
-    class func createManagedAccount(accountDict: [String: AnyObject]) {
-        StripeAPI.sharedInstance.createManagedAccount(accountDict: accountDict) { result, error in
+    class func createManagedAccount(firstName: String,
+                                    lastName: String,
+                                    address1: String,
+                                    city: String,
+                                    state: String,
+                                    zip: String,
+                                    dobDay: String,
+                                    dobMonth: String,
+                                    dobYear: String,
+                                    last4: String,
+                                    cardNumber: String,
+                                    expMonth: String,
+                                    expYear: String,
+                                    cvc: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
         
-            if error == nil {
-                print("OK")
+        StripeAPI.sharedInstance.createManagedAccount(firstName: firstName,
+                                                      lastName: lastName,
+                                                      address1: address1,
+                                                      city: city,
+                                                      state: state,
+                                                      zip: zip,
+                                                      dobDay: dobDay,
+                                                      dobMonth: dobMonth,
+                                                      dobYear: dobYear,
+                                                      last4: last4,
+                                                      cardNumber: cardNumber,
+                                                      expMonth: expMonth,
+                                                      expYear: expYear,
+                                                      cvc: cvc) { result, error in
+        
+            if let result = result {
+                completion(result, nil)
+            } else {
+                completion(nil, error)
             }
         }
     }
