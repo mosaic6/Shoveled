@@ -98,6 +98,8 @@ class PersonalInformationViewController: UIViewController {
         return self.cardCVCCell?.debitCardCVCTF?.text
     }
     
+    fileprivate var shoveler: Shoveler?
+    
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
 
     
@@ -128,10 +130,6 @@ class PersonalInformationViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(PersonalInformationViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     func configureNavbar() {
@@ -177,7 +175,6 @@ class PersonalInformationViewController: UIViewController {
         
         return tableViewData
     }
-
 }
 
 extension PersonalInformationViewController: UITableViewDataSource {
@@ -190,21 +187,20 @@ extension PersonalInformationViewController: UITableViewDataSource {
         return self.tableViewData[section].count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    
-        if let firstCellIdentifier = self.tableViewData[section].first {
-            switch firstCellIdentifier {
-            case .firstNameCell, .lastNameCell, .addressCell, .cityCell, .stateCell, .zipCell:
-                return "Personal Information"
-            case .dobCell, .ssCell:
-                return "Identity Verification"
-            case .cardNumberCell, .cardExpMonthCell, .cardExpYearCell, .cardCVCCell:
-                return "Payment Information"
-            }
-        }
-        
-        return nil
-    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        for cell in self.tableViewData[section] {
+//            switch cell {
+//            case .firstNameCell, .lastNameCell, .addressCell, .cityCell, .stateCell, .zipCell:
+//                return "Personal Information"
+//            case .dobCell, .ssCell:
+//                return "Identity Verification"
+//            case .cardNumberCell, .cardExpMonthCell, .cardExpYearCell, .cardCVCCell:
+//                return "Payment Information"
+//            }
+//        }
+//        
+//        return nil
+//    }
     
     fileprivate func indexPathForCellIdentifier(_ identifier: CellIdentifier) -> IndexPath? {
         for (sectionIndex, sectionData) in self.tableViewData.enumerated() {
@@ -253,6 +249,7 @@ extension PersonalInformationViewController: UITableViewDataSource {
             self.dobCell = dobCell
         case .ssCell:
             let ssCell = cell as! PersonalInfoCell
+            ssCell.ssInfoButton?.addTarget(self, action: #selector(PersonalInformationViewController.moreInfoSSTapped), for: .touchUpInside)
             self.ssCell = ssCell
         case .cardNumberCell:
             let cardNumberCell = cell as! DebitCardCell
@@ -275,6 +272,8 @@ extension PersonalInformationViewController: UITableViewDataSource {
 extension PersonalInformationViewController {
     @objc
     fileprivate func saveProfile() {
+        self.resignFirstResponder()
+        self.showActivityIndicatory(self.view)
         if self.allTextFieldsHaveText() {
             if let firstName = self.firstName,
                 let lastName = self.lastName,
@@ -292,7 +291,6 @@ extension PersonalInformationViewController {
                 let cvc = self.cardCVC {
                 StripeManager.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, last4: last4, cardNumber: cardNumber, expMonth: expMonth, expYear: expYear, cvc: cvc) { result, error in
                     
-                    var accountId: String?
                     if let result = result {
                         if let externalAccounts = result.object(forKey: "external_accounts") as? NSDictionary {
                             for (key, value) in externalAccounts {
@@ -301,8 +299,19 @@ extension PersonalInformationViewController {
                                         for d in data {
                                             if let account = d as? NSDictionary {
                                                 if let id = account.object(forKey: "account") as? String {
-                                                    accountId = id
-                                                    self.ref.child("users").child(currentUserUid).setValue(["stripeAcountId": accountId])                                                    
+                                                    self.shoveler = Shoveler(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, postalCode: zip, dobMonth: dobMonth, dobDay: dobDay, dobYear: dobYear, stripeId: id)
+                                                    let requestName = self.ref.child("users").child(currentUserUid).child("shoveler")
+                                                    requestName.setValue(self.shoveler?.toAnyObject()) { error, ref in
+                                                        if error == nil {
+                                                            self.hideActivityIndicator(self.view)
+                                                            let alert = UIAlertController(title: "👍❄️💰", message: "Thank you for signing up as a shoveler! Go check for requests and get those people shoveled out!", preferredStyle: .alert)
+                                                            let okAction = UIAlertAction(title: "Get Going!", style: .default) { action in
+                                                                self.dismiss(animated: true, completion: nil)
+                                                            }
+                                                            alert.addAction(okAction)
+                                                            self.present(alert, animated: true, completion: nil)
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -557,5 +566,16 @@ extension PersonalInformationViewController: UITextFieldDelegate {
                 cvc.text = self.cardCVC
             }
         }                
+    }
+}
+
+extension PersonalInformationViewController {
+    @objc func moreInfoSSTapped() {
+        let alert = UIAlertController(title: "Why do we need this?", message: "In order to verify you're identity for transfering you payments, we need the last 4 digits of your SS#. We do not store this or share with anyone. If you want to update your card you'll need to enter this again.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { action in
+            
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }

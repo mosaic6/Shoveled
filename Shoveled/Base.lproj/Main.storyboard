@@ -329,13 +329,13 @@
                                 <rect key="frame" x="-4" y="114" width="383" height="255"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELING DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="732-8Z-ymu">
-                                        <rect key="frame" x="20" y="55" width="151" height="21"/>
+                                        <rect key="frame" x="20" y="55" width="150.5" height="21"/>
                                         <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                         <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zh7-IN-Rx2">
-                                        <rect key="frame" x="20" y="0.0" width="56" height="21"/>
+                                        <rect key="frame" x="20" y="0.0" width="55.5" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="77" id="2qv-GZ-cUm"/>
                                         </constraints>
@@ -587,7 +587,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ACCEPT YOUR MISSION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vzO-8m-fo5">
-                                <rect key="frame" x="66" y="82" width="243" height="37"/>
+                                <rect key="frame" x="66.5" y="82" width="242.5" height="36.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="243" id="06C-Zk-1PU"/>
                                     <constraint firstAttribute="width" constant="243" id="M0h-1t-7oF"/>
@@ -1262,13 +1262,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnR-Aj-plc">
-                                                    <rect key="frame" x="8" y="16" width="65" height="22"/>
+                                                    <rect key="frame" x="8" y="16" width="64.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0bz-SQ-DP9">
-                                                    <rect key="frame" x="137" y="0.0" width="230" height="54"/>
+                                                    <rect key="frame" x="136.5" y="0.0" width="230.5" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -1338,16 +1338,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgj-d0-Yg1">
-                                                    <rect key="frame" x="8" y="16" width="42" height="22"/>
+                                                    <rect key="frame" x="8" y="16" width="41.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="joG-9K-1jT">
-                                                    <rect key="frame" x="137" y="0.0" width="230" height="54"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="RI" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="joG-9K-1jT">
+                                                    <rect key="frame" x="136.5" y="0.0" width="230.5" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                                                     <connections>
                                                         <outlet property="delegate" destination="BLU-6r-SIk" id="9WO-t2-uwG"/>
                                                     </connections>
@@ -1495,7 +1495,7 @@
                                                     <rect key="frame" x="345" y="16" width="22" height="22"/>
                                                 </button>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rz1-af-1Z2">
-                                                    <rect key="frame" x="137" y="0.0" width="230" height="54"/>
+                                                    <rect key="frame" x="137" y="0.0" width="200" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1505,8 +1505,8 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rz1-af-1Z2" firstAttribute="trailing" secondItem="GYU-5R-m2L" secondAttribute="trailing" id="DfW-ZF-P9Y"/>
-                                                <constraint firstItem="rz1-af-1Z2" firstAttribute="trailing" secondItem="qGR-a5-w7c" secondAttribute="trailingMargin" id="H9d-XI-4Pu"/>
+                                                <constraint firstItem="rz1-af-1Z2" firstAttribute="trailing" secondItem="GYU-5R-m2L" secondAttribute="trailing" constant="-30" id="DfW-ZF-P9Y"/>
+                                                <constraint firstItem="rz1-af-1Z2" firstAttribute="trailing" secondItem="qGR-a5-w7c" secondAttribute="trailingMargin" constant="-30" id="H9d-XI-4Pu"/>
                                                 <constraint firstItem="rz1-af-1Z2" firstAttribute="centerY" secondItem="GYU-5R-m2L" secondAttribute="centerY" id="LEf-jJ-E9s"/>
                                                 <constraint firstItem="rz1-af-1Z2" firstAttribute="leading" secondItem="D2c-Hx-zc9" secondAttribute="trailing" constant="29" id="g80-vK-AtO"/>
                                                 <constraint firstItem="D2c-Hx-zc9" firstAttribute="top" secondItem="GYU-5R-m2L" secondAttribute="top" id="hnr-JE-goQ"/>

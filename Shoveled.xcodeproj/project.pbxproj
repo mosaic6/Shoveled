@@ -24,6 +24,7 @@
 		613FCB781DEE6F3A00ED991B /* PersonalInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
 		614F28C11DFC4726005D9968 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614F28C01DFC4726005D9968 /* SessionManager.swift */; };
+		614F28C51DFCEF6A005D9968 /* Shoveler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614F28C41DFCEF6A005D9968 /* Shoveler.swift */; };
 		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
 		615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526301BF90BB5006D7862 /* Marvel-Bold.ttf */; };
 		615526351BF90BB6006D7862 /* Marvel-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */; };
@@ -108,6 +109,7 @@
 		613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoCell.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
 		614F28C01DFC4726005D9968 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		614F28C41DFCEF6A005D9968 /* Shoveler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shoveler.swift; sourceTree = "<group>"; };
 		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
 		615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-BoldItalic.ttf"; path = "../Marvel-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 		61E73B8F1C1FC8F2000D7872 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				614F28C41DFCEF6A005D9968 /* Shoveler.swift */,
 				618FBD771C8695E400A6504F /* ShovelRequest.swift */,
 				618595B61D1CC38C004EB4D4 /* User.swift */,
 			);
@@ -453,6 +456,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61ED02441BAE43F3006B22B7 /* Build configuration list for PBXNativeTarget "Shoveled" */;
 			buildPhases = (
+				A782B80C83137D2D0FCBB7E5 /* 📦 Check Pods Manifest.lock */,
 				2BB7EB4BBF91BC2E1E325BEB /* [CP] Check Pods Manifest.lock */,
 				E6AEB6E245299AAC0049D87A /* [CP] Check Pods Manifest.lock */,
 				E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */,
@@ -465,6 +469,8 @@
 				15F6ED480C0E30CA44B511D1 /* [CP] Copy Pods Resources */,
 				38FE2EFCED3546B5ED3B1EDD /* Ô£ø√º√¨¬∂ Embed Pods Frameworks */,
 				A1D801C5602050DB26D909C9 /* Ô£ø√º√¨¬∂ Copy Pods Resources */,
+				FE20D061063C8E2CFC23B833 /* 📦 Embed Pods Frameworks */,
+				E2ED5127660A9583F79F8977 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -541,10 +547,12 @@
 					};
 					61ED022F1BAE43F3006B22B7 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0810;
 						TestTargetID = 61ED02181BAE43F3006B22B7;
 					};
 					61ED023A1BAE43F3006B22B7 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0810;
 						TestTargetID = 61ED02181BAE43F3006B22B7;
 					};
 				};
@@ -699,6 +707,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A782B80C83137D2D0FCBB7E5 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -714,6 +737,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		E2ED5127660A9583F79F8977 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E6AEB6E245299AAC0049D87A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -727,6 +765,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FE20D061063C8E2CFC23B833 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		SWIFCLEANCUSTOMRUNSCRIPT /* Swift-Clean Run Script */ = {
@@ -778,6 +831,7 @@
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,
+				614F28C51DFCEF6A005D9968 /* Shoveler.swift in Sources */,
 				617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */,
 				6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */,
 				61A354931BCF397B0071B5BE /* Forecast.swift in Sources */,
@@ -924,6 +978,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shoveled.app/Shoveled";
 			};
 			name = QA;
@@ -935,6 +990,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Shoveled;
 				USES_XCTRUNNER = YES;
 			};
@@ -1083,6 +1139,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shoveled.app/Shoveled";
 			};
 			name = Debug;
@@ -1095,6 +1152,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shoveled.app/Shoveled";
 			};
 			name = Release;
@@ -1106,6 +1164,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Shoveled;
 				USES_XCTRUNNER = YES;
 			};
@@ -1118,6 +1177,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Shoveled;
 				USES_XCTRUNNER = YES;
 			};

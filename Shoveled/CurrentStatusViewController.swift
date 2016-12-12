@@ -16,6 +16,10 @@ protocol UpdateRequestStatusDelegate {
     func getShovelRequests()
 }
 
+protocol LocationServicesDelegate {
+    func checkLocationServices()
+}
+
 let completedOrCancelledNotification = "com.mosaic6.removePinNotification"
 
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
@@ -43,6 +47,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     var userLong: Double!
     var requestStatus: String!
     var updateRequestDelegate: UpdateRequestStatusDelegate?
+    var locationDelegate: LocationServicesDelegate?
     var ref: FIRDatabaseReference?
 
     deinit {
@@ -156,7 +161,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
         self.removeAnnotations()
 
-//        self.showActivityIndicatory(self.view)
+        self.showActivityIndicatory(self.view)
         self.ref?.observe(.value, with: { snapshot in
             if let items = snapshot.value as? [String: AnyObject] {
                 for item in items {

@@ -20,6 +20,14 @@ class SettingsTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.title = "SETTINGS"
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.title = ""
+    }
 
     @IBAction func closeView(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

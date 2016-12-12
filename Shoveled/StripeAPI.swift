@@ -242,7 +242,7 @@ class StripeAPI {
     func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
 
         guard let URL = URL(string: API_POST_CHARGE) else {return}
-        let request = NSMutableURLRequest(url: URL)
+        var request = URLRequest(url: URL)
         request.httpMethod = "POST"
 
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
@@ -257,32 +257,39 @@ class StripeAPI {
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
 
+        let semaphore = DispatchSemaphore(value: 0)
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
             if (error == nil) {
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 var parsedObject: [String: Any]?
                 var serializationError: NSError?
-                if statusCode == 200 {
-                    print("URL Session Task Succeeded: HTTP \(statusCode)")
-
+                switch statusCode {
+                case 200:
                     if let data = data {
-                        do {
-                            parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-
+                    do {
+                        parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
+                    
                         } catch let error as NSError {
                             serializationError = error
                             parsedObject = nil
                         } catch {
                             fatalError()
                         }
+                        completion(parsedObject as NSDictionary?, serializationError)
+                        
                     }
-                    completion(parsedObject as NSDictionary?, serializationError)
+                case 400 ... 499:
+                    completion(nil, serializationError)
+                    if let response = response {
+                        print(response.description)
+                    }                    
+                default:
+                    break
                 }
+                semaphore.signal()
             } else {
-                // Failure
                 completion(nil, error as NSError?)
-                print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })
         task.resume()

@@ -172,14 +172,9 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
         showActivityIndicatory(self.view)
         guard let card = paymentTextField?.cardParams else { return }
-
+        
         STPAPIClient.shared().createToken(withCard: card) { token, error in
             guard let stripeToken = token else {
-                let alert = UIAlertController(title: "Something went wrong", message: error!.localizedDescription, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Try again", style: .default, handler: nil)
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
-                self.hideActivityIndicator(self.view)
                 return
             }
 
@@ -187,8 +182,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                 guard let amount = self.tfPrice.text else { return }
                 let price: Int = Int(amount)! * 100
                 let stringPrice = String(price)
+                
+                let tokenId = stripeToken.tokenId
 
-                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: String(stripeToken.tokenId), description: "Shoveled Requests From \(self.getUserEmail())", completion: { chargeId in
+                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: tokenId , description: "Shoveled Requests From \(currentUserEmail)", completion: { chargeId in
                     if !chargeId.isEmpty {
                         self.addRequestOnSuccess(stripeToken: chargeId)
                         self.chargeId = chargeId

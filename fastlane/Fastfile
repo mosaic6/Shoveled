@@ -27,16 +27,31 @@ platform :ios do
     scan
   end
 
-  desc "Submit a new Beta Build to Apple TestFlight"
-  desc "This will also make sure the profile is up to date"
-  lane :beta do
-    match(type: "appstore") # more information: https://codesigning.guide
-    gym(scheme: "Shoveled") # Build your app - more options available
-    pilot
+  lane :beta do |values|
+    # Fabric generated this lane for deployment to Crashlytics Beta
+    # set 'export_method' to 'ad-hoc' if your Crashlytics Beta distribution uses ad-hoc provisioning
+    gym(scheme: 'Shoveled', export_method: 'development')
 
-    # sh "your_script.sh"
-    # You can also use other beta testing services here (run `fastlane actions`)
+    emails = values[:test_email] ? values[:test_email] : ['byetra@gmail.com'] # You can list more emails here
+    groups = values[:test_email] ? nil : nil # You can define groups on the web and reference them here
+
+    crashlytics(api_token: '8e5af39567b3632a7b65708e7752946fc2cb646d',
+             build_secret: 'c3dae658ae81da8aec2cac1b65afe21793a6024d1c7532d08c1c9514b26ec731',
+                   emails: emails,
+                   groups: groups,
+                    notes: 'Distributed with fastlane', # Check out the changelog_from_git_commits action
+            notifications: true) # Should this distribution notify your testers via email?
+
+    # for all available options run `fastlane action crashlytics`
+
+    # You can notify your team in chat that a beta build has been uploaded
+    # slack(
+    #   slack_url: "https://hooks.slack.com/services/YOUR/TEAM/INFO"
+    #   channel: "beta-releases",
+    #   message: "Successfully uploaded a beta release - see it at https://fabric.io/_/beta"
+    # )
   end
+
 
   desc "Deploy a new version to the App Store"
   lane :release do
@@ -64,6 +79,8 @@ platform :ios do
     # )
   end
 end
+
+  
 
 
 # More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md

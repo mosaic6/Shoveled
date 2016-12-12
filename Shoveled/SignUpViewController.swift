@@ -23,14 +23,14 @@ class SignUpViewController: UIViewController {
 
     var currentStatusVC = CurrentStatusViewController()
     var ref: FIRDatabaseReference!
-    var alert: UIAlertController!
-
+    var locationDelegate: LocationServicesDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureView()
         animateLaunchView()
-
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
         self.view.addGestureRecognizer(tap)
     }
@@ -83,6 +83,7 @@ class SignUpViewController: UIViewController {
                     let currentVC = CurrentStatusViewController()
                     self.present(currentVC, animated: true, completion: nil)
                     self.hideActivityIndicator(self.view)
+                    self.locationDelegate?.checkLocationServices()
                     NotificationCenter.default.post(name: Notification.Name(rawValue: userLocationNoticationKey), object: self)
                 }
             }
