@@ -14,17 +14,50 @@ import PassKit
 import Crashlytics
 
 @available(iOS 9.0, *)
-class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate, UITextFieldDelegate, STPPaymentCardTextFieldDelegate {
+class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate, UITextFieldDelegate {
 
-    // MARK: - Outlets
-    @IBOutlet weak var tfAddress: UITextField!
-    @IBOutlet weak var tfDescription: UITextField!
-    @IBOutlet weak var tfShovelTime: UITextField!
-    @IBOutlet weak var requestFormView: UIView!
-    @IBOutlet weak var tfPrice: ShoveledTextField!
-    @IBOutlet weak var payWIthCCButton: UIButton!
-
+    fileprivate enum CellIdentifier: String {
+        case address1Cell = "address1Cell"
+        case shovelingDescriptionCell = "shovelingDescriptionCell"
+        case moreInfoCell = "moreInfoCell"
+        case priceCell = "priceCell"
+        case paymentInfoCell = "paymentInfoCell"
+    }
+    
+    fileprivate var tableViewData: [[CellIdentifier]] = []
+    fileprivate var address1Cell: RequestCell?
+    fileprivate var shovelingDescriptionCell: RequestCell?
+    fileprivate var moreInfoCell: RequestCell?
+    fileprivate var priceCell: RequestCell?
+    fileprivate var paymentInfoCell: RequestCell?
+    
+    fileprivate var address1: String? {
+        get {
+            return self.address1Cell?.tfAddress?.text
+        }
+        set {
+            self.address1Cell?.tfAddress?.text = newValue
+        }
+    }
+    
+    fileprivate var shovelingDescription: String? {
+        return self.shovelingDescriptionCell?.tfDescription?.text
+    }
+    
+    fileprivate var moreInfo: String? {
+        return self.moreInfoCell?.tfMoreInfo?.text
+    }
+    
+    fileprivate var price: String? {
+        return self.priceCell?.tfPrice?.text
+    }
+    
+    fileprivate var paymentInfoTF: STPPaymentCardTextField? {
+        return self.paymentInfoCell?.tfCardDetails
+    }
+    
     //MARK: - Variables
+    
     let locationManager = CLLocationManager()
     var latitude: NSNumber!
     var longitude: NSNumber!
@@ -32,13 +65,13 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var user: User!
     var items = [ShovelRequest]()
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
-    weak var toolBar: UIToolbar!
-    var paymentTextField: STPPaymentCardTextField? = nil
-    var sendToStripeBtn: UIButton! = nil
-    var priceLabel: UILabel! = nil
-    var paymentToken: PKPaymentToken!
     var chargeId: String?
-
+    
+    // MARK: - Outlets
+    @IBOutlet weak var tableView: UITableView?
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var submitRequestButton: UIBarButtonItem?
+    
     // MARK: - Private Variables
     private var shovelRequest: ShovelRequest?
 
@@ -52,9 +85,16 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let tap = UITapGestureRecognizer(target: self, action: #selector(RequestShovelingViewController.dismissKeyboards))
-        self.view.addGestureRecognizer(tap)
+        
+        self.address1Cell?.tfPrice?.delegate = self
+        self.shovelingDescriptionCell?.tfDescription?.delegate = self
+        self.moreInfoCell?.tfMoreInfo?.delegate = self
+        self.priceCell?.tfPrice?.delegate = self
+     
+        self.rebuildTableViewDataAndRefresh()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(RequestShovelingViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -65,21 +105,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.tfDescription.becomeFirstResponder()
-        getLocation()
+        self.getLocation()
     }
 
     func configureAppearance() {
-        self.tfAddress.delegate = self
-        self.tfDescription.delegate = self
-        self.tfShovelTime.delegate = self
-        self.tfPrice.delegate = self
-        self.addToolBar(tfAddress)
-        self.addToolBar(tfShovelTime)
-        self.addToolBar(tfPrice)
-        self.addToolBar(tfDescription)
-
-        self.payWIthCCButton.setTitle("Submit & Pay", for: UIControlState())
 
         actInd.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         actInd.center = self.view.center
@@ -91,17 +120,31 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         self.title = "REQUEST"
 
     }
-
-    func getUserEmail() -> String {
-        guard let email = FIRAuth.auth()?.currentUser?.email else { return "" }
-        return email
+    
+    fileprivate func rebuildTableViewDataAndRefresh() {
+        let tableViewData: [[CellIdentifier]]
+        
+        tableViewData = self.tableViewDataForRequest()
+        
+        self.tableViewData = tableViewData
+        self.tableView?.tableFooterView = UIView()
+        self.tableView?.reloadData()
     }
-
-    func dismissKeyboards() {
-        self.tfAddress.resignFirstResponder()
-        self.tfDescription.resignFirstResponder()
-        self.tfPrice.resignFirstResponder()
-        self.tfShovelTime.resignFirstResponder()
+    
+    fileprivate func tableViewDataForRequest() -> [[CellIdentifier]] {
+        var tableViewData: [[CellIdentifier]] = []
+        
+        var requestData: [CellIdentifier] = []
+        
+        requestData.append(.address1Cell)
+        requestData.append(.shovelingDescriptionCell)
+        requestData.append(.moreInfoCell)
+        requestData.append(.priceCell)
+        requestData.append(.paymentInfoCell)
+        
+        tableViewData.append(requestData)
+        
+        return tableViewData
     }
 
     //MARK: - Location Manager Delegate
@@ -149,66 +192,60 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             let postalCode: String! = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
             let administrativeArea: String! = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
             let address = "\(subthoroughfare!) \(thoroughfare!), \(locality!), \(administrativeArea!) \(postalCode!)"
-            tfAddress.text = address
+            self.address1 = address
         }
     }
 
-    //MARK: Stripe payment delegate
-    func paymentCardTextFieldDidChange(_ textField: STPPaymentCardTextField) {
-        self.sendToStripeBtn.isEnabled = textField.valid
-        self.sendToStripeBtn.isEnabled = false
-        sendToStripeBtn.backgroundColor = UIColor(red: 78.0 / 255.0, green: 68.0 / 255.0, blue: 77.0 / 255.0, alpha: 0.5)
-        if textField.valid {
-            self.sendToStripeBtn.backgroundColor = UIColor(red: 78.0 / 255.0, green: 168.0 / 255.0, blue: 177.0 / 255.0, alpha: 1)
-            self.sendToStripeBtn.isEnabled = true
-        }
-    }
+    func submitCard() {        
+        if self.address1 == "" || self.shovelingDescription == "" || self.price == "" {
+            let alert = UIAlertController(title: "Eh!", message: "Looks like you missed something", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Try again!", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: false, completion: nil)
+        } else {
+            showActivityIndicatory(self.view)
+            guard let card = self.paymentInfoTF?.cardParams else { return }
+            
+            STPAPIClient.shared().createToken(withCard: card) { token, error in
+                guard let stripeToken = token else {
+                    return
+                }
 
-    @IBAction func submitCard(_ sender: AnyObject?) {
+                if !stripeToken.tokenId.isEmpty {
+                    guard let amount = self.price else { return }
+                    let price: Int = Int(amount)! * 100
+                    let stringPrice = String(price)
+                    
+                    let tokenId = stripeToken.tokenId
 
-        DispatchQueue.main.async {
-            self.paymentTextField?.resignFirstResponder()
-        }
-
-        showActivityIndicatory(self.view)
-        guard let card = paymentTextField?.cardParams else { return }
-        
-        STPAPIClient.shared().createToken(withCard: card) { token, error in
-            guard let stripeToken = token else {
-                return
-            }
-
-            if !stripeToken.tokenId.isEmpty {
-                guard let amount = self.tfPrice.text else { return }
-                let price: Int = Int(amount)! * 100
-                let stringPrice = String(price)
-                
-                let tokenId = stripeToken.tokenId
-
-                StripeManager.sendChargeToStripeWith(amount: stringPrice, source: tokenId , description: "Shoveled Requests From \(currentUserEmail)", completion: { chargeId in
-                    if !chargeId.isEmpty {
-                        self.addRequestOnSuccess(stripeToken: chargeId)
-                        self.chargeId = chargeId
-                        self.sendConfirmationEmail(email: self.getUserEmail(), subject: "Your Shovel request has been sent!", text: "<html><div>Great news, your request is ready to be accepted. Hold tight and we'll get you shoveled out in no time.\nFor you reference, your payment ID is <b>\(chargeId)</b>.<br/>If you should have any issues canceling your request, please use this ID as a reference and email support.</div></html>")
-                        self.hideActivityIndicator(self.view)
-                    } else {
-                        let alert = UIAlertController(title: "Something went wrong", message: "We could not complete your request. Please check that your card information is correct.", preferredStyle: .alert)
-                        let okAction = UIAlertAction(title: "Try again", style: .default) { alert in
+                    StripeManager.sendChargeToStripeWith(amount: stringPrice, source: tokenId , description: "Shoveled Requests From \(currentUserEmail)", completion: { chargeId in
+                        if !chargeId.isEmpty {
+                            self.addRequestOnSuccess(stripeToken: chargeId)
+                            self.chargeId = chargeId
+                            self.sendConfirmationEmail(email: currentUserEmail, subject: "Your Shovel request has been sent!", text: "<html><div>Great news, your request is ready to be accepted. Hold tight and we'll get you shoveled out in no time.\nFor you reference, your payment ID is <b>\(chargeId)</b>.<br/>If you should have any issues canceling your request, please use this ID as a reference and email support.</div></html>")
                             self.hideActivityIndicator(self.view)
+                        } else {
+                            let alert = UIAlertController(title: "Something went wrong", message: "We could not complete your request. Please check that your card information is correct.", preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "Try again", style: .default) { alert in
+                                self.hideActivityIndicator(self.view)
+                            }
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
                         }
-                        alert.addAction(okAction)
-                        self.present(alert, animated: true, completion: nil)
+                    })
+                    DispatchQueue.main.async {
+                        self.paymentInfoTF?.resignFirstResponder()
                     }
-                })
-                self.resignFirstResponder()
+                }
             }
         }
     }
 
-    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
-        self.sendToStripeBtn.isEnabled = paymentContext.selectedPaymentMethod != nil
+    @IBAction func submitRequest(_ sender: Any) {
+        self.submitCard()
     }
-
+    
+    
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
         switch status {
         case .error:
@@ -218,47 +255,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             self.removeFromParentViewController()
         case .userCancellation:
             return // do nothing
-        }
-    }
-
-    @IBAction func payWithCreditCard(_ sender: AnyObject) {
-        sendToStripeBtn = UIButton(type: .system)
-        sendToStripeBtn.setTitle("Pay Now", for: UIControlState())
-        sendToStripeBtn.titleLabel?.font = UIFont(name: "Rajdhani", size: 30)
-        sendToStripeBtn.setTitleColor(UIColor.white, for: UIControlState())
-        sendToStripeBtn.addTarget(self, action: #selector(self.submitCard(_: )), for: UIControlEvents.touchUpInside)
-        sendToStripeBtn.frame = CGRect(x: 0, y: (self.view.frame.height / 2) + 60, width: view.frame.width, height: 55)
-        sendToStripeBtn.isEnabled = false
-        priceLabel = UILabel(frame: CGRect(x: 0, y: 125, width: view.frame.width, height: 80))
-        priceLabel.font = UIFont(name: "Marvel-Bold", size: 50.0)
-        priceLabel.textAlignment = .center
-        guard let price = tfPrice.text else { return }
-        priceLabel.text = "💲\(price).00"
-
-        paymentTextField = STPPaymentCardTextField(frame: CGRect(x: 15, y: (self.view.frame.height / 2) - 50, width: view.frame.width - 30, height: 44))
-        paymentTextField?.delegate = self
-
-        if tfAddress.text == "" || tfDescription.text == "" || tfPrice.text == "" {
-            let alert = UIAlertController(title: "Eh!", message: "Looks like you missed something", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Try again!", style: .default, handler: nil)
-            alert.addAction(okAction)
-            self.present(alert, animated: false, completion: nil)
-        } else {
-            UIView.animate(withDuration: 0.3, delay: 0.0, options: UIViewAnimationOptions(), animations: {
-                self.requestFormView.alpha = 0
-                self.payWIthCCButton.isHidden = true
-                self.view.layoutIfNeeded()
-            }, completion: nil)
-
-            UIView.animate(withDuration: 0.3, delay: 0.4, options: UIViewAnimationOptions(), animations: {
-                self.view.addSubview(self.sendToStripeBtn)
-                if let paymentTextField = self.paymentTextField {
-                    self.view.addSubview(paymentTextField)
-                }
-                self.view.addSubview(self.priceLabel)
-                self.paymentTextField?.becomeFirstResponder()
-                self.view.layoutIfNeeded()
-            }, completion: nil)
         }
     }
 
@@ -272,19 +268,23 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
     func addRequestOnSuccess(stripeToken: String) {
         let postId = Int(arc4random_uniform(10000) + 1)
-        guard let address = self.tfAddress.text else { return }
+        guard let address = self.address1 else { return }
         guard let lat = self.latitude else { return }
         guard let lon = self.longitude else { return }
-        guard let details = self.tfDescription.text else { return }
-        guard let otherInfo = self.tfShovelTime.text else { return }
-        guard let price = self.tfPrice.text else { return }
+        guard let details = self.shovelingDescription else { return }
+        guard let otherInfo = self.moreInfo else { return }
+        
+        guard let price = self.price else { return }
+        let newPrice: Int = Int(price)! * 100
+        let stringPrice = String(newPrice)
+        
         guard let email = FIRAuth.auth()?.currentUser?.email else { return }
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
 
-        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: price), id: String(postId), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
+        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: stringPrice), id: String(postId), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
 
         let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in
@@ -304,25 +304,88 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
     }
+}
 
-    func addToolBar(_ textField: UITextField) {
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor(red: 76 / 255, green: 217 / 255, blue: 100 / 255, alpha: 1)
-
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(RequestShovelingViewController.done))
-
-        toolBar.setItems([spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        toolBar.sizeToFit()
-
-        textField.inputAccessoryView = toolBar
+extension RequestShovelingViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return self.tableViewData.count
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.tableViewData[section].count
+    }
+    
+    fileprivate func indexPathForCellIdentifier(_ identifier: CellIdentifier) -> IndexPath? {
+        for (sectionIndex, sectionData) in self.tableViewData.enumerated() {
+            for (rowIndex, cellIdentifier) in sectionData.enumerated() {
+                if cellIdentifier == identifier {
+                    return IndexPath(row: rowIndex, section: sectionIndex)
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    fileprivate func identifier(at indexPath: IndexPath) -> CellIdentifier? {
+        return self.tableViewData[indexPath.section][indexPath.row]
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cellIdentifier = self.identifier(at: indexPath) else {
+            return UITableViewCell()
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier.rawValue)!
+        
+        switch cellIdentifier {
+        case .address1Cell:
+            let address1Cell = cell as! RequestCell
+            self.address1Cell = address1Cell
+        case .shovelingDescriptionCell:
+            let descriptionCell = cell as! RequestCell
+            descriptionCell.tfDescription?.becomeFirstResponder()
+            self.shovelingDescriptionCell = descriptionCell
+        case .moreInfoCell:
+            let moreInfoCell = cell as! RequestCell
+            self.moreInfoCell = moreInfoCell
+        case .priceCell:
+            let priceCell = cell as! RequestCell
+            self.priceCell = priceCell
+        case .paymentInfoCell:
+            let paymentInfoCell = cell as! RequestCell
+            self.paymentInfoCell = paymentInfoCell
+        }
+        
+        return cell
+    }
+}
 
-    func done() {
-        self.view.endEditing(true)
+extension RequestShovelingViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let cellIdentifier = self.identifier(at: indexPath) else {
+            return 44.0
+        }
+        
+        switch cellIdentifier {
+        case .address1Cell, .shovelingDescriptionCell, .moreInfoCell, .priceCell:
+            return 44.0
+        case .paymentInfoCell:
+            return 65.0
+        }
+    }
+}
+
+extension RequestShovelingViewController {
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.tableView?.frame.origin.y == 0 {
+                self.tableViewBottomConstraint?.constant = keyboardSize.size.height
+                self.tableViewBottomConstraint?.isActive = true
+            }
+        }
     }
 }
 

@@ -187,21 +187,6 @@ extension PersonalInformationViewController: UITableViewDataSource {
         return self.tableViewData[section].count
     }
     
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        for cell in self.tableViewData[section] {
-//            switch cell {
-//            case .firstNameCell, .lastNameCell, .addressCell, .cityCell, .stateCell, .zipCell:
-//                return "Personal Information"
-//            case .dobCell, .ssCell:
-//                return "Identity Verification"
-//            case .cardNumberCell, .cardExpMonthCell, .cardExpYearCell, .cardCVCCell:
-//                return "Payment Information"
-//            }
-//        }
-//        
-//        return nil
-//    }
-    
     fileprivate func indexPathForCellIdentifier(_ identifier: CellIdentifier) -> IndexPath? {
         for (sectionIndex, sectionData) in self.tableViewData.enumerated() {
             for (rowIndex, cellIdentifier) in sectionData.enumerated() {

@@ -37,7 +37,7 @@ class PersonalInfoCell: UITableViewCell {
         self.configureCells()
     }
 
-    func configureCells() {
+    fileprivate func configureCells() {
         self.firstNameLabel?.text = "FIRST NAME"
         self.lastNameLabel?.text = "LAST NAME"
         self.addressLabel?.text = "ADDRESS"

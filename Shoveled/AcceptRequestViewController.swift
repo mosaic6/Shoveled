@@ -15,25 +15,21 @@ protocol CompletedRequestDelegate {
 }
 
 class AcceptRequestViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    enum RequestStatus: String {
+        case active = "Active"
+        case accepted = "Accepted"
+        case completed = "Completed"
+    }
 
-    @IBOutlet weak var titleLabel: UILabel?
-    @IBOutlet weak var addressLabel: UILabel?
-    @IBOutlet weak var descriptionLabel: UILabel?
-    @IBOutlet weak var priceLabel: UILabel?
-    @IBOutlet weak var shovelTimeLabel: UILabel?
-    @IBOutlet weak var acceptBtn: ShoveledButton?
-    @IBOutlet weak var cancelBtn: UIButton?
-    @IBOutlet weak var completeJobBtn: UIButton?
-    @IBOutlet weak var signUpAsShovelerBtn: UIButton?
-
+    // MARK: Variables
+    
     var closeModalBtn: UIButton?
     var imageView: UIImageView?
     var imagePickerView: UIImagePickerController?
     var uploadCompletedJobBtn: UIButton?
     var instructionsLabel: UILabel?
-
     var completeRequestBtn: UIButton?
-
     var titleString: String?
     var addressString: String?
     var descriptionString: String?
@@ -48,14 +44,32 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     var createdAt: String?
     var acceptedByUser: String?
     var stripeChargeToken: String?
+    var newPriceString: String?
     var completeRequestView = CompleteRequestView()
-
+    var isShoveler = false
+    
+    fileprivate var stripeId: String?
+    
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
-    let currentUser = FIRAuth.auth()?.currentUser?.email
+    
+    // MARK: Outlets
+    
+    @IBOutlet weak var titleLabel: UILabel?
+    @IBOutlet weak var addressLabel: UILabel?
+    @IBOutlet weak var descriptionLabel: UILabel?
+    @IBOutlet weak var priceLabel: UILabel?
+    @IBOutlet weak var shovelTimeLabel: UILabel?
+    @IBOutlet weak var acceptBtn: ShoveledButton?
+    @IBOutlet weak var cancelBtn: UIButton?
+    @IBOutlet weak var completeJobBtn: UIButton?
 
+    @IBOutlet weak var signUpShovelerBtn: UIButton?
+    @IBOutlet weak var signUpShovelerLabel: UILabel?
+    
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.configureView()
     }
 
@@ -79,7 +93,6 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     }
 
     @IBAction func acceptRequest(_ sender: AnyObject) {
-
         actInd.startAnimating()
 
         guard let requestId = id,
@@ -98,7 +111,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                                             "price": price! as AnyObject,
                                             "id": id! as AnyObject,
                                             "createdAt": createdAt! as AnyObject,
-                                            "acceptedByUser": currentUser! as AnyObject,
+                                            "acceptedByUser": currentUserEmail as AnyObject,
                                             "stripeChargeToken": self.stripeChargeToken as AnyObject]
 
         let childUpdates = ["/\(requestId)": request]
@@ -111,9 +124,9 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         let okAction: UIAlertAction = UIAlertAction(title: "Let's Go", style: .default) { (action) in
             self.ref.updateChildValues(childUpdates)
 
-            if let addedByUser = self.addedByUser, let currentUser = self.currentUser {
+            if let addedByUser = self.addedByUser {
                 if let token = self.stripeChargeToken {
-                    EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "<html><div>\(currentUser) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.</div></html>")
+                    EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "<html><div>\(currentUserEmail) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.</div></html>")
                 }
             }
 
@@ -124,10 +137,16 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         self.present(alert, animated: true, completion: { _ in })
     }
 
+    @IBAction func openShovelerInfoView(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @IBAction func dismissView(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
 
+    // MARK: Delete Request
+    
     func deleteRequest() {
         let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
@@ -144,6 +163,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
         self.present(alert, animated: true, completion: { _ in })
     }
 
+    // MARK: Issue Refund
     func issueRefund() {
         if let chargeId = self.stripeChargeToken {
             StripeManager.sendRefundToCharge(chargeId: chargeId)
@@ -190,7 +210,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                                             "price": price! as AnyObject,
                                             "id": self.id! as AnyObject,
                                             "createdAt": self.createdAt! as AnyObject,
-                                            "acceptedByUser": self.currentUser! as AnyObject,
+                                            "acceptedByUser": currentUserEmail as AnyObject,
                                             "stripeChargeToken": self.stripeChargeToken as AnyObject]
 
         let childUpdates = ["/\(requestId)": request]
@@ -212,7 +232,16 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 }
             }
         }
-
+        
+//        let priceRawValue = Int(self.newPriceString)!
+//        let amount = priceRawValue * 100
+//        let amountString = String(amount)
+//        print(amountString)
+        
+        if let stripeId = self.stripeId, let price = self.newPriceString {
+            StripeManager.transferFundsToAccount(amount: price, destination: stripeId)
+        }
+        
         let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
         if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
             storage.put(uploadData, metadata: nil) { (metaData, error) in
@@ -224,15 +253,15 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
-
-        self.imagePickerView?.dismiss(animated: true) {
-            if info.isEmpty {
-                return
-            } else {
-                self.imageView?.contentMode = UIViewContentMode.scaleAspectFit
-                self.imageView?.image = info[UIImagePickerControllerOriginalImage] as? UIImage
-                self.uploadCompletedJobBtn?.isHidden = false
-            }
+        self.imagePickerView?.dismiss(animated: true)
+        if info.isEmpty {
+            print("There was an error loading your image")
+        } else {
+            guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+            self.completeRequestView.isHidden = false
+            self.uploadCompletedJobBtn?.isHidden = false
+            self.imageView?.contentMode = UIViewContentMode.scaleAspectFit
+            self.imageView?.image = image
         }
     }
 }
@@ -283,26 +312,52 @@ extension AcceptRequestViewController {
         guard let description = self.descriptionString else { return }
         guard let price = self.priceString else { return }
         let convertedPrice: Float = Float(price)!
-        let percentageChange: Float = Float(convertedPrice) * 0.10
-        let updatedPrice = convertedPrice - percentageChange
-        let newPriceString = String(updatedPrice)
+        let percentageChange: Float = Float(convertedPrice) / 100
+        
+        self.newPriceString = String(percentageChange)
+        if let price = self.newPriceString {
+            self.priceLabel?.text = "You'll make: $\(price)".uppercased()
+        }
         
         self.titleLabel?.text = self.titleString?.uppercased()
         self.addressLabel?.text = self.addressString?.uppercased()
         self.descriptionLabel?.text = "Please Shovel: \(description)".uppercased()
-        self.priceLabel?.text = "You'll make: $\(newPriceString)0".uppercased()
+        
         if let moreInfoString = self.otherInfoString, moreInfoString != "" {
             shovelTimeLabel?.text = "Other Info: \(moreInfoString)".uppercased()
         } else {
             shovelTimeLabel?.text = "No more details for you!".uppercased()
+        }                
+        
+        if currentUserEmail == addedByUser {
+            self.acceptBtn?.isHidden = true
+            self.cancelBtn?.isHidden = false
         }
+        
+        shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
+            if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
+                self.acceptBtn?.isHidden = false
+                self.signUpShovelerBtn?.isHidden = true
+                self.signUpShovelerLabel?.isHidden = true
+                self.stripeId = stripeId
+            } else {
+                self.signUpShovelerLabel?.isHidden = false
+                self.signUpShovelerBtn?.isHidden = false
+                self.acceptBtn?.isHidden = true
+            }
+        }) { error in
+            print(error.localizedDescription)
+        }
+
         
         guard let rStatus = status else { return }
         if rStatus == "Accepted" {
             self.acceptBtn?.setTitle("In Progress", for: UIControlState())
             self.acceptBtn?.backgroundColor = UIColor(red: 235.0 / 255.0, green: 135.0 / 255.0, blue: 35.0 / 255.0, alpha: 0.8)
             self.acceptBtn?.isEnabled = false
-            if currentUser == acceptedByUser {
+            if currentUserEmail == acceptedByUser {
                 self.completeJobBtn?.isHidden = false
             }
         } else if rStatus == "Completed" {
@@ -311,12 +366,6 @@ extension AcceptRequestViewController {
             self.acceptBtn?.isEnabled = false
         } else {
             self.acceptBtn?.setTitle("Accept", for: UIControlState())
-        }
-        
-        if currentUser == addedByUser {
-            self.acceptBtn?.isHidden = true
-            
-            self.cancelBtn?.isHidden = false
         }
         
         self.closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 28.0, height: 28.0))
@@ -357,23 +406,7 @@ extension AcceptRequestViewController {
         self.completeRequestView.addSubview(instructionsLabel)
         self.completeRequestView.addSubview(closeModalBtn)
         self.completeRequestView.isHidden = true
-        
-        self.getConnectedAccountEmails()
-        
         self.completeRequestView.setNeedsLayout()
-    }
-}
-
-extension AcceptRequestViewController {
-
-    fileprivate func getConnectedAccountEmails() {
-        StripeManager.getConnectedAccounts { (stripeEmail) in
-            if self.currentUser == stripeEmail {
-                DispatchQueue.main.async {
-                    self.signUpAsShovelerBtn?.isHidden = true
-                }
-            }
-        }
     }
 }
 
