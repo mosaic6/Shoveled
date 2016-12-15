@@ -142,6 +142,13 @@
                                             <segue destination="xuk-LU-7Ee" kind="show" id="rLR-ir-qTt"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Shield" translatesAutoresizingMaskIntoConstraints="NO" id="904-Pd-A0l">
+                                        <rect key="frame" x="8" y="40" width="34" height="39"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="34" id="Fu1-tJ-O4L"/>
+                                            <constraint firstAttribute="height" constant="39" id="SAg-Qu-EGP"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.81051619760000004" green="0.81051619760000004" blue="0.81051619760000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -157,6 +164,7 @@
                                     <constraint firstAttribute="height" constant="171" id="G6h-UM-il9"/>
                                     <constraint firstAttribute="trailing" secondItem="5Ci-O4-bL1" secondAttribute="trailing" constant="152" id="Htu-cr-ita"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="leading" secondItem="5Ci-O4-bL1" secondAttribute="trailing" constant="109" id="IBf-Eh-c5f"/>
+                                    <constraint firstItem="904-Pd-A0l" firstAttribute="leading" secondItem="bfk-BZ-nYV" secondAttribute="leading" constant="8" id="Iap-rY-6xR"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerY" secondItem="5Ci-O4-bL1" secondAttribute="centerY" id="ImG-Lo-xqm"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerX" secondItem="bfk-BZ-nYV" secondAttribute="centerX" constant="193" id="Jtk-l8-Mo1"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerY" secondItem="5Ci-O4-bL1" secondAttribute="centerY" id="Lat-77-BEi"/>
@@ -167,6 +175,7 @@
                                     <constraint firstAttribute="bottom" secondItem="5Ci-O4-bL1" secondAttribute="bottom" constant="31" id="Qbv-mJ-uhZ"/>
                                     <constraint firstAttribute="trailing" secondItem="ouX-RD-UJK" secondAttribute="trailing" constant="272" id="RPN-fA-gZb"/>
                                     <constraint firstItem="s3z-U7-Vy4" firstAttribute="leading" secondItem="bfk-BZ-nYV" secondAttribute="leading" constant="151" id="RjQ-Rk-rUh"/>
+                                    <constraint firstItem="904-Pd-A0l" firstAttribute="top" secondItem="bfk-BZ-nYV" secondAttribute="top" constant="40" id="Sfv-LE-e4z"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="leading" secondItem="5Ci-O4-bL1" secondAttribute="trailing" constant="109" id="T6W-hI-hgO"/>
                                     <constraint firstItem="s3z-U7-Vy4" firstAttribute="top" secondItem="5Ci-O4-bL1" secondAttribute="bottom" constant="-21" id="V2w-OH-v6K"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerX" secondItem="bfk-BZ-nYV" secondAttribute="centerX" id="WZc-Le-Ezp"/>
@@ -306,6 +315,7 @@
                         <outlet property="mapContainerView" destination="SLL-bG-2fj" id="X6e-lW-xQv"/>
                         <outlet property="mapView" destination="nuE-0U-zZI" id="pRM-DI-tkh"/>
                         <outlet property="refreshMapBtn" destination="Au9-9S-VKo" id="Ka5-wG-5dg"/>
+                        <outlet property="shovelerImageView" destination="904-Pd-A0l" id="IPy-Hb-sRy"/>
                         <segue destination="L07-nq-jTk" kind="presentation" identifier="notLoggedIn" id="2R3-lk-DrQ"/>
                     </connections>
                 </viewController>
@@ -1722,7 +1732,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bkD-nG-HQT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRc-yD-JAX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dRc-yD-JAX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1795,7 +1805,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L07-nq-jTk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qHg-b1-ecd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qHg-b1-ecd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1813,7 +1823,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SettingsNavViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xuk-LU-7Ee" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dwh-0L-Re5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dwh-0L-Re5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1831,6 +1841,7 @@
         <image name="ClearDay" width="45" height="45"/>
         <image name="Close" width="45" height="45"/>
         <image name="Settings-1" width="39" height="39"/>
+        <image name="Shield" width="34" height="39"/>
         <image name="location-red" width="50" height="50"/>
         <image name="snowBG" width="512" height="340"/>
     </resources>

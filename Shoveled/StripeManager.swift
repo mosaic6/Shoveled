@@ -100,7 +100,7 @@ class StripeManager {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
     }
     
-    class func transferFundsToAccount(amount: String, destination: String) {
+    class func transferFundsToAccount(amount: Int, destination: String) {
         StripeAPI.sharedInstance.transferFundsToAccount(amount: amount, destination: destination)
     }
 

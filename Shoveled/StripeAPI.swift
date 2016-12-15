@@ -377,17 +377,18 @@ class StripeAPI {
     }
     
     // MARK: Send Transfer
-    func transferFundsToAccount(amount: String, destination: String) {
+    func transferFundsToAccount(amount: Int, destination: String) {
         guard let URL = URL(string: API_POST_TRANSFER) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         
-        let bodyParameters = [
+        let bodyParameters: [String : Any?] = [
             "amount": amount,
             "currency": "usd",
-            "destination": destination
+            "destination": destination,
+            "description": "Payment from Shoveled",
         ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)

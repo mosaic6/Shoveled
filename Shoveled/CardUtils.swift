@@ -14,3 +14,15 @@ extension String {
         return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
     }
 }
+
+extension String {
+    var floatValue: Float {
+        return (self as NSString).floatValue
+    }
+}
+
+extension Float {
+    var stringValue: String {
+        return (self as Float).stringValue
+    }
+}

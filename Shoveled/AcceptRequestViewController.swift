@@ -233,14 +233,16 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             }
         }
         
-//        let priceRawValue = Int(self.newPriceString)!
-//        let amount = priceRawValue * 100
-//        let amountString = String(amount)
-//        print(amountString)
-        
-        if let stripeId = self.stripeId, let price = self.newPriceString {
-            StripeManager.transferFundsToAccount(amount: price, destination: stripeId)
+        if let newPriceString = self.newPriceString {
+            let priceRawValue = newPriceString.floatValue
+            let amount = priceRawValue * 100
+            let intAmount: Int = Int(amount)
+            
+            if let stripeId = self.stripeId {
+                StripeManager.transferFundsToAccount(amount: intAmount, destination: stripeId)
+            }
         }
+        
         
         let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
         if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
@@ -312,17 +314,16 @@ extension AcceptRequestViewController {
         guard let description = self.descriptionString else { return }
         guard let price = self.priceString else { return }
         let convertedPrice: Float = Float(price)!
-        let percentageChange: Float = Float(convertedPrice) / 100
-        
-        self.newPriceString = String(percentageChange)
+        let percentageChange: Float = Float(convertedPrice) * 0.10
+        let updatedPrice = (convertedPrice - percentageChange) / 100
+        self.newPriceString = String(updatedPrice)
         if let price = self.newPriceString {
-            self.priceLabel?.text = "You'll make: $\(price)".uppercased()
+            self.priceLabel?.text = "You'll make: $\(price)0".uppercased()
         }
         
         self.titleLabel?.text = self.titleString?.uppercased()
         self.addressLabel?.text = self.addressString?.uppercased()
         self.descriptionLabel?.text = "Please Shovel: \(description)".uppercased()
-        
         if let moreInfoString = self.otherInfoString, moreInfoString != "" {
             shovelTimeLabel?.text = "Other Info: \(moreInfoString)".uppercased()
         } else {

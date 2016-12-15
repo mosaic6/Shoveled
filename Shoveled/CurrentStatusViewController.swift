@@ -34,7 +34,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var bottomView: UIView?
     @IBOutlet weak var mapView: MKMapView?
     @IBOutlet weak var refreshMapBtn: UIButton?
-
+    @IBOutlet weak var shovelerImageView: UIImageView?
     // MARK: Variables
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
     let locationManager = CLLocationManager()
@@ -64,6 +64,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.configureView()
         self.getShovelRequests()
         self.checkLocationServices()
+        
+        self.shovelerImageView?.isHidden = true
 
         NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
