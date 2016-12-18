@@ -27,3 +27,15 @@ public extension Dictionary {
         }
     }
 }
+
+// MARK: Adds days to date
+// Used for transfers
+public func addDaysToCurrentDate() -> String {
+    let futureTime = Calendar.current.date(byAdding: .day, value: 2, to: Date())
+    let dateFormatter = DateFormatter()
+    if let futureTime = futureTime {
+        let dateString = dateFormatter.string(from: futureTime)
+        return dateString
+    }
+    return ""
+}

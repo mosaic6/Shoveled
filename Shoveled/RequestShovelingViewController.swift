@@ -23,14 +23,14 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         case priceCell = "priceCell"
         case paymentInfoCell = "paymentInfoCell"
     }
-    
+
     fileprivate var tableViewData: [[CellIdentifier]] = []
     fileprivate var address1Cell: RequestCell?
     fileprivate var shovelingDescriptionCell: RequestCell?
     fileprivate var moreInfoCell: RequestCell?
     fileprivate var priceCell: RequestCell?
     fileprivate var paymentInfoCell: RequestCell?
-    
+
     fileprivate var address1: String? {
         get {
             return self.address1Cell?.tfAddress?.text
@@ -39,25 +39,25 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             self.address1Cell?.tfAddress?.text = newValue
         }
     }
-    
+
     fileprivate var shovelingDescription: String? {
         return self.shovelingDescriptionCell?.tfDescription?.text
     }
-    
+
     fileprivate var moreInfo: String? {
         return self.moreInfoCell?.tfMoreInfo?.text
     }
-    
+
     fileprivate var price: String? {
         return self.priceCell?.tfPrice?.text
     }
-    
+
     fileprivate var paymentInfoTF: STPPaymentCardTextField? {
         return self.paymentInfoCell?.tfCardDetails
     }
-    
+
     //MARK: - Variables
-    
+
     let locationManager = CLLocationManager()
     var latitude: NSNumber!
     var longitude: NSNumber!
@@ -66,12 +66,12 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var items = [ShovelRequest]()
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     var chargeId: String?
-    
+
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var submitRequestButton: UIBarButtonItem?
-    
+
     // MARK: - Private Variables
     private var shovelRequest: ShovelRequest?
 
@@ -85,16 +85,16 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.address1Cell?.tfPrice?.delegate = self
         self.shovelingDescriptionCell?.tfDescription?.delegate = self
         self.moreInfoCell?.tfMoreInfo?.delegate = self
         self.priceCell?.tfPrice?.delegate = self
-     
+
         self.rebuildTableViewDataAndRefresh()
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(RequestShovelingViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -120,30 +120,30 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         self.title = "REQUEST"
 
     }
-    
+
     fileprivate func rebuildTableViewDataAndRefresh() {
         let tableViewData: [[CellIdentifier]]
-        
+
         tableViewData = self.tableViewDataForRequest()
-        
+
         self.tableViewData = tableViewData
         self.tableView?.tableFooterView = UIView()
         self.tableView?.reloadData()
     }
-    
+
     fileprivate func tableViewDataForRequest() -> [[CellIdentifier]] {
         var tableViewData: [[CellIdentifier]] = []
-        
+
         var requestData: [CellIdentifier] = []
-        
+
         requestData.append(.address1Cell)
         requestData.append(.shovelingDescriptionCell)
         requestData.append(.moreInfoCell)
         requestData.append(.priceCell)
         requestData.append(.paymentInfoCell)
-        
+
         tableViewData.append(requestData)
-        
+
         return tableViewData
     }
 
@@ -196,7 +196,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         }
     }
 
-    func submitCard() {        
+    func submitCard() {
         if self.address1 == "" || self.shovelingDescription == "" || self.price == "" {
             let alert = UIAlertController(title: "Eh!", message: "Looks like you missed something", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Try again!", style: .default, handler: nil)
@@ -205,7 +205,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         } else {
             showActivityIndicatory(self.view)
             guard let card = self.paymentInfoTF?.cardParams else { return }
-            
+
             STPAPIClient.shared().createToken(withCard: card) { token, error in
                 guard let stripeToken = token else {
                     return
@@ -215,10 +215,10 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                     guard let amount = self.price else { return }
                     let price: Int = Int(amount)! * 100
                     let stringPrice = String(price)
-                    
+
                     let tokenId = stripeToken.tokenId
 
-                    StripeManager.sendChargeToStripeWith(amount: stringPrice, source: tokenId , description: "Shoveled Requests From \(currentUserEmail)", completion: { chargeId in
+                    StripeManager.sendChargeToStripeWith(amount: stringPrice, source: tokenId, description: "Shoveled Requests From \(currentUserEmail)", completion: { chargeId in
                         if !chargeId.isEmpty {
                             self.addRequestOnSuccess(stripeToken: chargeId)
                             self.chargeId = chargeId
@@ -244,8 +244,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     @IBAction func submitRequest(_ sender: Any) {
         self.submitCard()
     }
-    
-    
+
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
         switch status {
         case .error:
@@ -273,11 +272,11 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         guard let lon = self.longitude else { return }
         guard let details = self.shovelingDescription else { return }
         guard let otherInfo = self.moreInfo else { return }
-        
+
         guard let price = self.price else { return }
         let newPrice: Int = Int(price)! * 100
         let stringPrice = String(newPrice)
-        
+
         guard let email = FIRAuth.auth()?.currentUser?.email else { return }
         let date = Date()
         let dateFormatter = DateFormatter()
@@ -307,15 +306,15 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 }
 
 extension RequestShovelingViewController: UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableViewData.count
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tableViewData[section].count
     }
-    
+
     fileprivate func indexPathForCellIdentifier(_ identifier: CellIdentifier) -> IndexPath? {
         for (sectionIndex, sectionData) in self.tableViewData.enumerated() {
             for (rowIndex, cellIdentifier) in sectionData.enumerated() {
@@ -324,21 +323,21 @@ extension RequestShovelingViewController: UITableViewDataSource {
                 }
             }
         }
-        
+
         return nil
     }
-    
+
     fileprivate func identifier(at indexPath: IndexPath) -> CellIdentifier? {
         return self.tableViewData[indexPath.section][indexPath.row]
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellIdentifier = self.identifier(at: indexPath) else {
             return UITableViewCell()
         }
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier.rawValue)!
-        
+
         switch cellIdentifier {
         case .address1Cell:
             let address1Cell = cell as! RequestCell
@@ -357,7 +356,7 @@ extension RequestShovelingViewController: UITableViewDataSource {
             let paymentInfoCell = cell as! RequestCell
             self.paymentInfoCell = paymentInfoCell
         }
-        
+
         return cell
     }
 }
@@ -367,7 +366,7 @@ extension RequestShovelingViewController: UITableViewDelegate {
         guard let cellIdentifier = self.identifier(at: indexPath) else {
             return 44.0
         }
-        
+
         switch cellIdentifier {
         case .address1Cell, .shovelingDescriptionCell, .moreInfoCell, .priceCell:
             return 44.0
@@ -378,7 +377,7 @@ extension RequestShovelingViewController: UITableViewDelegate {
 }
 
 extension RequestShovelingViewController {
-    
+
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.tableView?.frame.origin.y == 0 {

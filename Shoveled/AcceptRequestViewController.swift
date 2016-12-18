@@ -15,7 +15,7 @@ protocol CompletedRequestDelegate {
 }
 
 class AcceptRequestViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
+
     enum RequestStatus: String {
         case active = "Active"
         case accepted = "Accepted"
@@ -23,7 +23,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     }
 
     // MARK: Variables
-    
+
     var closeModalBtn: UIButton?
     var imageView: UIImageView?
     var imagePickerView: UIImagePickerController?
@@ -47,13 +47,13 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     var newPriceString: String?
     var completeRequestView = CompleteRequestView()
     var isShoveler = false
-    
+
     fileprivate var stripeId: String?
-    
+
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
-    
+
     // MARK: Outlets
-    
+
     @IBOutlet weak var titleLabel: UILabel?
     @IBOutlet weak var addressLabel: UILabel?
     @IBOutlet weak var descriptionLabel: UILabel?
@@ -65,8 +65,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
 
     @IBOutlet weak var signUpShovelerBtn: UIButton?
     @IBOutlet weak var signUpShovelerLabel: UILabel?
-    
-    
+
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,13 +139,13 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
     @IBAction func openShovelerInfoView(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func dismissView(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
     }
 
     // MARK: Delete Request
-    
+
     func deleteRequest() {
         let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
@@ -232,7 +231,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 }
             }
         }
-        
+
         if let newPriceString = self.newPriceString {
             let priceRawValue = newPriceString.floatValue
             let amount = priceRawValue * 100
@@ -242,8 +241,7 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                 StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId)
             }
         }
-        
-        
+
         let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
         if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
             storage.put(uploadData, metadata: nil) { (metaData, error) in
@@ -310,7 +308,7 @@ extension AcceptRequestViewController {
         self.completeJobBtn?.isHidden = true
         self.completeJobBtn?.layer.cornerRadius = 5.0
         self.completeJobBtn?.addTarget(self, action: #selector(showCompleteRequestView), for: .touchUpInside)
-        
+
         guard let description = self.descriptionString else { return }
         guard let price = self.priceString else { return }
         let convertedPrice: Float = Float(price)!
@@ -320,7 +318,7 @@ extension AcceptRequestViewController {
         if let price = self.newPriceString {
             self.priceLabel?.text = "You'll make: $\(price)0".uppercased()
         }
-        
+
         self.titleLabel?.text = self.titleString?.uppercased()
         self.addressLabel?.text = self.addressString?.uppercased()
         self.descriptionLabel?.text = "Please Shovel: \(description)".uppercased()
@@ -328,13 +326,13 @@ extension AcceptRequestViewController {
             shovelTimeLabel?.text = "Other Info: \(moreInfoString)".uppercased()
         } else {
             shovelTimeLabel?.text = "No more details for you!".uppercased()
-        }                
-        
+        }
+
         if currentUserEmail == addedByUser {
             self.acceptBtn?.isHidden = true
             self.cancelBtn?.isHidden = false
         }
-        
+
         shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
@@ -352,7 +350,6 @@ extension AcceptRequestViewController {
             print(error.localizedDescription)
         }
 
-        
         guard let rStatus = status else { return }
         if rStatus == "Accepted" {
             self.acceptBtn?.setTitle("In Progress", for: UIControlState())
@@ -368,11 +365,11 @@ extension AcceptRequestViewController {
         } else {
             self.acceptBtn?.setTitle("Accept", for: UIControlState())
         }
-        
+
         self.closeModalBtn = UIButton(frame: CGRect(x: 20, y: 28, width: 28.0, height: 28.0))
         self.closeModalBtn?.setImage(UIImage(named: "Close"), for: .normal)
         self.closeModalBtn?.addTarget(self, action: #selector(AcceptRequestViewController.closeModal), for: .touchUpInside)
-        
+
         self.imagePickerView = UIImagePickerController()
         self.imageView = UIImageView(frame: CGRect(x: 0, y: 50, width: self.view.frame.width, height: 275.0))
         self.imageView?.image = UIImage(named: "camera")
@@ -381,20 +378,20 @@ extension AcceptRequestViewController {
         self.imageView?.contentMode = .center
         self.imageView?.layer.cornerRadius = 5.0
         self.imageView?.setNeedsDisplay()
-        
+
         self.uploadCompletedJobBtn = UIButton(frame: CGRect(x: 10, y: self.view.bounds.height - 70, width: self.view.frame.width - 20, height: 55.0))
         self.uploadCompletedJobBtn?.setTitle("Send Completed Job", for: .normal)
         self.uploadCompletedJobBtn?.backgroundColor = UIColor(red: 35.0 / 255.0, green: 135.0 / 255.0, blue: 235.0 / 255.0, alpha: 0.8)
         self.uploadCompletedJobBtn?.layer.cornerRadius = 5.0
         self.uploadCompletedJobBtn?.isHidden = true
         self.uploadCompletedJobBtn?.addTarget(self, action: #selector(sendCompletedJob), for: .touchUpInside)
-        
+
         self.instructionsLabel = UILabel(frame: CGRect(x: 10, y: 380, width: self.view.frame.width - 20, height: 80))
         self.instructionsLabel?.font = UIFont(name: "Marvel", size: 22)
         self.instructionsLabel?.numberOfLines = 3
         self.instructionsLabel?.textAlignment = NSTextAlignment.center
         self.instructionsLabel?.text = "Once your job is complete, please upload a photo and you'll get paid 💰"
-        
+
         self.completeRequestView.center.y -= view.bounds.height
         self.completeRequestView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
         self.view.addSubview(completeRequestView)

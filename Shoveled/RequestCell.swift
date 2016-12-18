@@ -12,19 +12,19 @@ import Stripe
 class RequestCell: UITableViewCell, STPPaymentCardTextFieldDelegate {
 
     var tfCardDetails: STPPaymentCardTextField? = nil
-    
+
     @IBOutlet weak var tfAddress: UITextField?
     @IBOutlet weak var tfDescription: UITextField?
     @IBOutlet weak var tfMoreInfo: UITextField?
     @IBOutlet weak var tfPrice: UITextField?
     @IBOutlet weak var tfCardInfo: UIView?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-     
+
         self.configureCells()
     }
-    
+
     func configureCells() {
         guard let width = self.tfCardInfo?.frame.size.width else { return }
         guard let height = self.tfCardInfo?.frame.size.height else { return }
@@ -35,5 +35,5 @@ class RequestCell: UITableViewCell, STPPaymentCardTextFieldDelegate {
         if let tfCardDetails = self.tfCardDetails {
             self.tfCardInfo?.addSubview(tfCardDetails)
         }
-    }        
+    }
 }

@@ -9,11 +9,11 @@
 import Foundation
 
 class StripeManager {
-    
+
     //Get Account Balance
     class func getStripeAccountBalance() {
         StripeAPI.sharedInstance.getStripeAccountBalance { (result, error) in
-            if let result = result {                
+            if let result = result {
                 print(result)
             }
         }
@@ -64,7 +64,7 @@ class StripeManager {
             }
         }
     }
-    
+
     // Create Managed Account
     class func createManagedAccount(firstName: String,
                                     lastName: String,
@@ -80,7 +80,7 @@ class StripeManager {
                                     expMonth: String,
                                     expYear: String,
                                     cvc: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
-        
+
         StripeAPI.sharedInstance.createManagedAccount(firstName: firstName,
                                                       lastName: lastName,
                                                       address1: address1,
@@ -95,7 +95,7 @@ class StripeManager {
                                                       expMonth: expMonth,
                                                       expYear: expYear,
                                                       cvc: cvc) { result, error in
-        
+
             if let result = result {
                 completion(result, nil)
             } else {
@@ -108,7 +108,7 @@ class StripeManager {
     class func sendRefundToCharge(chargeId: String) {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
     }
-    
+
     class func transferFundsToAccount(amount: String, destination: String) {
         StripeAPI.sharedInstance.transferFundsToAccount(amount: amount, destination: destination)
     }

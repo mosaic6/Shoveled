@@ -14,10 +14,9 @@ import FirebaseAuth
 var shovelerRef: FIRDatabaseReference? = FIRDatabase.database().reference()
 
 var currentUserUid: String {
-    if let user = FIRAuth.auth()?.currentUser?.uid {
-        return user
-    }
-    return ""
+    guard let userId = FIRAuth.auth()?.currentUser?.uid else { return "" }
+
+    return userId
 }
 
 var currentUserEmail: String {

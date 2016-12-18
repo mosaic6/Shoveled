@@ -24,13 +24,13 @@ class SignUpViewController: UIViewController {
     var currentStatusVC = CurrentStatusViewController()
     var ref: FIRDatabaseReference!
     var locationDelegate: LocationServicesDelegate?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureView()
         animateLaunchView()
-        
+
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
         self.view.addGestureRecognizer(tap)
     }

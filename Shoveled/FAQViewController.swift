@@ -13,13 +13,13 @@ class FAQViewController: UIViewController {
     @IBOutlet weak var guideLabel: UILabel?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.backItem?.title = ""        
+        self.navigationController?.navigationBar.backItem?.title = ""
     }
-    
+
     @IBAction func contactSupport(_ sender: Any) {
         let email = "support@shoveled.com"
         let url = URL(string: "mailto:\(email)")

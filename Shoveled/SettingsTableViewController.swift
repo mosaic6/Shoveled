@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 
 class SettingsTableViewController: UITableViewController {
-    
+
     // MARK: Variables
     let settingsData = ["Shovelers Information", "FAQs", "Logout"]
 
@@ -20,11 +20,11 @@ class SettingsTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.title = "SETTINGS"
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         self.title = ""
     }
@@ -39,15 +39,14 @@ class SettingsTableViewController: UITableViewController {
         return settingsData.count
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingsCell
-        
+
         cell.cellTitleLabel?.text = settingsData[indexPath.row]
-        
+
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentCell = tableView.cellForRow(at: indexPath) as! SettingsCell
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -77,4 +76,3 @@ extension SettingsTableViewController {
         self.present(logoutAction, animated: true, completion: nil)
     }
 }
-

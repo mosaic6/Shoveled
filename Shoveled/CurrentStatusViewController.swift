@@ -60,13 +60,11 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
         StripeManager.getStripeAccountBalance()
         self.ref = FIRDatabase.database().reference(withPath: "requests")
-
+        self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
         self.getShovelRequests()
         self.checkLocationServices()
-        
-        self.shovelerImageView?.isHidden = true
 
         NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
@@ -74,14 +72,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         self.getUserInfo()
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.getShovelRequests()
+        self.isUserAShoveler()
     }
 
     func checkLocationServices() {
@@ -161,7 +158,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     // MARK: - Fetch Request
     func getShovelRequests() {
-
         self.removeAnnotations()
 
 //        self.showActivityIndicatory(self.view)
@@ -271,13 +267,9 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
         let currentUser = FIRAuth.auth()?.currentUser
-
         let shovel = view.annotation as! ShovelAnnotation
-
         let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AcceptRequestViewController") as? AcceptRequestViewController
-
         if let requestVC = requestDetailsView {
             requestVC.addressString = shovel.title
             requestVC.descriptionString = shovel.details
@@ -299,6 +291,26 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             }
 
             self.present(requestVC, animated: true, completion: nil)
+        }
+    }
+}
+
+extension CurrentStatusViewController {
+    fileprivate func isUserAShoveler() {
+        if currentUserUid != "" {
+            shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+                let value = snapshot.value as? NSDictionary
+                let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
+                if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
+                    self.shovelerImageView?.isHidden = false
+                } else {
+                    self.shovelerImageView?.isHidden = true
+                }
+            }) { error in
+                print(error.localizedDescription)
+            }
+        } else {
+            self.getUserInfo()
         }
     }
 }

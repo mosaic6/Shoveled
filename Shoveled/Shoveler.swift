@@ -19,7 +19,7 @@ class Shoveler: NSObject {
     var dobDay: String
     var dobYear: String
     var stripeId: String
-    
+
     init(firstName: String, lastName: String, address1: String, city: String, state: String, postalCode: String, dobMonth: String, dobDay: String, dobYear: String, stripeId: String) {
         self.firstName = firstName
         self.lastName = lastName
@@ -32,7 +32,7 @@ class Shoveler: NSObject {
         self.dobYear = dobYear
         self.stripeId = stripeId
     }
-    
+
     func toAnyObject() -> NSDictionary {
         return [
             "firstName": firstName,

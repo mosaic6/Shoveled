@@ -12,20 +12,20 @@ class DebitCardCell: UITableViewCell {
 
     @IBOutlet weak var debitCardNumberLabel: UILabel?
     @IBOutlet weak var debitCardExpMonthLabel: UILabel?
-    @IBOutlet weak var debitCardExpYearLabel: UILabel?    
+    @IBOutlet weak var debitCardExpYearLabel: UILabel?
     @IBOutlet weak var debitCardCVCLabel: UILabel?
-    
+
     @IBOutlet weak var debitCardNumberTF: UITextField?
     @IBOutlet weak var debitCardExpMonthTF: UITextField?
     @IBOutlet weak var debitCardExpYearTF: UITextField?
     @IBOutlet weak var debitCardCVCTF: UITextField?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         self.configureCells()
     }
-    
+
     func configureCells() {
         self.debitCardNumberLabel?.text = "DEBIT CARD #"
         self.debitCardNumberTF?.placeholder = "XXXX XXXX XXXX XXXX"

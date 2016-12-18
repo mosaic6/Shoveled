@@ -25,24 +25,24 @@ private let API_POST_TRANSFER           = "https://api.stripe.com/v1/transfers"
 class StripeAPI {
 
     static let sharedInstance = StripeAPI()
-    
+
     // MARK: Auth Stripe
-    
+
     func passCodeToAuthAccount(code: String) {
         guard let URL = URL(string: API_POST_CONNECT_ACCOUNT) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         let bodyParameters = [
             "code": code,
             "grant_type": "authorization_code"
         ]
-        
+
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        
+
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
             if (error == nil) {
@@ -56,19 +56,19 @@ class StripeAPI {
         })
         task.resume()
     }
-    
+
     // MARK: Get Account Balance
     func getStripeAccountBalance(completion: @escaping (_ result: Dictionary<String, Any>?, _ error: NSError?) -> ()) {
         guard let URL = URL(string: API_GET_BALANCE) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
-        
+
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-        
+
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         var parsedObject: [String: Any]?
         var serializationError: NSError?
         let _ = session.dataTask(with: request) {
@@ -87,7 +87,7 @@ class StripeAPI {
                         } catch {
                             fatalError()
                         }
-                    }                    
+                    }
                 case 400 ... 499:
                     completion(nil, serializationError)
                 default:
@@ -96,9 +96,9 @@ class StripeAPI {
             }
         }.resume()
     }
-    
+
     // MARK: Create Managed Account
-    
+
     func createManagedAccount(firstName: String,
                               lastName: String,
                               address1: String,
@@ -113,14 +113,14 @@ class StripeAPI {
                               expMonth: String,
                               expYear: String,
                               cvc: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
-        
+
         guard let URL = URL(string: API_POST_MANAGED_CUSTOMER) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
-        
+
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         // TODO: Need to pass
         let bodyParameters = [
             "country": "us",
@@ -145,27 +145,28 @@ class StripeAPI {
             "tos_acceptance[date]": "1476668004",
             "legal_entity[dob][month]": dobMonth,
             "external_account[number]": cardNumber,
+            "transfer_schedule[delay_days]": "2",
             ]
-        
+
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
-        
+
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
             if (error == nil) {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
-                
+
                 var parsedObject: [String: Any]?
                 var serializationError: NSError?
-                
+
                 if statusCode == 200 {
                     print("URL Session Task Succeeded: HTTP \(statusCode)")
-                    
+
                     if let data = data {
                         do {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-                            
+
                         } catch let error as NSError {
                             serializationError = error
                             parsedObject = nil
@@ -179,7 +180,7 @@ class StripeAPI {
                     if let data = data {
                         do {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
-                            
+
                             print(parsedObject!)
                         } catch let error as NSError {
                             parsedObject = nil
@@ -198,7 +199,7 @@ class StripeAPI {
     }
 
     // MARK: Get customers with Stripe account
-    
+
     func getCustomers(_ completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
@@ -322,7 +323,7 @@ class StripeAPI {
                     if let data = data {
                     do {
                         parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-                    
+
                         } catch let error as NSError {
                             serializationError = error
                             parsedObject = nil
@@ -330,13 +331,13 @@ class StripeAPI {
                             fatalError()
                         }
                         completion(parsedObject as NSDictionary?, serializationError)
-                        
+
                     }
                 case 400 ... 499:
                     completion(nil, serializationError)
                     if let response = response {
                         print(response.description)
-                    }                    
+                    }
                 default:
                     break
                 }
@@ -428,7 +429,7 @@ class StripeAPI {
         })
         task.resume()
     }
-    
+
     // MARK: Send Transfer
     func transferFundsToAccount(amount: String, destination: String) {
         guard let URL = URL(string: API_POST_TRANSFER) else { return }
@@ -436,7 +437,7 @@ class StripeAPI {
         request.httpMethod = "POST"
         request.addValue(prodAuthKey, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        
+
         let bodyParameters: [String: String] = [
             "amount": amount,
             "currency": "usd",
@@ -445,7 +446,7 @@ class StripeAPI {
         ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
-        
+
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
             (data, response, error) in
             if (error == nil) {
@@ -457,7 +458,7 @@ class StripeAPI {
                     if let data = data {
                         do {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
-                            
+
                             print(parsedObject!)
                         } catch let error as NSError {
                             parsedObject = nil

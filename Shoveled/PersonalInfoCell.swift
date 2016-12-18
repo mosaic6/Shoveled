@@ -9,7 +9,7 @@
 import UIKit
 
 class PersonalInfoCell: UITableViewCell {
-     
+
     @IBOutlet weak var firstNameTF: UITextField?
     @IBOutlet weak var lastNameTF: UITextField?
     @IBOutlet weak var addressTF: UITextField?
@@ -21,7 +21,7 @@ class PersonalInfoCell: UITableViewCell {
     @IBOutlet weak var dobDayTF: UITextField?
     @IBOutlet weak var ssTF: UITextField?
     @IBOutlet weak var ssInfoButton: UIButton?
-    
+
     @IBOutlet weak var firstNameLabel: UILabel?
     @IBOutlet weak var lastNameLabel: UILabel?
     @IBOutlet weak var addressLabel: UILabel?
@@ -30,10 +30,10 @@ class PersonalInfoCell: UITableViewCell {
     @IBOutlet weak var zipLabel: UILabel?
     @IBOutlet weak var dobLabel: UILabel?
     @IBOutlet weak var ssLabel: UILabel?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         self.configureCells()
     }
 

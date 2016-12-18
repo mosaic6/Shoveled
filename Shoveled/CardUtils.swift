@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    
+
     var stringForCreditCardProcessing: String {
         return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
     }
