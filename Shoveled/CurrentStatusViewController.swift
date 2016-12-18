@@ -58,6 +58,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        StripeManager.getStripeAccountBalance()
         self.ref = FIRDatabase.database().reference(withPath: "requests")
 
         self.mapView?.delegate = self

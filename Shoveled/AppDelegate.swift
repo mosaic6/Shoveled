@@ -40,38 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.           
         Fabric.with([Crashlytics.self, STPAPIClient.self])
 
-        // TODO: Replace with your own test publishable key
         // TODO: DEBUG ONLY! Remove / conditionalize before launch
 //        Stripe.setDefaultPublishableKey("pk_test_sInJmSxsoYOl5rPAv45pvwCv")
         Stripe.setDefaultPublishableKey("pk_live_xvZp8nbvhuCB3pIrykXwZOEn")
-
-        // [START register_for_notifications]
-        if #available(iOS 10.0, *) {
-//            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//            UNUserNotificationCenter.current().requestAuthorization(
-//                options: authOptions,
-//                completionHandler: {_, _ in })
-//
-//            // For iOS 10 display notification (sent via APNS)
-//            UNUserNotificationCenter.current().delegate = self
-
-        } else {
-            let settings: UIUserNotificationSettings = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-//            application.registerUserNotificationSettings(settings)
-        }
-
-//        application.registerForRemoteNotifications()
-//        self.registerForPushNotifications(application)
-        // Add observer for InstanceID token refresh callback.
-        NotificationCenter.default.addObserver(self,
-                                                         selector: #selector(self.tokenRefreshNotification),
-                                                         name: NSNotification.Name.firInstanceIDTokenRefresh,
-                                                         object: nil)
-
-        let notificationTypes: UIUserNotificationType = [.alert, .badge, .sound]
-        let pushNotificationSettings = UIUserNotificationSettings(types: notificationTypes, categories: nil)
-//        application.registerUserNotificationSettings(pushNotificationSettings)
-//        application.registerForRemoteNotifications()
 
         return true
     }

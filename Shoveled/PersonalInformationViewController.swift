@@ -99,9 +99,9 @@ class PersonalInformationViewController: UIViewController {
     }
     
     fileprivate var shoveler: Shoveler?
+    fileprivate var saveBtn = UIButton()
     
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
-
     
     @IBOutlet weak var tableView: UITableView?
     
@@ -133,14 +133,13 @@ class PersonalInformationViewController: UIViewController {
     }
     
     func configureNavbar() {
-        let saveBtn = UIButton()
-        saveBtn.isEnabled = false
-        saveBtn.titleLabel?.textColor = UIColor.blue
-        saveBtn.setTitle("Save", for: .normal)
-        saveBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 30)
-        saveBtn.addTarget(self, action: #selector(PersonalInformationViewController.saveProfile), for: .touchUpInside)
+        self.saveBtn = UIButton(type: .system)
+        self.saveBtn.isEnabled = false
+        self.saveBtn.setTitle("Save", for: .normal)
+        self.saveBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 30)
+        self.saveBtn.addTarget(self, action: #selector(PersonalInformationViewController.saveProfile), for: .touchUpInside)
         let rightBarBtn = UIBarButtonItem()
-        rightBarBtn.customView = saveBtn
+        rightBarBtn.customView = self.saveBtn
         self.navigationItem.rightBarButtonItem = rightBarBtn
     }
     
@@ -258,8 +257,8 @@ extension PersonalInformationViewController {
     @objc
     fileprivate func saveProfile() {
         self.resignFirstResponder()
-        self.showActivityIndicatory(self.view)
         if self.allTextFieldsHaveText() {
+            self.showActivityIndicatory(self.view)
             if let firstName = self.firstName,
                 let lastName = self.lastName,
                 let address = self.address,
@@ -350,6 +349,7 @@ extension PersonalInformationViewController {
                     self.present(alert, animated: true, completion: nil)
                     tf.becomeFirstResponder()
                 } else {
+                    self.saveBtn.isEnabled = true
                     return true
                 }
             }
@@ -549,6 +549,7 @@ extension PersonalInformationViewController: UITextFieldDelegate {
         if textField == self.cardCVCCell?.debitCardCVCTF {
             if let cvc = self.cardCVCCell?.debitCardCVCTF {
                 cvc.text = self.cardCVC
+                self.saveBtn.isEnabled = true
             }
         }                
     }

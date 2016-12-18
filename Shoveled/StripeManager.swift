@@ -9,6 +9,15 @@
 import Foundation
 
 class StripeManager {
+    
+    //Get Account Balance
+    class func getStripeAccountBalance() {
+        StripeAPI.sharedInstance.getStripeAccountBalance { (result, error) in
+            if let result = result {                
+                print(result)
+            }
+        }
+    }
 
     // Get Customers
     class func getCustomers(_ completion: @escaping (_ customerEmail: String) -> ()) {
@@ -100,7 +109,7 @@ class StripeManager {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
     }
     
-    class func transferFundsToAccount(amount: Int, destination: String) {
+    class func transferFundsToAccount(amount: String, destination: String) {
         StripeAPI.sharedInstance.transferFundsToAccount(amount: amount, destination: destination)
     }
 

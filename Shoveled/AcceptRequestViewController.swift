@@ -237,9 +237,9 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
             let priceRawValue = newPriceString.floatValue
             let amount = priceRawValue * 100
             let intAmount: Int = Int(amount)
-            
+            let stringAmount: String = String(intAmount)
             if let stripeId = self.stripeId {
-                StripeManager.transferFundsToAccount(amount: intAmount, destination: stripeId)
+                StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId)
             }
         }
         
