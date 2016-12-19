@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         // TODO: DEBUG ONLY! Remove / conditionalize before launch
 //        Stripe.setDefaultPublishableKey("pk_test_sInJmSxsoYOl5rPAv45pvwCv")
-        Stripe.setDefaultPublishableKey("pk_live_xvZp8nbvhuCB3pIrykXwZOEn")
+        Stripe.setDefaultPublishableKey("///")
 
         return true
     }
