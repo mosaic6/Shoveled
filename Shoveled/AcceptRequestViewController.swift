@@ -112,20 +112,20 @@ class AcceptRequestViewController: UIViewController, UINavigationControllerDeleg
                                             "createdAt": createdAt! as AnyObject,
                                             "acceptedByUser": currentUserEmail as AnyObject,
                                             "stripeChargeToken": self.stripeChargeToken as AnyObject]
-
-        let childUpdates = ["/\(requestId)": request]
-        ref.updateChildValues(childUpdates)
-
-        actInd.stopAnimating()
+        
 
         let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Once the job is complete please take a photo of your work and submit it.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         let okAction: UIAlertAction = UIAlertAction(title: "Let's Go", style: .default) { (action) in
+            let childUpdates = ["/\(requestId)": request]
             self.ref.updateChildValues(childUpdates)
-
+            actInd.stopAnimating()
+            
             if let addedByUser = self.addedByUser {
                 if let token = self.stripeChargeToken {
                     EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "<html><div>\(currentUserEmail) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.</div></html>")
+                    
+                    EmailManager.sharedInstance.sendConfirmationEmail(email: currentUserEmail, toName: "", subject: "Time to get Shoveling!", text: "<html><div>You've accepted a shoveling request at \(address). Please complete this request in a timely manner. If you have any issues please reach out to support@shoveled.works.</div></html>")
                 }
             }
 

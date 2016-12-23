@@ -21,6 +21,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         case shovelingDescriptionCell = "shovelingDescriptionCell"
         case moreInfoCell = "moreInfoCell"
         case priceCell = "priceCell"
+        case whatToChargeCell = "whatToChargeCell"
         case paymentInfoCell = "paymentInfoCell"
     }
 
@@ -29,6 +30,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     fileprivate var shovelingDescriptionCell: RequestCell?
     fileprivate var moreInfoCell: RequestCell?
     fileprivate var priceCell: RequestCell?
+    fileprivate var whatToChargeCell: RequestCell?
     fileprivate var paymentInfoCell: RequestCell?
 
     fileprivate var address1: String? {
@@ -140,6 +142,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         requestData.append(.shovelingDescriptionCell)
         requestData.append(.moreInfoCell)
         requestData.append(.priceCell)
+        requestData.append(.whatToChargeCell)
         requestData.append(.paymentInfoCell)
 
         tableViewData.append(requestData)
@@ -352,6 +355,9 @@ extension RequestShovelingViewController: UITableViewDataSource {
         case .priceCell:
             let priceCell = cell as! RequestCell
             self.priceCell = priceCell
+        case .whatToChargeCell:
+            let whatToChargeCell = cell as! RequestCell
+            self.whatToChargeCell = whatToChargeCell
         case .paymentInfoCell:
             let paymentInfoCell = cell as! RequestCell
             self.paymentInfoCell = paymentInfoCell
@@ -368,7 +374,7 @@ extension RequestShovelingViewController: UITableViewDelegate {
         }
 
         switch cellIdentifier {
-        case .address1Cell, .shovelingDescriptionCell, .moreInfoCell, .priceCell:
+        case .address1Cell, .shovelingDescriptionCell, .moreInfoCell, .priceCell, .whatToChargeCell:
             return 44.0
         case .paymentInfoCell:
             return 65.0

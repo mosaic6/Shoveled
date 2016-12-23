@@ -25,7 +25,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         super.init()
-        FIRApp.configure()
+        
+        var config = Configuration()
+        let fileopts = FIROptions.init(contentsOfFile: config.environment.baseURL)
+        if let fileopts = fileopts {
+            FIRApp.configure(with: fileopts)
+        }
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -37,12 +42,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()
 
-        // Override point for customization after application launch.           
         Fabric.with([Crashlytics.self, STPAPIClient.self])
 
         // TODO: DEBUG ONLY! Remove / conditionalize before launch
-//        Stripe.setDefaultPublishableKey("pk_test_sInJmSxsoYOl5rPAv45pvwCv")
-        Stripe.setDefaultPublishableKey("pk_live_xvZp8nbvhuCB3pIrykXwZOEn")
+        Stripe.setDefaultPublishableKey("pk_test_sInJmSxsoYOl5rPAv45pvwCv")
+//        Stripe.setDefaultPublishableKey("pk_live_xvZp8nbvhuCB3pIrykXwZOEn")
 
         return true
     }
