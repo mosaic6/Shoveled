@@ -22,6 +22,24 @@ enum Environment: String {
             return prodPath
         }
     }
+    
+    var stripeKey: String {
+        switch self {
+        case .staging:
+            return "pk_test_sInJmSxsoYOl5rPAv45pvwCv"
+        case .production:
+            return "pk_live_xvZp8nbvhuCB3pIrykXwZOEn"
+        }
+    }
+    
+    var stripeAuthToken: String {
+        switch self {
+        case .staging:
+            return "Bearer sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
+        case .production:
+            return "Bearer sk_live_2CJnnLPGLtpNAzd3JB1xaojf"
+        }
+    }
 }
 
 struct Configuration {

@@ -65,13 +65,12 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var longitude: NSNumber!
     var coordinates: CLLocationCoordinate2D!
     var user: User!
-    var items = [ShovelRequest]()
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
     var chargeId: String?
 
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView?
-    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint?
     @IBOutlet weak var submitRequestButton: UIBarButtonItem?
 
     // MARK: - Private Variables

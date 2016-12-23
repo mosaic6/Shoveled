@@ -9,9 +9,6 @@
 import Foundation
 import Stripe
 
-let testAuthKey = "Bearer sk_test_PbH5UZ20DwkBVbf6qWeOHSfh"
-let prodAuthKey = "Bearer sk_live_2CJnnLPGLtpNAzd3JB1xaojf"
-
 private let API_GET_BALANCE             = "https://api.stripe.com/v1/balance"
 private let API_POST_CUSTOMER           = "https://api.stripe.com/v1/customers"
 private let API_GET_CUSTOMERS           = "https://api.stripe.com/v1/customers"
@@ -26,13 +23,14 @@ class StripeAPI {
 
     static let sharedInstance = StripeAPI()
 
+    var config = Configuration()
     // MARK: Auth Stripe
 
     func passCodeToAuthAccount(code: String) {
         guard let URL = URL(string: API_POST_CONNECT_ACCOUNT) else {return}
         let request = NSMutableURLRequest(url: URL)
         request.httpMethod = "POST"
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let bodyParameters = [
@@ -66,7 +64,7 @@ class StripeAPI {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         var parsedObject: [String: Any]?
@@ -118,7 +116,7 @@ class StripeAPI {
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         // TODO: Need to pass
@@ -182,6 +180,7 @@ class StripeAPI {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
 
                             print(parsedObject!)
+                            completion(parsedObject as NSDictionary?, nil)
                         } catch let error as NSError {
                             parsedObject = nil
                         } catch {
@@ -208,7 +207,7 @@ class StripeAPI {
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let semaphore = DispatchSemaphore(value: 0)
@@ -260,7 +259,7 @@ class StripeAPI {
 
         // Headers
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         // Form URL-Encoded Body
@@ -299,7 +298,7 @@ class StripeAPI {
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
 
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let bodyParameters = [
@@ -359,7 +358,7 @@ class StripeAPI {
 
         // Headers
         request.addValue("stripe.csrf=lF5XxRqmAOvjwiLkJBd4Pfli9f97ZU2q5MxeFyPaJPA3u4sUDjSMTu3O2PqRkJZ5rTANI6sA2PAHhmQxSSpEsA%3D%3D", forHTTPHeaderField: "Cookie")
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
 
         let semaphore = DispatchSemaphore(value: 0)
         /* Start a new Task */
@@ -403,7 +402,7 @@ class StripeAPI {
         guard let URL = URL(string: API_POST_REFUND) else {return}
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let bodyParameters = [
@@ -435,7 +434,7 @@ class StripeAPI {
         guard let URL = URL(string: API_POST_TRANSFER) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
-        request.addValue(testAuthKey, forHTTPHeaderField: "Authorization")
+        request.addValue(config.environment.stripeAuthToken, forHTTPHeaderField: "Authorization")
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         let bodyParameters: [String: String] = [

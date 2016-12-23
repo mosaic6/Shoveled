@@ -494,16 +494,22 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 🚗 length = $10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-lb-U1s">
-                                                    <rect key="frame" x="260" y="11" width="108" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 🚗 length = $10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-lb-U1s">
+                                                    <rect key="frame" x="264" y="11" width="104" height="21"/>
                                                     <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="aNt-lb-U1s" secondAttribute="trailing" constant="-1" id="Av1-sa-ERX"/>
+                                                <constraint firstItem="aNt-lb-U1s" firstAttribute="top" secondItem="cpX-5g-7Hr" secondAttribute="topMargin" constant="3" id="kBI-34-gse"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="aNt-lb-U1s" secondAttribute="bottom" constant="12" id="Vhp-61-jH5"/>
+                                        </constraints>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paymentInfoCell" rowHeight="65" id="hAv-Qj-Tzy" customClass="RequestCell" customModule="Shoveled" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="248" width="375" height="65"/>
@@ -652,13 +658,13 @@
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go to settings ⚙️ to sign up as a Shoveler to accept this request." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaN-hA-oGj">
-                                        <rect key="frame" x="8" y="0.0" width="359" height="50"/>
+                                        <rect key="frame" x="8" y="71" width="359" height="50"/>
                                         <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72B-r2-IQ8">
-                                        <rect key="frame" x="8" y="58" width="359" height="45"/>
+                                        <rect key="frame" x="8" y="129" width="359" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="aQA-1W-Rvc"/>
                                         </constraints>
@@ -674,10 +680,10 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="72B-r2-IQ8" secondAttribute="trailing" constant="8" id="37H-iA-Mhn"/>
                                     <constraint firstItem="CRu-Wi-ZGs" firstAttribute="leading" secondItem="1SJ-mv-4gw" secondAttribute="leading" constant="8" id="3B7-su-WTT"/>
-                                    <constraint firstItem="CRu-Wi-ZGs" firstAttribute="top" secondItem="72B-r2-IQ8" secondAttribute="bottom" constant="-6" id="3Cs-5g-IKD"/>
+                                    <constraint firstItem="CRu-Wi-ZGs" firstAttribute="top" secondItem="72B-r2-IQ8" secondAttribute="bottom" constant="-77" id="3Cs-5g-IKD"/>
                                     <constraint firstItem="tOu-ks-RDk" firstAttribute="leading" secondItem="1SJ-mv-4gw" secondAttribute="leading" constant="8" id="Lpv-2C-F0L"/>
                                     <constraint firstAttribute="bottom" secondItem="tOu-ks-RDk" secondAttribute="bottom" constant="8" id="O1q-sV-eFP"/>
-                                    <constraint firstItem="QaN-hA-oGj" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="top" id="Qaw-gP-ZMb"/>
+                                    <constraint firstItem="QaN-hA-oGj" firstAttribute="top" secondItem="1SJ-mv-4gw" secondAttribute="top" constant="71" id="Qaw-gP-ZMb"/>
                                     <constraint firstItem="72B-r2-IQ8" firstAttribute="leading" secondItem="1SJ-mv-4gw" secondAttribute="leading" constant="8" id="UJ0-Vl-UHr"/>
                                     <constraint firstAttribute="trailing" secondItem="QaN-hA-oGj" secondAttribute="trailing" constant="8" id="efN-r6-ViA"/>
                                     <constraint firstItem="QaN-hA-oGj" firstAttribute="leading" secondItem="1SJ-mv-4gw" secondAttribute="leading" constant="8" id="kbP-TD-BpJ"/>
@@ -707,7 +713,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FRQ-8e-KGw">
-                                <rect key="frame" x="16" y="217" width="343" height="88"/>
+                                <rect key="frame" x="16" y="197" width="343" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="Zag-kj-eL6"/>
                                 </constraints>
@@ -745,7 +751,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liO-iY-Q7Z">
-                                <rect key="frame" x="16" y="313" width="343" height="21"/>
+                                <rect key="frame" x="16" y="293" width="343" height="21"/>
                                 <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -780,7 +786,7 @@
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="leading" secondItem="Ubn-s7-HPJ" secondAttribute="leadingMargin" constant="159" id="nRK-Ko-CtA"/>
                             <constraint firstAttribute="leadingMargin" secondItem="liO-iY-Q7Z" secondAttribute="leading" id="t2x-7t-Tj9"/>
                             <constraint firstAttribute="trailing" secondItem="1SJ-mv-4gw" secondAttribute="trailing" id="tle-jw-vH8"/>
-                            <constraint firstItem="FRQ-8e-KGw" firstAttribute="top" secondItem="aCB-U0-TdD" secondAttribute="bottom" constant="41" id="x4g-pX-BMz"/>
+                            <constraint firstItem="FRQ-8e-KGw" firstAttribute="top" secondItem="aCB-U0-TdD" secondAttribute="bottom" constant="21" id="x4g-pX-BMz"/>
                             <constraint firstItem="aCB-U0-TdD" firstAttribute="top" secondItem="7sO-lo-cgE" secondAttribute="bottom" constant="8" id="zRb-Ip-jYK"/>
                             <constraint firstItem="vzO-8m-fo5" firstAttribute="leading" secondItem="I2q-Ks-OBi" secondAttribute="trailing" constant="114" id="zuZ-Ms-LRc"/>
                         </constraints>
@@ -1757,7 +1763,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bkD-nG-HQT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dRc-yD-JAX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRc-yD-JAX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1829,7 +1835,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L07-nq-jTk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qHg-b1-ecd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qHg-b1-ecd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1847,7 +1853,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SettingsNavViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xuk-LU-7Ee" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dwh-0L-Re5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dwh-0L-Re5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

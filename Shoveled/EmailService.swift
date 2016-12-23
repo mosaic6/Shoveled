@@ -26,7 +26,7 @@ class EmailService {
             "toname": toName,
             "subject": subject,
             "html": text,
-            "from": "noreply@shoveled.work"
+            "from": "noreply@shoveled.works"
             ]
         URL = URL.URLByAppendingQueryParameters(URLParams)
         var request = URLRequest(url: URL)

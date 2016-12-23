@@ -43,7 +43,7 @@ class PersonalInformationViewController: UIViewController {
     fileprivate var cardCVCCell: DebitCardCell?
 
     fileprivate var firstName: String? {
-        return self.firstNameCell?.firstNameTF?.text
+        return (self.firstNameCell?.firstNameTF?.text != "") ? self.shoveler?.firstName : self.firstNameCell?.firstNameTF?.text
     }
 
     fileprivate var lastName: String? {
@@ -102,6 +102,7 @@ class PersonalInformationViewController: UIViewController {
     fileprivate var saveBtn = UIButton()
 
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
+    lazy var shovelerRef: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "users")
 
     @IBOutlet weak var tableView: UITableView?
 
@@ -110,7 +111,7 @@ class PersonalInformationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNavbar()
-
+        
         self.firstNameCell?.firstNameTF?.delegate = self
         self.lastNameCell?.lastNameTF?.delegate = self
         self.addressCell?.addressTF?.delegate = self
@@ -125,11 +126,48 @@ class PersonalInformationViewController: UIViewController {
         self.cardExpMonthCell?.debitCardExpMonthTF?.delegate = self
         self.cardExpYearCell?.debitCardExpYearTF?.delegate = self
         self.cardCVCCell?.debitCardCVCTF?.delegate = self
-
+        
         self.rebuildTableViewDataAndRefresh()
 
         NotificationCenter.default.addObserver(self, selector: #selector(PersonalInformationViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.getShovelerInformation()
+    }
+    
+    fileprivate func getShovelerInformation() {
+        self.shovelerRef.observe(.value, with: { snapshot in
+            if let items = snapshot.value as? [String: AnyObject] {
+                for item in items {
+                    if currentUserUid == item.key {
+                        if let shoveler = item.value["shoveler"] as? NSDictionary {
+                            guard let firstName = shoveler.object(forKey: "firstName") as? String else { return }
+                            guard let lastName = shoveler.object(forKey: "lastName") as? String else { return }
+                            guard let address1 = shoveler.object(forKey: "address1") as? String else { return }
+                            guard let city = shoveler.object(forKey: "city") as? String else { return }
+                            guard let state = shoveler.object(forKey: "state") as? String else { return }
+                            guard let zip = shoveler.object(forKey: "postalCode") as? String else { return }
+                            guard let dobDay = shoveler.object(forKey: "dobDay") as? String else { return }
+                            guard let dobMonth = shoveler.object(forKey: "dobMonth") as? String else { return }
+                            guard let dobYear = shoveler.object(forKey: "dobYear") as? String else { return }
+                            
+                            self.shoveler?.firstName = firstName
+                            self.shoveler?.lastName = lastName
+                            self.shoveler?.address1 = address1
+                            self.shoveler?.city = city
+                            self.shoveler?.state = state
+                            self.shoveler?.postalCode = zip
+                            self.shoveler?.dobDay = dobDay
+                            self.shoveler?.dobMonth = dobMonth
+                            self.shoveler?.dobYear = dobYear
+                            
+                        }
+                    }
+                }
+            }
+        })
     }
 
     func configureNavbar() {
@@ -212,24 +250,33 @@ extension PersonalInformationViewController: UITableViewDataSource {
         switch cellIdentifier {
         case .firstNameCell:
             let firstNameCell = cell as! PersonalInfoCell
+            firstNameCell.firstNameTF?.text = self.firstName
             self.firstNameCell = firstNameCell
         case .lastNameCell:
             let lastNameCell = cell as! PersonalInfoCell
+            lastNameCell.lastNameTF?.text = self.shoveler?.lastName
             self.lastNameCell = lastNameCell
         case .addressCell:
             let address1Cell = cell as! PersonalInfoCell
+            address1Cell.addressTF?.text = self.shoveler?.address1
             self.addressCell = address1Cell
         case .cityCell:
             let cityCell = cell as! PersonalInfoCell
+            cityCell.cityTF?.text = self.shoveler?.city
             self.cityCell = cityCell
         case .stateCell:
             let stateCell = cell as! PersonalInfoCell
+            stateCell.stateTF?.text = self.shoveler?.state
             self.stateCell = stateCell
         case .zipCell:
             let zipCell = cell as! PersonalInfoCell
+            zipCell.zipTF?.text = self.shoveler?.postalCode
             self.zipCell = zipCell
         case .dobCell:
             let dobCell = cell as! PersonalInfoCell
+            dobCell.dobMonthTF?.text = self.shoveler?.dobMonth
+            dobCell.dobDayTF?.text = self.shoveler?.dobDay
+            dobCell.dobYearTF?.text = self.shoveler?.dobYear
             self.dobCell = dobCell
         case .ssCell:
             let ssCell = cell as! PersonalInfoCell

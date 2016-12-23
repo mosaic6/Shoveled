@@ -22,6 +22,7 @@ import Stripe
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var config = Configuration()
 
     override init() {
         super.init()
@@ -44,9 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Fabric.with([Crashlytics.self, STPAPIClient.self])
 
-        // TODO: DEBUG ONLY! Remove / conditionalize before launch
-        Stripe.setDefaultPublishableKey("pk_test_sInJmSxsoYOl5rPAv45pvwCv")
-//        Stripe.setDefaultPublishableKey("pk_live_xvZp8nbvhuCB3pIrykXwZOEn")
+        Stripe.setDefaultPublishableKey(config.environment.stripeKey)
 
 
         return true
