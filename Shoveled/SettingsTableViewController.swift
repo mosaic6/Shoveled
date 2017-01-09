@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 
 class SettingsTableViewController: UITableViewController {
 
     // MARK: Variables
-    let settingsData = ["Shovelers Information", "FAQs", "Logout"]
+    var settingsData = ["Become a Shoveler", "Help", "Logout"]
+    lazy var shovelerRef: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "users")
 
     // MARK: Outlets
     override func viewDidLoad() {
@@ -23,6 +25,7 @@ class SettingsTableViewController: UITableViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         self.title = "SETTINGS"
+        self.getShovelersInformation()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -50,10 +53,10 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let currentCell = tableView.cellForRow(at: indexPath) as! SettingsCell
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if currentCell.cellTitleLabel?.text == "FAQs" {
+        if currentCell.cellTitleLabel?.text == "Help" {
             let viewController = storyboard.instantiateViewController(withIdentifier: "FAQViewController") as! FAQViewController
             self.navigationController?.pushViewController(viewController, animated: true)
-        } else if currentCell.cellTitleLabel?.text == "Shovelers Information" {
+        } else if currentCell.cellTitleLabel?.text == "Shovelers Information" || currentCell.cellTitleLabel?.text == "Become a Shoveler" {
             let viewController = storyboard.instantiateViewController(withIdentifier: "PersonalInformationViewController") as! PersonalInformationViewController
             self.navigationController?.pushViewController(viewController, animated: true)
         } else if currentCell.cellTitleLabel?.text == "Logout" {
@@ -74,5 +77,24 @@ extension SettingsTableViewController {
         logoutAction.addAction(okAction)
         logoutAction.addAction(cancelAction)
         self.present(logoutAction, animated: true, completion: nil)
+    }
+}
+
+extension SettingsTableViewController {
+    func getShovelersInformation() {
+        self.shovelerRef.observe(.value, with: { snapshot in
+            if let items = snapshot.value as? [String: AnyObject] {
+                for item in items {
+                    if currentUserUid == item.key {
+                        if let shoveler = item.value["shoveler"] as? NSDictionary {
+                            if shoveler.count > 0 {
+                                self.settingsData[0] = "Shovelers Information"
+                                self.tableView.reloadData()
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 }

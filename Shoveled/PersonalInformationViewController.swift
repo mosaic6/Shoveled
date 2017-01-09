@@ -22,10 +22,8 @@ class PersonalInformationViewController: UIViewController {
         case zipCell = "zipCell"
         case dobCell = "dobCell"
         case ssCell = "ssCell"
-        case cardNumberCell = "cardNumberCell"
-        case cardExpMonthCell = "cardExpMonthCell"
-        case cardExpYearCell = "cardExpYearCell"
-        case cardCVCCell = "cardCVCCell"
+        case bankAccountNumberCell = "bankAccountNumberCell"
+        case bankRoutingNumberCell = "bankRoutingNumberCell"
     }
 
     fileprivate var tableViewData: [[CellIdentifier]] = []
@@ -37,13 +35,11 @@ class PersonalInformationViewController: UIViewController {
     fileprivate var zipCell: PersonalInfoCell?
     fileprivate var dobCell: PersonalInfoCell?
     fileprivate var ssCell: PersonalInfoCell?
-    fileprivate var cardNumberCell: DebitCardCell?
-    fileprivate var cardExpMonthCell: DebitCardCell?
-    fileprivate var cardExpYearCell: DebitCardCell?
-    fileprivate var cardCVCCell: DebitCardCell?
+    fileprivate var bankAccountNumberCell: BankAccountCell?
+    fileprivate var bankRoutingNumberCell: BankAccountCell?
 
     fileprivate var firstName: String? {
-        return (self.firstNameCell?.firstNameTF?.text != "") ? self.shoveler?.firstName : self.firstNameCell?.firstNameTF?.text
+        return self.firstNameCell?.firstNameTF?.text
     }
 
     fileprivate var lastName: String? {
@@ -82,20 +78,12 @@ class PersonalInformationViewController: UIViewController {
         return self.ssCell?.ssTF?.text
     }
 
-    fileprivate var cardNumber: String? {
-        return self.cardNumberCell?.debitCardNumberTF?.text
+    fileprivate var bankAccountNumber: String? {
+        return self.bankAccountNumberCell?.accountNumberTF?.text
     }
-
-    fileprivate var cardExpMonth: String? {
-        return self.cardExpMonthCell?.debitCardExpMonthTF?.text
-    }
-
-    fileprivate var cardExpYear: String? {
-        return self.cardExpYearCell?.debitCardExpYearTF?.text
-    }
-
-    fileprivate var cardCVC: String? {
-        return self.cardCVCCell?.debitCardCVCTF?.text
+    
+    fileprivate var bankRoutingNumber: String? {
+        return self.bankRoutingNumberCell?.routingNumberTF?.text
     }
 
     fileprivate var shoveler: Shoveler?
@@ -122,10 +110,8 @@ class PersonalInformationViewController: UIViewController {
         self.dobCell?.dobMonthTF?.delegate = self
         self.dobCell?.dobDayTF?.delegate = self
         self.ssCell?.ssTF?.delegate = self
-        self.cardNumberCell?.debitCardNumberTF?.delegate = self
-        self.cardExpMonthCell?.debitCardExpMonthTF?.delegate = self
-        self.cardExpYearCell?.debitCardExpYearTF?.delegate = self
-        self.cardCVCCell?.debitCardCVCTF?.delegate = self
+        self.bankAccountNumberCell?.accountNumberTF?.delegate = self
+        self.bankRoutingNumberCell?.routingNumberTF?.delegate = self
         
         self.rebuildTableViewDataAndRefresh()
 
@@ -153,16 +139,15 @@ class PersonalInformationViewController: UIViewController {
                             guard let dobMonth = shoveler.object(forKey: "dobMonth") as? String else { return }
                             guard let dobYear = shoveler.object(forKey: "dobYear") as? String else { return }
                             
-                            self.shoveler?.firstName = firstName
-                            self.shoveler?.lastName = lastName
-                            self.shoveler?.address1 = address1
-                            self.shoveler?.city = city
-                            self.shoveler?.state = state
-                            self.shoveler?.postalCode = zip
-                            self.shoveler?.dobDay = dobDay
-                            self.shoveler?.dobMonth = dobMonth
-                            self.shoveler?.dobYear = dobYear
-                            
+                            self.firstNameCell?.firstNameTF?.text = firstName
+                            self.lastNameCell?.lastNameTF?.text = lastName
+                            self.addressCell?.addressTF?.text = address1
+                            self.cityCell?.cityTF?.text = city
+                            self.stateCell?.stateTF?.text = state
+                            self.zipCell?.zipTF?.text = zip
+                            self.dobCell?.dobDayTF?.text = dobDay
+                            self.dobCell?.dobMonthTF?.text = dobMonth
+                            self.dobCell?.dobYearTF?.text = dobYear                             
                         }
                     }
                 }
@@ -203,10 +188,8 @@ class PersonalInformationViewController: UIViewController {
         addressData.append(.zipCell)
         addressData.append(.dobCell)
         addressData.append(.ssCell)
-        addressData.append(.cardNumberCell)
-        addressData.append(.cardExpMonthCell)
-        addressData.append(.cardExpYearCell)
-        addressData.append(.cardCVCCell)
+        addressData.append(.bankAccountNumberCell)
+        addressData.append(.bankRoutingNumberCell)
 
         tableViewData.append(addressData)
 
@@ -250,19 +233,19 @@ extension PersonalInformationViewController: UITableViewDataSource {
         switch cellIdentifier {
         case .firstNameCell:
             let firstNameCell = cell as! PersonalInfoCell
-            firstNameCell.firstNameTF?.text = self.firstName
+//            firstNameCell.firstNameTF?.text = self.firstName
             self.firstNameCell = firstNameCell
         case .lastNameCell:
             let lastNameCell = cell as! PersonalInfoCell
-            lastNameCell.lastNameTF?.text = self.shoveler?.lastName
+//            lastNameCell.lastNameTF?.text = self.shoveler?.lastName
             self.lastNameCell = lastNameCell
         case .addressCell:
             let address1Cell = cell as! PersonalInfoCell
-            address1Cell.addressTF?.text = self.shoveler?.address1
+//            address1Cell.addressTF?.text = self.shoveler?.address1
             self.addressCell = address1Cell
         case .cityCell:
             let cityCell = cell as! PersonalInfoCell
-            cityCell.cityTF?.text = self.shoveler?.city
+//            cityCell.cityTF?.text = self.shoveler?.city
             self.cityCell = cityCell
         case .stateCell:
             let stateCell = cell as! PersonalInfoCell
@@ -282,22 +265,17 @@ extension PersonalInformationViewController: UITableViewDataSource {
             let ssCell = cell as! PersonalInfoCell
             ssCell.ssInfoButton?.addTarget(self, action: #selector(PersonalInformationViewController.moreInfoSSTapped), for: .touchUpInside)
             self.ssCell = ssCell
-        case .cardNumberCell:
-            let cardNumberCell = cell as! DebitCardCell
-            self.cardNumberCell = cardNumberCell
-        case .cardExpMonthCell:
-            let cardExpMonthCell = cell as! DebitCardCell
-            self.cardExpMonthCell = cardExpMonthCell
-        case .cardExpYearCell:
-            let cardExpYearCell = cell as! DebitCardCell
-            self.cardExpYearCell = cardExpYearCell
-        case .cardCVCCell:
-            let cardCVCCell = cell as! DebitCardCell
-            self.cardCVCCell = cardCVCCell
+        case .bankAccountNumberCell:
+            let bankAccountNumberCell = cell as! BankAccountCell
+            self.bankAccountNumberCell = bankAccountNumberCell
+        case .bankRoutingNumberCell:
+            let bankRoutingNumberCell = cell as! BankAccountCell
+            self.bankRoutingNumberCell = bankRoutingNumberCell
         }
         return cell
     }
 }
+
 
 // MARK: Save personal information
 extension PersonalInformationViewController {
@@ -315,12 +293,10 @@ extension PersonalInformationViewController {
                 let dobDay = self.dobDay,
                 let dobMonth = self.dobMonth,
                 let dobYear = self.dobYear,
-                let last4 = self.ss,
-                let cardNumber = self.cardNumber,
-                let expMonth = self.cardExpMonth,
-                let expYear = self.cardExpYear,
-                let cvc = self.cardCVC {
-                StripeManager.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, last4: last4, cardNumber: cardNumber, expMonth: expMonth, expYear: expYear, cvc: cvc) { result, error in
+                let fullSS = self.ss,
+                let bankAccountNumber = self.bankAccountNumber,
+                let bankRoutingNumber = self.bankRoutingNumber {
+                StripeManager.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, fullSS: fullSS, accountRoutingNumber: bankRoutingNumber, accountAccountNumber: bankAccountNumber) { result, error in
 
                     if let result = result {
                         if let externalAccounts = result.object(forKey: "external_accounts") as? NSDictionary {
@@ -368,10 +344,8 @@ extension PersonalInformationViewController {
         let dobMonth = self.dobCell?.dobMonthTF,
         let dobYear = self.dobCell?.dobYearTF,
         let ss = self.ssCell?.ssTF,
-        let cardNumber = self.cardNumberCell?.debitCardNumberTF,
-        let expMonth = self.cardExpMonthCell?.debitCardExpMonthTF,
-        let expYear = self.cardExpYearCell?.debitCardExpYearTF,
-        let cvc = self.cardCVCCell?.debitCardCVCTF {
+        let bankAccountNumber = self.bankAccountNumberCell?.accountNumberTF,
+        let bankRoutingNumber = self.bankRoutingNumberCell?.routingNumberTF {
 
             textFields.append(firstName)
             textFields.append(lastName)
@@ -383,10 +357,8 @@ extension PersonalInformationViewController {
             textFields.append(dobMonth)
             textFields.append(dobYear)
             textFields.append(ss)
-            textFields.append(cardNumber)
-            textFields.append(expMonth)
-            textFields.append(expYear)
-            textFields.append(cvc)
+            textFields.append(bankAccountNumber)
+            textFields.append(bankRoutingNumber)
 
             for tf in textFields {
                 if tf.text?.characters.count == 0 {
@@ -491,38 +463,23 @@ extension PersonalInformationViewController: UITextFieldDelegate {
         if textField == self.ssCell?.ssTF {
             if let ss = self.ssCell?.ssTF?.text?.characters.count {
                 let newLength = ss + string.characters.count - range.length
-                return newLength <= 4
+                return newLength <= 9
             }
         }
 
-        if textField == self.cardNumberCell?.debitCardNumberTF {
-            if let cardNumber = self.cardNumberCell?.debitCardNumberTF?.text?.characters.count {
-                let newLength = cardNumber + string.characters.count - range.length
-                return newLength <= 16
+        if textField == self.bankAccountNumberCell?.accountNumberTF {
+            if let accountNumber = self.bankAccountNumberCell?.accountNumberTF?.text?.characters.count {
+                let newLength = accountNumber + string.characters.count - range.length
+                return newLength <= 15
             }
         }
-
-        if textField == self.cardExpMonthCell?.debitCardExpMonthTF {
-            if let cardExpMonth = self.cardExpMonthCell?.debitCardExpMonthTF?.text?.characters.count {
-                let newLength = cardExpMonth + string.characters.count - range.length
-                return newLength <= 2
+        
+        if textField == self.bankRoutingNumberCell?.routingNumberTF {
+            if let routingNumber = self.bankRoutingNumberCell?.routingNumberTF?.text?.characters.count {
+                let newLength = routingNumber + string.characters.count - range.length
+                return newLength <= 15
             }
         }
-
-        if textField == self.cardExpYearCell?.debitCardExpYearTF {
-            if let cardExpYear = self.cardExpYearCell?.debitCardExpYearTF?.text?.characters.count {
-                let newLength = cardExpYear + string.characters.count - range.length
-                return newLength <= 2
-            }
-        }
-
-        if textField == self.cardCVCCell?.debitCardCVCTF {
-            if let cardCVC = self.cardCVCCell?.debitCardCVCTF?.text?.characters.count {
-                let newLength = cardCVC + string.characters.count - range.length
-                return newLength <= 4
-            }
-        }
-
         return true
     }
 
@@ -577,25 +534,14 @@ extension PersonalInformationViewController: UITextFieldDelegate {
                 ss.text = self.ss
             }
         }
-        if textField == self.cardNumberCell?.debitCardNumberTF {
-            if let cardNum = self.cardNumberCell?.debitCardNumberTF {
-                cardNum.text = self.cardNumber?.stringForCreditCardProcessing
+        if textField == self.bankAccountNumberCell?.accountNumberTF {
+            if let accountNumber = self.bankAccountNumberCell?.accountNumberTF {
+                accountNumber.text = self.bankAccountNumber
             }
         }
-        if textField == self.cardExpMonthCell?.debitCardExpMonthTF {
-            if let expMonth = self.cardExpMonthCell?.debitCardExpMonthTF {
-                expMonth.text = self.cardExpMonth
-            }
-        }
-        if textField == self.cardExpYearCell?.debitCardExpYearTF {
-            if let expYear = self.cardExpYearCell?.debitCardExpYearTF {
-                expYear.text = self.cardExpYear
-            }
-        }
-        if textField == self.cardCVCCell?.debitCardCVCTF {
-            if let cvc = self.cardCVCCell?.debitCardCVCTF {
-                cvc.text = self.cardCVC
-                self.saveBtn.isEnabled = true
+        if textField == self.bankRoutingNumberCell?.routingNumberTF {
+            if let routingNumber = self.bankRoutingNumberCell?.routingNumberTF {
+                routingNumber.text = self.bankRoutingNumber
             }
         }
     }
@@ -603,7 +549,7 @@ extension PersonalInformationViewController: UITextFieldDelegate {
 
 extension PersonalInformationViewController {
     @objc func moreInfoSSTapped() {
-        let alert = UIAlertController(title: "Why do we need this?", message: "In order to verify you're identity for transfering you payments, we need the last 4 digits of your SS#. We do not store this or share with anyone. If you want to update your card you'll need to enter this again.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Why do we need this?", message: "In order to verify you're identity for transfering you payments, we need your SS# as a one time identifier. We do not store this or share with anyone. If you want to update your bank account you'll need to enter this again for verification.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { action in
 
         }

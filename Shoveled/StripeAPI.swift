@@ -56,7 +56,7 @@ class StripeAPI {
     }
 
     // MARK: Get Account Balance
-    func getStripeAccountBalance(completion: @escaping (_ result: Dictionary<String, Any>?, _ error: NSError?) -> ()) {
+    func getStripeAccountBalance(completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
         guard let URL = URL(string: API_GET_BALANCE) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "GET"
@@ -68,7 +68,6 @@ class StripeAPI {
         request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
 
         var parsedObject: [String: Any]?
-        var serializationError: NSError?
         let _ = session.dataTask(with: request) {
             (data, response, error) in
             if error == nil {
@@ -78,16 +77,24 @@ class StripeAPI {
                     if let data = data {
                         do {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-                            completion(parsedObject as Dictionary?, nil)
-                        } catch let error as NSError {
-                            serializationError = error
+                            completion(parsedObject as NSDictionary?, nil)
+                        } catch _ as NSError {
                             parsedObject = nil
                         } catch {
                             fatalError()
                         }
                     }
                 case 400 ... 499:
-                    completion(nil, serializationError)
+                    if let data = data {
+                        do {
+                            parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
+                            completion(parsedObject as NSDictionary?, nil)
+                        } catch _ as NSError {
+                            parsedObject = nil
+                        } catch {
+                            fatalError()
+                        }
+                    }
                 default:
                     break
                 }
@@ -106,11 +113,10 @@ class StripeAPI {
                               dobDay: String,
                               dobMonth: String,
                               dobYear: String,
-                              last4: String,
-                              cardNumber: String,
-                              expMonth: String,
-                              expYear: String,
-                              cvc: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
+                              fullSS: String,
+                              accountRoutingNumber: String,
+                              accountAccountNumber: String,
+                              completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
 
         guard let URL = URL(string: API_POST_MANAGED_CUSTOMER) else { return }
         var request = URLRequest(url: URL)
@@ -122,28 +128,27 @@ class StripeAPI {
         // TODO: Need to pass
         let bodyParameters = [
             "country": "us",
-            "legal_entity[ssn_last_4]": last4,
+            "legal_entity[personal_id_number]": fullSS,
             "legal_entity[dob][year]": dobYear,
             "legal_entity[address][postal_code]": zip,
-            "external_account[object]": "card",
-            "external_account[exp_year]": expYear,
+            "external_account[object]": "bank_account",
             "legal_entity[first_name]": firstName,
             "legal_entity[type]": "individual",
             "legal_entity[address][line1]": address1,
             "tos_acceptance[ip]": "8.8.8.8",
             "legal_entity[last_name]": lastName,
-            "external_account[cvc]": cvc,
             "email": currentUserEmail,
             "legal_entity[address][city]": city,
-            "external_account[exp_month]": expMonth,
             "legal_entity[dob][day]": dobDay,
             "legal_entity[address][state]": state,
             "external_account[currency]": "USD",
+            "external_account[country]": "us",
+            "external_account[account_number]": accountAccountNumber,
+            "external_account[routing_number]": accountRoutingNumber,
             "managed": "true",
             "tos_acceptance[date]": "1476668004",
             "legal_entity[dob][month]": dobMonth,
-            "external_account[number]": cardNumber,
-            "transfer_schedule[delay_days]": "2",
+            "transfer_schedule[delay_days]": "3",
             ]
 
         let bodyString = bodyParameters.queryParameters

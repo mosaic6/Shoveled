@@ -45,7 +45,7 @@ class PersonalInfoCell: UITableViewCell {
         self.stateLabel?.text = "STATE"
         self.zipLabel?.text = "ZIP"
         self.dobLabel?.text = "DATE OF BIRTH"
-        self.ssLabel?.text = "SS LAST 4"
-        self.ssTF?.placeholder = "XXXX"
+        self.ssLabel?.text = "FULL SS #"
+        self.ssTF?.placeholder = "XXX XX XXXX"
     }
 }

@@ -58,7 +58,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        StripeManager.getStripeAccountBalance()
+        StripeManager.getStripeAccountBalance { (amount) in
+            print(amount)
+        }
         self.ref = FIRDatabase.database().reference(withPath: "requests")
         self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self

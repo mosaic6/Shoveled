@@ -1,4 +1,4 @@
-//
+
 //  StripeManager.swift
 //  Shoveled
 //
@@ -11,9 +11,14 @@ import Foundation
 class StripeManager {
 
     //Get Account Balance
-    class func getStripeAccountBalance() {
+    class func getStripeAccountBalance(completion: @escaping (_ amount: String) -> ()) {
         StripeAPI.sharedInstance.getStripeAccountBalance { (result, error) in
             if let result = result {
+                if let available = result.object(forKey: "available") as? NSDictionary {
+                    if let amount = available.object(forKey: "amount") as? String {
+                        completion(amount)
+                    }
+                }
                 print(result)
             }
         }
@@ -75,11 +80,10 @@ class StripeManager {
                                     dobDay: String,
                                     dobMonth: String,
                                     dobYear: String,
-                                    last4: String,
-                                    cardNumber: String,
-                                    expMonth: String,
-                                    expYear: String,
-                                    cvc: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
+                                    fullSS: String,
+                                    accountRoutingNumber: String,
+                                    accountAccountNumber: String,
+                                    completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
 
         StripeAPI.sharedInstance.createManagedAccount(firstName: firstName,
                                                       lastName: lastName,
@@ -90,11 +94,9 @@ class StripeManager {
                                                       dobDay: dobDay,
                                                       dobMonth: dobMonth,
                                                       dobYear: dobYear,
-                                                      last4: last4,
-                                                      cardNumber: cardNumber,
-                                                      expMonth: expMonth,
-                                                      expYear: expYear,
-                                                      cvc: cvc) { result, error in
+                                                      fullSS: fullSS,
+                                                      accountRoutingNumber: accountRoutingNumber,
+                                                      accountAccountNumber: accountAccountNumber) { result, error in
 
             if let result = result {
                 completion(result, nil)
