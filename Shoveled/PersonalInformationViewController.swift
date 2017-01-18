@@ -233,19 +233,15 @@ extension PersonalInformationViewController: UITableViewDataSource {
         switch cellIdentifier {
         case .firstNameCell:
             let firstNameCell = cell as! PersonalInfoCell
-//            firstNameCell.firstNameTF?.text = self.firstName
             self.firstNameCell = firstNameCell
         case .lastNameCell:
             let lastNameCell = cell as! PersonalInfoCell
-//            lastNameCell.lastNameTF?.text = self.shoveler?.lastName
             self.lastNameCell = lastNameCell
         case .addressCell:
             let address1Cell = cell as! PersonalInfoCell
-//            address1Cell.addressTF?.text = self.shoveler?.address1
             self.addressCell = address1Cell
         case .cityCell:
             let cityCell = cell as! PersonalInfoCell
-//            cityCell.cityTF?.text = self.shoveler?.city
             self.cityCell = cityCell
         case .stateCell:
             let stateCell = cell as! PersonalInfoCell

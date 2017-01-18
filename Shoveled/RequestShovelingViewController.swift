@@ -32,6 +32,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     fileprivate var priceCell: RequestCell?
     fileprivate var whatToChargeCell: RequestCell?
     fileprivate var paymentInfoCell: RequestCell?
+    fileprivate var postalCode: String?
 
     fileprivate var address1: String? {
         get {
@@ -86,27 +87,26 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.address1Cell?.tfAddress?.delegate = self
         self.address1Cell?.tfPrice?.delegate = self
         self.shovelingDescriptionCell?.tfDescription?.delegate = self
         self.moreInfoCell?.tfMoreInfo?.delegate = self
         self.priceCell?.tfPrice?.delegate = self
 
+        self.getLocation()
         self.rebuildTableViewDataAndRefresh()
 
         NotificationCenter.default.addObserver(self, selector: #selector(RequestShovelingViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         self.configureAppearance()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        self.getLocation()
+        
     }
 
     func configureAppearance() {
@@ -134,7 +134,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
     fileprivate func tableViewDataForRequest() -> [[CellIdentifier]] {
         var tableViewData: [[CellIdentifier]] = []
-
         var requestData: [CellIdentifier] = []
 
         requestData.append(.address1Cell)
@@ -183,16 +182,28 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             }
         })
     }
+    
+    func getCoordinatesFromAddress(address: String) -> CLPlacemark? {
+        let geocoder = CLGeocoder()
+        var placemark = CLPlacemark()
+        geocoder.geocodeAddressString(address) { placemarks, error in
+            if let placemarks = placemarks {
+                if placemarks.count != 0 {
+                    placemark = placemarks[0]
+                }
+            }
+        }
+        return placemark
+    }
 
     func displayLocationInfo(_ placemark: CLPlacemark?) {
         if let containsPlacemark = placemark {
-            //stop updating location to save battery life
             locationManager.stopUpdatingLocation()
-            let thoroughfare: String! = (containsPlacemark.thoroughfare != nil) ? containsPlacemark.thoroughfare : ""
-            let subthoroughfare: String! = (containsPlacemark.subThoroughfare != nil) ? containsPlacemark.subThoroughfare : ""
-            let locality: String! = (containsPlacemark.locality != nil) ? containsPlacemark.locality : ""
-            let postalCode: String! = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
-            let administrativeArea: String! = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
+            let thoroughfare: String? = (containsPlacemark.thoroughfare != nil) ? containsPlacemark.thoroughfare : ""
+            let subthoroughfare: String? = (containsPlacemark.subThoroughfare != nil) ? containsPlacemark.subThoroughfare : ""
+            let locality: String? = (containsPlacemark.locality != nil) ? containsPlacemark.locality : ""
+            self.postalCode = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
+            let administrativeArea: String? = (containsPlacemark.administrativeArea != nil) ? containsPlacemark.administrativeArea : ""
             let address = "\(subthoroughfare!) \(thoroughfare!), \(locality!), \(administrativeArea!) \(postalCode!)"
             self.address1 = address
         }
@@ -255,7 +266,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             self.dismiss(animated: true, completion: nil)
             self.removeFromParentViewController()
         case .userCancellation:
-            return // do nothing
+            return
         }
     }
 
@@ -366,7 +377,9 @@ extension RequestShovelingViewController: UITableViewDataSource {
     }
 }
 
+// MARK: TableView delegate
 extension RequestShovelingViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let cellIdentifier = self.identifier(at: indexPath) else {
             return 44.0
@@ -381,6 +394,7 @@ extension RequestShovelingViewController: UITableViewDelegate {
     }
 }
 
+// MARK: Keyboard delegate
 extension RequestShovelingViewController {
 
     func keyboardWillShow(notification: NSNotification) {
@@ -393,9 +407,26 @@ extension RequestShovelingViewController {
     }
 }
 
+// MARK: Email delegate
 extension RequestShovelingViewController {
 
     fileprivate func sendConfirmationEmail(email: String, subject: String, text: String) {
         EmailService.sharedInstance.sendEmailTo(email: email, toName: "", subject: subject, text: text)
     }
 }
+
+// MARK: TextField delegate
+extension RequestShovelingViewController {
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == self.address1Cell?.tfAddress {
+            if let address = self.address1Cell?.tfAddress {
+                if let addressText = address.text {
+                    let placemark = self.getCoordinatesFromAddress(address: addressText)
+                    print(placemark?.addressDictionary as Any)
+                }
+            }
+        }
+    }
+}
+
