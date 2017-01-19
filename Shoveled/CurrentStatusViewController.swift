@@ -300,8 +300,9 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let currentUser = FIRAuth.auth()?.currentUser
         let shovel = view.annotation as! ShovelAnnotation
-        let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "RequestDetailsViewController") as? RequestDetailsViewController
-        if let requestVC = requestDetailsView {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "RequestDetailsViewController") as? RequestDetailsViewController
+        let nav: UINavigationController = UINavigationController(rootViewController: vc!)
+        if let requestVC = vc {
             requestVC.addressString = shovel.title
             requestVC.descriptionString = shovel.details
             requestVC.longitude = shovel.longitude
@@ -320,8 +321,8 @@ extension CurrentStatusViewController: MKMapViewDelegate {
 //            } else {
 //                requestVC.titleString = "Accept Your Mission"
 //            }
-
-            self.present(requestVC, animated: true, completion: nil)
+            
+            self.present(nav, animated: true, completion: nil)
         }
     }
 }

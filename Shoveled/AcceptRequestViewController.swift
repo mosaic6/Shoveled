@@ -16,12 +16,6 @@ protocol CompletedRequestDelegate {
 
 class AcceptRequestViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
-    enum RequestStatus: String {
-        case active = "Active"
-        case accepted = "Accepted"
-        case completed = "Completed"
-    }
-
     // MARK: Variables
 
     var closeModalBtn: UIButton?

@@ -16,6 +16,7 @@ class RequestDetailCell: UITableViewCell {
     @IBOutlet weak var priceLabel: UILabel?
     @IBOutlet weak var acceptButton: UIButton?
     @IBOutlet weak var completeButton: UIButton?
+    @IBOutlet weak var cancelButton: UIButton?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
