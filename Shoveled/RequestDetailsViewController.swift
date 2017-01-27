@@ -20,6 +20,7 @@ class RequestDetailsViewController: UITableViewController {
         case acceptedCell = "acceptedCell"
         case completeCell = "completeCell"
         case cancelCell = "cancelCell"
+        case shovelerSignUpCell = "shovelerSignUpCell"
     }
     
     fileprivate enum RequestStatus: String {
@@ -37,6 +38,7 @@ class RequestDetailsViewController: UITableViewController {
     fileprivate var acceptedCell: RequestDetailCell?
     fileprivate var completeCell: RequestDetailCell?
     fileprivate var cancelCell: RequestDetailCell?
+    fileprivate var shovelerSignUpCell: RequestDetailCell?
     
     var addressString: String?    
     var descriptionString: String?
@@ -52,13 +54,20 @@ class RequestDetailsViewController: UITableViewController {
     var acceptedByUser: String?
     var stripeChargeToken: String?
     var newPriceString: String?
+    var isShoveler: Bool = false
+    fileprivate var stripeId: String?
+    
     
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.navigationController?.navigationBar.isHidden = false
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)        
         self.rebuildTableViewDataAndRefresh()
     }
 
@@ -87,6 +96,12 @@ class RequestDetailsViewController: UITableViewController {
         
         if currentUserEmail == self.addedByUser {
             requestData.append(.cancelCell)
+            tableViewData.append(requestData)
+            return tableViewData
+        }
+        
+        if !self.isShoveler && currentUserEmail != self.addedByUser && self.status != RequestStatus.accepted.rawValue {
+            requestData.append(.shovelerSignUpCell)
             tableViewData.append(requestData)
             return tableViewData
         }
@@ -185,12 +200,16 @@ class RequestDetailsViewController: UITableViewController {
             self.acceptedCell = acceptedCell
         case .completeCell:
             let completeCell = cell as! RequestDetailCell
-//            completeCell.completeButton?.addTarget(self, action: #selector(RequestDetailsViewController.completeRequest), for: .touchUpInside)
+            completeCell.completeButton?.addTarget(self, action: #selector(RequestDetailsViewController.showCompleteRequest), for: .touchUpInside)
             self.completeCell = completeCell
         case .cancelCell:
             let cancelCell = cell as! RequestDetailCell
             cancelCell.cancelButton?.addTarget(self, action: #selector(RequestDetailsViewController.deleteRequest), for: .touchUpInside)
             self.cancelCell = cancelCell
+        case .shovelerSignUpCell:
+            let shovelerSignUpCell = cell as! RequestDetailCell
+            shovelerSignUpCell.shovelerSignUpButton?.addTarget(self, action: #selector(RequestDetailsViewController.openShovelerSignUpViewController), for: .touchUpInside)
+            self.shovelerSignUpCell = shovelerSignUpCell
         }
         return cell
     }
@@ -201,12 +220,45 @@ class RequestDetailsViewController: UITableViewController {
 
    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func showCompleteRequest() {
+        let completeRequestView = self.storyboard?.instantiateViewController(withIdentifier: "CompleteRequestViewController") as? CompleteRequestViewController
+        if let completeRequestVC = completeRequestView {
+            completeRequestVC.addressString = self.addressString
+            completeRequestVC.addedByUser = self.addedByUser
+            completeRequestVC.createdAt = self.createdAt
+            completeRequestVC.descriptionString = self.descriptionString
+            completeRequestVC.id = self.id
+            completeRequestVC.longitude = self.longitude
+            completeRequestVC.latitude = self.latitude
+            completeRequestVC.priceString = self.priceString
+            completeRequestVC.stripeChargeToken = self.stripeChargeToken
+            self.navigationController?.pushViewController(completeRequestVC, animated: true)
+        } else {
+            return
+        }
     }
 
+}
+
+// MARK: Shoveler Delegate
+
+extension RequestDetailsViewController {
+    
+    fileprivate func isUserShoveler() {
+        shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
+            if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
+                self.stripeId = stripeId
+            }
+        })
+    }
+    
+    func openShovelerSignUpViewController() {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "SettingsTableViewController") as? SettingsTableViewController
+        let nav: UINavigationController = UINavigationController(rootViewController: vc!)
+        self.present(nav, animated: true, completion: nil)
+    }
 }
 
 // MARK: Shovel Request Delegate
@@ -262,6 +314,9 @@ extension RequestDetailsViewController {
             let childUpdates = ["/\(requestId)": request]
             self.ref.updateChildValues(childUpdates)
             actInd.stopAnimating()
+            
+            
+            self.showCompleteRequest()
             
             if let addedByUser = self.addedByUser {
                 if let token = self.stripeChargeToken {

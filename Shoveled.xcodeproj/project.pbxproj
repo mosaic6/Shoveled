@@ -10,7 +10,6 @@
 		4D8BC9F67B65190F1EF029F8 /* Pods_Shoveled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */; };
 		610E58431CD04DEF000AE0FA /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E58421CD04DEF000AE0FA /* LoginTest.swift */; };
 		6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115A52E1D89D601001FC3B6 /* StripeManager.swift */; };
-		6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */; };
 		6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6125EA6C1D37300E006ED343 /* StripeAPI.swift */; };
 		612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612AB8591C32E38400779CC9 /* Extensions.swift */; };
 		612AB85C1C32E38B00779CC9 /* MenuItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 612AB85B1C32E38B00779CC9 /* MenuItems.plist */; };
@@ -60,6 +59,8 @@
 		61AFC9AE1E21E239001CBBC6 /* BankAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */; };
 		61C4674B1DF8DAB100301D24 /* ShovelerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */; };
 		61C4674E1DFAEADF00301D24 /* CardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C4674D1DFAEADF00301D24 /* CardUtils.swift */; };
+		61C841F91E382286005F322F /* CompleteRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C841F81E382286005F322F /* CompleteRequestViewController.swift */; };
+		61C841FB1E383094005F322F /* CompleteRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C841FA1E383094005F322F /* CompleteRequestCell.swift */; };
 		61D22A861DA4A3E900D6AE0F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D22A851DA4A3E900D6AE0F /* DataManager.swift */; };
 		61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E46A921DE2970D0049A2A2 /* EmailManager.swift */; };
 		61EBB9E61DDE9F7900841A3F /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */; };
@@ -99,7 +100,6 @@
 		610838301D21FCE100816EEB /* Shoveled-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shoveled-Bridging-Header.h"; sourceTree = "<group>"; };
 		610E58421CD04DEF000AE0FA /* LoginTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
 		6115A52E1D89D601001FC3B6 /* StripeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeManager.swift; sourceTree = "<group>"; };
-		6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewController.swift; sourceTree = "<group>"; };
 		6125EA6C1D37300E006ED343 /* StripeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeAPI.swift; sourceTree = "<group>"; };
 		612AB8591C32E38400779CC9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		612AB85B1C32E38B00779CC9 /* MenuItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MenuItems.plist; sourceTree = "<group>"; };
@@ -149,6 +149,8 @@
 		61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountCell.swift; sourceTree = "<group>"; };
 		61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelerAnnotationView.swift; sourceTree = "<group>"; };
 		61C4674D1DFAEADF00301D24 /* CardUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardUtils.swift; sourceTree = "<group>"; };
+		61C841F81E382286005F322F /* CompleteRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestViewController.swift; sourceTree = "<group>"; };
+		61C841FA1E383094005F322F /* CompleteRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestCell.swift; sourceTree = "<group>"; };
 		61D22A851DA4A3E900D6AE0F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		61E46A921DE2970D0049A2A2 /* EmailManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
 		61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				61F067F91E2F05DD009283F9 /* RequestDetailCell.swift */,
 				613FCB731DED174000ED991B /* SettingsCell.swift */,
 				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
+				61C841FA1E383094005F322F /* CompleteRequestCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -398,7 +401,6 @@
 		61ED024E1BAE4691006B22B7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */,
 				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
 				61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */,
 				6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */,
@@ -408,6 +410,7 @@
 				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
 				613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */,
 				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
+				61C841F81E382286005F322F /* CompleteRequestViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -830,7 +833,6 @@
 				61ED02251BAE43F3006B22B7 /* Shoveled.xcdatamodeld in Sources */,
 				613FCB761DEE58F700ED991B /* PersonalInformationViewController.swift in Sources */,
 				6165CAD81DA7349C00375D29 /* HowItWorksViewController.swift in Sources */,
-				6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */,
 				612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */,
 				618595B71D1CC38C004EB4D4 /* User.swift in Sources */,
 				61C4674E1DFAEADF00301D24 /* CardUtils.swift in Sources */,
@@ -839,6 +841,7 @@
 				617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */,
 				6181B7F71E034EEA00AB1C33 /* ExtensionHelpers.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
+				61C841FB1E383094005F322F /* CompleteRequestCell.swift in Sources */,
 				61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */,
 				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
 				61C4674B1DF8DAB100301D24 /* ShovelerAnnotationView.swift in Sources */,
@@ -856,6 +859,7 @@
 				61A354951BCF399A0071B5BE /* CurrentWeather.swift in Sources */,
 				61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */,
 				61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */,
+				61C841F91E382286005F322F /* CompleteRequestViewController.swift in Sources */,
 				617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */,
 				614F28C11DFC4726005D9968 /* SessionManager.swift in Sources */,
 				617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */,

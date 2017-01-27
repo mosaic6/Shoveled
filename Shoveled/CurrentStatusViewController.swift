@@ -52,6 +52,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var ref: FIRDatabaseReference?
     fileprivate var postalCode: String?
     fileprivate var numOfShovelers = 0
+    var isUserShoveler = false
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -68,7 +69,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
-        self.getShovelRequests()
         self.checkLocationServices()
 
         NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
@@ -83,8 +83,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getShovelRequests()
+        self.areShovelersAvailable()
         self.isUserAShoveler()
+        self.getShovelRequests()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -298,7 +299,6 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let currentUser = FIRAuth.auth()?.currentUser
         let shovel = view.annotation as! ShovelAnnotation
         let vc = storyboard?.instantiateViewController(withIdentifier: "RequestDetailsViewController") as? RequestDetailsViewController
         let nav: UINavigationController = UINavigationController(rootViewController: vc!)
@@ -315,13 +315,8 @@ extension CurrentStatusViewController: MKMapViewDelegate {
             requestVC.createdAt = shovel.createdAt
             requestVC.acceptedByUser = shovel.acceptedByUser
             requestVC.stripeChargeToken = shovel.stripeChargeToken
+            requestVC.isShoveler = self.isUserShoveler
 
-//            if let user = currentUser?.email, shovel.addedByUser == user {
-//                 requestVC.titleString = "My Request"
-//            } else {
-//                requestVC.titleString = "Accept Your Mission"
-//            }
-            
             self.present(nav, animated: true, completion: nil)
         }
     }
@@ -336,8 +331,10 @@ extension CurrentStatusViewController {
                 let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
                 if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
                     self.shovelerImageView?.isHidden = false
+                    self.isUserShoveler = true
                 } else {
                     self.shovelerImageView?.isHidden = true
+                    self.isUserShoveler = false
                 }
             }) { error in
                 print(error.localizedDescription)
@@ -372,6 +369,8 @@ extension CurrentStatusViewController {
                             default: break
                             }
                         }
+                    } else {
+                        self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
                     }
                 }
             }

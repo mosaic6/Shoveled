@@ -379,13 +379,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JA9-jE-vta">
-                                                    <rect key="frame" x="8" y="11" width="54" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="65.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address line 1, City, State Postal Code " textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rDc-gc-0T5">
-                                                    <rect key="frame" x="83" y="8" width="284" height="27"/>
+                                                    <rect key="frame" x="94.5" y="8" width="272.5" height="27"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -447,13 +447,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MORE INFO (OPTIONAL)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C4k-ks-38a">
-                                                    <rect key="frame" x="8" y="11" width="127" height="22"/>
+                                                    <rect key="frame" x="8" y="11" width="157.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Clean off car" textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="EcN-nY-e5H">
-                                                    <rect key="frame" x="143" y="8" width="224" height="27"/>
+                                                    <rect key="frame" x="173.5" y="8" width="193.5" height="27"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -481,13 +481,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET YOUR PRICE $$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGd-Fa-xah">
-                                                    <rect key="frame" x="8" y="11" width="109" height="22"/>
+                                                    <rect key="frame" x="8" y="11" width="133.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="25" textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5iw-zq-fEt">
-                                                    <rect key="frame" x="125" y="8" width="242" height="27"/>
+                                                    <rect key="frame" x="149.5" y="8" width="217.5" height="27"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -522,7 +522,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 🚗 length = $10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNt-lb-U1s">
-                                                    <rect key="frame" x="264" y="11" width="104" height="21"/>
+                                                    <rect key="frame" x="232" y="11" width="136" height="21"/>
                                                     <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -546,11 +546,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tUr-rd-FeJ">
-                                                    <rect key="frame" x="8" y="25" width="359" height="39"/>
+                                                    <rect key="frame" x="8" y="23.5" width="359" height="40.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAYMENT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7T-bv-Wgz">
-                                                    <rect key="frame" x="8" y="8" width="53" height="18"/>
+                                                    <rect key="frame" x="8" y="8" width="64.5" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -856,13 +856,13 @@
         <scene sceneID="qJQ-Qm-kW5">
             <objects>
                 <tableViewController storyboardIdentifier="RequestDetailsViewController" title="REQUEST DETAILS" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Exj-MH-Dzh" customClass="RequestDetailsViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="CLb-qk-bC2">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="CLb-qk-bC2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="addressCell" rowHeight="55" id="lgS-Jc-sqP" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lgS-Jc-sqP" id="Hrg-Ao-fSn">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
@@ -894,7 +894,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="descriptionCell" rowHeight="55" id="zCr-vk-iRl" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="110.5" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="83" width="375" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zCr-vk-iRl" id="7sA-QP-Sof">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
@@ -926,13 +926,13 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="moreInfoCell" rowHeight="55" id="unL-XM-Xap" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="165.5" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="138" width="375" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="unL-XM-Xap" id="vvq-yX-Des">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="THERE DOESN'T APPEAR TO BE MORE INFORMATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7JA-oj-Pt0">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="THERE DOESN'T APPEAR TO BE MORE INFORMATION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.45000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="7JA-oj-Pt0">
                                             <rect key="frame" x="8" y="33" width="42" height="21"/>
                                             <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -958,7 +958,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="priceCell" rowHeight="55" id="JWT-MV-Vwb" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="220.5" width="375" height="55"/>
+                                <rect key="frame" x="0.0" y="193" width="375" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JWT-MV-Vwb" id="bD1-Nh-YmJ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
@@ -990,7 +990,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="acceptCell" id="bG2-eO-WIH" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="275.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="248" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bG2-eO-WIH" id="4zp-7h-Kuj">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1018,7 +1018,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="completeCell" id="mZI-rS-jIg" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="319.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="292" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mZI-rS-jIg" id="0oY-RN-l8H">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1046,7 +1046,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cancelCell" id="giC-GW-ZXX" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="363.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="336" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="giC-GW-ZXX" id="ZLi-pH-6Kz">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1074,7 +1074,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="acceptedCell" id="MRM-zt-GGj" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="407.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="380" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MRM-zt-GGj" id="W86-Ns-xDx">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -1097,6 +1097,34 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="shovelerSignUpCell" id="Kz6-4O-1kX" customClass="RequestDetailCell" customModule="Shoveled" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="424" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kz6-4O-1kX" id="C7O-5L-YfE">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6V-NJ-6eq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="24"/>
+                                            <state key="normal" title="SIGN UP AS A SHOVELER">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="a6V-NJ-6eq" secondAttribute="trailing" id="4ei-IU-4hA"/>
+                                        <constraint firstItem="a6V-NJ-6eq" firstAttribute="leading" secondItem="C7O-5L-YfE" secondAttribute="leading" id="8lW-7x-iu2"/>
+                                        <constraint firstAttribute="bottom" secondItem="a6V-NJ-6eq" secondAttribute="bottom" id="Fxi-Gb-5WP"/>
+                                        <constraint firstItem="a6V-NJ-6eq" firstAttribute="top" secondItem="C7O-5L-YfE" secondAttribute="top" id="XHb-Bh-Tu4"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="shovelerSignUpButton" destination="a6V-NJ-6eq" id="uJn-ae-cOV"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -1121,6 +1149,132 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Igq-pq-qxd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3248.8000000000002" y="2623.5382308845578"/>
+        </scene>
+        <!--Complete Request View Controller-->
+        <scene sceneID="5sk-6T-Tdt">
+            <objects>
+                <tableViewController storyboardIdentifier="CompleteRequestViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yzf-R3-n8t" customClass="CompleteRequestViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="kYp-S8-oen">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="infoCell" id="cAb-ie-YDx" customClass="CompleteRequestCell" customModule="Shoveled" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cAb-ie-YDx" id="ur7-Fs-A1P">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAKE A PHOTO OF YOUR COMPLETED JOB" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ile-vG-kwl">
+                                            <rect key="frame" x="19" y="11" width="337" height="21"/>
+                                            <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="18"/>
+                                            <color key="textColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ile-vG-kwl" firstAttribute="top" secondItem="ur7-Fs-A1P" secondAttribute="topMargin" constant="3" id="6MQ-P2-N2F"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ile-vG-kwl" secondAttribute="trailing" constant="11" id="IYh-oE-kqJ"/>
+                                        <constraint firstItem="ile-vG-kwl" firstAttribute="leading" secondItem="ur7-Fs-A1P" secondAttribute="leadingMargin" constant="11" id="R43-RS-8qh"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ile-vG-kwl" secondAttribute="bottom" constant="3" id="k19-Pv-jhE"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="infoLabel" destination="ile-vG-kwl" id="Mbi-93-t5V"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="photoViewCell" rowHeight="200" id="SNE-Go-vx0" customClass="CompleteRequestCell" customModule="Shoveled" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="200"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SNE-Go-vx0" id="LbL-ly-yCb">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dCQ-zJ-he6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="199"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="dCQ-zJ-he6" secondAttribute="bottom" constant="-8" id="4TT-PI-Mke"/>
+                                        <constraint firstItem="dCQ-zJ-he6" firstAttribute="top" secondItem="LbL-ly-yCb" secondAttribute="topMargin" constant="-8" id="BIn-qD-B02"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dCQ-zJ-he6" secondAttribute="trailing" constant="-8" id="OtH-6N-7MN"/>
+                                        <constraint firstItem="dCQ-zJ-he6" firstAttribute="leading" secondItem="LbL-ly-yCb" secondAttribute="leadingMargin" constant="-8" id="dhV-B1-qsP"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="completedJobImageView" destination="dCQ-zJ-he6" id="2ql-Rg-5Ia"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="takePhotoCell" id="gsD-tX-PfL" customClass="CompleteRequestCell" customModule="Shoveled" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="272" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gsD-tX-PfL" id="Coo-xH-aYy">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Je6-3H-E7m">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="24"/>
+                                            <state key="normal" title="TAKE PHOTO">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Je6-3H-E7m" firstAttribute="top" secondItem="Coo-xH-aYy" secondAttribute="topMargin" constant="-8" id="MMI-gO-CjP"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Je6-3H-E7m" secondAttribute="trailing" constant="-8" id="gA7-dp-R2v"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Je6-3H-E7m" secondAttribute="bottom" constant="-8" id="nWZ-hw-Ezb"/>
+                                        <constraint firstItem="Je6-3H-E7m" firstAttribute="leading" secondItem="Coo-xH-aYy" secondAttribute="leadingMargin" constant="-8" id="qr8-wq-9wa"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="takePhotoButton" destination="Je6-3H-E7m" id="CWs-NW-jQe"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sendJobCell" id="5uH-2w-CeK" customClass="CompleteRequestCell" customModule="Shoveled" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="316" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5uH-2w-CeK" id="e4h-eG-lSs">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wq1-hh-I3A">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <color key="backgroundColor" red="0.79607844350000001" green="0.1098039225" blue="0.40784314269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="24"/>
+                                            <state key="normal" title="SEND COMPLETED JOB">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="wq1-hh-I3A" firstAttribute="leading" secondItem="e4h-eG-lSs" secondAttribute="leadingMargin" constant="-8" id="Agn-87-7Hl"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="wq1-hh-I3A" secondAttribute="bottom" constant="-8" id="BYs-F1-Ape"/>
+                                        <constraint firstItem="wq1-hh-I3A" firstAttribute="top" secondItem="e4h-eG-lSs" secondAttribute="topMargin" constant="-8" id="DrC-Gi-XcD"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="wq1-hh-I3A" secondAttribute="trailing" constant="-8" id="ct1-Lg-ebU"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <connections>
+                                    <outlet property="sendCompletedJobButton" destination="wq1-hh-I3A" id="3Th-m0-qgc"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Yzf-R3-n8t" id="lem-KE-6CM"/>
+                            <outlet property="delegate" destination="Yzf-R3-n8t" id="v40-I7-m2D"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RKs-nI-gdq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4085.5999999999999" y="2631.6341829085459"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="5mg-xD-AOq">
@@ -1280,7 +1434,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jM-Cp-mrq" userLabel="Login" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="16" y="311" width="343" height="44"/>
+                                <rect key="frame" x="16" y="311" width="343" height="42"/>
                                 <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="kQ2-QK-Z4K"/>
@@ -1450,13 +1604,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What happens when I send a shovel request?" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BJs-qV-nr2">
-                                <rect key="frame" x="16" y="107" width="343" height="22"/>
+                                <rect key="frame" x="16" y="107" width="343" height="40"/>
                                 <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Once your request is out in the wild, one of our shovelers will accept your request, and you'll be notified." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QOz-zJ-a3c">
-                                <rect key="frame" x="16" y="137" width="343" height="64"/>
+                                <rect key="frame" x="16" y="155" width="343" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="ajr-7U-YPw"/>
                                 </constraints>
@@ -1465,13 +1619,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When will my request be completed?" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="weH-ta-nzz">
-                                <rect key="frame" x="16" y="209" width="343" height="22"/>
+                                <rect key="frame" x="16" y="227" width="343" height="20"/>
                                 <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mm1-hW-yVj">
-                                <rect key="frame" x="16" y="239" width="343" height="99"/>
+                                <rect key="frame" x="16" y="255" width="343" height="99"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="99" id="lpQ-VY-M65"/>
                                 </constraints>
@@ -1978,7 +2132,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bkD-nG-HQT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRc-yD-JAX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dRc-yD-JAX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2050,7 +2204,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L07-nq-jTk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qHg-b1-ecd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qHg-b1-ecd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2068,7 +2222,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SettingsNavViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xuk-LU-7Ee" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dwh-0L-Re5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dwh-0L-Re5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2086,7 +2240,7 @@
             <objects>
                 <navigationController title="REQUEST DETAILS" automaticallyAdjustsScrollViewInsets="NO" id="91N-wh-P09" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zkr-EV-B78">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Zkr-EV-B78">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

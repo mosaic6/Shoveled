@@ -1,0 +1,235 @@
+//
+//  CompleteRequestViewController.swift
+//  Shoveled
+//
+//  Created by Joshua Walsh on 1/24/17.
+//  Copyright © 2017 Lucky Penguin. All rights reserved.
+//
+
+import UIKit
+import Firebase
+
+class CompleteRequestViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    fileprivate enum CellIdentifier: String {
+        case infoCell = "infoCell"
+        case photoViewCell = "photoViewCell"
+        case takePhotoCell = "takePhotoCell"
+        case sendJobCell = "sendJobCell"                
+    }
+    
+    fileprivate var tableViewData: [[CellIdentifier]] = []
+    fileprivate var infoCell: CompleteRequestCell?
+    fileprivate var photoViewCell: CompleteRequestCell?
+    fileprivate var takePhotoCell: CompleteRequestCell?
+    fileprivate var sendJobCell: CompleteRequestCell?
+    
+    fileprivate var imagePickerView: UIImagePickerController? = UIImagePickerController()
+    var newPriceString: String?
+    var stripeId: String?
+    var id: String?
+    var addressString: String?
+    var descriptionString: String?
+    var priceString: String?
+    var latitude: NSNumber?
+    var longitude: NSNumber?
+    var addedByUser: String?
+    var createdAt: String?
+    var stripeChargeToken: String?
+    
+    fileprivate var didImagePickerDismiss = false
+    
+    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)        
+        self.rebuildTableViewDataAndRefresh()
+    }
+
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {        
+        return self.tableViewData.count
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.tableViewData[section].count
+    }
+    
+    fileprivate func rebuildTableViewDataAndRefresh() {
+        let tableViewData: [[CellIdentifier]]
+        
+        tableViewData = self.tableViewDataForRequest()
+        
+        self.tableViewData = tableViewData
+        self.tableView?.tableFooterView = UIView()
+        self.tableView?.reloadData()
+    }
+    
+    fileprivate func tableViewDataForRequest() -> [[CellIdentifier]] {
+        var tableViewData: [[CellIdentifier]] = []
+        var requestData: [CellIdentifier] = []
+        
+        requestData.append(.infoCell)
+        requestData.append(.photoViewCell)
+        requestData.append(.takePhotoCell)
+        
+        if self.didImagePickerDismiss {
+            requestData.append(.sendJobCell)
+        }
+    
+        tableViewData.append(requestData)
+        
+        return tableViewData
+    }
+
+    fileprivate func indexPathForCellIdentifier(_ identifier: CellIdentifier) -> IndexPath? {
+        for (sectionIndex, sectionData) in self.tableViewData.enumerated() {
+            for (rowIndex, cellIdentifier) in sectionData.enumerated() {
+                if cellIdentifier == identifier {
+                    return IndexPath(row: rowIndex, section: sectionIndex)
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    fileprivate func identifier(at indexPath: IndexPath) -> CellIdentifier? {
+        return self.tableViewData[indexPath.section][indexPath.row]
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cellIdentifier = self.identifier(at: indexPath) else {
+            return UITableViewCell()
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier.rawValue)!
+        
+        switch cellIdentifier {
+        case .infoCell:
+            let infoCell = cell as! CompleteRequestCell
+            self.infoCell = infoCell
+        case .photoViewCell:
+            let photoViewCell = cell as! CompleteRequestCell
+            self.photoViewCell = photoViewCell
+        case .takePhotoCell:
+            let takePhotoCell = cell as! CompleteRequestCell
+            takePhotoCell.takePhotoButton?.addTarget(self, action: #selector(CompleteRequestViewController.displayCamera), for: .touchUpInside)
+            self.takePhotoCell = takePhotoCell
+        case .sendJobCell:
+            let sendJobCell = cell as! CompleteRequestCell
+            sendJobCell.sendCompletedJobButton?.addTarget(self, action: #selector(CompleteRequestViewController.sendCompletedJob), for: .touchUpInside)
+            self.sendJobCell = sendJobCell
+        }
+
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let cellIdentifier = self.identifier(at: indexPath) else {
+            return 0
+        }
+        
+        switch cellIdentifier {
+        case .infoCell, .takePhotoCell:
+            return 44.0
+        case .sendJobCell:
+            return 55.0
+        case .photoViewCell:
+            return 200.0
+        }
+    }
+    
+    func displayCamera() {
+        guard let imagePickerView = self.imagePickerView else { return }
+        imagePickerView.delegate = self
+        #if(arch(i386) || arch(x86_64)) && os(iOS)
+            imagePickerView.sourceType = .photoLibrary
+        #else
+            imagePickerView.sourceType = .camera
+        #endif
+        present(imagePickerView, animated: true, completion: nil)
+    }
+    
+    func sendCompletedJob() {
+        
+        guard let requestId = id,
+            let address = addressString,
+            let description = descriptionString
+            else { return }
+        let price: Int? = Int(priceString!)
+        
+        let request: [String: AnyObject] = ["status": "Completed" as AnyObject,
+                                            "address": address as AnyObject,
+                                            "longitude": self.longitude!,
+                                            "latitude": self.latitude!,
+                                            "details": description as AnyObject,
+                                            "addedByUser": self.addedByUser! as AnyObject,
+                                            "otherInfo": "" as AnyObject,
+                                            "price": price! as AnyObject,
+                                            "id": self.id! as AnyObject,
+                                            "createdAt": self.createdAt! as AnyObject,
+                                            "acceptedByUser": currentUserEmail as AnyObject,
+                                            "stripeChargeToken": self.stripeChargeToken as AnyObject]
+        
+        let childUpdates = ["/\(requestId)": request]
+        self.ref.updateChildValues(childUpdates) { (error, ref) in
+            if error != nil {
+                return
+            } else {
+                let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
+                let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+                    self.dismiss(animated: true, completion: nil)
+                }
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: { _ in })
+                if let addedByUser = self.addedByUser {
+                    if let token = self.stripeChargeToken {
+                        EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "<html><div>Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.</div></html>")
+                    }
+                }
+            }
+        }
+        
+        if let newPriceString = self.newPriceString {
+            let priceRawValue = newPriceString.floatValue
+            let amount = priceRawValue * 100
+            let intAmount: Int = Int(amount)
+            let stringAmount: String = String(intAmount)
+            if let stripeId = self.stripeId {
+                StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId)
+            }
+        }
+        
+        guard let imageView = self.photoViewCell?.imageView?.image else { return }
+        
+        let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
+        if let uploadData = UIImagePNGRepresentation(imageView) {
+            storage.put(uploadData, metadata: nil) { (metaData, error) in
+                if error != nil {
+                    return
+                }
+            }
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        self.imagePickerView?.dismiss(animated: true)
+        if info.isEmpty {
+            print("There was an error loading your image")
+        } else {
+            guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+            guard let imageView = photoViewCell?.completedJobImageView else { return }
+            imageView.contentMode = UIViewContentMode.scaleAspectFill
+            imageView.image = image
+            
+            self.didImagePickerDismiss = true
+        }
+    }
+}
