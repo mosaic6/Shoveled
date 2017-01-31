@@ -37,6 +37,7 @@
 		616620EF1E0C5421006D88C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 616620EE1E0C5421006D88C9 /* GoogleService-Info.plist */; };
 		616620F11E0C543C006D88C9 /* DEVGoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 616620F01E0C543C006D88C9 /* DEVGoogleService-Info.plist */; };
 		616620F51E0CCFBB006D88C9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616620F41E0CCFBB006D88C9 /* Config.swift */; };
+		61687E971E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */; };
 		616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 616A5F561C728B0500A81AE5 /* Localizable.strings */; };
 		617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617031381C7D53B100297A25 /* ShovelAnnotationView.swift */; };
 		617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFC81BE306E000E61546 /* WelcomeView.swift */; };
@@ -127,6 +128,7 @@
 		616620EE1E0C5421006D88C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		616620F01E0C543C006D88C9 /* DEVGoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DEVGoogleService-Info.plist"; sourceTree = "<group>"; };
 		616620F41E0CCFBB006D88C9 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelerInfoHeaderCell.swift; sourceTree = "<group>"; };
 		616A5F561C728B0500A81AE5 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		617031381C7D53B100297A25 /* ShovelAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelAnnotationView.swift; sourceTree = "<group>"; };
 		617ECFC81BE306E000E61546 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 				613FCB731DED174000ED991B /* SettingsCell.swift */,
 				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
 				61C841FA1E383094005F322F /* CompleteRequestCell.swift */,
+				61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -846,6 +849,7 @@
 				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
 				61C4674B1DF8DAB100301D24 /* ShovelerAnnotationView.swift in Sources */,
 				613FCB741DED174000ED991B /* SettingsCell.swift in Sources */,
+				61687E971E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift in Sources */,
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,

@@ -25,6 +25,8 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     fileprivate var sendJobCell: CompleteRequestCell?
     
     fileprivate var imagePickerView: UIImagePickerController? = UIImagePickerController()
+    fileprivate var didImagePickerDismiss = false
+    fileprivate var imageView: UIImageView?
     var newPriceString: String?
     var stripeId: String?
     var id: String?
@@ -37,18 +39,30 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     var createdAt: String?
     var stripeChargeToken: String?
     
-    fileprivate var didImagePickerDismiss = false
     
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.getUserStripeId()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)        
+        super.viewWillAppear(animated)
+        self.title = "COMPLETE REQUEST"
         self.rebuildTableViewDataAndRefresh()
+    }
+    
+    func getUserStripeId() {
+        shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+            let value = snapshot.value as? NSDictionary
+            let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
+            if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
+                self.stripeId = stripeId
+            }
+        })
     }
 
     // MARK: - Table view data source
@@ -152,13 +166,12 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         #if(arch(i386) || arch(x86_64)) && os(iOS)
             imagePickerView.sourceType = .photoLibrary
         #else
-            imagePickerView.sourceType = .camera
+            imagePickerView.sourceType = [.camera, .photoLibary]
         #endif
         present(imagePickerView, animated: true, completion: nil)
     }
     
     func sendCompletedJob() {
-        
         guard let requestId = id,
             let address = addressString,
             let description = descriptionString
@@ -185,32 +198,25 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             } else {
                 let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
                 let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+                    self.sendCompletedJob()
+                    self.transferFunds()
+                    self.sendCompletedImage(requestId: requestId)
                     self.dismiss(animated: true, completion: nil)
                 }
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: { _ in })
                 if let addedByUser = self.addedByUser {
                     if let token = self.stripeChargeToken {
-                        EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "<html><div>Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.</div></html>")
+                        EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "<html><div>Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.<br/></div></html>")
                     }
                 }
             }
         }
-        
-        if let newPriceString = self.newPriceString {
-            let priceRawValue = newPriceString.floatValue
-            let amount = priceRawValue * 100
-            let intAmount: Int = Int(amount)
-            let stringAmount: String = String(intAmount)
-            if let stripeId = self.stripeId {
-                StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId)
-            }
-        }
-        
-        guard let imageView = self.photoViewCell?.imageView?.image else { return }
-        
+    }
+    
+    func sendCompletedImage(requestId: String) {
         let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
-        if let uploadData = UIImagePNGRepresentation(imageView) {
+        if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
             storage.put(uploadData, metadata: nil) { (metaData, error) in
                 if error != nil {
                     return
@@ -219,15 +225,30 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         }
     }
     
+    func transferFunds() {
+        if let newPriceString = self.priceString {
+            let convertedPrice: Float = Float(newPriceString)! * 100
+            let percentageChange: Float = Float(convertedPrice) * 0.10
+            let updatedPrice: Int = Int(convertedPrice - percentageChange) / 100
+            let stringAmount: String = String(updatedPrice)
+
+            if let stripeId = self.stripeId {
+                StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId)
+            }
+        }
+    }
+    
+    
+    // MARK: Image Picker Delegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         self.imagePickerView?.dismiss(animated: true)
         if info.isEmpty {
             print("There was an error loading your image")
         } else {
             guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-            guard let imageView = photoViewCell?.completedJobImageView else { return }
-            imageView.contentMode = UIViewContentMode.scaleAspectFill
-            imageView.image = image
+            self.imageView = photoViewCell?.completedJobImageView
+            self.imageView?.contentMode = UIViewContentMode.scaleAspectFill
+            self.imageView?.image = image
             
             self.didImagePickerDismiss = true
         }

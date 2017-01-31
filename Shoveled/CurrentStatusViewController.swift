@@ -71,7 +71,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.configureView()
         self.checkLocationServices()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
     }
 

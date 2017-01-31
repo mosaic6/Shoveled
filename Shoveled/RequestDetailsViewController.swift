@@ -63,12 +63,17 @@ class RequestDetailsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)        
+        super.viewWillAppear(animated)
+        self.title = "REQUEST DETAILS"
         self.rebuildTableViewDataAndRefresh()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.title = ""
     }
 
     @IBAction func dismissView(_ sender: Any) {
