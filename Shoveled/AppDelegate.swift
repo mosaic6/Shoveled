@@ -47,7 +47,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Stripe.setDefaultPublishableKey(config.environment.stripeKey)
 
-
         return true
     }
 
