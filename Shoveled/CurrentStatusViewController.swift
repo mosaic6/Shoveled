@@ -78,14 +78,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.getUserInfo()
-        self.areShovelersAvailable()
+        self.getShovelRequests()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.areShovelersAvailable()
         self.isUserAShoveler()
-        self.getShovelRequests()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -354,23 +353,22 @@ extension CurrentStatusViewController {
                 guard let user = users as? NSDictionary else { return }
                 for data in user  {
                     let shovelers = data.value
-                    guard let data = shovelers as? NSDictionary else { return }
-                    if let shoveler = data["shoveler"] as? NSDictionary {
-                        if let postalCode = shoveler["postalCode"] as? String, postalCode == self.postalCode {
-                            self.numOfShovelers += 1
-                            let shovelerCount = "\(self.numOfShovelers)"
-                            switch self.numOfShovelers {
-                            case 0:
-                                self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
-                            case 1:
-                                self.numOfShovelersLabel?.setTitle("\(shovelerCount) shoveler in area", for: .normal)
-                            case 2...100000:
-                                self.numOfShovelersLabel?.setTitle("\(shovelerCount) shovelers in area", for: .normal)
-                            default: break
+                    if let data = shovelers as? NSDictionary {
+                        if let shoveler = data["shoveler"] as? NSDictionary {
+                            if let postalCode = shoveler["postalCode"] as? String, postalCode == self.postalCode {
+                                self.numOfShovelers += 1
+                                let shovelerCount = "\(self.numOfShovelers)"
+                                switch self.numOfShovelers {
+                                case 0:
+                                    self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
+                                case 1:
+                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) shoveler in area", for: .normal)
+                                case 2...100000:
+                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) shovelers in area", for: .normal)
+                                default: break
+                                }
                             }
                         }
-                    } else {
-                        self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
                     }
                 }
             }

@@ -166,7 +166,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         #if(arch(i386) || arch(x86_64)) && os(iOS)
             imagePickerView.sourceType = .photoLibrary
         #else
-            imagePickerView.sourceType = [.camera, .photoLibary]
+            imagePickerView.sourceType = .camera
         #endif
         present(imagePickerView, animated: true, completion: nil)
     }
