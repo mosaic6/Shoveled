@@ -23,7 +23,7 @@ class SignUpViewController: UIViewController {
 
     var currentStatusVC = CurrentStatusViewController()
     var ref: FIRDatabaseReference!
-    var alert: UIAlertController!
+    var locationDelegate: LocationServicesDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +83,7 @@ class SignUpViewController: UIViewController {
                     let currentVC = CurrentStatusViewController()
                     self.present(currentVC, animated: true, completion: nil)
                     self.hideActivityIndicator(self.view)
+                    self.locationDelegate?.checkLocationServices()
                     NotificationCenter.default.post(name: Notification.Name(rawValue: userLocationNoticationKey), object: self)
                 }
             }

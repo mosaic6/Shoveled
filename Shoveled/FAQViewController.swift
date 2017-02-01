@@ -16,18 +16,12 @@ class FAQViewController: UIViewController {
 
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func dismissView(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.navigationBar.backItem?.title = ""
     }
 
     @IBAction func contactSupport(_ sender: Any) {
-
-        let email = "support@shoveled.com"
+        let email = "support@shoveled.works"
         let url = URL(string: "mailto:\(email)")
         if let url = url {
             UIApplication.shared.openURL(url)

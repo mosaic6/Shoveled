@@ -1,4 +1,4 @@
-//
+
 //  StripeManager.swift
 //  Shoveled
 //
@@ -9,6 +9,20 @@
 import Foundation
 
 class StripeManager {
+
+    //Get Account Balance
+    class func getStripeAccountBalance(completion: @escaping (_ amount: String) -> ()) {
+        StripeAPI.sharedInstance.getStripeAccountBalance { (result, error) in
+            if let result = result {
+                if let available = result.object(forKey: "available") as? NSDictionary {
+                    if let amount = available.object(forKey: "amount") as? String {
+                        completion(amount)
+                    }
+                }
+                print(result)
+            }
+        }
+    }
 
     // Get Customers
     class func getCustomers(_ completion: @escaping (_ customerEmail: String) -> ()) {
@@ -56,10 +70,49 @@ class StripeManager {
         }
     }
 
-    // Send Refund
+    // Create Managed Account
+    class func createManagedAccount(firstName: String,
+                                    lastName: String,
+                                    address1: String,
+                                    city: String,
+                                    state: String,
+                                    zip: String,
+                                    dobDay: String,
+                                    dobMonth: String,
+                                    dobYear: String,
+                                    fullSS: String,
+                                    accountRoutingNumber: String,
+                                    accountAccountNumber: String,
+                                    completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
 
+        StripeAPI.sharedInstance.createManagedAccount(firstName: firstName,
+                                                      lastName: lastName,
+                                                      address1: address1,
+                                                      city: city,
+                                                      state: state,
+                                                      zip: zip,
+                                                      dobDay: dobDay,
+                                                      dobMonth: dobMonth,
+                                                      dobYear: dobYear,
+                                                      fullSS: fullSS,
+                                                      accountRoutingNumber: accountRoutingNumber,
+                                                      accountAccountNumber: accountAccountNumber) { result, error in
+
+            if let result = result {
+                completion(result, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+
+    // Send Refund
     class func sendRefundToCharge(chargeId: String) {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
+    }
+
+    class func transferFundsToAccount(amount: String, destination: String) {
+        StripeAPI.sharedInstance.transferFundsToAccount(amount: amount, destination: destination)
     }
 
     // GET Connected Accounts

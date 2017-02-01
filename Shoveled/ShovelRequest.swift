@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import UIKit
-import CoreData
 
 class ShovelRequest: NSObject {
     var address: String

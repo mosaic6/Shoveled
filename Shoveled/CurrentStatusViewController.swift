@@ -16,6 +16,10 @@ protocol UpdateRequestStatusDelegate {
     func getShovelRequests()
 }
 
+protocol LocationServicesDelegate {
+    func checkLocationServices()
+}
+
 let completedOrCancelledNotification = "com.mosaic6.removePinNotification"
 
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
@@ -30,20 +34,25 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var bottomView: UIView?
     @IBOutlet weak var mapView: MKMapView?
     @IBOutlet weak var refreshMapBtn: UIButton?
-
+    @IBOutlet weak var shovelerImageView: UIImageView?
+    @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     // MARK: Variables
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
-    let locationManager = CLLocationManager()
-    var coordinates: CLLocationCoordinate2D!
-    var theirLocation = CLLocationCoordinate2D()
-    let dateFormatter = DateFormatter()
-    var radius = 200.0
-    var nearArray: [CLLocationCoordinate2D] = []
-    var userLat: Double!
-    var userLong: Double!
-    var requestStatus: String!
-    var updateRequestDelegate: UpdateRequestStatusDelegate?
-    var ref: FIRDatabaseReference?
+    fileprivate let locationManager = CLLocationManager()
+    fileprivate var coordinates: CLLocationCoordinate2D!
+    fileprivate var theirLocation = CLLocationCoordinate2D()
+    fileprivate let dateFormatter = DateFormatter()
+    fileprivate var radius = 200.0
+    fileprivate var nearArray: [CLLocationCoordinate2D] = []
+    fileprivate var userLat: Double!
+    fileprivate var userLong: Double!
+    fileprivate var requestStatus: String!
+    fileprivate var updateRequestDelegate: UpdateRequestStatusDelegate?
+    fileprivate var locationDelegate: LocationServicesDelegate?
+    fileprivate var ref: FIRDatabaseReference?
+    fileprivate var postalCode: String?
+    fileprivate var numOfShovelers = 0
+    var isUserShoveler = false
 
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -53,29 +62,36 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        StripeManager.getStripeAccountBalance { (amount) in
+            print(amount)
+        }
         self.ref = FIRDatabase.database().reference(withPath: "requests")
-
+        self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
-        self.getShovelRequests()
         self.checkLocationServices()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(AcceptRequestViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
         self.getUserInfo()
-
+        self.getShovelRequests()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getShovelRequests()
+        self.areShovelersAvailable()
+        self.isUserAShoveler()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.numOfShovelers = 0
+    }
+    
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             switch(CLLocationManager.authorizationStatus()) {
@@ -110,6 +126,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             locationManager.startUpdatingLocation()
         }
     }
+    
+    func displayLocationInfo(_ placemark: CLPlacemark?) {
+        if let containsPlacemark = placemark {
+            locationManager.stopUpdatingLocation()
+            self.postalCode = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""            
+        }
+    }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         self.coordinates = manager.location?.coordinate
@@ -121,6 +144,19 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.mapView?.showsUserLocation = true
         self.mapView?.isUserInteractionEnabled = true
         self.mapView?.setCenter(coordinates, animated: false)
+        
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error) -> Void in
+            if (error != nil) {
+                return
+            }
+            
+            if placemarks!.count > 0 {
+                let pm = placemarks![0] as CLPlacemark
+                self.displayLocationInfo(pm)
+            } else {
+                print("Problem with the data received from geocoder")
+            }
+        })
 
         self.mapView?.setRegion(region, animated: false)
         defer { retrieveWeatherForecast() }
@@ -153,7 +189,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     // MARK: - Fetch Request
     func getShovelRequests() {
-
         self.removeAnnotations()
 
         self.showActivityIndicatory(self.view)
@@ -220,20 +255,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         return UIStatusBarStyle.lightContent
     }
 
-    // MARK: - Actions
-    @IBAction func showMenu(_ sender: AnyObject) {
-        let logoutAction = UIAlertController(title: "ARE YOU SURE YOU WANT TO LOGOUT?", message: nil, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "LOGOUT", style: .destructive) { action in
-            try! FIRAuth.auth()!.signOut()
-            self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-        logoutAction.addAction(okAction)
-        logoutAction.addAction(cancelAction)
-        self.present(logoutAction, animated: true, completion: nil)
-
-    }
-
     // MARK: - Request shoveling
     @IBAction func requestShoveling(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "showRequest", sender: self)
@@ -277,34 +298,80 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-
-        let currentUser = FIRAuth.auth()?.currentUser
-
         let shovel = view.annotation as! ShovelAnnotation
-
-        let requestDetailsView = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AcceptRequestViewController") as? AcceptRequestViewController
-
-        if let requestVC = requestDetailsView {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "RequestDetailsViewController") as? RequestDetailsViewController
+        let nav: UINavigationController = UINavigationController(rootViewController: vc!)
+        if let requestVC = vc {
             requestVC.addressString = shovel.title
             requestVC.descriptionString = shovel.details
             requestVC.longitude = shovel.longitude
             requestVC.latitude = shovel.latitude
             requestVC.priceString = shovel.price
             requestVC.addedByUser = shovel.addedByUser
-            requestVC.otherInfoString = shovel.otherInfo
+            requestVC.moreInfoString = shovel.otherInfo
             requestVC.status = shovel.status
             requestVC.id = shovel.id
             requestVC.createdAt = shovel.createdAt
             requestVC.acceptedByUser = shovel.acceptedByUser
             requestVC.stripeChargeToken = shovel.stripeChargeToken
+            requestVC.isShoveler = self.isUserShoveler
 
-            if let user = currentUser?.email, shovel.addedByUser == user {
-                 requestVC.titleString = "My Request"
-            } else {
-                requestVC.titleString = "Accept Your Mission"
-            }
-
-            self.present(requestVC, animated: true, completion: nil)
+            self.present(nav, animated: true, completion: nil)
         }
+    }
+}
+
+extension CurrentStatusViewController {
+    
+    fileprivate func isUserAShoveler() {
+        if currentUserUid != "" {
+            shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+                let value = snapshot.value as? NSDictionary
+                let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
+                if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
+                    self.shovelerImageView?.isHidden = false
+                    self.isUserShoveler = true
+                } else {
+                    self.shovelerImageView?.isHidden = true
+                    self.isUserShoveler = false
+                }
+            }) { error in
+                print(error.localizedDescription)
+            }
+        } else {
+            self.getUserInfo()
+        }
+    }
+}
+
+extension CurrentStatusViewController {
+    
+    fileprivate func areShovelersAvailable() {
+        shovelerRef?.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                let users = snapshot.value
+                guard let user = users as? NSDictionary else { return }
+                for data in user  {
+                    let shovelers = data.value
+                    if let data = shovelers as? NSDictionary {
+                        if let shoveler = data["shoveler"] as? NSDictionary {
+                            if let postalCode = shoveler["postalCode"] as? String, postalCode == self.postalCode {
+                                self.numOfShovelers += 1
+                                let shovelerCount = "\(self.numOfShovelers)"
+                                switch self.numOfShovelers {
+                                case 0:
+                                    self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
+                                case 1:
+                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) shoveler in area", for: .normal)
+                                case 2...100000:
+                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) shovelers in area", for: .normal)
+                                default: break
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
     }
 }

@@ -8,18 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		4D8BC9F67B65190F1EF029F8 /* Pods_Shoveled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */; };
-		6108382F1D1D8B2400816EEB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */; };
 		610E58431CD04DEF000AE0FA /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E58421CD04DEF000AE0FA /* LoginTest.swift */; };
 		6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115A52E1D89D601001FC3B6 /* StripeManager.swift */; };
-		6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */; };
 		6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6125EA6C1D37300E006ED343 /* StripeAPI.swift */; };
 		612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612AB8591C32E38400779CC9 /* Extensions.swift */; };
 		612AB85C1C32E38B00779CC9 /* MenuItems.plist in Resources */ = {isa = PBXBuildFile; fileRef = 612AB85B1C32E38B00779CC9 /* MenuItems.plist */; };
 		612B41551BB0DC5D00331F9B /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41541BB0DC5D00331F9B /* SignUpViewController.swift */; };
 		612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */; };
 		61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61369D121CEBF6CF00079734 /* CustomTextField.swift */; };
+		613FCB6E1DED0B6D00ED991B /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */; };
+		613FCB741DED174000ED991B /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB731DED174000ED991B /* SettingsCell.swift */; };
+		613FCB761DEE58F700ED991B /* PersonalInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB751DEE58F700ED991B /* PersonalInformationViewController.swift */; };
+		613FCB781DEE6F3A00ED991B /* PersonalInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */; };
 		614E78431C013A0200314390 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 614E78421C013A0100314390 /* Settings.bundle */; };
-		6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152E65E1CC57D23001972A6 /* AppConfiguration.swift */; };
+		614F28C11DFC4726005D9968 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614F28C01DFC4726005D9968 /* SessionManager.swift */; };
+		614F28C51DFCEF6A005D9968 /* Shoveler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 614F28C41DFCEF6A005D9968 /* Shoveler.swift */; };
 		615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526301BF90BB5006D7862 /* Marvel-Bold.ttf */; };
 		615526351BF90BB6006D7862 /* Marvel-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */; };
 		615526361BF90BB6006D7862 /* Marvel-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 615526321BF90BB6006D7862 /* Marvel-Italic.ttf */; };
@@ -31,15 +34,21 @@
 		615526421BF90BDE006D7862 /* Rajdhani-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6155263D1BF90BDE006D7862 /* Rajdhani-Regular.ttf */; };
 		615526431BF90BDE006D7862 /* Rajdhani-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6155263E1BF90BDE006D7862 /* Rajdhani-SemiBold.ttf */; };
 		6165CAD81DA7349C00375D29 /* HowItWorksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */; };
+		616620EF1E0C5421006D88C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 616620EE1E0C5421006D88C9 /* GoogleService-Info.plist */; };
+		616620F11E0C543C006D88C9 /* DEVGoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 616620F01E0C543C006D88C9 /* DEVGoogleService-Info.plist */; };
+		616620F51E0CCFBB006D88C9 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616620F41E0CCFBB006D88C9 /* Config.swift */; };
+		61687E971E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */; };
 		616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 616A5F561C728B0500A81AE5 /* Localizable.strings */; };
 		617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617031381C7D53B100297A25 /* ShovelAnnotationView.swift */; };
 		617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFC81BE306E000E61546 /* WelcomeView.swift */; };
 		617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCD1BE59B7300E61546 /* WeatherCell.swift */; };
 		617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */; };
 		617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */; };
+		6181B7F71E034EEA00AB1C33 /* ExtensionHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6181B7F61E034EEA00AB1C33 /* ExtensionHelpers.swift */; };
 		618595B71D1CC38C004EB4D4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618595B61D1CC38C004EB4D4 /* User.swift */; };
 		618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FBD771C8695E400A6504F /* ShovelRequest.swift */; };
 		6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199E08E1DE133F4009A4F22 /* NotificationManager.swift */; };
+		619D20191DFEEFC90015C875 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619D20181DFEEFC90015C875 /* RequestCell.swift */; };
 		61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3548E1BCF37830071B5BE /* DailyWeather.swift */; };
 		61A354911BCF39520071B5BE /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354901BCF39520071B5BE /* Icon.swift */; };
 		61A354931BCF397B0071B5BE /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354921BCF397B0071B5BE /* Forecast.swift */; };
@@ -48,6 +57,11 @@
 		61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354981BCF3EA00071B5BE /* ForecastService.swift */; };
 		61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */; };
 		61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A932511D90BDF100E07134 /* CompleteRequestView.swift */; };
+		61AFC9AE1E21E239001CBBC6 /* BankAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */; };
+		61C4674B1DF8DAB100301D24 /* ShovelerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */; };
+		61C4674E1DFAEADF00301D24 /* CardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C4674D1DFAEADF00301D24 /* CardUtils.swift */; };
+		61C841F91E382286005F322F /* CompleteRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C841F81E382286005F322F /* CompleteRequestViewController.swift */; };
+		61C841FB1E383094005F322F /* CompleteRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C841FA1E383094005F322F /* CompleteRequestCell.swift */; };
 		61D22A861DA4A3E900D6AE0F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D22A851DA4A3E900D6AE0F /* DataManager.swift */; };
 		61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61E46A921DE2970D0049A2A2 /* EmailManager.swift */; };
 		61EBB9E61DDE9F7900841A3F /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */; };
@@ -59,7 +73,8 @@
 		61ED022A1BAE43F3006B22B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61ED02281BAE43F3006B22B7 /* LaunchScreen.storyboard */; };
 		61ED02351BAE43F3006B22B7 /* ShoveledTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ED02341BAE43F3006B22B7 /* ShoveledTests.swift */; };
 		61ED02401BAE43F3006B22B7 /* ShoveledUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61ED023F1BAE43F3006B22B7 /* ShoveledUITests.swift */; };
-		61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */; };
+		61F067FA1E2F05DD009283F9 /* RequestDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F067F91E2F05DD009283F9 /* RequestDetailCell.swift */; };
+		61F067FC1E2F10FF009283F9 /* RequestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F067FB1E2F10FF009283F9 /* RequestDetailsViewController.swift */; };
 		61FCB9811DC83FFC002DB895 /* EmailService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FCB9801DC83FFC002DB895 /* EmailService.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,19 +98,22 @@
 /* Begin PBXFileReference section */
 		0BFD4D3F8655DFA49986158E /* Pods-Shoveled.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.debug.xcconfig"; sourceTree = "<group>"; };
 		3DC5BD28EAEDC9B7A6CC123F /* Pods-Shoveled.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.release.xcconfig"; sourceTree = "<group>"; };
-		6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		610838301D21FCE100816EEB /* Shoveled-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Shoveled-Bridging-Header.h"; sourceTree = "<group>"; };
 		610E58421CD04DEF000AE0FA /* LoginTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTest.swift; sourceTree = "<group>"; };
 		6115A52E1D89D601001FC3B6 /* StripeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeManager.swift; sourceTree = "<group>"; };
-		6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptRequestViewController.swift; sourceTree = "<group>"; };
 		6125EA6C1D37300E006ED343 /* StripeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeAPI.swift; sourceTree = "<group>"; };
 		612AB8591C32E38400779CC9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		612AB85B1C32E38B00779CC9 /* MenuItems.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MenuItems.plist; sourceTree = "<group>"; };
 		612B41541BB0DC5D00331F9B /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentStatusViewController.swift; sourceTree = "<group>"; };
 		61369D121CEBF6CF00079734 /* CustomTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		613FCB731DED174000ED991B /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		613FCB751DEE58F700ED991B /* PersonalInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInformationViewController.swift; sourceTree = "<group>"; };
+		613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalInfoCell.swift; sourceTree = "<group>"; };
 		614E78421C013A0100314390 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = ../Settings.bundle; sourceTree = "<group>"; };
-		6152E65E1CC57D23001972A6 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		614F28C01DFC4726005D9968 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		614F28C41DFCEF6A005D9968 /* Shoveler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shoveler.swift; sourceTree = "<group>"; };
 		615526301BF90BB5006D7862 /* Marvel-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Bold.ttf"; path = "../Marvel-Bold.ttf"; sourceTree = "<group>"; };
 		615526311BF90BB6006D7862 /* Marvel-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-BoldItalic.ttf"; path = "../Marvel-BoldItalic.ttf"; sourceTree = "<group>"; };
 		615526321BF90BB6006D7862 /* Marvel-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Marvel-Italic.ttf"; path = "../Marvel-Italic.ttf"; sourceTree = "<group>"; };
@@ -107,15 +125,21 @@
 		6155263D1BF90BDE006D7862 /* Rajdhani-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rajdhani-Regular.ttf"; path = "../Rajdhani-Regular.ttf"; sourceTree = "<group>"; };
 		6155263E1BF90BDE006D7862 /* Rajdhani-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rajdhani-SemiBold.ttf"; path = "../Rajdhani-SemiBold.ttf"; sourceTree = "<group>"; };
 		6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HowItWorksViewController.swift; sourceTree = "<group>"; };
+		616620EE1E0C5421006D88C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		616620F01E0C543C006D88C9 /* DEVGoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "DEVGoogleService-Info.plist"; sourceTree = "<group>"; };
+		616620F41E0CCFBB006D88C9 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelerInfoHeaderCell.swift; sourceTree = "<group>"; };
 		616A5F561C728B0500A81AE5 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		617031381C7D53B100297A25 /* ShovelAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelAnnotationView.swift; sourceTree = "<group>"; };
 		617ECFC81BE306E000E61546 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		617ECFCD1BE59B7300E61546 /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoveledButton.swift; sourceTree = "<group>"; };
 		617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestShovelingViewController.swift; sourceTree = "<group>"; };
+		6181B7F61E034EEA00AB1C33 /* ExtensionHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionHelpers.swift; sourceTree = "<group>"; };
 		618595B61D1CC38C004EB4D4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		618FBD771C8695E400A6504F /* ShovelRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelRequest.swift; sourceTree = "<group>"; };
 		6199E08E1DE133F4009A4F22 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		619D20181DFEEFC90015C875 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		61A3548E1BCF37830071B5BE /* DailyWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
 		61A354901BCF39520071B5BE /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		61A354921BCF397B0071B5BE /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
@@ -124,6 +148,11 @@
 		61A354981BCF3EA00071B5BE /* ForecastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastService.swift; sourceTree = "<group>"; };
 		61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		61A932511D90BDF100E07134 /* CompleteRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestView.swift; sourceTree = "<group>"; };
+		61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountCell.swift; sourceTree = "<group>"; };
+		61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelerAnnotationView.swift; sourceTree = "<group>"; };
+		61C4674D1DFAEADF00301D24 /* CardUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardUtils.swift; sourceTree = "<group>"; };
+		61C841F81E382286005F322F /* CompleteRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestViewController.swift; sourceTree = "<group>"; };
+		61C841FA1E383094005F322F /* CompleteRequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestCell.swift; sourceTree = "<group>"; };
 		61D22A851DA4A3E900D6AE0F /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		61E46A921DE2970D0049A2A2 /* EmailManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailManager.swift; sourceTree = "<group>"; };
 		61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
@@ -141,10 +170,10 @@
 		61ED023B1BAE43F3006B22B7 /* ShoveledUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShoveledUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		61ED023F1BAE43F3006B22B7 /* ShoveledUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoveledUITests.swift; sourceTree = "<group>"; };
 		61ED02411BAE43F3006B22B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		61F067F91E2F05DD009283F9 /* RequestDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestDetailCell.swift; sourceTree = "<group>"; };
+		61F067FB1E2F10FF009283F9 /* RequestDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestDetailsViewController.swift; sourceTree = "<group>"; };
 		61F2415F1DA15FE8007D3473 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shoveled.entitlements; sourceTree = "<group>"; };
-		61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripeAccountViewController.swift; sourceTree = "<group>"; };
 		61FCB9801DC83FFC002DB895 /* EmailService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailService.swift; sourceTree = "<group>"; };
-		A3455CA64891455419D06E75 /* Pods-Shoveled.qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.qa.xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.qa.xcconfig"; sourceTree = "<group>"; };
 		CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shoveled.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -179,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				0BFD4D3F8655DFA49986158E /* Pods-Shoveled.debug.xcconfig */,
-				A3455CA64891455419D06E75 /* Pods-Shoveled.qa.xcconfig */,
 				3DC5BD28EAEDC9B7A6CC123F /* Pods-Shoveled.release.xcconfig */,
 			);
 			name = Pods;
@@ -188,10 +216,11 @@
 		6115A52D1D89D24D001FC3B6 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				6115A52E1D89D601001FC3B6 /* StripeManager.swift */,
+				61E46A921DE2970D0049A2A2 /* EmailManager.swift */,
 				61D22A851DA4A3E900D6AE0F /* DataManager.swift */,
 				6199E08E1DE133F4009A4F22 /* NotificationManager.swift */,
-				61E46A921DE2970D0049A2A2 /* EmailManager.swift */,
+				6115A52E1D89D601001FC3B6 /* StripeManager.swift */,
+				614F28C01DFC4726005D9968 /* SessionManager.swift */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -199,10 +228,10 @@
 		6115A5301D89E80B001FC3B6 /* WebServices */ = {
 			isa = PBXGroup;
 			children = (
+				61FCB9801DC83FFC002DB895 /* EmailService.swift */,
+				61A354981BCF3EA00071B5BE /* ForecastService.swift */,
 				61A354961BCF3E580071B5BE /* NetworkOperations.swift */,
 				6125EA6C1D37300E006ED343 /* StripeAPI.swift */,
-				61A354981BCF3EA00071B5BE /* ForecastService.swift */,
-				61FCB9801DC83FFC002DB895 /* EmailService.swift */,
 			);
 			name = WebServices;
 			sourceTree = "<group>";
@@ -230,7 +259,14 @@
 		614E783D1C0022E000314390 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */,
+				613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */,
+				619D20181DFEEFC90015C875 /* RequestCell.swift */,
+				61F067F91E2F05DD009283F9 /* RequestDetailCell.swift */,
+				613FCB731DED174000ED991B /* SettingsCell.swift */,
 				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
+				61C841FA1E383094005F322F /* CompleteRequestCell.swift */,
+				61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -238,7 +274,9 @@
 		6152E65D1CC57D0A001972A6 /* Common Configuration */ = {
 			isa = PBXGroup;
 			children = (
-				6152E65E1CC57D23001972A6 /* AppConfiguration.swift */,
+				616620F41E0CCFBB006D88C9 /* Config.swift */,
+				616620F01E0C543C006D88C9 /* DEVGoogleService-Info.plist */,
+				616620EE1E0C5421006D88C9 /* GoogleService-Info.plist */,
 			);
 			name = "Common Configuration";
 			sourceTree = "<group>";
@@ -260,6 +298,15 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		61C4674C1DFAEACD00301D24 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				61C4674D1DFAEADF00301D24 /* CardUtils.swift */,
+				6181B7F61E034EEA00AB1C33 /* ExtensionHelpers.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
 		61C710231BAE492900CF30E5 /* External */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +325,7 @@
 		61E73B8F1C1FC8F2000D7872 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				614F28C41DFCEF6A005D9968 /* Shoveler.swift */,
 				618FBD771C8695E400A6504F /* ShovelRequest.swift */,
 				618595B61D1CC38C004EB4D4 /* User.swift */,
 			);
@@ -343,11 +391,12 @@
 		61ED024D1BAE468C006B22B7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				617ECFC81BE306E000E61546 /* WelcomeView.swift */,
+				61A932511D90BDF100E07134 /* CompleteRequestView.swift */,
+				61369D121CEBF6CF00079734 /* CustomTextField.swift */,
 				617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */,
 				617031381C7D53B100297A25 /* ShovelAnnotationView.swift */,
-				61369D121CEBF6CF00079734 /* CustomTextField.swift */,
-				61A932511D90BDF100E07134 /* CompleteRequestView.swift */,
+				61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */,
+				617ECFC81BE306E000E61546 /* WelcomeView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -355,14 +404,16 @@
 		61ED024E1BAE4691006B22B7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				6123CB3A1C4AD70F007D1789 /* AcceptRequestViewController.swift */,
 				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
 				61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */,
 				6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */,
-				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
-				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
-				61FA7F271DBD8D00001AD74C /* StripeAccountViewController.swift */,
 				61EBB9E71DDF30D400841A3F /* LoginViewController.swift */,
+				613FCB751DEE58F700ED991B /* PersonalInformationViewController.swift */,
+				61F067FB1E2F10FF009283F9 /* RequestDetailsViewController.swift */,
+				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
+				613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */,
+				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
+				61C841F81E382286005F322F /* CompleteRequestViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -370,14 +421,15 @@
 		61ED024F1BAE46A0006B22B7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				61C4674C1DFAEACD00301D24 /* Utils */,
 				6115A5301D89E80B001FC3B6 /* WebServices */,
 				6115A52D1D89D24D001FC3B6 /* Manager */,
 				61E73B8F1C1FC8F2000D7872 /* Model */,
 				61ED02231BAE43F3006B22B7 /* Shoveled.xcdatamodeld */,
-				61A354901BCF39520071B5BE /* Icon.swift */,
+				61A354941BCF399A0071B5BE /* CurrentWeather.swift */,
 				61A3548E1BCF37830071B5BE /* DailyWeather.swift */,
 				61A354921BCF397B0071B5BE /* Forecast.swift */,
-				61A354941BCF399A0071B5BE /* CurrentWeather.swift */,
+				61A354901BCF39520071B5BE /* Icon.swift */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -400,7 +452,6 @@
 				61ED021C1BAE43F3006B22B7 /* AppDelegate.swift */,
 				61ED022B1BAE43F3006B22B7 /* Info.plist */,
 				616A5F561C728B0500A81AE5 /* Localizable.strings */,
-				6108382E1D1D8B2400816EEB /* GoogleService-Info.plist */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -421,6 +472,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61ED02441BAE43F3006B22B7 /* Build configuration list for PBXNativeTarget "Shoveled" */;
 			buildPhases = (
+				A782B80C83137D2D0FCBB7E5 /* 📦 Check Pods Manifest.lock */,
 				2BB7EB4BBF91BC2E1E325BEB /* [CP] Check Pods Manifest.lock */,
 				E6AEB6E245299AAC0049D87A /* [CP] Check Pods Manifest.lock */,
 				E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */,
@@ -433,6 +485,8 @@
 				15F6ED480C0E30CA44B511D1 /* [CP] Copy Pods Resources */,
 				38FE2EFCED3546B5ED3B1EDD /* Ô£ø√º√¨¬∂ Embed Pods Frameworks */,
 				A1D801C5602050DB26D909C9 /* Ô£ø√º√¨¬∂ Copy Pods Resources */,
+				FE20D061063C8E2CFC23B833 /* 📦 Embed Pods Frameworks */,
+				E2ED5127660A9583F79F8977 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -485,7 +539,8 @@
 		61ED02111BAE43F3006B22B7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Lucky Penguin";
 				TargetAttributes = {
 					61ED02181BAE43F3006B22B7 = {
@@ -509,10 +564,12 @@
 					};
 					61ED022F1BAE43F3006B22B7 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0810;
 						TestTargetID = 61ED02181BAE43F3006B22B7;
 					};
 					61ED023A1BAE43F3006B22B7 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0810;
 						TestTargetID = 61ED02181BAE43F3006B22B7;
 					};
 				};
@@ -553,8 +610,9 @@
 				615526341BF90BB6006D7862 /* Marvel-Bold.ttf in Resources */,
 				615526351BF90BB6006D7862 /* Marvel-BoldItalic.ttf in Resources */,
 				615526361BF90BB6006D7862 /* Marvel-Italic.ttf in Resources */,
+				616620F11E0C543C006D88C9 /* DEVGoogleService-Info.plist in Resources */,
 				615526371BF90BB6006D7862 /* Marvel-Regular.ttf in Resources */,
-				6108382F1D1D8B2400816EEB /* GoogleService-Info.plist in Resources */,
+				616620EF1E0C5421006D88C9 /* GoogleService-Info.plist in Resources */,
 				61ED022A1BAE43F3006B22B7 /* LaunchScreen.storyboard in Resources */,
 				616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */,
 				61ED02271BAE43F3006B22B7 /* Assets.xcassets in Resources */,
@@ -667,6 +725,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		A782B80C83137D2D0FCBB7E5 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -682,6 +755,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		E2ED5127660A9583F79F8977 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E6AEB6E245299AAC0049D87A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -695,6 +783,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FE20D061063C8E2CFC23B833 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		SWIFCLEANCUSTOMRUNSCRIPT /* Swift-Clean Run Script */ = {
@@ -719,6 +822,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61D22A861DA4A3E900D6AE0F /* DataManager.swift in Sources */,
+				619D20191DFEEFC90015C875 /* RequestCell.swift in Sources */,
 				6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */,
 				618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */,
 				61EBB9E61DDE9F7900841A3F /* FAQViewController.swift in Sources */,
@@ -726,29 +830,42 @@
 				61A354971BCF3E580071B5BE /* NetworkOperations.swift in Sources */,
 				61FCB9811DC83FFC002DB895 /* EmailService.swift in Sources */,
 				61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */,
+				61AFC9AE1E21E239001CBBC6 /* BankAccountCell.swift in Sources */,
 				612B41551BB0DC5D00331F9B /* SignUpViewController.swift in Sources */,
+				61F067FC1E2F10FF009283F9 /* RequestDetailsViewController.swift in Sources */,
 				61ED02251BAE43F3006B22B7 /* Shoveled.xcdatamodeld in Sources */,
+				613FCB761DEE58F700ED991B /* PersonalInformationViewController.swift in Sources */,
 				6165CAD81DA7349C00375D29 /* HowItWorksViewController.swift in Sources */,
-				6123CB3B1C4AD711007D1789 /* AcceptRequestViewController.swift in Sources */,
 				612B41581BB0DE0300331F9B /* CurrentStatusViewController.swift in Sources */,
 				618595B71D1CC38C004EB4D4 /* User.swift in Sources */,
+				61C4674E1DFAEADF00301D24 /* CardUtils.swift in Sources */,
+				616620F51E0CCFBB006D88C9 /* Config.swift in Sources */,
+				613FCB6E1DED0B6D00ED991B /* SettingsTableViewController.swift in Sources */,
 				617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */,
+				6181B7F71E034EEA00AB1C33 /* ExtensionHelpers.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
+				61C841FB1E383094005F322F /* CompleteRequestCell.swift in Sources */,
 				61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */,
 				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
-				61FA7F281DBD8D01001AD74C /* StripeAccountViewController.swift in Sources */,
+				61C4674B1DF8DAB100301D24 /* ShovelerAnnotationView.swift in Sources */,
+				613FCB741DED174000ED991B /* SettingsCell.swift in Sources */,
+				61687E971E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift in Sources */,
 				617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */,
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,
+				614F28C51DFCEF6A005D9968 /* Shoveler.swift in Sources */,
 				617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */,
 				6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */,
+				61F067FA1E2F05DD009283F9 /* RequestDetailCell.swift in Sources */,
 				61A354931BCF397B0071B5BE /* Forecast.swift in Sources */,
 				6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */,
+				613FCB781DEE6F3A00ED991B /* PersonalInfoCell.swift in Sources */,
 				61A354951BCF399A0071B5BE /* CurrentWeather.swift in Sources */,
-				6152E65F1CC57D23001972A6 /* AppConfiguration.swift in Sources */,
 				61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */,
 				61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */,
+				61C841F91E382286005F322F /* CompleteRequestViewController.swift in Sources */,
 				617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */,
+				614F28C11DFC4726005D9968 /* SessionManager.swift in Sources */,
 				617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -805,7 +922,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		6138C72C1CB4929B00457D82 /* QA */ = {
+		61ED02421BAE43F3006B22B7 /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -818,8 +935,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Josh Walsh (LX2JWKMLC4)";
@@ -848,102 +967,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
-			name = QA;
-		};
-		6138C72D1CB4929B00457D82 /* QA */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3455CA64891455419D06E75 /* Pods-Shoveled.qa.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Shoveled/Shoveled.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P624W8659J;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Shoveled",
-					"$(PROJECT_DIR)",
-				);
-				INFOPLIST_FILE = Shoveled/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.Shoveled;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Shoveled/Shoveled-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-			};
-			name = QA;
-		};
-		6138C72E1CB4929B00457D82 /* QA */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = ShoveledTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shoveled.app/Shoveled";
-			};
-			name = QA;
-		};
-		6138C72F1CB4929B00457D82 /* QA */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = ShoveledUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Shoveled;
-				USES_XCTRUNNER = YES;
-			};
-			name = QA;
-		};
-		61ED02421BAE43F3006B22B7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Josh Walsh (LX2JWKMLC4)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
+			name = "Debug (Staging)";
 		};
 		61ED02431BAE43F3006B22B7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -958,8 +982,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Josh Walsh (LX2JWKMLC4)";
@@ -979,14 +1005,16 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		61ED02451BAE43F3006B22B7 /* Debug */ = {
+		61ED02451BAE43F3006B22B7 /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0BFD4D3F8655DFA49986158E /* Pods-Shoveled.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Shoveled/Shoveled.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1007,12 +1035,13 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Shoveled/Shoveled-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
-			name = Debug;
+			name = "Debug (Staging)";
 		};
 		61ED02461BAE43F3006B22B7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3DC5BD28EAEDC9B7A6CC123F /* Pods-Shoveled.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Shoveled/Shoveled.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1035,7 +1064,7 @@
 			};
 			name = Release;
 		};
-		61ED02481BAE43F3006B22B7 /* Debug */ = {
+		61ED02481BAE43F3006B22B7 /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1043,9 +1072,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shoveled.app/Shoveled";
 			};
-			name = Debug;
+			name = "Debug (Staging)";
 		};
 		61ED02491BAE43F3006B22B7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1055,21 +1085,23 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Shoveled.app/Shoveled";
 			};
 			name = Release;
 		};
-		61ED024B1BAE43F3006B22B7 /* Debug */ = {
+		61ED024B1BAE43F3006B22B7 /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				INFOPLIST_FILE = ShoveledUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Shoveled;
 				USES_XCTRUNNER = YES;
 			};
-			name = Debug;
+			name = "Debug (Staging)";
 		};
 		61ED024C1BAE43F3006B22B7 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1078,6 +1110,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosaic6.ShoveledUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = Shoveled;
 				USES_XCTRUNNER = YES;
 			};
@@ -1089,8 +1122,7 @@
 		61ED02141BAE43F3006B22B7 /* Build configuration list for PBXProject "Shoveled" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				61ED02421BAE43F3006B22B7 /* Debug */,
-				6138C72C1CB4929B00457D82 /* QA */,
+				61ED02421BAE43F3006B22B7 /* Debug (Staging) */,
 				61ED02431BAE43F3006B22B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1099,8 +1131,7 @@
 		61ED02441BAE43F3006B22B7 /* Build configuration list for PBXNativeTarget "Shoveled" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				61ED02451BAE43F3006B22B7 /* Debug */,
-				6138C72D1CB4929B00457D82 /* QA */,
+				61ED02451BAE43F3006B22B7 /* Debug (Staging) */,
 				61ED02461BAE43F3006B22B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1109,8 +1140,7 @@
 		61ED02471BAE43F3006B22B7 /* Build configuration list for PBXNativeTarget "ShoveledTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				61ED02481BAE43F3006B22B7 /* Debug */,
-				6138C72E1CB4929B00457D82 /* QA */,
+				61ED02481BAE43F3006B22B7 /* Debug (Staging) */,
 				61ED02491BAE43F3006B22B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1119,8 +1149,7 @@
 		61ED024A1BAE43F3006B22B7 /* Build configuration list for PBXNativeTarget "ShoveledUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				61ED024B1BAE43F3006B22B7 /* Debug */,
-				6138C72F1CB4929B00457D82 /* QA */,
+				61ED024B1BAE43F3006B22B7 /* Debug (Staging) */,
 				61ED024C1BAE43F3006B22B7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
