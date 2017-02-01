@@ -1,90 +1,28 @@
-# Customise this file, documentation can be found here:
-# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
-# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
-# can also be listed using the `fastlane actions` command
+# More documentation about how to customize your build
+# can be found here:
+# https://docs.fastlane.tools
+fastlane_version "1.109.0"
 
-# Change the syntax highlighting to Ruby
-# All lines starting with a # are ignored when running `fastlane`
-
-# If you want to automatically update fastlane if a new version is available:
-# update_fastlane
-
-# This is the minimum version number required.
-# Update this, if you use features of a newer version
-fastlane_version "1.104.0"
+# This value helps us track success metrics for Fastfiles
+# we automatically generate. Feel free to remove this line
+# once you get things running smoothly!
+generated_fastfile_id "75108c3f-fc8e-4389-964d-baabdea30872"
 
 default_platform :ios
 
-platform :ios do
-  before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    cocoapods
-    
-  end
+# Fastfile actions accept additional configuration, but
+# don't worry, fastlane will prompt you for required
+# info which you can add here later
+lane :beta do
+  # build your iOS app
+  gym(
+    # scheme: "YourScheme"
+  )
 
-  desc "Runs all the tests"
-  lane :test do
-    scan
-  end
+  # upload to Testflight
+  pilot(skip_waiting_for_build_processing: true)
 
-  lane :beta do |values|
-    # Fabric generated this lane for deployment to Crashlytics Beta
-    # set 'export_method' to 'ad-hoc' if your Crashlytics Beta distribution uses ad-hoc provisioning
-    gym(scheme: 'Shoveled', export_method: 'development')
-
-    emails = values[:test_email] ? values[:test_email] : ['byetra@gmail.com'] # You can list more emails here
-    groups = values[:test_email] ? nil : nil # You can define groups on the web and reference them here
-
-    crashlytics(api_token: '8e5af39567b3632a7b65708e7752946fc2cb646d',
-             build_secret: 'c3dae658ae81da8aec2cac1b65afe21793a6024d1c7532d08c1c9514b26ec731',
-                   emails: emails,
-                   groups: groups,
-                    notes: 'Distributed with fastlane', # Check out the changelog_from_git_commits action
-            notifications: true) # Should this distribution notify your testers via email?
-
-    # for all available options run `fastlane action crashlytics`
-
-    # You can notify your team in chat that a beta build has been uploaded
-    # slack(
-    #   slack_url: "https://hooks.slack.com/services/YOUR/TEAM/INFO"
-    #   channel: "beta-releases",
-    #   message: "Successfully uploaded a beta release - see it at https://fabric.io/_/beta"
-    # )
-  end
-
-
-  desc "Deploy a new version to the App Store"
-  lane :release do
-    match(type: "appstore")
-    # snapshot
-    gym(scheme: "Shoveled") # Build your app - more options available
-    deliver(force: true)
-    # frameit
-  end
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
-  end
-
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
-  end
+  slack(
+    # slack_url: "https://hooks.slack.com/services/IDS"
+  )
 end
-
-  
-
-
-# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
-# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
-
-# fastlane reports which actions are used
-# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
