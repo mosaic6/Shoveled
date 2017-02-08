@@ -48,6 +48,7 @@
 		618595B71D1CC38C004EB4D4 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618595B61D1CC38C004EB4D4 /* User.swift */; };
 		618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FBD771C8695E400A6504F /* ShovelRequest.swift */; };
 		6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199E08E1DE133F4009A4F22 /* NotificationManager.swift */; };
+		619B376E1E442ACC009FD782 /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619B376D1E442ACC009FD782 /* SnapshotHelper.swift */; };
 		619D20191DFEEFC90015C875 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619D20181DFEEFC90015C875 /* RequestCell.swift */; };
 		61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3548E1BCF37830071B5BE /* DailyWeather.swift */; };
 		61A354911BCF39520071B5BE /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354901BCF39520071B5BE /* Icon.swift */; };
@@ -139,6 +140,7 @@
 		618595B61D1CC38C004EB4D4 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		618FBD771C8695E400A6504F /* ShovelRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelRequest.swift; sourceTree = "<group>"; };
 		6199E08E1DE133F4009A4F22 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		619B376D1E442ACC009FD782 /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
 		619D20181DFEEFC90015C875 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
 		61A3548E1BCF37830071B5BE /* DailyWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
 		61A354901BCF39520071B5BE /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 		61ED023E1BAE43F3006B22B7 /* ShoveledUITests */ = {
 			isa = PBXGroup;
 			children = (
+				619B376D1E442ACC009FD782 /* SnapshotHelper.swift */,
 				61ED023F1BAE43F3006B22B7 /* ShoveledUITests.swift */,
 				61ED02411BAE43F3006B22B7 /* Info.plist */,
 			);
@@ -884,6 +887,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61ED02401BAE43F3006B22B7 /* ShoveledUITests.swift in Sources */,
+				619B376E1E442ACC009FD782 /* SnapshotHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

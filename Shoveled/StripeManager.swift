@@ -10,20 +10,6 @@ import Foundation
 
 class StripeManager {
 
-    //Get Account Balance
-    class func getStripeAccountBalance(completion: @escaping (_ amount: String) -> ()) {
-        StripeAPI.sharedInstance.getStripeAccountBalance { (result, error) in
-            if let result = result {
-                if let available = result.object(forKey: "available") as? NSDictionary {
-                    if let amount = available.object(forKey: "amount") as? String {
-                        completion(amount)
-                    }
-                }
-                print(result)
-            }
-        }
-    }
-
     // Get Customers
     class func getCustomers(_ completion: @escaping (_ customerEmail: String) -> ()) {
         StripeAPI.sharedInstance.getCustomers { (result, error) in
