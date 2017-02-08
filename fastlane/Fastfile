@@ -13,16 +13,32 @@ default_platform :ios
 # Fastfile actions accept additional configuration, but
 # don't worry, fastlane will prompt you for required
 # info which you can add here later
+lane :increment_build do
+  increment_build_number
+  commit_version_bump
+end
+
 lane :beta do
   # build your iOS app
   gym(
-    # scheme: "YourScheme"
+    scheme: "Shoveled - Debug"
   )
 
-  # upload to Testflight
+  increment_build_number
+  upload to Testflight
   pilot(skip_waiting_for_build_processing: true)
 
   slack(
-    # slack_url: "https://hooks.slack.com/services/IDS"
+    slack_url: "https://hooks.slack.com/services/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"
+  )
+end
+
+lane :release do
+  gym(
+    scheme: "Shoveled"
+  )
+  increment_build_number
+  slack(
+    slack_url: "https://hooks.slack.com/services/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"
   )
 end

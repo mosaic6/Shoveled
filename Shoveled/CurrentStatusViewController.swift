@@ -62,14 +62,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        StripeManager.getStripeAccountBalance { (amount) in
-            print(amount)
-        }
         self.ref = FIRDatabase.database().reference(withPath: "requests")
         self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
         self.checkLocationServices()
+        self.areShovelersAvailable()
 
         NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
@@ -83,7 +81,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.areShovelersAvailable()
         self.isUserAShoveler()
     }
 
@@ -347,6 +344,7 @@ extension CurrentStatusViewController {
 extension CurrentStatusViewController {
     
     fileprivate func areShovelersAvailable() {
+        self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
         shovelerRef?.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let users = snapshot.value
