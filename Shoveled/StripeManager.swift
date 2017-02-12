@@ -97,8 +97,9 @@ class StripeManager {
         StripeAPI.sharedInstance.sendRefundToCharge(chargeId: chargeId)
     }
 
-    class func transferFundsToAccount(amount: String, destination: String) {
-        StripeAPI.sharedInstance.transferFundsToAccount(amount: amount, destination: destination)
+    // Send Tranfer whe job is completed
+    class func transferFundsToAccount(amount: String, destination: String, chargeId: String) {
+        StripeAPI.sharedInstance.transferFundsToAccount(amount: amount, destination: destination, chargeId: chargeId)
     }
 
     // GET Connected Accounts

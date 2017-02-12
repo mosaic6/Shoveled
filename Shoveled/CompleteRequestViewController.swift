@@ -232,8 +232,8 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             let updatedPrice: Int = Int(convertedPrice - percentageChange) / 100
             let stringAmount: String = String(updatedPrice)
 
-            if let stripeId = self.stripeId {
-                StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId)
+            if let stripeId = self.stripeId, let chargeId = self.stripeChargeToken {
+                StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId, chargeId: chargeId)
             }
         }
     }

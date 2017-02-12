@@ -387,7 +387,7 @@ class StripeAPI {
     }
 
     // MARK: Send Transfer
-    func transferFundsToAccount(amount: String, destination: String) {
+    func transferFundsToAccount(amount: String, destination: String, chargeId: String) {
         guard let URL = URL(string: API_POST_TRANSFER) else { return }
         var request = URLRequest(url: URL)
         request.httpMethod = "POST"
@@ -399,6 +399,7 @@ class StripeAPI {
             "currency": "usd",
             "destination": destination,
             "description": "Payment from Shoveled",
+            "source_transaction": chargeId,
         ]
         let bodyString = bodyParameters.queryParameters
         request.httpBody = bodyString.data(using: .utf8, allowLossyConversion: true)
@@ -416,7 +417,7 @@ class StripeAPI {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
 
                             print(parsedObject!)
-                        } catch let error as NSError {
+                        } catch let _ as NSError {
                             parsedObject = nil
                         } catch {
                             fatalError()
