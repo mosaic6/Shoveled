@@ -37,7 +37,6 @@ lane :release do
   gym(
     scheme: "Shoveled"
   )
-  increment_build_number
   slack(
     slack_url: "https://hooks.slack.com/services/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"
   )

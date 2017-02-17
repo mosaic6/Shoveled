@@ -138,7 +138,7 @@ class StripeAPI {
 
                             print(parsedObject!)
                             completion(parsedObject as NSDictionary?, nil)
-                        } catch let error as NSError {
+                        } catch let _ as NSError {
                             parsedObject = nil
                         } catch {
                             fatalError()
@@ -417,7 +417,7 @@ class StripeAPI {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
 
                             print(parsedObject!)
-                        } catch let _ as NSError {
+                        } catch _ as NSError {
                             parsedObject = nil
                         } catch {
                             fatalError()

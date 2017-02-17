@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let fileopts = FIROptions.init(contentsOfFile: config.environment.baseURL)
         if let fileopts = fileopts {
             FIRApp.configure(with: fileopts)
+            FIRDatabase.database().persistenceEnabled = true
         }
     }
 

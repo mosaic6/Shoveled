@@ -38,6 +38,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     var addedByUser: String?
     var createdAt: String?
     var stripeChargeToken: String?
+    var shovelRequest: ShovelRequest?
     
     
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")

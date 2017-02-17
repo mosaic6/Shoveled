@@ -10,13 +10,13 @@ import Foundation
 
 /// Metadata about the consumption of the Dark Sky API.
 public struct RequestMetadata {
-
+    
     /// `Cache-Control` HTTP header for responses from the Dark Sky API.
     public let cacheControl: String?
-
+    
     /// Number of API requests made by the current API key for today.
     public let apiRequestsCount: Int?
-
+    
     /// Server-side response time of the current request in milliseconds.
     public let responseTime: Float?
 

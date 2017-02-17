@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#import "STPAPIResponseDecodable.h"
 #import "STPCardBrand.h"
 #import "STPCardParams.h"
-#import "STPAPIResponseDecodable.h"
 #import "STPPaymentMethod.h"
 #import "STPSource.h"
 
@@ -58,6 +58,15 @@ typedef NS_ENUM(NSInteger, STPCardFundingType) {
  *  @return an enum value mapped to that string. If the string is unrecognized, returns STPCardBrandUnknown.
  */
 + (STPCardBrand)brandFromString:(NSString *)string;
+
+/**
+ *  Returns a string representation for the provided card brand; i.e. `[NSString stringFromBrand:STPCardBrandVisa] ==  @"Visa"`.
+ *
+ *  @param brand the brand you want to convert to a string
+ *
+ *  @return A string representing the brand, suitable for displaying to a user.
+ */
++ (NSString *)stringFromBrand:(STPCardBrand)brand;
 
 /**
  *  This parses a string representing a card's funding type into the appropriate `STPCardFundingType` enum value, i.e. `[STPCard fundingFromString:@"prepaid"] == STPCardFundingTypePrepaid`.

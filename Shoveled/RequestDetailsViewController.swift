@@ -40,21 +40,10 @@ class RequestDetailsViewController: UITableViewController {
     fileprivate var cancelCell: RequestDetailCell?
     fileprivate var shovelerSignUpCell: RequestDetailCell?
     
-    var addressString: String?    
-    var descriptionString: String?
-    var moreInfoString: String?
-    var priceString: String?
-    var latitude: NSNumber?
-    var longitude: NSNumber?
-    var addedByUser: String?
-    var otherInfo: String?
     var status: String?
-    var id: String?
-    var createdAt: String?
-    var acceptedByUser: String?
-    var stripeChargeToken: String?
     var newPriceString: String?
     var isShoveler: Bool = false
+    var shovelRequest: ShovelRequest?
     fileprivate var stripeId: String?
     
     
@@ -99,25 +88,25 @@ class RequestDetailsViewController: UITableViewController {
         requestData.append(.moreInfoCell)
         requestData.append(.priceCell)
         
-        if currentUserEmail == self.addedByUser {
+        if currentUserEmail == shovelRequest?.addedByUser {
             requestData.append(.cancelCell)
             tableViewData.append(requestData)
             return tableViewData
         }
         
-        if !self.isShoveler && currentUserEmail != self.addedByUser && self.status != RequestStatus.accepted.rawValue {
+        if !self.isShoveler && currentUserEmail != shovelRequest?.addedByUser && shovelRequest?.status != RequestStatus.accepted.rawValue {
             requestData.append(.shovelerSignUpCell)
             tableViewData.append(requestData)
             return tableViewData
         }
         
-        if self.status == RequestStatus.active.rawValue && !(currentUserEmail == self.addedByUser) {
+        if shovelRequest?.status == RequestStatus.active.rawValue && !(currentUserEmail == shovelRequest?.addedByUser) {
             requestData.append(.acceptCell)
             tableViewData.append(requestData)
             return tableViewData
         }
         
-        if self.status == RequestStatus.accepted.rawValue && currentUserEmail == self.acceptedByUser {
+        if shovelRequest?.status == RequestStatus.accepted.rawValue && currentUserEmail == shovelRequest?.acceptedByUser {
             requestData.append(.completeCell)
             tableViewData.append(requestData)
             return tableViewData
@@ -125,7 +114,7 @@ class RequestDetailsViewController: UITableViewController {
             requestData.append(.acceptedCell)
         }
         
-        if self.status == RequestStatus.completed.rawValue {
+        if shovelRequest?.status == RequestStatus.completed.rawValue {
             self.dismiss(animated: true, completion: nil)
         }
         
@@ -170,30 +159,31 @@ class RequestDetailsViewController: UITableViewController {
         switch cellIdentifier {
         case .addressCell:
             let addressCell = cell as! RequestDetailCell
-            addressCell.addressLabel?.text = addressString?.uppercased()
+            addressCell.addressLabel?.text = shovelRequest?.address.uppercased()
             self.addressCell = addressCell
         case .descriptionCell:
             let descriptionCell = cell as! RequestDetailCell
-            descriptionCell.descriptionLabel?.text = descriptionString?.uppercased()
+            descriptionCell.descriptionLabel?.text = shovelRequest?.details.uppercased()
             self.descriptionCell = descriptionCell
         case .moreInfoCell:
             let moreInfoCell = cell as! RequestDetailCell
-            if self.moreInfoString == "" {
+            if shovelRequest?.otherInfo == "" {
                 moreInfoCell.moreInfoLabel?.text = "No extra details".uppercased()
                 break
             } else {
-                moreInfoCell.moreInfoLabel?.text = moreInfoString?.uppercased()
+                moreInfoCell.moreInfoLabel?.text = shovelRequest?.otherInfo.uppercased()
             }
             self.moreInfoCell = moreInfoCell
         case .priceCell:
             let priceCell = cell as! RequestDetailCell
-            let price = self.priceString
-            let convertedPrice: Float = Float(price!)!
-            let percentageChange: Float = Float(convertedPrice) * 0.10
-            let updatedPrice = (convertedPrice - percentageChange) / 100
-            self.newPriceString = String(updatedPrice)
-            if let price = self.newPriceString {
-                priceCell.priceLabel?.text = "$\(price)".uppercased()
+            if let price = shovelRequest?.price {
+                let convertedPrice: Float = Float(price)
+                let percentageChange: Float = Float(convertedPrice) * 0.10
+                let updatedPrice = (convertedPrice - percentageChange) / 100
+                self.newPriceString = String(updatedPrice)
+                if let price = self.newPriceString {
+                    priceCell.priceLabel?.text = "$\(price)".uppercased()
+                }
             }
             self.priceCell = priceCell
         case .acceptCell:
@@ -228,15 +218,7 @@ class RequestDetailsViewController: UITableViewController {
     func showCompleteRequest() {
         let completeRequestView = self.storyboard?.instantiateViewController(withIdentifier: "CompleteRequestViewController") as? CompleteRequestViewController
         if let completeRequestVC = completeRequestView {
-            completeRequestVC.addressString = self.addressString
-            completeRequestVC.addedByUser = self.addedByUser
-            completeRequestVC.createdAt = self.createdAt
-            completeRequestVC.descriptionString = self.descriptionString
-            completeRequestVC.id = self.id
-            completeRequestVC.longitude = self.longitude
-            completeRequestVC.latitude = self.latitude
-            completeRequestVC.priceString = self.priceString
-            completeRequestVC.stripeChargeToken = self.stripeChargeToken
+            completeRequestVC.shovelRequest = shovelRequest
             self.navigationController?.pushViewController(completeRequestVC, animated: true)
         } else {
             return
@@ -277,7 +259,7 @@ extension RequestDetailsViewController {
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
         let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
             
-            guard let requestId = self.id else { return }
+            guard let requestId = self.shovelRequest?.id else { return }
             let requestToDelete = self.ref.child(requestId)
             requestToDelete.removeValue()
             self.issueRefund()
@@ -292,42 +274,24 @@ extension RequestDetailsViewController {
     
     func acceptRequest() {
         actInd.startAnimating()
-        
-        guard let requestId = id,
-            let address = addressString,
-            let description = descriptionString
-            else { return }
-        let price: Int? = Int(priceString!)
-        
-        let request: [String: AnyObject] = ["status": "Accepted" as AnyObject,
-                                            "address": address as AnyObject,
-                                            "longitude": longitude!,
-                                            "latitude": latitude!,
-                                            "details": description as AnyObject,
-                                            "addedByUser": addedByUser! as AnyObject,
-                                            "otherInfo": "" as AnyObject,
-                                            "price": price! as AnyObject,
-                                            "id": id! as AnyObject,
-                                            "createdAt": createdAt! as AnyObject,
-                                            "acceptedByUser": currentUserEmail as AnyObject,
-                                            "stripeChargeToken": self.stripeChargeToken as AnyObject]
-        
+        self.shovelRequest?.status = "Accepted"
+        self.shovelRequest?.acceptedByUser = currentUserEmail
         
         let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Once the job is complete please take a photo of your work and submit it.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         let okAction: UIAlertAction = UIAlertAction(title: "Let's Go", style: .default) { (action) in
-            let childUpdates = ["/\(requestId)": request]
+            let childUpdates = ["/\(self.shovelRequest?.id)": self.shovelRequest]
             self.ref.updateChildValues(childUpdates)
             actInd.stopAnimating()
             
             
             self.showCompleteRequest()
             
-            if let addedByUser = self.addedByUser {
-                if let token = self.stripeChargeToken {
+            if let addedByUser = self.shovelRequest?.addedByUser {
+                if let token = self.shovelRequest?.stripeChargeToken {
                     EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "<html><div>\(currentUserEmail) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.</div></html>")
                     
-                    EmailManager.sharedInstance.sendConfirmationEmail(email: currentUserEmail, toName: "", subject: "Time to get Shoveling!", text: "<html><div>You've accepted a shoveling request at \(address). Please complete this request in a timely manner. If you have any issues please reach out to support@shoveled.works.</div></html>")
+                    EmailManager.sharedInstance.sendConfirmationEmail(email: currentUserEmail, toName: "", subject: "Time to get Shoveling!", text: "<html><div>You've accepted a shoveling request at \(self.shovelRequest?.address). Please complete this request in a timely manner. If you have any issues please reach out to support@shoveled.works.</div></html>")
                 }
             }
             // NAVIGATE TO COMPLETE REQUEST VIEW
@@ -339,7 +303,7 @@ extension RequestDetailsViewController {
     
     // MARK: Issue Refund
     func issueRefund() {
-        if let chargeId = self.stripeChargeToken {
+        if let chargeId = shovelRequest?.stripeChargeToken {
             StripeManager.sendRefundToCharge(chargeId: chargeId)
         }
     }

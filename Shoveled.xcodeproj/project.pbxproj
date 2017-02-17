@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D8BC9F67B65190F1EF029F8 /* Pods_Shoveled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */; };
+		2D587728FB8F4D45FA3440C5 /* Pods_Shoveled.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */; };
 		610E58431CD04DEF000AE0FA /* LoginTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610E58421CD04DEF000AE0FA /* LoginTest.swift */; };
 		6115A52F1D89D601001FC3B6 /* StripeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6115A52E1D89D601001FC3B6 /* StripeManager.swift */; };
 		6125EA6D1D37300E006ED343 /* StripeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6125EA6C1D37300E006ED343 /* StripeAPI.swift */; };
@@ -40,7 +40,6 @@
 		61687E971E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */; };
 		616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 616A5F561C728B0500A81AE5 /* Localizable.strings */; };
 		617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617031381C7D53B100297A25 /* ShovelAnnotationView.swift */; };
-		617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFC81BE306E000E61546 /* WelcomeView.swift */; };
 		617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCD1BE59B7300E61546 /* WeatherCell.swift */; };
 		617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */; };
 		617ECFD21BE6FB4600E61546 /* RequestShovelingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */; };
@@ -57,7 +56,9 @@
 		61A354971BCF3E580071B5BE /* NetworkOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354961BCF3E580071B5BE /* NetworkOperations.swift */; };
 		61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354981BCF3EA00071B5BE /* ForecastService.swift */; };
 		61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */; };
-		61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A932511D90BDF100E07134 /* CompleteRequestView.swift */; };
+		61AF57661E50FC78005292FF /* RequestsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF57651E50FC77005292FF /* RequestsListTableViewController.swift */; };
+		61AF57681E50FD03005292FF /* RequestsListStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61AF57671E50FD03005292FF /* RequestsListStoryboard.storyboard */; };
+		61AF576A1E5100B2005292FF /* RequestsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF57691E5100B2005292FF /* RequestsListCell.swift */; };
 		61AFC9AE1E21E239001CBBC6 /* BankAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */; };
 		61C4674B1DF8DAB100301D24 /* ShovelerAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */; };
 		61C4674E1DFAEADF00301D24 /* CardUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C4674D1DFAEADF00301D24 /* CardUtils.swift */; };
@@ -132,7 +133,6 @@
 		61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelerInfoHeaderCell.swift; sourceTree = "<group>"; };
 		616A5F561C728B0500A81AE5 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		617031381C7D53B100297A25 /* ShovelAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelAnnotationView.swift; sourceTree = "<group>"; };
-		617ECFC81BE306E000E61546 /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		617ECFCD1BE59B7300E61546 /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShoveledButton.swift; sourceTree = "<group>"; };
 		617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestShovelingViewController.swift; sourceTree = "<group>"; };
@@ -149,7 +149,9 @@
 		61A354961BCF3E580071B5BE /* NetworkOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperations.swift; sourceTree = "<group>"; };
 		61A354981BCF3EA00071B5BE /* ForecastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastService.swift; sourceTree = "<group>"; };
 		61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		61A932511D90BDF100E07134 /* CompleteRequestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteRequestView.swift; sourceTree = "<group>"; };
+		61AF57651E50FC77005292FF /* RequestsListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsListTableViewController.swift; sourceTree = "<group>"; };
+		61AF57671E50FD03005292FF /* RequestsListStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequestsListStoryboard.storyboard; sourceTree = "<group>"; };
+		61AF57691E5100B2005292FF /* RequestsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsListCell.swift; sourceTree = "<group>"; };
 		61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankAccountCell.swift; sourceTree = "<group>"; };
 		61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelerAnnotationView.swift; sourceTree = "<group>"; };
 		61C4674D1DFAEADF00301D24 /* CardUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardUtils.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 		61F2415F1DA15FE8007D3473 /* Shoveled.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shoveled.entitlements; sourceTree = "<group>"; };
 		61FCB9801DC83FFC002DB895 /* EmailService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmailService.swift; sourceTree = "<group>"; };
 		CFCE45EC2A9E6F252181FA5F /* Pods_Shoveled.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shoveled.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5CEDA778BFB81D18FEFA484 /* Pods-Shoveled.debug (staging).xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shoveled.debug (staging).xcconfig"; path = "Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled.debug (staging).xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,7 +188,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */,
-				4D8BC9F67B65190F1EF029F8 /* Pods_Shoveled.framework in Frameworks */,
+				2D587728FB8F4D45FA3440C5 /* Pods_Shoveled.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,6 +214,7 @@
 			children = (
 				0BFD4D3F8655DFA49986158E /* Pods-Shoveled.debug.xcconfig */,
 				3DC5BD28EAEDC9B7A6CC123F /* Pods-Shoveled.release.xcconfig */,
+				F5CEDA778BFB81D18FEFA484 /* Pods-Shoveled.debug (staging).xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -262,13 +266,14 @@
 			isa = PBXGroup;
 			children = (
 				61AFC9AD1E21E239001CBBC6 /* BankAccountCell.swift */,
+				61C841FA1E383094005F322F /* CompleteRequestCell.swift */,
 				613FCB771DEE6F3A00ED991B /* PersonalInfoCell.swift */,
 				619D20181DFEEFC90015C875 /* RequestCell.swift */,
 				61F067F91E2F05DD009283F9 /* RequestDetailCell.swift */,
+				61AF57691E5100B2005292FF /* RequestsListCell.swift */,
 				613FCB731DED174000ED991B /* SettingsCell.swift */,
-				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
-				61C841FA1E383094005F322F /* CompleteRequestCell.swift */,
 				61687E961E3D915C0074BDB1 /* ShovelerInfoHeaderCell.swift */,
+				617ECFCD1BE59B7300E61546 /* WeatherCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -394,12 +399,10 @@
 		61ED024D1BAE468C006B22B7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				61A932511D90BDF100E07134 /* CompleteRequestView.swift */,
 				61369D121CEBF6CF00079734 /* CustomTextField.swift */,
 				617ECFCF1BE6E66600E61546 /* ShoveledButton.swift */,
 				617031381C7D53B100297A25 /* ShovelAnnotationView.swift */,
 				61C4674A1DF8DAB100301D24 /* ShovelerAnnotationView.swift */,
-				617ECFC81BE306E000E61546 /* WelcomeView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 		61ED024E1BAE4691006B22B7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				61C841F81E382286005F322F /* CompleteRequestViewController.swift */,
 				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
 				61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */,
 				6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */,
@@ -416,7 +420,7 @@
 				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
 				613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */,
 				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
-				61C841F81E382286005F322F /* CompleteRequestViewController.swift */,
+				61AF57651E50FC77005292FF /* RequestsListTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -442,6 +446,7 @@
 			children = (
 				61ED02281BAE43F3006B22B7 /* LaunchScreen.storyboard */,
 				61ED02201BAE43F3006B22B7 /* Main.storyboard */,
+				61AF57671E50FD03005292FF /* RequestsListStoryboard.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -475,7 +480,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 61ED02441BAE43F3006B22B7 /* Build configuration list for PBXNativeTarget "Shoveled" */;
 			buildPhases = (
-				A782B80C83137D2D0FCBB7E5 /* 📦 Check Pods Manifest.lock */,
+				A782B80C83137D2D0FCBB7E5 /* [CP] Check Pods Manifest.lock */,
 				2BB7EB4BBF91BC2E1E325BEB /* [CP] Check Pods Manifest.lock */,
 				E6AEB6E245299AAC0049D87A /* [CP] Check Pods Manifest.lock */,
 				E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */,
@@ -602,6 +607,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61AF57681E50FD03005292FF /* RequestsListStoryboard.storyboard in Resources */,
 				6155263F1BF90BDE006D7862 /* Rajdhani-Bold.ttf in Resources */,
 				615526401BF90BDE006D7862 /* Rajdhani-Light.ttf in Resources */,
 				612AB85C1C32E38B00779CC9 /* MenuItems.plist in Resources */,
@@ -728,19 +734,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Shoveled/Pods-Shoveled-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A782B80C83137D2D0FCBB7E5 /* 📦 Check Pods Manifest.lock */ = {
+		A782B80C83137D2D0FCBB7E5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */ = {
@@ -832,7 +838,6 @@
 				612AB85A1C32E38400779CC9 /* Extensions.swift in Sources */,
 				61A354971BCF3E580071B5BE /* NetworkOperations.swift in Sources */,
 				61FCB9811DC83FFC002DB895 /* EmailService.swift in Sources */,
-				61A932521D90BDF100E07134 /* CompleteRequestView.swift in Sources */,
 				61AFC9AE1E21E239001CBBC6 /* BankAccountCell.swift in Sources */,
 				612B41551BB0DC5D00331F9B /* SignUpViewController.swift in Sources */,
 				61F067FC1E2F10FF009283F9 /* RequestDetailsViewController.swift in Sources */,
@@ -848,6 +853,7 @@
 				6181B7F71E034EEA00AB1C33 /* ExtensionHelpers.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
 				61C841FB1E383094005F322F /* CompleteRequestCell.swift in Sources */,
+				61AF57661E50FC78005292FF /* RequestsListTableViewController.swift in Sources */,
 				61E46A931DE2970D0049A2A2 /* EmailManager.swift in Sources */,
 				61EBB9E81DDF30D400841A3F /* LoginViewController.swift in Sources */,
 				61C4674B1DF8DAB100301D24 /* ShovelerAnnotationView.swift in Sources */,
@@ -857,6 +863,7 @@
 				61A354911BCF39520071B5BE /* Icon.swift in Sources */,
 				61369D131CEBF6CF00079734 /* CustomTextField.swift in Sources */,
 				614F28C51DFCEF6A005D9968 /* Shoveler.swift in Sources */,
+				61AF576A1E5100B2005292FF /* RequestsListCell.swift in Sources */,
 				617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */,
 				6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */,
 				61F067FA1E2F05DD009283F9 /* RequestDetailCell.swift in Sources */,
@@ -867,7 +874,6 @@
 				61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */,
 				61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */,
 				61C841F91E382286005F322F /* CompleteRequestViewController.swift in Sources */,
-				617ECFC91BE306E000E61546 /* WelcomeView.swift in Sources */,
 				614F28C11DFC4726005D9968 /* SessionManager.swift in Sources */,
 				617ECFD01BE6E66600E61546 /* ShoveledButton.swift in Sources */,
 			);
@@ -1016,7 +1022,7 @@
 		};
 		61ED02451BAE43F3006B22B7 /* Debug (Staging) */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0BFD4D3F8655DFA49986158E /* Pods-Shoveled.debug.xcconfig */;
+			baseConfigurationReference = F5CEDA778BFB81D18FEFA484 /* Pods-Shoveled.debug (staging).xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

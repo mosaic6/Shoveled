@@ -1,4 +1,4 @@
-# ForecastIO
+![ForecastIO](header.png)
 
 ![Swift](http://img.shields.io/badge/swift-3.0-brightgreen.svg)
 [![CI Status](http://img.shields.io/travis/sxg/ForecastIO.svg?style=flat)](https://travis-ci.org/sxg/ForecastIO)
@@ -81,7 +81,7 @@ Many languages are supported (a full list is available [here](https://darksky.ne
 With the `DarkSkyClient`, you can make two kinds of requests. The first will get the current `Forecast` for a particular location:
 
 ```swift
-client.getForecast(latitude: myLat, longitude: myLon) { (result) in
+client.getForecast(latitude: myLat, longitude: myLon) { result in
     switch result {
     case .success(let currentForecast, let requestMetadata):
         //  We got the current forecast!
@@ -94,7 +94,7 @@ client.getForecast(latitude: myLat, longitude: myLon) { (result) in
 The second kind of request is called a time machine request, and it will get a `Forecast` for a particular location at a particular time:
 
 ```swift
-client.getForecast(latitude: myLat, longitude: myLon, time: myTime) { (result) in
+client.getForecast(latitude: myLat, longitude: myLon, time: myTime) { result in
     switch result {
     case .success(let forecast, let requestMetadata):
         //  We got the forecast!

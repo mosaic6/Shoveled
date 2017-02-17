@@ -9,18 +9,18 @@
 import Foundation
 
 /// A class to interact with the Dark Sky API.
-open class DarkSkyClient: NSObject {
-
+open class DarkSkyClient : NSObject {
+    
     private let apiKey: String
     private let session = URLSession.shared
     private static let darkSkyURL = "https://api.darksky.net/forecast/"
-
+    
     /// Units in which the `Forecast` response will be provided. US is the default if no units are specified as per the Dark Sky API docs.
     open var units: Units?
-
+    
     /// Language in which the `Forecast` response's `DataBlock` and `DataPoint`'s `summary` properties will be provided. English is the default if no language is specified as per the Dark Sky API docs.
     open var language: Language?
-
+    
     /// Creates a new `DarkSkyClient` to interact with the Dark Sky API.
     ///
     /// - parameter key: Your Dark Sky API key.
@@ -41,7 +41,7 @@ open class DarkSkyClient: NSObject {
         let url = buildForecastURL(latitude: lat, longitude: lon, time: nil, extendHourly: extendHourly, excludeFields: excludeFields)
         getForecast(url: url, completionHandler: completion)
     }
-
+    
     /// Gets the `Forecast` at a specified latitude, longitude, and time, and returns it in a block.
     ///
     /// - parameter lat:           Latitude at which to get the `Forecast`.
@@ -53,7 +53,7 @@ open class DarkSkyClient: NSObject {
         let url = buildForecastURL(latitude: lat, longitude: lon, time: time, extendHourly: false, excludeFields: excludeFields)
         getForecast(url: url, completionHandler: completion)
     }
-
+    
     private func getForecast(url: URL, completionHandler: @escaping (Result<Forecast>) -> Void) {
         var urlRequest = URLRequest(url: url)
         urlRequest.addValue("gzip", forHTTPHeaderField: "Accept-Encoding")
@@ -76,7 +76,7 @@ open class DarkSkyClient: NSObject {
         })
         task.resume()
     }
-
+    
     private func buildForecastURL(latitude lat: Double, longitude lon: Double, time: Date?, extendHourly: Bool, excludeFields: [Forecast.Field]) -> URL {
         //  Build URL path
         var urlString = DarkSkyClient.darkSkyURL + apiKey + "/\(lat),\(lon)"
@@ -84,7 +84,7 @@ open class DarkSkyClient: NSObject {
             let timeString = String(format: "%.0f", time.timeIntervalSince1970)
             urlString.append(",\(timeString)")
         }
-
+        
         //  Build URL query parameters
         var urlBuilder = URLComponents(string: urlString)!
         var queryItems: [URLQueryItem] = []
@@ -108,7 +108,7 @@ open class DarkSkyClient: NSObject {
             queryItems.append(URLQueryItem(name: "exclude", value: excludeFieldsString))
         }
         urlBuilder.queryItems = queryItems
-
+    
         return urlBuilder.url!
     }
 }

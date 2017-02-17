@@ -9,39 +9,27 @@
 import MapKit
 
 class ShovelAnnotation: NSObject, MKAnnotation {
+    let shovelRequest: ShovelRequest?
     let title: String?
-    let coordinate: CLLocationCoordinate2D
-    let latitude: NSNumber?
-    let longitude: NSNumber?
-    let status: String?
-    let price: String?
-    let details: String?
-    let otherInfo: String?
-    let addedByUser: String?
-    let id: String?
-    let createdAt: String?
-    let acceptedByUser: String?
-    let stripeChargeToken: String?
-
-    init(address: String, coordinate: CLLocationCoordinate2D, latitude: NSNumber, longitude: NSNumber, status: String, price: String, details: String, otherInfo: String, addedByUser: String, id: String, createdAt: String, acceptedByUser: String, stripeChargeToken: String) {
-        self.title = address
-        self.coordinate = coordinate
-        self.latitude = latitude
-        self.longitude = longitude
-        self.status = status
-        self.price = price
-        self.details = details
-        self.otherInfo = otherInfo
-        self.addedByUser = addedByUser
-        self.id = id
-        self.createdAt = createdAt
-        self.acceptedByUser = acceptedByUser
-        self.stripeChargeToken = stripeChargeToken
-
+    init(coordinate: CLLocationCoordinate2D, title: String, shovelRequest: ShovelRequest) {
+        self.shovelRequest = shovelRequest
+        self.title = shovelRequest.address
     }
 
     var subtitle: String? {
-        return status?.uppercased()
+        return shovelRequest?.status.uppercased()
+    }
+    
+    var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
+    
+    var longitude: Double {
+        return shovelRequest?.longitude ?? 0.0
+    }
+    
+    var latitude: Double {
+        return shovelRequest?.latitude ?? 0.0
     }
 
 }

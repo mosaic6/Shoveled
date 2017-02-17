@@ -210,7 +210,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
 
     func submitCard() {
-        if self.address1 == "" || self.shovelingDescription == "" || self.price == "" {
+        guard let paymentInfo = self.paymentInfoTF else { return }
+        if self.address1 == "" || self.shovelingDescription == "" || self.price == "" || !paymentInfo.hasText {
             let alert = UIAlertController(title: "Eh!", message: "Looks like you missed something", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Try again!", style: .default, handler: nil)
             alert.addAction(okAction)
@@ -296,7 +297,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
 
-        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: lat, longitude: lon, details: details, otherInfo: otherInfo, price: NSDecimalNumber(string: stringPrice), id: String(postId), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
+        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: Double(lat), longitude: Double(lon), details: details, otherInfo: otherInfo, price: Float(NSDecimalNumber(string: stringPrice)), id: String(postId), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
 
         let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in

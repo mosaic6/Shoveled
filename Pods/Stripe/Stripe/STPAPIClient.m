@@ -9,15 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <sys/utsname.h>
 
-#import "STPAPIClient.h"
 #import "STPAPIClient+ApplePay.h"
-#import "STPFormEncoder.h"
-#import "STPBankAccount.h"
-#import "STPCard.h"
-#import "STPToken.h"
+#import "STPAPIClient.h"
 #import "STPAPIPostRequest.h"
 #import "STPAnalyticsClient.h"
+#import "STPBankAccount.h"
+#import "STPCard.h"
+#import "STPFormEncoder.h"
 #import "STPPaymentConfiguration.h"
+#import "STPToken.h"
 
 #if __has_include("Fabric.h")
 #import "Fabric+FABKits.h"
@@ -188,7 +188,7 @@ static NSString *const stripeAPIVersion = @"2015-10-12";
             details[@"vendor_identifier"] = vendorIdentifier;
         }
     }
-    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[details copy] options:0 error:NULL] encoding:NSUTF8StringEncoding];
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:[details copy] options:(NSJSONWritingOptions)kNilOptions error:NULL] encoding:NSUTF8StringEncoding];
 }
 
 #pragma mark Fabric
@@ -272,9 +272,6 @@ static NSString *const stripeAPIVersion = @"2015-10-12";
 }
 
 + (PKPaymentRequest *)paymentRequestWithMerchantIdentifier:(NSString *)merchantIdentifier {
-    if (![PKPaymentRequest class]) {
-        return nil;
-    }
     PKPaymentRequest *paymentRequest = [PKPaymentRequest new];
     [paymentRequest setMerchantIdentifier:merchantIdentifier];
     [paymentRequest setSupportedNetworks:[self supportedPKPaymentNetworks]];

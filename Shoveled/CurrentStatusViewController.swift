@@ -20,8 +20,6 @@ protocol LocationServicesDelegate {
     func checkLocationServices()
 }
 
-let completedOrCancelledNotification = "com.mosaic6.removePinNotification"
-
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
 
     // MARK: Outlets
@@ -36,6 +34,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var refreshMapBtn: UIButton?
     @IBOutlet weak var shovelerImageView: UIImageView?
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
+    @IBOutlet weak var requestsListBtn: ShoveledButton?
     // MARK: Variables
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
     fileprivate let locationManager = CLLocationManager()
@@ -49,7 +48,10 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var requestStatus: String!
     fileprivate var updateRequestDelegate: UpdateRequestStatusDelegate?
     fileprivate var locationDelegate: LocationServicesDelegate?
-    fileprivate var ref: FIRDatabaseReference?
+    fileprivate var ref: FIRDatabaseReference? = FIRDatabase.database().reference(withPath: "requests")
+    
+    var requests = [ShovelRequest]()
+    
     fileprivate var postalCode: String?
     fileprivate var numOfShovelers = 0
     var isUserShoveler = false
@@ -62,13 +64,14 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.ref = FIRDatabase.database().reference(withPath: "requests")
+        self.getRequests()
         self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
         self.checkLocationServices()
         self.areShovelersAvailable()
 
+        self.requestsListBtn?.addTarget(self, action: #selector(CurrentStatusViewController.showRequestsListViewController), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
     }
@@ -77,6 +80,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidAppear(animated)
         self.getUserInfo()
         self.getShovelRequests()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -183,6 +187,19 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             }
         }
     }
+    
+    func getRequests() {
+        self.ref?.observe(.value, with: { snapshot in
+            var requests: [ShovelRequest] = []
+            for item in snapshot.children {
+                let request = ShovelRequest(snapshot: item as! FIRDataSnapshot)
+                requests.append(request)
+            }
+            self.requests = requests
+            print(requests)
+        })
+    }
+    
 
     // MARK: - Fetch Request
     func getShovelRequests() {
@@ -190,54 +207,24 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
         self.showActivityIndicatory(self.view)
         self.ref?.observe(.value, with: { snapshot in
-            if let items = snapshot.value as? [String: AnyObject] {
-                for item in items {
-                    guard let address = item.value["address"] as? String else { return }
-                    guard let addedByUser = item.value["addedByUser"] as? String else { return }
-                    guard let status = item.value["status"] as? String else { return }
-                    guard let latitude = item.value["latitude"] as? NSNumber else { return }
-                    guard let longitude = item.value["longitude"] as? NSNumber else { return }
-                    guard let details = item.value["details"] as? String else { return }
-                    guard let otherInfo = item.value["otherInfo"] as? String else { return }
-                    guard let price = item.value["price"] as? NSNumber else { return }
-                    guard let id = item.value["id"] as? String else { return }
-                    guard let createdAt = item.value["createdAt"] as? String else { return }
-                    guard let acceptedByUser = item.value["acceptedByUser"] as? String else { return }
-                    guard let stripeChargeToken = item.value["stripeChargeToken"] as? String else { return }
-
-                    self.requestStatus = status
-
-                    self.theirLocation = CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue)
-                    self.nearArray.append(self.theirLocation)
-
-                    let mapAnnotation = ShovelAnnotation(
-                        address: address,
-                        coordinate: self.theirLocation,
-                        latitude: latitude,
-                        longitude: longitude,
-                        status: status,
-                        price: String(describing: price),
-                        details: details,
-                        otherInfo: otherInfo,
-                        addedByUser: addedByUser,
-                        id: id,
-                        createdAt: createdAt,
-                        acceptedByUser: acceptedByUser,
-                        stripeChargeToken: stripeChargeToken)
-
-                    DispatchQueue.main.async {
-                        self.mapView?.addAnnotation(mapAnnotation)
-                        if status == "Completed" {
-                            self.mapView?.removeAnnotation(mapAnnotation)
-                        }
-                        self.hideActivityIndicator(self.view)
-                    }
-                }
-            } else {
+            var requests: [ShovelRequest] = []
+            for item in snapshot.children {
+                let request = ShovelRequest(snapshot: item as! FIRDataSnapshot)
+                requests.append(request)
+                
+                self.theirLocation = CLLocationCoordinate2D(latitude: request.latitude, longitude: request.longitude)
+                let mapAnnotation = ShovelAnnotation(coordinate: self.theirLocation, title: request.address, shovelRequest: request)
+                
                 DispatchQueue.main.async {
-                    self.hideActivityIndicator(self.view)
+                    self.mapView?.addAnnotation(mapAnnotation)
+                        
+                    if request.status == "Complete" {
+                        self.mapView?.removeAnnotation(mapAnnotation)
+                    }                    
                 }
-
+            }
+            DispatchQueue.main.async {
+                self.hideActivityIndicator(self.view)
             }
         })
     }
@@ -299,20 +286,8 @@ extension CurrentStatusViewController: MKMapViewDelegate {
         let vc = storyboard?.instantiateViewController(withIdentifier: "RequestDetailsViewController") as? RequestDetailsViewController
         let nav: UINavigationController = UINavigationController(rootViewController: vc!)
         if let requestVC = vc {
-            requestVC.addressString = shovel.title
-            requestVC.descriptionString = shovel.details
-            requestVC.longitude = shovel.longitude
-            requestVC.latitude = shovel.latitude
-            requestVC.priceString = shovel.price
-            requestVC.addedByUser = shovel.addedByUser
-            requestVC.moreInfoString = shovel.otherInfo
-            requestVC.status = shovel.status
-            requestVC.id = shovel.id
-            requestVC.createdAt = shovel.createdAt
-            requestVC.acceptedByUser = shovel.acceptedByUser
-            requestVC.stripeChargeToken = shovel.stripeChargeToken
+            requestVC.shovelRequest = shovel.shovelRequest
             requestVC.isShoveler = self.isUserShoveler
-
             self.present(nav, animated: true, completion: nil)
         }
     }
@@ -341,6 +316,7 @@ extension CurrentStatusViewController {
     }
 }
 
+// MARK: Get number of shovelers
 extension CurrentStatusViewController {
     
     fileprivate func areShovelersAvailable() {
@@ -371,5 +347,15 @@ extension CurrentStatusViewController {
                 }
             }
         })
+    }
+}
+
+// MARK: Show Requests List View Controller
+extension CurrentStatusViewController {
+    
+    @objc fileprivate func showRequestsListViewController() {
+        let storyboard = UIStoryboard(name: "RequestsListStoryboard", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "RequestsListTableViewController") as? RequestsListTableViewController else { return }
+        self.present(vc, animated: true, completion: nil)
     }
 }

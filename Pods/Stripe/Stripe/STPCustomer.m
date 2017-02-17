@@ -7,8 +7,9 @@
 //
 
 #import "STPCustomer.h"
-#import "StripeError.h"
+
 #import "STPCard.h"
+#import "StripeError.h"
 
 @interface STPCustomer()
 
@@ -48,7 +49,7 @@
         return [self initWithError:error];
     }
     NSError *jsonError;
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonError];
+    id json = [NSJSONSerialization JSONObjectWithData:data options:(NSJSONReadingOptions)kNilOptions error:&jsonError];
     if (!json) {
         return [self initWithError:jsonError];
     }
