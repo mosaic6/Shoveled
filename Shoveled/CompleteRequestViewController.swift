@@ -173,27 +173,11 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     }
     
     func sendCompletedJob() {
-        guard let requestId = id,
-            let address = addressString,
-            let description = descriptionString
-            else { return }
-        let price: Int? = Int(priceString!)
-        
-        let request: [String: AnyObject] = ["status": "Completed" as AnyObject,
-                                            "address": address as AnyObject,
-                                            "longitude": self.longitude!,
-                                            "latitude": self.latitude!,
-                                            "details": description as AnyObject,
-                                            "addedByUser": self.addedByUser! as AnyObject,
-                                            "otherInfo": "" as AnyObject,
-                                            "price": price! as AnyObject,
-                                            "id": self.id! as AnyObject,
-                                            "createdAt": self.createdAt! as AnyObject,
-                                            "acceptedByUser": currentUserEmail as AnyObject,
-                                            "stripeChargeToken": self.stripeChargeToken as AnyObject]
-        
-        let childUpdates = ["/\(requestId)": request]
-        self.ref.updateChildValues(childUpdates) { (error, ref) in
+        let requestFirebaseReference = self.shovelRequest?.firebaseReference
+        requestFirebaseReference?.updateChildValues([
+            StatusKey: "Completed",
+            AcceptedByUserKey: currentUserEmail
+            ]) { (error, ref) in
             if error != nil {
                 return
             } else {
@@ -201,7 +185,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
                 let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
                     self.sendCompletedJob()
                     self.transferFunds()
-                    self.sendCompletedImage(requestId: requestId)
+                    self.sendCompletedImage()
                     self.dismiss(animated: true, completion: nil)
                 }
                 alert.addAction(okAction)
@@ -215,8 +199,8 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         }
     }
     
-    func sendCompletedImage(requestId: String) {
-        let storage = FIRStorage.storage().reference().child("\(requestId)-completedJob.png")
+    func sendCompletedImage() {
+        let storage = FIRStorage.storage().reference().child("CompletedRequest.png")
         if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
             storage.put(uploadData, metadata: nil) { (metaData, error) in
                 if error != nil {

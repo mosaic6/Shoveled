@@ -280,7 +280,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
 
     func addRequestOnSuccess(stripeToken: String) {
-        let postId = Int(arc4random_uniform(10000) + 1)
         guard let address = self.address1 else { return }
         guard let lat = self.latitude else { return }
         guard let lon = self.longitude else { return }
@@ -290,18 +289,17 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         guard let price = self.price else { return }
         let newPrice: Int = Int(price)! * 100
         let stringPrice = String(newPrice)
-
-        guard let email = FIRAuth.auth()?.currentUser?.email else { return }
+        
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
 
-        self.shovelRequest = ShovelRequest(address: address, addedByUser: email, status: "Active", latitude: Double(lat), longitude: Double(lon), details: details, otherInfo: otherInfo, price: Float(NSDecimalNumber(string: stringPrice)), id: String(postId), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
+        self.shovelRequest = ShovelRequest(address: address, addedByUser: currentUserEmail, status: "Active", latitude: Double(lat), longitude: Double(lon), details: details, otherInfo: otherInfo, price: Float(NSDecimalNumber(string: stringPrice)), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
 
         let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in
-            let requestName = self.ref.child("/requests/\(postId)")
+            let requestName = self.ref.child("/requests/").childByAutoId()
             self.hideActivityIndicator(self.view)
             requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, ref) in
                 if error != nil {

@@ -48,7 +48,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var requestStatus: String!
     fileprivate var updateRequestDelegate: UpdateRequestStatusDelegate?
     fileprivate var locationDelegate: LocationServicesDelegate?
-    fileprivate var ref: FIRDatabaseReference? = FIRDatabase.database().reference(withPath: "requests")
+    fileprivate var ref = FIRDatabase.database().reference(withPath: "requests")
     
     var requests = [ShovelRequest]()
     
@@ -63,8 +63,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     // MARK: View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.getRequests()
+        
         self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
@@ -187,29 +186,16 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             }
         }
     }
-    
-    func getRequests() {
-        self.ref?.observe(.value, with: { snapshot in
-            var requests: [ShovelRequest] = []
-            for item in snapshot.children {
-                let request = ShovelRequest(snapshot: item as! FIRDataSnapshot)
-                requests.append(request)
-            }
-            self.requests = requests
-            print(requests)
-        })
-    }
-    
 
     // MARK: - Fetch Request
     func getShovelRequests() {
         self.removeAnnotations()
 
         self.showActivityIndicatory(self.view)
-        self.ref?.observe(.value, with: { snapshot in
+        self.ref.observe(.value, with: { snapshot in
             var requests: [ShovelRequest] = []
             for item in snapshot.children {
-                let request = ShovelRequest(snapshot: item as! FIRDataSnapshot)
+                let request = ShovelRequest(snapshot: item as? FIRDataSnapshot)
                 requests.append(request)
                 
                 self.theirLocation = CLLocationCoordinate2D(latitude: request.latitude, longitude: request.longitude)
@@ -218,11 +204,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                 DispatchQueue.main.async {
                     self.mapView?.addAnnotation(mapAnnotation)
                         
-                    if request.status == "Complete" {
+                    if request.status == "Completed" {
                         self.mapView?.removeAnnotation(mapAnnotation)
                     }                    
                 }
             }
+            self.requests = requests
             DispatchQueue.main.async {
                 self.hideActivityIndicator(self.view)
             }

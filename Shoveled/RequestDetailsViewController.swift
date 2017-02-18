@@ -259,9 +259,7 @@ extension RequestDetailsViewController {
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
         let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
             
-            guard let requestId = self.shovelRequest?.id else { return }
-            let requestToDelete = self.ref.child(requestId)
-            requestToDelete.removeValue()
+            self.shovelRequest?.firebaseReference?.removeValue()
             self.issueRefund()
             self.dismiss(animated: true, completion: nil)
         }
@@ -274,17 +272,19 @@ extension RequestDetailsViewController {
     
     func acceptRequest() {
         actInd.startAnimating()
-        self.shovelRequest?.status = "Accepted"
-        self.shovelRequest?.acceptedByUser = currentUserEmail
         
         let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Once the job is complete please take a photo of your work and submit it.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         let okAction: UIAlertAction = UIAlertAction(title: "Let's Go", style: .default) { (action) in
-            let childUpdates = ["/\(self.shovelRequest?.id)": self.shovelRequest]
-            self.ref.updateChildValues(childUpdates)
+            
+            let requestFirebaseReference = self.shovelRequest?.firebaseReference
+            requestFirebaseReference?.updateChildValues([
+                StatusKey: "Accepted",
+                AcceptedByUserKey: currentUserEmail
+                ])
+            
             actInd.stopAnimating()
-            
-            
+                        
             self.showCompleteRequest()
             
             if let addedByUser = self.shovelRequest?.addedByUser {
