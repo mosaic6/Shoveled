@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E144f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tCX-AY-NMz">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E154a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tCX-AY-NMz">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -43,7 +43,7 @@
                                 <rect key="frame" x="0.0" y="180" width="375" height="487"/>
                                 <subviews>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuE-0U-zZI">
-                                        <rect key="frame" x="0.0" y="128" width="375" height="292"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="420"/>
                                     </mapView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QDm-DM-ozz">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
@@ -70,8 +70,8 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFf-xI-OxT" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="70" width="355" height="45"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFf-xI-OxT">
+                                                <rect key="frame" x="0.0" y="75" width="375" height="45"/>
                                                 <color key="backgroundColor" red="0.36862745099999999" green="0.76862745099999996" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="xnB-Fo-kgi"/>
@@ -82,17 +82,17 @@
                                                 </state>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="eFf-xI-OxT" firstAttribute="leading" secondItem="QDm-DM-ozz" secondAttribute="leading" constant="10" id="9r5-zD-mPl"/>
+                                            <constraint firstItem="eFf-xI-OxT" firstAttribute="leading" secondItem="QDm-DM-ozz" secondAttribute="leading" id="9r5-zD-mPl"/>
                                             <constraint firstAttribute="height" constant="120" id="P1R-bw-s5X"/>
                                             <constraint firstItem="Au9-9S-VKo" firstAttribute="top" secondItem="QDm-DM-ozz" secondAttribute="top" constant="4" id="Pch-g1-626"/>
                                             <constraint firstAttribute="bottom" secondItem="Zgu-Ps-Bqu" secondAttribute="bottom" constant="75" id="Tmb-hQ-ZHr"/>
                                             <constraint firstItem="Au9-9S-VKo" firstAttribute="leading" secondItem="QDm-DM-ozz" secondAttribute="leading" constant="8" id="VPO-lQ-1Dg"/>
-                                            <constraint firstAttribute="bottom" secondItem="eFf-xI-OxT" secondAttribute="bottom" constant="5" id="ZIX-L2-kC2"/>
+                                            <constraint firstAttribute="bottom" secondItem="eFf-xI-OxT" secondAttribute="bottom" id="ZIX-L2-kC2"/>
                                             <constraint firstItem="Zgu-Ps-Bqu" firstAttribute="top" secondItem="QDm-DM-ozz" secondAttribute="top" constant="15" id="a3D-Hx-lWg"/>
                                             <constraint firstItem="Zgu-Ps-Bqu" firstAttribute="centerX" secondItem="QDm-DM-ozz" secondAttribute="centerX" id="bjW-9Y-TMR"/>
-                                            <constraint firstAttribute="trailing" secondItem="eFf-xI-OxT" secondAttribute="trailing" constant="10" id="zh8-It-zN9"/>
+                                            <constraint firstAttribute="trailing" secondItem="eFf-xI-OxT" secondAttribute="trailing" id="zh8-It-zN9"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -100,7 +100,6 @@
                                 <constraints>
                                     <constraint firstItem="QDm-DM-ozz" firstAttribute="leading" secondItem="SLL-bG-2fj" secondAttribute="leading" id="GTx-Jl-N11"/>
                                     <constraint firstItem="nuE-0U-zZI" firstAttribute="leading" secondItem="SLL-bG-2fj" secondAttribute="leading" id="I2M-Ty-Llf"/>
-                                    <constraint firstItem="nuE-0U-zZI" firstAttribute="top" secondItem="QDm-DM-ozz" secondAttribute="bottom" constant="8" id="Sif-vj-9mL"/>
                                     <constraint firstAttribute="trailing" secondItem="nuE-0U-zZI" secondAttribute="trailing" id="V9g-pl-oxK"/>
                                     <constraint firstAttribute="trailing" secondItem="QDm-DM-ozz" secondAttribute="trailing" id="kd9-yq-jrW"/>
                                     <constraint firstItem="QDm-DM-ozz" firstAttribute="top" secondItem="SLL-bG-2fj" secondAttribute="top" id="yf1-gh-dGa"/>
@@ -326,6 +325,7 @@
                             <constraint firstItem="SLL-bG-2fj" firstAttribute="leading" secondItem="CBj-lx-rpf" secondAttribute="leading" id="ogJ-nS-45E"/>
                             <constraint firstItem="U3i-yJ-xKQ" firstAttribute="top" secondItem="SLL-bG-2fj" secondAttribute="bottom" id="qRB-Ju-jEO"/>
                             <constraint firstItem="nrl-wV-q5R" firstAttribute="top" secondItem="nuE-0U-zZI" secondAttribute="bottom" constant="10" id="siU-7v-WlA"/>
+                            <constraint firstItem="nuE-0U-zZI" firstAttribute="top" secondItem="bfk-BZ-nYV" secondAttribute="bottom" constant="-1" id="tdH-rL-Rf7"/>
                             <constraint firstItem="SLL-bG-2fj" firstAttribute="leading" secondItem="CBj-lx-rpf" secondAttribute="leadingMargin" constant="-20" id="viu-a0-C3p"/>
                             <constraint firstItem="U3i-yJ-xKQ" firstAttribute="top" secondItem="Roy-N1-V2H" secondAttribute="bottom" id="vjq-Kf-AZ4"/>
                             <constraint firstAttribute="trailing" secondItem="SLL-bG-2fj" secondAttribute="trailing" id="wIb-cI-u6a"/>
@@ -394,13 +394,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JA9-jE-vta">
-                                                    <rect key="frame" x="8" y="11" width="53.5" height="21"/>
+                                                    <rect key="frame" x="8" y="11" width="54" height="21"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Address line 1, City, State Postal Code " textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rDc-gc-0T5">
-                                                    <rect key="frame" x="82.5" y="8" width="284.5" height="27"/>
+                                                    <rect key="frame" x="83" y="8" width="284" height="27"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -462,13 +462,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MORE INFO (OPTIONAL)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C4k-ks-38a">
-                                                    <rect key="frame" x="8" y="11" width="126.5" height="22"/>
+                                                    <rect key="frame" x="8" y="11" width="127" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Clean off car" textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="EcN-nY-e5H">
-                                                    <rect key="frame" x="142.5" y="8" width="224.5" height="27"/>
+                                                    <rect key="frame" x="143" y="8" width="224" height="27"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -496,13 +496,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SET YOUR PRICE $$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGd-Fa-xah">
-                                                    <rect key="frame" x="8" y="11" width="108.5" height="22"/>
+                                                    <rect key="frame" x="8" y="11" width="109" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="25" textAlignment="right" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5iw-zq-fEt">
-                                                    <rect key="frame" x="124.5" y="8" width="242.5" height="27"/>
+                                                    <rect key="frame" x="125" y="8" width="242" height="27"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -565,7 +565,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PAYMENT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7T-bv-Wgz">
-                                                    <rect key="frame" x="8" y="8" width="52.5" height="18"/>
+                                                    <rect key="frame" x="8" y="8" width="53" height="18"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -648,7 +648,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iyy-JJ-RxQ">
-                                            <rect key="frame" x="8" y="8" width="64.5" height="22"/>
+                                            <rect key="frame" x="8" y="8" width="65" height="22"/>
                                             <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
                                             <color key="textColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -720,7 +720,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="MORE INFO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFi-kK-RaT">
-                                            <rect key="frame" x="8" y="8" width="74.5" height="22"/>
+                                            <rect key="frame" x="8" y="8" width="75" height="22"/>
                                             <fontDescription key="fontDescription" name="Rajdhani-Semibold" family="Rajdhani" pointSize="17"/>
                                             <color key="textColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -747,7 +747,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8gY-yv-wrf">
-                                            <rect key="frame" x="8" y="25" width="37" height="22"/>
+                                            <rect key="frame" x="8" y="24" width="37" height="22"/>
                                             <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -1213,7 +1213,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snowBG" translatesAutoresizingMaskIntoConstraints="NO" id="awf-l1-QnJ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                             </imageView>
                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jM-Cp-mrq" userLabel="Login" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
                                 <rect key="frame" x="16" y="311" width="343" height="44"/>
@@ -1281,10 +1281,10 @@
                             <constraint firstItem="geW-cu-qVu" firstAttribute="top" secondItem="awf-l1-QnJ" secondAttribute="bottom" id="adn-9p-9Qq"/>
                             <constraint firstAttribute="leadingMargin" secondItem="NNG-yN-1O9" secondAttribute="leading" id="bsq-bt-QPj"/>
                             <constraint firstItem="awf-l1-QnJ" firstAttribute="top" secondItem="Hx5-kE-SiF" secondAttribute="bottom" constant="-64" id="btn-l0-DJ8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="awf-l1-QnJ" secondAttribute="trailing" constant="-16" id="j3k-4X-0UQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="awf-l1-QnJ" secondAttribute="trailing" constant="-20" id="j3k-4X-0UQ"/>
                             <constraint firstItem="5jM-Cp-mrq" firstAttribute="top" secondItem="fWR-ma-rGI" secondAttribute="bottom" constant="8" id="k0V-iI-W3S"/>
                             <constraint firstAttribute="leadingMargin" secondItem="5jM-Cp-mrq" secondAttribute="leading" id="lU6-pr-urZ"/>
-                            <constraint firstItem="awf-l1-QnJ" firstAttribute="leading" secondItem="RnY-GJ-lne" secondAttribute="leadingMargin" constant="-16" id="m2k-Hc-iIc"/>
+                            <constraint firstItem="awf-l1-QnJ" firstAttribute="leading" secondItem="RnY-GJ-lne" secondAttribute="leadingMargin" constant="-20" id="m2k-Hc-iIc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5jM-Cp-mrq" secondAttribute="trailing" id="rMJ-oJ-7zY"/>
                             <constraint firstAttribute="leadingMargin" secondItem="fWR-ma-rGI" secondAttribute="leading" id="ukr-Zv-e1O"/>
                             <constraint firstItem="NNG-yN-1O9" firstAttribute="top" secondItem="lWf-Rv-bdm" secondAttribute="bottom" constant="8" id="wOZ-R6-X4q"/>
@@ -1493,7 +1493,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hat" translatesAutoresizingMaskIntoConstraints="NO" id="fgd-0m-h7u">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hat" translatesAutoresizingMaskIntoConstraints="NO" id="fgd-0m-h7u">
                                             <rect key="frame" x="137" y="30" width="100" height="100"/>
                                         </imageView>
                                     </subviews>
@@ -1591,13 +1591,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnR-Aj-plc">
-                                                    <rect key="frame" x="8" y="16" width="64.5" height="22"/>
+                                                    <rect key="frame" x="8" y="16" width="65" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0bz-SQ-DP9">
-                                                    <rect key="frame" x="136.5" y="0.0" width="230.5" height="54"/>
+                                                    <rect key="frame" x="137" y="0.0" width="230" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -1667,13 +1667,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgj-d0-Yg1">
-                                                    <rect key="frame" x="8" y="16" width="41.5" height="22"/>
+                                                    <rect key="frame" x="8" y="16" width="42" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="RI" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="joG-9K-1jT">
-                                                    <rect key="frame" x="136.5" y="0.0" width="230.5" height="54"/>
+                                                    <rect key="frame" x="137" y="0.0" width="230" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -1741,7 +1741,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE OF BIRTH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvT-dX-3be">
-                                                    <rect key="frame" x="8" y="17" width="99.5" height="22"/>
+                                                    <rect key="frame" x="8" y="17" width="100" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1951,7 +1951,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bkD-nG-HQT" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dRc-yD-JAX">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dRc-yD-JAX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2024,7 +2024,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="L07-nq-jTk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qHg-b1-ecd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qHg-b1-ecd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2042,7 +2042,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SettingsNavViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xuk-LU-7Ee" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Dwh-0L-Re5">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Dwh-0L-Re5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2060,7 +2060,7 @@
             <objects>
                 <navigationController title="REQUEST DETAILS" automaticallyAdjustsScrollViewInsets="NO" id="91N-wh-P09" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Zkr-EV-B78">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zkr-EV-B78">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

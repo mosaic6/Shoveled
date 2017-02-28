@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E144f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E154a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -17,7 +17,7 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Requests List Table View Controller-->
+        <!--My Requests-->
         <scene sceneID="6MW-Fy-cjb">
             <objects>
                 <tableViewController storyboardIdentifier="RequestsListTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mJ3-Ij-PbI" customClass="RequestsListTableViewController" customModule="Shoveled" customModuleProvider="target" sceneMemberID="viewController">
@@ -26,15 +26,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="RequestsListCell" rowHeight="75" id="SBJ-uM-AE4" customClass="RequestsListCell" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="75"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="requestsCellIdentifier" rowHeight="100" id="SBJ-uM-AE4" customClass="RequestsListCell" customModule="Shoveled" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SBJ-uM-AE4" id="ewB-FW-GQc">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="74"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mH1-yO-4AM">
-                                            <rect key="frame" x="8" y="8" width="252" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mH1-yO-4AM">
+                                            <rect key="frame" x="8" y="8" width="37" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="jRw-bY-LuY"/>
                                             </constraints>
@@ -43,19 +43,19 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFs-A3-ETX">
-                                            <rect key="frame" x="8" y="45" width="31" height="21"/>
+                                            <rect key="frame" x="8" y="61" width="31" height="30"/>
                                             <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7d-jY-MqY">
-                                            <rect key="frame" x="325" y="45" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u7d-jY-MqY">
+                                            <rect key="frame" x="336" y="70" width="31" height="21"/>
                                             <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTN-XM-tmA">
-                                            <rect key="frame" x="325" y="8" width="42" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tTN-XM-tmA">
+                                            <rect key="frame" x="336" y="33" width="31" height="21"/>
                                             <fontDescription key="fontDescription" name="Marvel-Regular" family="Marvel" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -66,8 +66,9 @@
                                         <constraint firstAttribute="leadingMargin" secondItem="mH1-yO-4AM" secondAttribute="leading" id="8ex-NY-0La"/>
                                         <constraint firstAttribute="topMargin" secondItem="mH1-yO-4AM" secondAttribute="top" id="Ht9-vf-lnb"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="GFs-A3-ETX" secondAttribute="leading" id="Kbn-If-rJj"/>
+                                        <constraint firstItem="tTN-XM-tmA" firstAttribute="top" secondItem="ewB-FW-GQc" secondAttribute="topMargin" constant="25" id="TXh-LA-i9C"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="u7d-jY-MqY" secondAttribute="trailing" id="YyA-a2-MB2"/>
-                                        <constraint firstItem="GFs-A3-ETX" firstAttribute="top" secondItem="mH1-yO-4AM" secondAttribute="bottom" constant="16" id="v60-nz-nSL"/>
+                                        <constraint firstItem="GFs-A3-ETX" firstAttribute="top" secondItem="mH1-yO-4AM" secondAttribute="bottom" constant="32" id="sxu-jH-gX0"/>
                                         <constraint firstItem="u7d-jY-MqY" firstAttribute="top" secondItem="tTN-XM-tmA" secondAttribute="bottom" constant="16" id="xyc-7n-J6F"/>
                                     </constraints>
                                 </tableViewCellContentView>
@@ -89,16 +90,27 @@
                             <outlet property="delegate" destination="mJ3-Ij-PbI" id="EUj-R2-uRQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="tB3-fW-h1q"/>
+                    <navigationItem key="navigationItem" title="My Requests" id="yIp-Y0-LRd">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="ooF-Wk-B86">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SNe-Zf-LGd">
+                                <rect key="frame" x="16" y="8" width="28" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Close"/>
+                                <connections>
+                                    <action selector="closeView:" destination="mJ3-Ij-PbI" eventType="touchUpInside" id="H47-1M-Ft2"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JkJ-66-LWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-526" y="104"/>
+            <point key="canvasLocation" x="-527.20000000000005" y="103.89805097451276"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0kS-uq-2wp">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Xgz-af-yvl" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RequestsListNavController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Xgz-af-yvl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="7TM-gm-H2x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -114,4 +126,7 @@
             <point key="canvasLocation" x="-1282.4000000000001" y="103.89805097451276"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Close" width="45" height="45"/>
+    </resources>
 </document>

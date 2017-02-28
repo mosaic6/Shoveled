@@ -7,8 +7,20 @@
 //
 
 import Foundation
+import Firebase
 
-class Shoveler: NSObject {
+let FirstNameKey = "firstName"
+let LastNameKey = "lastName"
+let Address1Key = "address1"
+let CityKey = "city"
+let StateKey = "state"
+let PostalCodeKey = "postalCode"
+let DobMonthKey = "dobMonth"
+let DobDayKey = "dobDay"
+let DobYearKey = "dobYear"
+let StripeIdKey = "stripeId"
+
+struct Shoveler {
     var firstName: String
     var lastName: String
     var address1: String
@@ -19,6 +31,7 @@ class Shoveler: NSObject {
     var dobDay: String
     var dobYear: String
     var stripeId: String
+    var firebaseReference: FIRDatabaseReference?
 
     init(firstName: String, lastName: String, address1: String, city: String, state: String, postalCode: String, dobMonth: String, dobDay: String, dobYear: String, stripeId: String) {
         self.firstName = firstName
@@ -31,32 +44,36 @@ class Shoveler: NSObject {
         self.dobDay = dobDay
         self.dobYear = dobYear
         self.stripeId = stripeId
+        self.firebaseReference = nil
+    }
+    
+    init(snapshot: FIRDataSnapshot?) {
+        let snapshotValue = snapshot?.value as? [String: Any]
+        self.firstName = snapshotValue?[FirstNameKey] as! String
+        self.lastName = snapshotValue?[LastNameKey] as! String
+        self.address1 = snapshotValue?[Address1Key] as! String
+        self.city = snapshotValue?[CityKey] as! String
+        self.state = snapshotValue?[StateKey] as! String
+        self.postalCode = snapshotValue?[PostalCodeKey] as! String
+        self.dobMonth = snapshotValue?[DobMonthKey] as! String
+        self.dobDay = snapshotValue?[DobDayKey] as! String
+        self.dobYear = snapshotValue?[DobYearKey] as! String
+        self.stripeId = snapshotValue?[StripeIdKey] as! String
+        
     }
 
     func toAnyObject() -> NSDictionary {
         return [
-            "firstName": firstName,
-            "lastName": lastName,
-            "address1": address1,
-            "city": city,
-            "state": state,
-            "postalCode": postalCode,
-            "dobMonth": dobMonth,
-            "dobDay": dobDay,
-            "dobYear": dobYear,
-            "stripeId": stripeId
+            FirstNameKey: self.firstName,
+            LastNameKey: self.lastName,
+            Address1Key: self.address1,
+            CityKey: self.city,
+            StateKey: self.state,
+            PostalCodeKey: self.postalCode,
+            DobMonthKey: self.dobMonth,
+            DobDayKey: self.dobDay,
+            DobYearKey: self.dobYear,
+            StripeIdKey: self.stripeId
         ]
-    }
-    convenience override init() {
-        self.init(firstName: "",
-                  lastName: "",
-                  address1: "",
-                  city: "",
-                  state: "",
-                  postalCode: "",
-                  dobMonth: "",
-                  dobDay: "",
-                  dobYear: "",
-                  stripeId: "")
-    }
+    } 
 }

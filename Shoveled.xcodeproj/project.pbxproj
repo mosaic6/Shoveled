@@ -418,9 +418,9 @@
 				613FCB751DEE58F700ED991B /* PersonalInformationViewController.swift */,
 				61F067FB1E2F10FF009283F9 /* RequestDetailsViewController.swift */,
 				617ECFD11BE6FB4600E61546 /* RequestShovelingViewController.swift */,
+				61AF57651E50FC77005292FF /* RequestsListTableViewController.swift */,
 				613FCB6D1DED0B6D00ED991B /* SettingsTableViewController.swift */,
 				612B41541BB0DC5D00331F9B /* SignUpViewController.swift */,
-				61AF57651E50FC77005292FF /* RequestsListTableViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";

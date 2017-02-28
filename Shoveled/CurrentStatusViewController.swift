@@ -342,7 +342,11 @@ extension CurrentStatusViewController {
     
     @objc fileprivate func showRequestsListViewController() {
         let storyboard = UIStoryboard(name: "RequestsListStoryboard", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(withIdentifier: "RequestsListTableViewController") as? RequestsListTableViewController else { return }
-        self.present(vc, animated: true, completion: nil)
+        guard let requestsListTableViewController = storyboard.instantiateViewController(withIdentifier: "RequestsListTableViewController") as? RequestsListTableViewController else {
+            return
+        }
+        let navController: UINavigationController = UINavigationController(rootViewController: requestsListTableViewController)
+        
+        self.present(navController, animated: true, completion: nil)
     }
 }
