@@ -294,7 +294,6 @@ extension RequestDetailsViewController {
                     EmailManager.sharedInstance.sendConfirmationEmail(email: currentUserEmail, toName: "", subject: "Time to get Shoveling!", text: "<html><div>You've accepted a shoveling request at \(self.shovelRequest?.address). Please complete this request in a timely manner. If you have any issues please reach out to support@shoveled.works.</div></html>")
                 }
             }
-            // NAVIGATE TO COMPLETE REQUEST VIEW
         }
         alert.addAction(cancelAction)
         alert.addAction(okAction)

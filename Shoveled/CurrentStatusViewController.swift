@@ -23,6 +23,7 @@ protocol LocationServicesDelegate {
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
 
     // MARK: Outlets
+    
     @IBOutlet weak var lblCurrentTemp: UILabel?
     @IBOutlet weak var imgCurrentWeatherIcon: UIImageView?
     @IBOutlet weak var lblCurrentPrecip: UILabel?
@@ -35,7 +36,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var shovelerImageView: UIImageView?
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     @IBOutlet weak var requestsListBtn: ShoveledButton?
+    
     // MARK: Variables
+    
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
     fileprivate let locationManager = CLLocationManager()
     fileprivate var coordinates: CLLocationCoordinate2D!
@@ -49,6 +52,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var updateRequestDelegate: UpdateRequestStatusDelegate?
     fileprivate var locationDelegate: LocationServicesDelegate?
     fileprivate var ref = FIRDatabase.database().reference(withPath: "requests")
+    fileprivate var hasBeenShown: Bool = false
     
     var requests = [ShovelRequest]()
     
@@ -64,6 +68,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.isHidden = false
         self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
@@ -73,6 +78,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.requestsListBtn?.addTarget(self, action: #selector(CurrentStatusViewController.showRequestsListViewController), for: .touchUpInside)
         NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.applicationEnteredBackground), name: .UIApplicationDidEnterBackground, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -104,7 +110,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
 
     func configureView() {
-        self.navigationController?.isNavigationBarHidden = true
         if let currentWeatherView = self.currentWeatherView {
             self.view.addSubview(currentWeatherView)
         }
@@ -212,6 +217,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             self.requests = requests
             DispatchQueue.main.async {
                 self.hideActivityIndicator(self.view)
+                if !self.hasBeenShown {
+                    self.animateInCurrentWeatherView()
+                }
             }
         })
     }
@@ -348,5 +356,25 @@ extension CurrentStatusViewController {
         let navController: UINavigationController = UINavigationController(rootViewController: requestsListTableViewController)
         
         self.present(navController, animated: true, completion: nil)
+    }
+}
+
+// MARK: Animations
+
+extension CurrentStatusViewController {
+    
+    func animateInCurrentWeatherView() {
+        self.currentWeatherView?.alpha = 0.0
+        UIView.animate(withDuration: 1.5, delay: 0.0, options: UIViewAnimationOptions(), animations: {
+            self.currentWeatherView?.alpha = 1.0
+            self.hasBeenShown = true
+        })
+    }
+}
+
+extension CurrentStatusViewController {
+    
+    func applicationEnteredBackground(_ notification: Notification) {
+        self.hasBeenShown = false
     }
 }

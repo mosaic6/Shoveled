@@ -39,9 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 
-        let initialViewController = storyboard.instantiateViewController(withIdentifier: "CurrentStatusViewController")
+        guard let initialViewController = storyboard.instantiateViewController(withIdentifier: "CurrentStatusViewController") as? CurrentStatusViewController else {
+            return false
+        }
+        
+        let navController: UINavigationController = UINavigationController(rootViewController: initialViewController)
 
-        self.window?.rootViewController = initialViewController
+        self.window?.rootViewController = navController
         self.window?.makeKeyAndVisible()
 
         Fabric.with([Crashlytics.self, STPAPIClient.self])

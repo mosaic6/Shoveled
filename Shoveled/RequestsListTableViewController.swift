@@ -20,9 +20,16 @@ class RequestsListTableViewController: UITableViewController {
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.isHidden = false
-        self.tableView.tableFooterView = UIView()
         self.clearsSelectionOnViewWillAppear = false
         self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.emptyStateTableFooterView()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.getShovelRequests()
     }
     
@@ -74,21 +81,27 @@ class RequestsListTableViewController: UITableViewController {
             let request = self.requests[indexPath.row]
             
             if request.status == "Active" {
-                
                 let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
                 let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
                 let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-                    
                     request.firebaseReference?.removeValue()
-                    
-                    StripeManager.sendRefundToCharge(chargeId: request.stripeChargeToken)                    
+                    StripeManager.sendRefundToCharge(chargeId: request.stripeChargeToken)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
                 }
                 alert.addAction(cancelAction)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: { _ in })
             } else {
                 request.firebaseReference?.removeValue()
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
+        }
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }
@@ -99,20 +112,37 @@ extension RequestsListTableViewController {
     func getShovelRequests() {
         self.showActivityIndicatory(self.view)
         self.ref.observe(.value, with: { snapshot in
-            var requests: [ShovelRequest] = []
             for item in snapshot.children {
                 let request = ShovelRequest(snapshot: item as? FIRDataSnapshot)
-                requests.append(request)
-                
+                self.requests.append(request)
                 if request.status == "Completed" {
                     
                 }
             }
-            self.requests = requests
             DispatchQueue.main.async {
                 self.hideActivityIndicator(self.view)
                 self.tableView.reloadData()
             }
         })
+    }
+}
+
+extension RequestsListTableViewController {
+    
+    func emptyStateTableFooterView() {
+        if self.requests.isEmpty {
+            let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))
+            let sunImage = UIImage(named: "Sun")
+            let imageView = UIImageView(image: sunImage)
+            imageView.frame = CGRect(x: (self.view.frame.size.width / 2) - 25, y: (self.view.frame.size.height / 2) - 50, width: 50, height: 50)
+
+            imageView.contentMode = .scaleAspectFit
+            customView.addSubview(imageView)
+            self.tableView.isScrollEnabled = false
+            self.tableView.tableFooterView = customView
+        } else {
+            self.tableView.tableFooterView = UIView()
+        }
+        self.tableView.reloadData()
     }
 }
