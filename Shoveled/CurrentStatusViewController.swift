@@ -89,7 +89,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(animated)        
         self.isUserAShoveler()
     }
 
@@ -196,7 +196,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     func getShovelRequests() {
         self.removeAnnotations()
 
-        self.showActivityIndicatory(self.view)
         self.ref.observe(.value, with: { snapshot in
             var requests: [ShovelRequest] = []
             for item in snapshot.children {
@@ -216,7 +215,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             }
             self.requests = requests
             DispatchQueue.main.async {
-                self.hideActivityIndicator(self.view)
                 if !self.hasBeenShown {
                     self.animateInCurrentWeatherView()
                 }
@@ -365,10 +363,14 @@ extension CurrentStatusViewController {
     
     func animateInCurrentWeatherView() {
         self.currentWeatherView?.alpha = 0.0
+        self.imgCurrentWeatherIcon?.center.y -= self.view.bounds.height
         UIView.animate(withDuration: 1.5, delay: 0.0, options: UIViewAnimationOptions(), animations: {
             self.currentWeatherView?.alpha = 1.0
             self.hasBeenShown = true
         })
+        UIView.animate(withDuration: 2, delay: 0.0, options: [.curveEaseInOut], animations: {
+            self.imgCurrentWeatherIcon?.center.y += self.view.bounds.height
+        }, completion: nil)
     }
 }
 

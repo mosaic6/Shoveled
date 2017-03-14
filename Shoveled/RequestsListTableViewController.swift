@@ -13,7 +13,7 @@ class RequestsListTableViewController: UITableViewController {
 
     fileprivate var ref = FIRDatabase.database().reference(withPath: "requests")
     fileprivate var requests = [ShovelRequest]()
-    
+    fileprivate var canEditCell: Bool = true
     var newPriceString: String?
     
     override func viewDidLoad() {
@@ -51,6 +51,9 @@ class RequestsListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "requestsCellIdentifier", for: indexPath) as! RequestsListCell
         
         let request = self.requests[indexPath.row]
+        if !self.canEditCell {
+            cell.isUserInteractionEnabled = false
+        }
         cell.addressLabel?.text = request.address
         cell.dateCreatedLabel?.text = request.createdAt
         
@@ -71,8 +74,12 @@ class RequestsListTableViewController: UITableViewController {
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+        let request = self.requests[indexPath.row]
+        if request.status == "Complete" {
+            return false
+        } else {
+            return true
+        }
     }
     
     // Override to support editing the table view.
@@ -86,24 +93,15 @@ class RequestsListTableViewController: UITableViewController {
                 let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
                     request.firebaseReference?.removeValue()
                     StripeManager.sendRefundToCharge(chargeId: request.stripeChargeToken)
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
+                    self.tableView.reloadData()
                 }
                 alert.addAction(cancelAction)
                 alert.addAction(okAction)
                 self.present(alert, animated: true, completion: { _ in })
-            } else {
-                request.firebaseReference?.removeValue()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
             }
         }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
     }
+    
 }
 
 extension RequestsListTableViewController {
@@ -116,7 +114,7 @@ extension RequestsListTableViewController {
                 let request = ShovelRequest(snapshot: item as? FIRDataSnapshot)
                 self.requests.append(request)
                 if request.status == "Completed" {
-                    
+                    self.canEditCell = false
                 }
             }
             DispatchQueue.main.async {
