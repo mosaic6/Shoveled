@@ -273,27 +273,23 @@ class StripeAPI {
             if (error == nil) {
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 var parsedObject: [String: Any]?
-                var serializationError: NSError?
-                switch statusCode {
-                case 200:
-                    if let data = data {
+                var serializationError: NSError? = nil
+                if let data = data {
                     do {
                         parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-
-                        } catch let error as NSError {
-                            serializationError = error
-                            parsedObject = nil
-                        } catch {
-                            fatalError()
-                        }
-                        completion(parsedObject as NSDictionary?, serializationError)
-
+                        
+                    } catch let error as NSError {
+                        serializationError = error
+                        parsedObject = nil
+                    } catch {
+                        fatalError()
                     }
+                }
+                switch statusCode {
+                case 200:
+                    completion(parsedObject as NSDictionary?, nil)
                 case 400 ... 499:
-                    completion(nil, serializationError)
-                    if let response = response {
-                        print(response.description)
-                    }
+                    completion(parsedObject as NSDictionary?, nil)
                 default:
                     break
                 }

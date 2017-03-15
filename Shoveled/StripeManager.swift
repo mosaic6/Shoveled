@@ -26,14 +26,18 @@ class StripeManager {
     }
 
     // Send charge to Stripe
-    class func sendChargeToStripeWith(amount: String, source: String, description: String, completion: @escaping (_ chargeId: String) -> ()) {
+    class func sendChargeToStripeWith(amount: String, source: String, description: String, completion: @escaping (_ chargeId: String, _ result: [String: Any]) -> ()) {
         var chargeId = ""
         StripeAPI.sharedInstance.sendChargeToStripeWith(amount, source: source, description: description, completion: { result, error
             in
             if let result = result {
+                if let error = result["error"] as? [String: Any] {
+                    completion("", error)
+                    return
+                }
                 guard let id = result.object(forKey: "id") as? String else { return }
                 chargeId = id
-                completion(chargeId)
+                completion(chargeId, [:])
             }
         })
     }

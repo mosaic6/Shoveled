@@ -232,7 +232,19 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
                     let tokenId = stripeToken.tokenId
 
-                    StripeManager.sendChargeToStripeWith(amount: stringPrice, source: tokenId, description: "Shoveled Requests From \(currentUserEmail)", completion: { chargeId in
+                    StripeManager.sendChargeToStripeWith(amount: stringPrice, source: tokenId, description: "Shoveled Requests From \(currentUserEmail)", completion: { chargeId, result in
+                        if !result.isEmpty {
+                            guard let message = result["message"] as? String else { return }
+                            let alert = UIAlertController(title: "Whoops", message: message, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "Try again", style: .default) { _ in
+                                self.hideActivityIndicator(self.view)
+                                self.paymentInfoCell?.tfCardDetails?.becomeFirstResponder()
+                            }
+                            alert.addAction(okAction)
+                            self.present(alert, animated: true, completion: nil)
+                            
+                            return
+                        }
                         if !chargeId.isEmpty {
                             self.addRequestOnSuccess(stripeToken: chargeId)
                             self.chargeId = chargeId
