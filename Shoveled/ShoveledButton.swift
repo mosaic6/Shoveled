@@ -18,5 +18,5 @@ class ShoveledButton: UIButton {
         self.layer.cornerRadius = 5.0
         self.tintColor = UIColor.white
     }
-    
+
 }

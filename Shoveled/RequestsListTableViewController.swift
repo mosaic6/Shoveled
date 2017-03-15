@@ -15,7 +15,7 @@ class RequestsListTableViewController: UITableViewController {
     fileprivate var requests = [ShovelRequest]()
     fileprivate var canEditCell: Bool = true
     var newPriceString: String?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,7 +23,7 @@ class RequestsListTableViewController: UITableViewController {
         self.clearsSelectionOnViewWillAppear = false
         self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.emptyStateTableFooterView()
@@ -32,14 +32,14 @@ class RequestsListTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.getShovelRequests()
     }
-    
+
     @IBAction func closeView(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {        
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
@@ -49,14 +49,14 @@ class RequestsListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "requestsCellIdentifier", for: indexPath) as! RequestsListCell
-        
+
         let request = self.requests[indexPath.row]
         if !self.canEditCell {
             cell.isUserInteractionEnabled = false
         }
         cell.addressLabel?.text = request.address
         cell.dateCreatedLabel?.text = request.createdAt
-        
+
         let convertedPrice: Float = Float(request.price)
         let updatedPrice = convertedPrice / 100
         self.newPriceString = String(updatedPrice)
@@ -64,14 +64,14 @@ class RequestsListTableViewController: UITableViewController {
             cell.priceLabel?.text = "$\(price)"
         }
         cell.statusLabel?.text = request.status
-        
+
         return cell
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
-    
+
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         let request = self.requests[indexPath.row]
@@ -81,12 +81,12 @@ class RequestsListTableViewController: UITableViewController {
             return true
         }
     }
-    
+
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let request = self.requests[indexPath.row]
-            
+
             if request.status == "Active" {
                 let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
                 let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
@@ -101,11 +101,11 @@ class RequestsListTableViewController: UITableViewController {
             }
         }
     }
-    
+
 }
 
 extension RequestsListTableViewController {
-    
+
     // MARK: - Fetch Request
     func getShovelRequests() {
         self.showActivityIndicatory(self.view)
@@ -126,7 +126,7 @@ extension RequestsListTableViewController {
 }
 
 extension RequestsListTableViewController {
-    
+
     func emptyStateTableFooterView() {
         if self.requests.isEmpty {
             let customView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height))

@@ -277,7 +277,7 @@ class StripeAPI {
                 if let data = data {
                     do {
                         parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
-                        
+
                     } catch let error as NSError {
                         serializationError = error
                         parsedObject = nil

@@ -1,4 +1,3 @@
-
 //  StripeManager.swift
 //  Shoveled
 //

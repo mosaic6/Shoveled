@@ -87,7 +87,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Configure Views
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.address1Cell?.tfAddress?.delegate = self
         self.address1Cell?.tfPrice?.delegate = self
         self.shovelingDescriptionCell?.tfDescription?.delegate = self
@@ -106,7 +106,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
     }
 
     func configureAppearance() {
@@ -182,7 +182,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             }
         })
     }
-    
+
     func getCoordinatesFromAddress(address: String) -> CLPlacemark? {
         let geocoder = CLGeocoder()
         var placemark = CLPlacemark()
@@ -242,7 +242,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                             }
                             alert.addAction(okAction)
                             self.present(alert, animated: true, completion: nil)
-                            
+
                             return
                         }
                         if !chargeId.isEmpty {
@@ -301,7 +301,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         guard let price = self.price else { return }
         let newPrice: Int = Int(price)! * 100
         let stringPrice = String(newPrice)
-        
+
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
@@ -390,7 +390,7 @@ extension RequestShovelingViewController: UITableViewDataSource {
 
 // MARK: TableView delegate
 extension RequestShovelingViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let cellIdentifier = self.identifier(at: indexPath) else {
             return 44.0
@@ -428,7 +428,7 @@ extension RequestShovelingViewController {
 
 // MARK: TextField delegate
 extension RequestShovelingViewController {
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == self.address1Cell?.tfAddress {
             if let address = self.address1Cell?.tfAddress {
@@ -440,4 +440,3 @@ extension RequestShovelingViewController {
         }
     }
 }
-

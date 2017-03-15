@@ -19,15 +19,15 @@ class ShovelAnnotation: NSObject, MKAnnotation {
     var subtitle: String? {
         return shovelRequest?.status.uppercased()
     }
-    
+
     var coordinate: CLLocationCoordinate2D {
         return CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
-    
+
     var longitude: Double {
         return shovelRequest?.longitude ?? 0.0
     }
-    
+
     var latitude: Double {
         return shovelRequest?.latitude ?? 0.0
     }

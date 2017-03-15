@@ -14,7 +14,7 @@ class CompleteRequestCell: UITableViewCell {
     @IBOutlet weak var completedJobImageView: UIImageView?
     @IBOutlet weak var takePhotoButton: UIButton?
     @IBOutlet weak var sendCompletedJobButton: UIButton?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

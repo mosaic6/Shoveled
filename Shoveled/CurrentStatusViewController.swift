@@ -23,7 +23,7 @@ protocol LocationServicesDelegate {
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
 
     // MARK: Outlets
-    
+
     @IBOutlet weak var lblCurrentTemp: UILabel?
     @IBOutlet weak var imgCurrentWeatherIcon: UIImageView?
     @IBOutlet weak var lblCurrentPrecip: UILabel?
@@ -36,9 +36,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var shovelerImageView: UIImageView?
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     @IBOutlet weak var requestsListBtn: ShoveledButton?
-    
+
     // MARK: Variables
-    
+
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
     fileprivate let locationManager = CLLocationManager()
     fileprivate var coordinates: CLLocationCoordinate2D!
@@ -53,9 +53,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var locationDelegate: LocationServicesDelegate?
     fileprivate var ref = FIRDatabase.database().reference(withPath: "requests")
     fileprivate var hasBeenShown: Bool = false
-    
+
     var requests = [ShovelRequest]()
-    
+
     fileprivate var postalCode: String?
     fileprivate var numOfShovelers = 0
     var isUserShoveler = false
@@ -67,7 +67,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     // MARK: View Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.navigationController?.navigationBar.isHidden = false
         self.shovelerImageView?.isHidden = true
         self.mapView?.delegate = self
@@ -85,11 +85,11 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidAppear(animated)
         self.getUserInfo()
         self.getShovelRequests()
-        
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)        
+        super.viewWillAppear(animated)
         self.isUserAShoveler()
     }
 
@@ -97,7 +97,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewWillDisappear(animated)
         self.numOfShovelers = 0
     }
-    
+
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             switch(CLLocationManager.authorizationStatus()) {
@@ -131,11 +131,11 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             locationManager.startUpdatingLocation()
         }
     }
-    
+
     func displayLocationInfo(_ placemark: CLPlacemark?) {
         if let containsPlacemark = placemark {
             locationManager.stopUpdatingLocation()
-            self.postalCode = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""            
+            self.postalCode = (containsPlacemark.postalCode != nil) ? containsPlacemark.postalCode : ""
         }
     }
 
@@ -149,12 +149,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.mapView?.showsUserLocation = true
         self.mapView?.isUserInteractionEnabled = true
         self.mapView?.setCenter(coordinates, animated: false)
-        
+
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error) -> Void in
             if (error != nil) {
                 return
             }
-            
+
             if placemarks!.count > 0 {
                 let pm = placemarks![0] as CLPlacemark
                 self.displayLocationInfo(pm)
@@ -201,16 +201,16 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             for item in snapshot.children {
                 let request = ShovelRequest(snapshot: item as? FIRDataSnapshot)
                 requests.append(request)
-                
+
                 self.theirLocation = CLLocationCoordinate2D(latitude: request.latitude, longitude: request.longitude)
                 let mapAnnotation = ShovelAnnotation(coordinate: self.theirLocation, title: request.address, shovelRequest: request)
-                
+
                 DispatchQueue.main.async {
                     self.mapView?.addAnnotation(mapAnnotation)
-                        
+
                     if request.status == "Completed" {
                         self.mapView?.removeAnnotation(mapAnnotation)
-                    }                    
+                    }
                 }
             }
             self.requests = requests
@@ -287,7 +287,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
 }
 
 extension CurrentStatusViewController {
-    
+
     fileprivate func isUserAShoveler() {
         if currentUserUid != "" {
             shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
@@ -311,14 +311,14 @@ extension CurrentStatusViewController {
 
 // MARK: Get number of shovelers
 extension CurrentStatusViewController {
-    
+
     fileprivate func areShovelersAvailable() {
         self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
         shovelerRef?.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let users = snapshot.value
                 guard let user = users as? NSDictionary else { return }
-                for data in user  {
+                for data in user {
                     let shovelers = data.value
                     if let data = shovelers as? NSDictionary {
                         if let shoveler = data["shoveler"] as? NSDictionary {
@@ -345,14 +345,14 @@ extension CurrentStatusViewController {
 
 // MARK: Show Requests List View Controller
 extension CurrentStatusViewController {
-    
+
     @objc fileprivate func showRequestsListViewController() {
         let storyboard = UIStoryboard(name: "RequestsListStoryboard", bundle: nil)
         guard let requestsListTableViewController = storyboard.instantiateViewController(withIdentifier: "RequestsListTableViewController") as? RequestsListTableViewController else {
             return
         }
         let navController: UINavigationController = UINavigationController(rootViewController: requestsListTableViewController)
-        
+
         self.present(navController, animated: true, completion: nil)
     }
 }
@@ -360,7 +360,7 @@ extension CurrentStatusViewController {
 // MARK: Animations
 
 extension CurrentStatusViewController {
-    
+
     func animateInCurrentWeatherView() {
         self.currentWeatherView?.alpha = 0.0
         self.imgCurrentWeatherIcon?.center.y -= self.view.bounds.height
@@ -375,7 +375,7 @@ extension CurrentStatusViewController {
 }
 
 extension CurrentStatusViewController {
-    
+
     func applicationEnteredBackground(_ notification: Notification) {
         self.hasBeenShown = false
     }

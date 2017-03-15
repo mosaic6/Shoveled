@@ -49,7 +49,7 @@ struct ShovelRequest {
         self.stripeChargeToken = stripeChargeToken
         self.firebaseReference = nil
     }
-    
+
     init(snapshot: FIRDataSnapshot?) {
         let snapshotValue = snapshot?.value as? [String: Any]
         self.address = snapshotValue?[AddressKey] as! String

@@ -10,20 +10,20 @@ import UIKit
 import Firebase
 
 class CompleteRequestViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    
+
     fileprivate enum CellIdentifier: String {
         case infoCell = "infoCell"
         case photoViewCell = "photoViewCell"
         case takePhotoCell = "takePhotoCell"
-        case sendJobCell = "sendJobCell"                
+        case sendJobCell = "sendJobCell"
     }
-    
+
     fileprivate var tableViewData: [[CellIdentifier]] = []
     fileprivate var infoCell: CompleteRequestCell?
     fileprivate var photoViewCell: CompleteRequestCell?
     fileprivate var takePhotoCell: CompleteRequestCell?
     fileprivate var sendJobCell: CompleteRequestCell?
-    
+
     fileprivate var imagePickerView: UIImagePickerController? = UIImagePickerController()
     fileprivate var didImagePickerDismiss = false
     fileprivate var imageView: UIImageView?
@@ -39,23 +39,22 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     var createdAt: String?
     var stripeChargeToken: String?
     var shovelRequest: ShovelRequest?
-    
-    
+
     lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.getUserStripeId()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "COMPLETE REQUEST"
         self.rebuildTableViewDataAndRefresh()
     }
-    
+
     func getUserStripeId() {
         shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
@@ -68,38 +67,38 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {        
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableViewData.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.tableViewData[section].count
     }
-    
+
     fileprivate func rebuildTableViewDataAndRefresh() {
         let tableViewData: [[CellIdentifier]]
-        
+
         tableViewData = self.tableViewDataForRequest()
-        
+
         self.tableViewData = tableViewData
         self.tableView?.tableFooterView = UIView()
         self.tableView?.reloadData()
     }
-    
+
     fileprivate func tableViewDataForRequest() -> [[CellIdentifier]] {
         var tableViewData: [[CellIdentifier]] = []
         var requestData: [CellIdentifier] = []
-        
+
         requestData.append(.infoCell)
         requestData.append(.photoViewCell)
         requestData.append(.takePhotoCell)
-        
+
         if self.didImagePickerDismiss {
             requestData.append(.sendJobCell)
         }
-    
+
         tableViewData.append(requestData)
-        
+
         return tableViewData
     }
 
@@ -111,21 +110,21 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
                 }
             }
         }
-        
+
         return nil
     }
-    
+
     fileprivate func identifier(at indexPath: IndexPath) -> CellIdentifier? {
         return self.tableViewData[indexPath.section][indexPath.row]
     }
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellIdentifier = self.identifier(at: indexPath) else {
             return UITableViewCell()
         }
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier.rawValue)!
-        
+
         switch cellIdentifier {
         case .infoCell:
             let infoCell = cell as! CompleteRequestCell
@@ -145,12 +144,12 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
 
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let cellIdentifier = self.identifier(at: indexPath) else {
             return 0
         }
-        
+
         switch cellIdentifier {
         case .infoCell, .takePhotoCell:
             return 44.0
@@ -160,7 +159,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             return 200.0
         }
     }
-    
+
     func displayCamera() {
         guard let imagePickerView = self.imagePickerView else { return }
         imagePickerView.delegate = self
@@ -171,7 +170,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         #endif
         present(imagePickerView, animated: true, completion: nil)
     }
-    
+
     func sendCompletedJob() {
         let requestFirebaseReference = self.shovelRequest?.firebaseReference
         requestFirebaseReference?.updateChildValues([
@@ -198,7 +197,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             }
         }
     }
-    
+
     func sendCompletedImage() {
         let storage = FIRStorage.storage().reference().child("CompletedRequest.png")
         if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
@@ -209,7 +208,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             }
         }
     }
-    
+
     func transferFunds() {
         if let newPriceString = self.priceString {
             let convertedPrice: Float = Float(newPriceString)! * 100
@@ -222,8 +221,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             }
         }
     }
-    
-    
+
     // MARK: Image Picker Delegate
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
         self.imagePickerView?.dismiss(animated: true)
@@ -234,7 +232,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             self.imageView = photoViewCell?.completedJobImageView
             self.imageView?.contentMode = UIViewContentMode.scaleAspectFill
             self.imageView?.image = image
-            
+
             self.didImagePickerDismiss = true
         }
     }

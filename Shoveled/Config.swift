@@ -11,7 +11,7 @@ import Foundation
 enum Environment: String {
     case staging = "staging"
     case production = "production"
-    
+
     var baseURL: String {
         switch self {
         case .staging:
@@ -22,7 +22,7 @@ enum Environment: String {
             return prodPath
         }
     }
-    
+
     var stripeKey: String {
         switch self {
         case .staging:
@@ -31,7 +31,7 @@ enum Environment: String {
             return "pk_live_xvZp8nbvhuCB3pIrykXwZOEn"
         }
     }
-    
+
     var stripeAuthToken: String {
         switch self {
         case .staging:

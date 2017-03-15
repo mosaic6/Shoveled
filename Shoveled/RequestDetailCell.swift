@@ -22,5 +22,5 @@ class RequestDetailCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    
+
 }

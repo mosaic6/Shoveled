@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     override init() {
         super.init()
-        
+
         var config = Configuration()
         let fileopts = FIROptions.init(contentsOfFile: config.environment.baseURL)
         if let fileopts = fileopts {
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let initialViewController = storyboard.instantiateViewController(withIdentifier: "CurrentStatusViewController") as? CurrentStatusViewController else {
             return false
         }
-        
+
         let navController: UINavigationController = UINavigationController(rootViewController: initialViewController)
 
         self.window?.rootViewController = navController

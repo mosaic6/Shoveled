@@ -81,7 +81,7 @@ class PersonalInformationViewController: UIViewController {
     fileprivate var bankAccountNumber: String? {
         return self.bankAccountNumberCell?.accountNumberTF?.text
     }
-    
+
     fileprivate var bankRoutingNumber: String? {
         return self.bankRoutingNumberCell?.routingNumberTF?.text
     }
@@ -99,7 +99,7 @@ class PersonalInformationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNavbar()
-        
+
         self.firstNameCell?.firstNameTF?.delegate = self
         self.lastNameCell?.lastNameTF?.delegate = self
         self.addressCell?.addressTF?.delegate = self
@@ -112,17 +112,17 @@ class PersonalInformationViewController: UIViewController {
         self.ssCell?.ssTF?.delegate = self
         self.bankAccountNumberCell?.accountNumberTF?.delegate = self
         self.bankRoutingNumberCell?.routingNumberTF?.delegate = self
-        
+
         self.rebuildTableViewDataAndRefresh()
 
         NotificationCenter.default.addObserver(self, selector: #selector(PersonalInformationViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.getShovelerInformation()
     }
-    
+
     fileprivate func getShovelerInformation() {
         self.shovelerRef.observe(.value, with: { snapshot in
             if let items = snapshot.value as? [String: AnyObject] {
@@ -138,7 +138,7 @@ class PersonalInformationViewController: UIViewController {
                             guard let dobDay = shoveler.object(forKey: "dobDay") as? String else { return }
                             guard let dobMonth = shoveler.object(forKey: "dobMonth") as? String else { return }
                             guard let dobYear = shoveler.object(forKey: "dobYear") as? String else { return }
-                            
+
                             self.firstNameCell?.firstNameTF?.text = firstName
                             self.lastNameCell?.lastNameTF?.text = lastName
                             self.addressCell?.addressTF?.text = address1
@@ -147,7 +147,7 @@ class PersonalInformationViewController: UIViewController {
                             self.zipCell?.zipTF?.text = zip
                             self.dobCell?.dobDayTF?.text = dobDay
                             self.dobCell?.dobMonthTF?.text = dobMonth
-                            self.dobCell?.dobYearTF?.text = dobYear                             
+                            self.dobCell?.dobYearTF?.text = dobYear
                         }
                     }
                 }
@@ -271,7 +271,6 @@ extension PersonalInformationViewController: UITableViewDataSource {
         return cell
     }
 }
-
 
 // MARK: Save personal information
 extension PersonalInformationViewController {
@@ -469,7 +468,7 @@ extension PersonalInformationViewController: UITextFieldDelegate {
                 return newLength <= 15
             }
         }
-        
+
         if textField == self.bankRoutingNumberCell?.routingNumberTF {
             if let routingNumber = self.bankRoutingNumberCell?.routingNumberTF?.text?.characters.count {
                 let newLength = routingNumber + string.characters.count - range.length

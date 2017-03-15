@@ -46,7 +46,7 @@ struct Shoveler {
         self.stripeId = stripeId
         self.firebaseReference = nil
     }
-    
+
     init(snapshot: FIRDataSnapshot?) {
         let snapshotValue = snapshot?.value as? [String: Any]
         self.firstName = snapshotValue?[FirstNameKey] as! String
@@ -59,7 +59,7 @@ struct Shoveler {
         self.dobDay = snapshotValue?[DobDayKey] as! String
         self.dobYear = snapshotValue?[DobYearKey] as! String
         self.stripeId = snapshotValue?[StripeIdKey] as! String
-        
+
     }
 
     func toAnyObject() -> NSDictionary {
@@ -75,5 +75,5 @@ struct Shoveler {
             DobYearKey: self.dobYear,
             StripeIdKey: self.stripeId
         ]
-    } 
+    }
 }
