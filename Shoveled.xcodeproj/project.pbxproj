@@ -367,10 +367,7 @@
 		61ED021B1BAE43F3006B22B7 /* Shoveled */ = {
 			isa = PBXGroup;
 			children = (
-				61F2415F1DA15FE8007D3473 /* Shoveled.entitlements */,
 				6152E65D1CC57D0A001972A6 /* Common Configuration */,
-				614E78421C013A0100314390 /* Settings.bundle */,
-				61ED02261BAE43F3006B22B7 /* Assets.xcassets */,
 				61ED024F1BAE46A0006B22B7 /* Data */,
 				614E783C1C0022D000314390 /* UI */,
 				61ED02511BAE46D3006B22B7 /* Support */,
@@ -457,6 +454,9 @@
 		61ED02511BAE46D3006B22B7 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				614E78421C013A0100314390 /* Settings.bundle */,
+				61F2415F1DA15FE8007D3473 /* Shoveled.entitlements */,
+				61ED02261BAE43F3006B22B7 /* Assets.xcassets */,
 				612AB85B1C32E38B00779CC9 /* MenuItems.plist */,
 				615526441BF90BE6006D7862 /* Fonts */,
 				61C710231BAE492900CF30E5 /* External */,

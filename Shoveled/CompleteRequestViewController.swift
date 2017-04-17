@@ -27,11 +27,8 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     fileprivate var imagePickerView: UIImagePickerController? = UIImagePickerController()
     fileprivate var didImagePickerDismiss = false
     fileprivate var imageView: UIImageView?
-    var newPriceString: String?
     var stripeId: String?
     var id: String?
-    var addressString: String?
-    var descriptionString: String?
     var priceString: String?
     var latitude: NSNumber?
     var longitude: NSNumber?
