@@ -72,7 +72,7 @@ class StripeManager {
                                     fullSS: String,
                                     accountRoutingNumber: String,
                                     accountAccountNumber: String,
-                                    completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
+                                    completion: @escaping (_ result: Dictionary<String, Any>?, _ error: Error?) -> ()) {
 
         StripeAPI.sharedInstance.createManagedAccount(firstName: firstName,
                                                       lastName: lastName,

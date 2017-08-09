@@ -13,6 +13,7 @@
 #import "STPPaymentCardTextFieldViewModel.h"
 #import "STPWeakStrongMacros.h"
 #import "Stripe.h"
+#import "STPLocalizationUtils.h"
 
 #define FAUXPAS_IGNORED_IN_METHOD(...)
 
@@ -494,7 +495,7 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 13;
 }
 
 - (CGRect)brandImageRectForBounds:(CGRect)bounds {
-    return CGRectMake(STPPaymentCardTextFieldDefaultPadding, 0, self.brandImageView.image.size.width, bounds.size.height - 1);
+    return CGRectMake(STPPaymentCardTextFieldDefaultPadding, -1, self.brandImageView.image.size.width, bounds.size.height);
 }
 
 - (CGRect)fieldsRectForBounds:(CGRect)bounds {
@@ -514,7 +515,7 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 13;
 - (CGRect)cvcFieldRectForBounds:(CGRect)bounds {
     CGRect fieldsRect = [self fieldsRectForBounds:bounds];
 
-    CGFloat cvcWidth = MAX([self widthForText:self.cvcField.placeholder], [self widthForText:@"8888"]);
+    CGFloat cvcWidth = MAX([self widthForText:self.cvcField.placeholder], [self widthForText:STPNonLocalizedString(@"8888")]);
     CGFloat cvcX = self.numberFieldShrunk ?
     CGRectGetWidth(fieldsRect) - cvcWidth - STPPaymentCardTextFieldDefaultPadding / 2  :
     CGRectGetWidth(fieldsRect);
@@ -525,7 +526,7 @@ CGFloat const STPPaymentCardTextFieldDefaultPadding = 13;
     CGRect numberFieldRect = [self numberFieldRectForBounds:bounds];
     CGRect cvcRect = [self cvcFieldRectForBounds:bounds];
 
-    CGFloat expirationWidth = MAX([self widthForText:self.expirationField.placeholder], [self widthForText:@"88/88"]);
+    CGFloat expirationWidth = MAX([self widthForText:self.expirationField.placeholder], [self widthForText:STPNonLocalizedString(@"88/88")]);
     CGFloat expirationX = (CGRectGetMaxX(numberFieldRect) + CGRectGetMinX(cvcRect) - expirationWidth) / 2;
     return CGRectMake(expirationX, 0, expirationWidth, CGRectGetHeight(bounds));
 }
@@ -735,11 +736,12 @@ typedef void (^STPNumberShrunkCompletionBlock)(BOOL completed);
 }
 
 - (UIImage *)brandImage {
+    STPCardFieldType fieldType = STPCardFieldTypeNumber;
     if (self.currentFirstResponderField) {
-        return [self brandImageForFieldType:self.currentFirstResponderField.tag];
-    } else {
-        return [self brandImageForFieldType:STPCardFieldTypeNumber];
+        fieldType = self.currentFirstResponderField.tag;
     }
+    STPCardValidationState validationState = [self.viewModel validationStateForField:fieldType];
+    return [self brandImageForFieldType:fieldType validationState:validationState];
 }
 
 + (UIImage *)cvcImageForCardBrand:(STPCardBrand)cardBrand {
@@ -750,16 +752,28 @@ typedef void (^STPNumberShrunkCompletionBlock)(BOOL completed);
     return [STPImageLibrary brandImageForCardBrand:cardBrand];
 }
 
-- (UIImage *)brandImageForFieldType:(STPCardFieldType)fieldType {
-    if (fieldType == STPCardFieldTypeCVC) {
-        return [self.class cvcImageForCardBrand:self.viewModel.brand];
-    }
++ (UIImage *)errorImageForCardBrand:(STPCardBrand)cardBrand {
+    return [STPImageLibrary errorImageForCardBrand:cardBrand];
+}
 
-    return [self.class brandImageForCardBrand:self.viewModel.brand];
+- (UIImage *)brandImageForFieldType:(STPCardFieldType)fieldType validationState:(STPCardValidationState)validationState {
+    switch (fieldType) {
+        case STPCardFieldTypeNumber:
+            if (validationState == STPCardValidationStateInvalid) {
+                return [self.class errorImageForCardBrand:self.viewModel.brand];
+            } else {
+                return [self.class brandImageForCardBrand:self.viewModel.brand];
+            }
+        case STPCardFieldTypeCVC:
+            return [self.class cvcImageForCardBrand:self.viewModel.brand];
+        case STPCardFieldTypeExpiration:
+            return [self.class brandImageForCardBrand:self.viewModel.brand];
+    }
 }
 
 - (void)updateImageForFieldType:(STPCardFieldType)fieldType {
-    UIImage *image = [self brandImageForFieldType:fieldType];
+    STPCardValidationState validationState = [self.viewModel validationStateForField:fieldType];
+    UIImage *image = [self brandImageForFieldType:fieldType validationState:validationState];
     if (image != self.brandImageView.image) {
         self.brandImageView.image = image;
         
@@ -776,9 +790,9 @@ typedef void (^STPNumberShrunkCompletionBlock)(BOOL completed);
 
 - (NSString *)defaultCVCPlaceholder {
     if (self.viewModel.brand == STPCardBrandAmex) {
-        return @"CVV";
+        return STPNonLocalizedString(@"CVV");
     } else {
-        return @"CVC";
+        return STPNonLocalizedString(@"CVC");
     }
 }
 
@@ -811,6 +825,14 @@ typedef void (^STPNumberShrunkCompletionBlock)(BOOL completed);
 
 - (void)deleteBackward {
     [self.currentFirstResponderField deleteBackward];
+}
+
++ (NSSet<NSString *> *)keyPathsForValuesAffectingIsValid {
+    return [NSSet setWithArray:@[
+                                 [NSString stringWithFormat:@"%@.%@",
+                                  NSStringFromSelector(@selector(viewModel)),
+                                  NSStringFromSelector(@selector(valid))]
+                                 ]];
 }
 
 @end

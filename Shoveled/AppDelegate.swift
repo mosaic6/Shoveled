@@ -128,13 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("Message ID: \(userInfo["gcm.message_id"])")
         print("%@", userInfo)
     }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
-        let dataManager = DataManager()
-        dataManager.saveContext()
-    }
 }
 
 // [START ios_10_message_handling]

@@ -11,7 +11,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 
-class PersonalInformationViewController: UIViewController {
+class ShovelersInformationViewController: UIViewController {
 
     fileprivate enum CellIdentifier: String {
         case firstNameCell = "firstNameCell"
@@ -115,7 +115,7 @@ class PersonalInformationViewController: UIViewController {
 
         self.rebuildTableViewDataAndRefresh()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(PersonalInformationViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ShovelersInformationViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
 
     }
 
@@ -160,7 +160,7 @@ class PersonalInformationViewController: UIViewController {
         self.saveBtn.isEnabled = false
         self.saveBtn.setTitle("Save", for: .normal)
         self.saveBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 30)
-        self.saveBtn.addTarget(self, action: #selector(PersonalInformationViewController.saveProfile), for: .touchUpInside)
+        self.saveBtn.addTarget(self, action: #selector(ShovelersInformationViewController.saveProfile), for: .touchUpInside)
         let rightBarBtn = UIBarButtonItem()
         rightBarBtn.customView = self.saveBtn
         self.navigationItem.rightBarButtonItem = rightBarBtn
@@ -197,7 +197,7 @@ class PersonalInformationViewController: UIViewController {
     }
 }
 
-extension PersonalInformationViewController: UITableViewDataSource {
+extension ShovelersInformationViewController: UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.tableViewData.count
@@ -259,7 +259,7 @@ extension PersonalInformationViewController: UITableViewDataSource {
             self.dobCell = dobCell
         case .ssCell:
             let ssCell = cell as! PersonalInfoCell
-            ssCell.ssInfoButton?.addTarget(self, action: #selector(PersonalInformationViewController.moreInfoSSTapped), for: .touchUpInside)
+            ssCell.ssInfoButton?.addTarget(self, action: #selector(ShovelersInformationViewController.moreInfoSSTapped), for: .touchUpInside)
             self.ssCell = ssCell
         case .bankAccountNumberCell:
             let bankAccountNumberCell = cell as! BankAccountCell
@@ -273,7 +273,7 @@ extension PersonalInformationViewController: UITableViewDataSource {
 }
 
 // MARK: Save personal information
-extension PersonalInformationViewController {
+extension ShovelersInformationViewController {
     @objc
     fileprivate func saveProfile() {
         self.resignFirstResponder()
@@ -294,9 +294,9 @@ extension PersonalInformationViewController {
                 StripeManager.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, fullSS: fullSS, accountRoutingNumber: bankRoutingNumber, accountAccountNumber: bankAccountNumber) { result, error in
 
                     if let result = result {
-                        if let externalAccounts = result.object(forKey: "external_accounts") as? NSDictionary {
+                        if let externalAccounts = result["external_accounts"] as? Dictionary<String, Any> {
                             for (key, value) in externalAccounts {
-                                if key as! String == "data" {
+                                if key == "data" {
                                     if let data = value as? NSArray {
                                         for d in data {
                                             if let account = d as? NSDictionary {
@@ -372,7 +372,7 @@ extension PersonalInformationViewController {
     }
 }
 
-extension PersonalInformationViewController: UITextFieldDelegate {
+extension ShovelersInformationViewController: UITextFieldDelegate {
 
     func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -542,7 +542,7 @@ extension PersonalInformationViewController: UITextFieldDelegate {
     }
 }
 
-extension PersonalInformationViewController {
+extension ShovelersInformationViewController {
     @objc func moreInfoSSTapped() {
         let alert = UIAlertController(title: "Why do we need this?", message: "In order to verify you're identity for transfering you payments, we need your SS# as a one time identifier. We do not store this or share with anyone. If you want to update your bank account you'll need to enter this again for verification.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { action in

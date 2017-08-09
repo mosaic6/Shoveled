@@ -15,8 +15,11 @@ class HowItWorksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let URL = NSURL(string: "https://www.iubenda.com/privacy-policy/7924006/full-legal")
-        let request = NSURLRequest(url: URL as! URL)
+        guard let url = URL(string: "https://www.iubenda.com/privacy-policy/7924006/full-legal") else {
+            return
+        }
+        
+        let request = URLRequest(url: url)
         webView.loadRequest(request as URLRequest)
     }
 

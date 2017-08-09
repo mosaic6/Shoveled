@@ -1,4 +1,14 @@
+#ifdef __OBJC__
 #import <UIKit/UIKit.h>
+#else
+#ifndef FOUNDATION_EXPORT
+#if defined(__cplusplus)
+#define FOUNDATION_EXPORT extern "C"
+#else
+#define FOUNDATION_EXPORT extern
+#endif
+#endif
+#endif
 
 #import "STPAddCardViewController.h"
 #import "STPAddress.h"
@@ -19,6 +29,9 @@
 #import "STPCoreTableViewController.h"
 #import "STPCoreViewController.h"
 #import "STPCustomer.h"
+#import "STPCustomerContext.h"
+#import "STPEphemeralKeyProvider.h"
+#import "STPFile.h"
 #import "STPFormEncodable.h"
 #import "STPImageLibrary.h"
 #import "STPPaymentActivityIndicatorView.h"
@@ -28,6 +41,7 @@
 #import "STPPaymentMethod.h"
 #import "STPPaymentMethodsViewController.h"
 #import "STPPaymentResult.h"
+#import "STPRedirectContext.h"
 #import "STPShippingAddressViewController.h"
 #import "STPSource.h"
 #import "STPSourceCardDetails.h"

@@ -274,7 +274,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWithStatus status: STPPaymentStatus, error: NSError?) {
         switch status {
         case .error:
-            print("\(error?.localizedDescription)")
+            print("\(error?.localizedDescription ?? "")")
         case .success:
             self.dismiss(animated: true, completion: nil)
             self.removeFromParentViewController()

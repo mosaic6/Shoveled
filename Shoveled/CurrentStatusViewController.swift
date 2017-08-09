@@ -36,7 +36,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var shovelerImageView: UIImageView?
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     @IBOutlet weak var requestsListBtn: ShoveledButton?
-
+    @IBOutlet weak var settingsButton: UIBarButtonItem?
+    
     // MARK: Variables
 
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
@@ -64,7 +65,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         NotificationCenter.default.removeObserver(self)
     }
 
-    // MARK: View Methods
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,11 +76,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.configureView()
         self.checkLocationServices()
         self.areShovelersAvailable()
-
+        self.registerNotificationServices()
         self.requestsListBtn?.addTarget(self, action: #selector(CurrentStatusViewController.showRequestsListViewController), for: .touchUpInside)
-        NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.applicationEnteredBackground), name: .UIApplicationDidEnterBackground, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -91,13 +90,20 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.isUserAShoveler()
+        self.navigationController?.navigationBar.barTintColor = UIColor.gray
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.numOfShovelers = 0
     }
-
+    
+    func registerNotificationServices() {
+        NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.applicationEnteredBackground), name: .UIApplicationDidEnterBackground, object: nil)
+    }
+    
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             switch(CLLocationManager.authorizationStatus()) {
@@ -242,10 +248,10 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.getCurrentLocation()
 
         UIView.animate(withDuration: 0.3) {
-            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI))
+            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         }
         UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(M_PI * 2))
+            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 2))
             }, completion: nil)
         getShovelRequests()
     }
@@ -261,7 +267,7 @@ extension CurrentStatusViewController: MKMapViewDelegate {
 
         let identifier = "ShovelAnnotation"
         var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        if view != nil {
+        if view == nil {
             view?.annotation = annotation
         } else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)

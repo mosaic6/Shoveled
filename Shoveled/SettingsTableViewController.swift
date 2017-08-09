@@ -57,7 +57,7 @@ class SettingsTableViewController: UITableViewController {
             let viewController = storyboard.instantiateViewController(withIdentifier: "FAQViewController") as! FAQViewController
             self.navigationController?.pushViewController(viewController, animated: true)
         } else if currentCell.cellTitleLabel?.text == "Shovelers Information" || currentCell.cellTitleLabel?.text == "Become a Shoveler" {
-            let viewController = storyboard.instantiateViewController(withIdentifier: "PersonalInformationViewController") as! PersonalInformationViewController
+            let viewController = storyboard.instantiateViewController(withIdentifier: "PersonalInformationViewController") as! ShovelersInformationViewController
             self.navigationController?.pushViewController(viewController, animated: true)
         } else if currentCell.cellTitleLabel?.text == "Logout" {
             self.showMenu()

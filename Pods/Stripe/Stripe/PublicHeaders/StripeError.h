@@ -24,11 +24,12 @@ typedef NS_ENUM(NSInteger, STPErrorCode) {
 #endif
     STPConnectionError = 40,     // Trouble connecting to Stripe.
     STPInvalidRequestError = 50, // Your request had invalid parameters.
-    STPAPIError = 60,            // General-purpose API error (should be rare).
-    STPCardError = 70,           // Something was wrong with the given card (most common).
+    STPAPIError = 60,            // General-purpose API error.
+    STPCardError = 70,           // Something was wrong with the given card details.
     STPCancellationError = 80,   // The operation was cancelled.
     STPCheckoutUnknownError = 5000,   // Checkout failed
     STPCheckoutTooManyAttemptsError = 5001,   // Too many incorrect code attempts
+    STPCustomerContextMissingKeyProviderError = 30000,  // STPCustomerContext is missing a key provider.
 };
 
 #pragma mark userInfo keys
@@ -43,6 +44,14 @@ FOUNDATION_EXPORT NSString * __nonnull const STPCardErrorCodeKey;
 // Which parameter on the STPCard had an error (e.g., "cvc"). Useful for marking up the
 // right UI element.
 FOUNDATION_EXPORT NSString * __nonnull const STPErrorParameterKey;
+
+// The error code returned by the Stripe API.
+// https://stripe.com/docs/api#errors-type
+FOUNDATION_EXPORT NSString * __nonnull const STPStripeErrorCodeKey;
+
+// The error type returned by the Stripe API.
+// https://stripe.com/docs/api#errors-code
+FOUNDATION_EXPORT NSString * __nonnull const STPStripeErrorTypeKey;
 
 #pragma mark STPCardErrorCodeKeys
 
@@ -69,6 +78,7 @@ FOUNDATION_EXPORT STPCardErrorCode __nonnull const STPIncorrectCVC;
 @interface NSError(Stripe)
 
 + (nullable NSError *)stp_errorFromStripeResponse:(nullable NSDictionary *)jsonDictionary;
++ (nonnull NSError *)stp_genericConnectionError;
 + (nonnull NSError *)stp_genericFailedToParseResponseError;
 - (BOOL)stp_isUnknownCheckoutError;
 - (BOOL)stp_isURLSessionCancellationError;
@@ -84,5 +94,7 @@ FOUNDATION_EXPORT STPCardErrorCode __nonnull const STPIncorrectCVC;
 + (nonnull NSString *)stp_cardErrorProcessingErrorUserMessage;
 + (nonnull NSString *)stp_unexpectedErrorMessage;
 
-
 @end
+
+void linkNSErrorCategory(void);
+

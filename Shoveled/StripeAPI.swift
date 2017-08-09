@@ -11,6 +11,7 @@ import Stripe
 
 private let API_POST_CUSTOMER           = "https://api.stripe.com/v1/customers"
 private let API_GET_CUSTOMERS           = "https://api.stripe.com/v1/customers"
+private let API_POST_UPDATE_CUSTOMER    = "https://api.stripe.com/vi/customers/%@"
 private let API_POST_MANAGED_CUSTOMER   = "https://api.stripe.com/v1/accounts"
 private let API_POST_CHARGE             = "https://api.stripe.com/v1/charges"
 private let API_GET_CONNECTED_ACCOUNTS  = "https://api.stripe.com/v1/accounts"
@@ -68,7 +69,7 @@ class StripeAPI {
                               fullSS: String,
                               accountRoutingNumber: String,
                               accountAccountNumber: String,
-                              completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
+                              completion: @escaping (_ result: Dictionary<String, Any>?, _ error: Error?) -> ()) {
 
         guard let URL = URL(string: API_POST_MANAGED_CUSTOMER) else { return }
         var request = URLRequest(url: URL)
@@ -129,7 +130,7 @@ class StripeAPI {
                             fatalError()
                         }
                     }
-                    completion(parsedObject as NSDictionary?, nil)
+                    completion(parsedObject, nil)
                 } else {
                     var parsedObject: [String: AnyObject]?
                     if let data = data {
@@ -137,8 +138,8 @@ class StripeAPI {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
 
                             print(parsedObject!)
-                            completion(parsedObject as NSDictionary?, nil)
-                        } catch let _ as NSError {
+                            completion(parsedObject, nil)
+                        } catch _ as NSError {
                             parsedObject = nil
                         } catch {
                             fatalError()
@@ -148,7 +149,7 @@ class StripeAPI {
                 }
             } else {
                 // Failure
-                completion(nil, error as? NSError)
+                completion(nil, error)
             }
         })
         task.resume()

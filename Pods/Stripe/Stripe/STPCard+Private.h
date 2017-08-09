@@ -7,7 +7,16 @@
 //
 
 #import "STPCard.h"
+#import "STPInternalAPIResponseDecodable.h"
 
-@interface STPCard (Private)
+NS_ASSUME_NONNULL_BEGIN
+
+@interface STPCard () <STPInternalAPIResponseDecodable>
+
++ (STPCardFundingType)fundingFromString:(NSString *)string;
++ (nullable NSString *)stringFromFunding:(STPCardFundingType)funding;
 - (nullable STPAddress *)address;
+
 @end
+
+NS_ASSUME_NONNULL_END
