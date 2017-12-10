@@ -23,10 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
  instance's cached customer. On your backend, be sure to create and return a
  new ephemeral key for the Customer object associated with the new user.
  */
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated"
 @interface STPCustomerContext : NSObject <STPBackendAPIAdapter>
-#pragma clang diagnostic pop
 
 /**
  Initializes a new `STPCustomerContext` with the specified key provider.

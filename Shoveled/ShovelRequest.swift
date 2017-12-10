@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FirebaseDatabase
 
 let AddressKey = "address"
 let LatitudeKey = "latitude"
@@ -33,7 +34,7 @@ struct ShovelRequest {
     var createdAt: String
     var acceptedByUser: String
     var stripeChargeToken: String
-    var firebaseReference: FIRDatabaseReference?
+    var firebaseReference: DatabaseReference?
 
     init(address: String, addedByUser: String, status: String, latitude: Double, longitude: Double, details: String, otherInfo: String, price: Float, createdAt: String, acceptedByUser: String, stripeChargeToken: String) {
         self.address = address
@@ -50,7 +51,7 @@ struct ShovelRequest {
         self.firebaseReference = nil
     }
 
-    init(snapshot: FIRDataSnapshot?) {
+    init(snapshot: DataSnapshot?) {
         let snapshotValue = snapshot?.value as? [String: Any]
         self.address = snapshotValue?[AddressKey] as! String
         self.details = snapshotValue?[DetailsKey] as! String

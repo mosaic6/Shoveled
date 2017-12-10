@@ -9,12 +9,13 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class SettingsTableViewController: UITableViewController {
 
     // MARK: Variables
     var settingsData = ["Become a Shoveler", "Help", "Logout"]
-    lazy var shovelerRef: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "users")
+    lazy var shovelerRef = Database.database().reference(withPath: "users")
 
     // MARK: Outlets
     override func viewDidLoad() {
@@ -70,7 +71,7 @@ extension SettingsTableViewController {
     func showMenu() {
         let logoutAction = UIAlertController(title: "ARE YOU SURE YOU WANT TO LOGOUT?", message: nil, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "LOGOUT", style: .destructive) { action in
-            try! FIRAuth.auth()!.signOut()
+            try! Auth.auth().signOut()
             self.dismiss(animated: true, completion: nil)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)

@@ -28,10 +28,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         super.init()
 
         var config = Configuration()
-        let fileopts = FIROptions.init(contentsOfFile: config.environment.baseURL)
+        let fileopts = FirebaseOptions.init(contentsOfFile: config.environment.baseURL)
         if let fileopts = fileopts {
-            FIRApp.configure(with: fileopts)
-            FIRDatabase.database().persistenceEnabled = true
+            FirebaseApp.configure(options: fileopts)
+            Database.database().isPersistenceEnabled = true
         }
     }
 
@@ -73,18 +73,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func tokenRefreshNotification(notification: NSNotification) {
-        FIRInstanceID.instanceID().token()
+        InstanceID.instanceID().token()
         connectToFcm()
     }
 
     func connectToFcm() {
-        FIRMessaging.messaging().connect { (error) in
-            if (error != nil) {
-                print("Unable to connect with FCM. \(error)")
-            } else {
-                print("Connected to FCM.")
-            }
-        }
+        Messaging.messaging().shouldEstablishDirectChannel = true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -93,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        FIRMessaging.messaging().disconnect()
+        Messaging.messaging().shouldEstablishDirectChannel = false
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
@@ -102,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
 
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+        InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.sandbox)
         print("Device Token:", token)
     }
 
@@ -125,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping(UIBackgroundFetchResult) -> Void) {
 
-        print("Message ID: \(userInfo["gcm.message_id"])")
+        print("Message ID: \(String(describing: userInfo["gcm.message_id"]))")
         print("%@", userInfo)
     }
 }
@@ -147,15 +141,15 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
     }
 }
 
-extension AppDelegate : FIRMessagingDelegate {
+extension AppDelegate : MessagingDelegate {
     // Receive data message on iOS 10 devices.
-    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+    func application(received remoteMessage: MessagingRemoteMessage) {
         print("%@", remoteMessage.appData)
     }
 
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         // Let FCM know about the message for analytics etc.
-        FIRMessaging.messaging().appDidReceiveMessage(userInfo)
+        Messaging.messaging().appDidReceiveMessage(userInfo)
         // handle your message
     }
 }

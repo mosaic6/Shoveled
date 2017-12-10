@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2338c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Menlo.ttc">
+            <string>Menlo-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="snowBG" translatesAutoresizingMaskIntoConstraints="NO" id="TKq-mn-bh8">
-                                <frame key="frameInset" width="600" height="664"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="snowBG" translatesAutoresizingMaskIntoConstraints="NO" id="TKq-mn-bh8">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SHOVELED" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krC-vi-9Iw">
+                                <rect key="frame" x="67" y="177" width="241" height="59"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="59" id="8ht-oq-Sev"/>
                                 </constraints>
@@ -34,18 +40,19 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="TKq-mn-bh8" secondAttribute="trailing" constant="-20" id="0IU-Vg-9e3"/>
-                            <constraint firstItem="TKq-mn-bh8" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="Ezg-i4-yjQ"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="TKq-mn-bh8" secondAttribute="bottom" constant="-64" id="Otm-Gb-uZN"/>
-                            <constraint firstItem="TKq-mn-bh8" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="UeN-CS-HW6"/>
+                            <constraint firstItem="TKq-mn-bh8" firstAttribute="leading" secondItem="orO-Dn-die" secondAttribute="leading" id="14b-B4-e9j"/>
+                            <constraint firstAttribute="bottom" secondItem="TKq-mn-bh8" secondAttribute="bottom" id="7ie-aB-va5"/>
+                            <constraint firstItem="TKq-mn-bh8" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Acz-Mp-Khl"/>
                             <constraint firstItem="krC-vi-9Iw" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-127" id="fYS-M6-efn"/>
-                            <constraint firstItem="krC-vi-9Iw" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="uIn-qY-72q"/>
+                            <constraint firstItem="krC-vi-9Iw" firstAttribute="centerX" secondItem="orO-Dn-die" secondAttribute="centerX" id="uIn-qY-72q"/>
+                            <constraint firstItem="orO-Dn-die" firstAttribute="trailing" secondItem="TKq-mn-bh8" secondAttribute="trailing" id="zYU-0S-1We"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="orO-Dn-die"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
     <resources>

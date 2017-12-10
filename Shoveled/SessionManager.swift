@@ -7,20 +7,21 @@
 //
 
 import Foundation
+import FirebaseDatabase
 
 import Firebase
 import FirebaseAuth
 
-var shovelerRef: FIRDatabaseReference? = FIRDatabase.database().reference()
+var shovelerRef = Database.database().reference()
 
 var currentUserUid: String {
-    guard let userId = FIRAuth.auth()?.currentUser?.uid else { return "" }
+    guard let userId = Auth.auth().currentUser?.uid else { return "" }
 
     return userId
 }
 
 var currentUserEmail: String {
-    if let email = FIRAuth.auth()?.currentUser?.email {
+    if let email = Auth.auth().currentUser?.email {
         return email
     }
     return ""

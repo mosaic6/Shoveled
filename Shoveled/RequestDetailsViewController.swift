@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class RequestDetailsViewController: UITableViewController {
 
@@ -46,7 +47,7 @@ class RequestDetailsViewController: UITableViewController {
     var shovelRequest: ShovelRequest?
     fileprivate var stripeId: String?
 
-    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
+    lazy var ref = Database.database().reference(withPath: "requests")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -231,7 +232,7 @@ class RequestDetailsViewController: UITableViewController {
 extension RequestDetailsViewController {
 
     fileprivate func isUserShoveler() {
-        shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+        shovelerRef.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
             if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {

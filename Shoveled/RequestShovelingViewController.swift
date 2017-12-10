@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import Stripe
 import Firebase
+import FirebaseDatabase
 import PassKit
 import Crashlytics
 
@@ -66,7 +67,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     var longitude: NSNumber!
     var coordinates: CLLocationCoordinate2D!
     var user: User!
-    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
+    lazy var ref = Database.database().reference()
     var chargeId: String?
 
     // MARK: - Outlets

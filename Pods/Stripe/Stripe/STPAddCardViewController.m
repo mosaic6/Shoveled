@@ -8,7 +8,7 @@
 
 #import "STPAddCardViewController.h"
 
-#import "NSArray+Stripe_BoundSafe.h"
+#import "NSArray+Stripe.h"
 #import "STPAddressFieldTableViewCell.h"
 #import "STPAddressViewModel.h"
 #import "STPAnalyticsClient.h"
@@ -25,6 +25,7 @@
 #import "STPPaymentConfiguration+Private.h"
 #import "STPPhoneNumberValidator.h"
 #import "STPPaymentCardTextFieldCell.h"
+#import "STPPromise.h"
 #import "STPSectionHeaderView.h"
 #import "STPToken.h"
 #import "STPWeakStrongMacros.h"
@@ -46,22 +47,22 @@
     UITableViewDelegate,
     UITableViewDataSource>
 
-@property(nonatomic)STPPaymentConfiguration *configuration;
-@property(nonatomic)STPAddress *shippingAddress;
-@property(nonatomic)BOOL hasUsedShippingAddress;
-@property(nonatomic)STPAPIClient *apiClient;
-@property(nonatomic, weak)UIImageView *cardImageView;
-@property(nonatomic)UIBarButtonItem *doneItem;
-@property(nonatomic)STPSectionHeaderView *cardHeaderView;
-@property(nonatomic)STPCardIOProxy *cardIOProxy;
-@property(nonatomic)STPSectionHeaderView *addressHeaderView;
-@property(nonatomic)STPPaymentCardTextFieldCell *paymentCell;
-@property(nonatomic)BOOL loading;
-@property(nonatomic)STPPaymentActivityIndicatorView *activityIndicator;
-@property(nonatomic, weak)STPPaymentActivityIndicatorView *lookupActivityIndicator;
-@property(nonatomic)STPAddressViewModel *addressViewModel;
-@property(nonatomic)UIToolbar *inputAccessoryToolbar;
-@property(nonatomic)BOOL lookupSucceeded;
+@property (nonatomic) STPPaymentConfiguration *configuration;
+@property (nonatomic) STPAddress *shippingAddress;
+@property (nonatomic) BOOL hasUsedShippingAddress;
+@property (nonatomic) STPAPIClient *apiClient;
+@property (nonatomic, weak) UIImageView *cardImageView;
+@property (nonatomic) UIBarButtonItem *doneItem;
+@property (nonatomic) STPSectionHeaderView *cardHeaderView;
+@property (nonatomic) STPCardIOProxy *cardIOProxy;
+@property (nonatomic) STPSectionHeaderView *addressHeaderView;
+@property (nonatomic) STPPaymentCardTextFieldCell *paymentCell;
+@property (nonatomic) BOOL loading;
+@property (nonatomic) STPPaymentActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) STPPaymentActivityIndicatorView *lookupActivityIndicator;
+@property (nonatomic) STPAddressViewModel *addressViewModel;
+@property (nonatomic) UIToolbar *inputAccessoryToolbar;
+@property (nonatomic) BOOL lookupSucceeded;
 @end
 
 static NSString *const STPPaymentCardCellReuseIdentifier = @"STPPaymentCardCellReuseIdentifier";
@@ -144,8 +145,11 @@ typedef NS_ENUM(NSUInteger, STPPaymentCardSection) {
     }
     [addressHeaderView.button addTarget:self action:@selector(useShippingAddress:)
                        forControlEvents:UIControlEventTouchUpInside];
-    BOOL needsAddress = self.configuration.requiredBillingAddressFields != STPBillingAddressFieldsNone && !self.addressViewModel.isValid;
-    BOOL buttonVisible = (needsAddress && self.shippingAddress != nil && !self.hasUsedShippingAddress);
+    STPBillingAddressFields requiredFields = self.configuration.requiredBillingAddressFields;
+    BOOL needsAddress = requiredFields != STPBillingAddressFieldsNone && !self.addressViewModel.isValid;
+    BOOL buttonVisible = (needsAddress &&
+                          [self.shippingAddress containsContentForBillingAddressFields:requiredFields]
+                          && !self.hasUsedShippingAddress);
     addressHeaderView.buttonHidden = !buttonVisible;
     [addressHeaderView setNeedsLayout];
     _addressHeaderView = addressHeaderView;
@@ -160,6 +164,17 @@ typedef NS_ENUM(NSUInteger, STPPaymentCardSection) {
     [self setUpCardScanningIfAvailable];
 
     [[STPAnalyticsClient sharedClient] clearAdditionalInfo];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    // Resetting it re-calculates the size based on new view width
+    // UITableView requires us to call setter again to actually pick up frame
+    // change on footers
+    if (self.tableView.tableFooterView) {
+        self.customFooterView = self.tableView.tableFooterView;
+    }
 }
 
 - (void)setUpCardScanningIfAvailable {
@@ -250,7 +265,7 @@ typedef NS_ENUM(NSUInteger, STPPaymentCardSection) {
     return nil;
 }
 
-- (void)handleBackOrCancelTapped:(__unused id)sender {
+- (void)handleCancelTapped:(__unused id)sender {
     [self.delegate addCardViewControllerDidCancel:self];
 }
 
@@ -301,6 +316,16 @@ typedef NS_ENUM(NSUInteger, STPPaymentCardSection) {
                                                                );
 }
 
+- (void)setCustomFooterView:(UIView *)footerView {
+    _customFooterView = footerView;
+    [self.stp_willAppearPromise voidOnSuccess:^{
+        CGSize size = [footerView sizeThatFits:CGSizeMake(self.view.bounds.size.width, CGFLOAT_MAX)];
+        footerView.frame = CGRectMake(0, 0, size.width, size.height);
+
+        self.tableView.tableFooterView = footerView;
+    }];
+}
+
 #pragma mark - STPPaymentCardTextField
 
 - (void)paymentCardTextFieldDidChange:(STPPaymentCardTextField *)textField {
@@ -314,7 +339,7 @@ typedef NS_ENUM(NSUInteger, STPPaymentCardSection) {
 
 - (void)paymentCardTextFieldDidBeginEditingCVC:(__unused STPPaymentCardTextField *)textField {
     [UIView transitionWithView:self.cardImageView
-                      duration:0.25
+                      duration:0.2
                        options:UIViewAnimationOptionTransitionFlipFromRight
                     animations:^{
                         self.cardImageView.image = [STPImageLibrary largeCardBackImage];
@@ -323,7 +348,7 @@ typedef NS_ENUM(NSUInteger, STPPaymentCardSection) {
 
 - (void)paymentCardTextFieldDidEndEditingCVC:(__unused STPPaymentCardTextField *)textField {
     [UIView transitionWithView:self.cardImageView
-                      duration:0.25
+                      duration:0.2
                        options:UIViewAnimationOptionTransitionFlipFromLeft
                     animations:^{
                         self.cardImageView.image = [STPImageLibrary largeCardFrontImage];

@@ -94,6 +94,9 @@
                     <navigationItem key="navigationItem" title="My Requests" id="yIp-Y0-LRd">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="ooF-Wk-B86">
                             <color key="tintColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="closeView:" destination="mJ3-Ij-PbI" id="pgc-5J-lJi"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>

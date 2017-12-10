@@ -32,11 +32,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var mapContainerView: UIView?
     @IBOutlet weak var bottomView: UIView?
     @IBOutlet weak var mapView: MKMapView?
-    @IBOutlet weak var refreshMapBtn: UIButton?
-    @IBOutlet weak var shovelerImageView: UIImageView?
+    @IBOutlet weak var refreshMapBtn: UIButton?    
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     @IBOutlet weak var requestsListBtn: ShoveledButton?
     @IBOutlet weak var settingsButton: UIBarButtonItem?
+    @IBOutlet weak var shovelerActivityLabel: UILabel?
+    @IBOutlet weak var shovelerActivitySwitch: UISwitch?
     
     // MARK: Variables
 
@@ -52,8 +53,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var requestStatus: String!
     fileprivate var updateRequestDelegate: UpdateRequestStatusDelegate?
     fileprivate var locationDelegate: LocationServicesDelegate?
-    fileprivate var ref = FIRDatabase.database().reference(withPath: "requests")
+    fileprivate var ref = Database.database().reference(withPath: "requests")
     fileprivate var hasBeenShown: Bool = false
+    var shoveler: Shoveler?
 
     var requests = [ShovelRequest]()
 
@@ -61,6 +63,12 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var numOfShovelers = 0
     var isUserShoveler = false
 
+    @IBAction func enableShovelerActivitySwitch(_ sender: Any) {
+        if self.shovelerActivitySwitch?.isOn ?? false {
+            
+        }
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -71,7 +79,8 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.isHidden = false
-        self.shovelerImageView?.isHidden = true
+        self.shovelerActivityLabel?.isHidden = true
+        self.shovelerActivitySwitch?.isHidden = true
         self.mapView?.delegate = self
         self.configureView()
         self.checkLocationServices()
@@ -122,7 +131,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
 
     func getUserInfo() {
-        if FIRAuth.auth()?.currentUser == nil {
+        if Auth.auth().currentUser == nil {
             self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
         }
     }
@@ -205,7 +214,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.ref.observe(.value, with: { snapshot in
             var requests: [ShovelRequest] = []
             for item in snapshot.children {
-                let request = ShovelRequest(snapshot: item as? FIRDataSnapshot)
+                let request = ShovelRequest(snapshot: item as? DataSnapshot)
                 requests.append(request)
 
                 self.theirLocation = CLLocationCoordinate2D(latitude: request.latitude, longitude: request.longitude)
@@ -244,7 +253,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
 
     @IBAction func refreshMap(_ sender: AnyObject) {
-
         self.getCurrentLocation()
 
         UIView.animate(withDuration: 0.3) {
@@ -262,13 +270,15 @@ extension CurrentStatusViewController: MKMapViewDelegate {
 
     //MARK: - MapView Delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-
-        if (annotation is MKUserLocation) { return nil }
+        if (annotation is MKUserLocation) {
+            return nil
+        }
 
         let identifier = "ShovelAnnotation"
         var view = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
-        if view == nil {
+        if view != nil {
             view?.annotation = annotation
+            view?.canShowCallout = true
         } else {
             view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view!.image = UIImage(named: "mapPin")
@@ -292,25 +302,38 @@ extension CurrentStatusViewController: MKMapViewDelegate {
     }
 }
 
+// MARK: Shoveler info
 extension CurrentStatusViewController {
 
     fileprivate func isUserAShoveler() {
         if currentUserUid != "" {
-            shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+            shovelerRef.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
                 let value = snapshot.value as? NSDictionary
                 let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
                 if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
-                    self.shovelerImageView?.isHidden = false
+                    self.shovelerActivitySwitch?.isHidden = false
+                    self.shovelerActivityLabel?.isHidden = false
                     self.isUserShoveler = true
                 } else {
-                    self.shovelerImageView?.isHidden = true
+                    self.shovelerActivitySwitch?.isHidden = true
+                    self.shovelerActivityLabel?.isHighlighted = true
                     self.isUserShoveler = false
                 }
             }) { error in
-                print(error.localizedDescription)
+                let alert: UIAlertController = UIAlertController(title: nil, message: error.localizedDescription, preferredStyle: .alert)
+                self.present(alert, animated: true)
             }
         } else {
             self.getUserInfo()
+        }
+    }
+    
+    private func enableShovelerActivity() {
+        let requestName = self.ref.child("users").child(currentUserUid).child("shoveler")
+        requestName.setValue(self.shoveler?.toAnyObject()) { error, ref in
+            if error == nil {
+                
+            }
         }
     }
 }
@@ -320,7 +343,7 @@ extension CurrentStatusViewController {
 
     fileprivate func areShovelersAvailable() {
         self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
-        shovelerRef?.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
+        shovelerRef.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let users = snapshot.value
                 guard let user = users as? NSDictionary else { return }

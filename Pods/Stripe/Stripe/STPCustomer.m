@@ -8,18 +8,18 @@
 
 #import "STPCustomer.h"
 
+#import "NSDictionary+Stripe.h"
+#import "NSError+Stripe.h"
 #import "STPAddress.h"
 #import "STPCard.h"
 #import "STPSource.h"
-#import "StripeError.h"
-#import "NSDictionary+Stripe.h"
 
 @interface STPCustomer()
 
-@property(nonatomic, copy)NSString *stripeID;
-@property(nonatomic) id<STPSourceProtocol> defaultSource;
-@property(nonatomic) NSArray<id<STPSourceProtocol>> *sources;
-@property(nonatomic) STPAddress *shippingAddress;
+@property (nonatomic, copy) NSString *stripeID;
+@property (nonatomic) id<STPSourceProtocol> defaultSource;
+@property (nonatomic) NSArray<id<STPSourceProtocol>> *sources;
+@property (nonatomic) STPAddress *shippingAddress;
 @property (nonatomic, readwrite, nonnull, copy) NSDictionary *allResponseFields;
 
 @end
@@ -89,7 +89,6 @@
     if ([dict[@"sources"] isKindOfClass:[NSDictionary class]] && [dict[@"sources"][@"data"] isKindOfClass:[NSArray class]]) {
         for (id contents in dict[@"sources"][@"data"]) {
             if ([contents isKindOfClass:[NSDictionary class]]) {
-                // eventually support other source types
                 if ([contents[@"object"] isEqualToString:@"card"]) {
                     STPCard *card = [STPCard decodedObjectFromAPIResponse:contents];
                     // ignore apple pay cards from the response
@@ -103,9 +102,17 @@
                 else if ([contents[@"object"] isEqualToString:@"source"]) {
                     STPSource *source = [STPSource decodedObjectFromAPIResponse:contents];
                     if (source) {
-                        [sources addObject:source];
-                        if (defaultSourceId && [source.stripeID isEqualToString:defaultSourceId]) {
-                            customer.defaultSource = source;
+                        if (source.type == STPSourceTypeCard
+                            && source.cardDetails != nil
+                            && source.cardDetails.isApplePayCard) {
+                            // do nothing
+                            // ignore apple pay cards from the response
+                        }
+                        else {
+                            [sources addObject:source];
+                            if (defaultSourceId && [source.stripeID isEqualToString:defaultSourceId]) {
+                                customer.defaultSource = source;
+                            }
                         }
                     }
                 }
@@ -119,14 +126,10 @@
 
 @end
 
-/**
- NOTE: STPCustomerDeserializer has been deprecated. When we remove 
- STPBackendAPIAdapter, we should also remove STPCustomerDeserializer.
- */
 @interface STPCustomerDeserializer()
 
-@property(nonatomic, nullable)STPCustomer *customer;
-@property(nonatomic, nullable)NSError *error;
+@property (nonatomic, nullable) STPCustomer *customer;
+@property (nonatomic, nullable) NSError *error;
 
 @end
 

@@ -8,16 +8,19 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class RequestsListTableViewController: UITableViewController {
 
-    fileprivate var ref = FIRDatabase.database().reference(withPath: "requests")
+    fileprivate var ref = Database.database().reference(withPath: "requests")
     fileprivate var requests = [ShovelRequest]()
     fileprivate var canEditCell: Bool = true
     var newPriceString: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(self.requests)
 
         self.navigationController?.navigationBar.isHidden = false
         self.clearsSelectionOnViewWillAppear = false
@@ -63,7 +66,7 @@ class RequestsListTableViewController: UITableViewController {
         if let price = self.newPriceString {
             cell.priceLabel?.text = "$\(price)"
         }
-        cell.statusLabel?.text = request.status
+        cell.statusLabel?.text = request.status            
 
         return cell
     }
@@ -90,10 +93,10 @@ class RequestsListTableViewController: UITableViewController {
             if request.status == "Active" {
                 let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
                 let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-                let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+                let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action in
                     request.firebaseReference?.removeValue()
+                    self.requests.remove(at: indexPath.row)
                     StripeManager.sendRefundToCharge(chargeId: request.stripeChargeToken)
-                    self.tableView.reloadData()
                 }
                 alert.addAction(cancelAction)
                 alert.addAction(okAction)
@@ -101,7 +104,6 @@ class RequestsListTableViewController: UITableViewController {
             }
         }
     }
-
 }
 
 extension RequestsListTableViewController {
@@ -111,7 +113,7 @@ extension RequestsListTableViewController {
         self.showActivityIndicatory(self.view)
         self.ref.observe(.value, with: { snapshot in
             for item in snapshot.children {
-                let request = ShovelRequest(snapshot: item as? FIRDataSnapshot)
+                let request = ShovelRequest(snapshot: item as? DataSnapshot)
                 self.requests.append(request)
                 if request.status == "Completed" {
                     self.canEditCell = false

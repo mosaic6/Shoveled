@@ -10,6 +10,7 @@ import UIKit
 import Crashlytics
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class SignUpViewController: UIViewController {
 
@@ -22,7 +23,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var signupTitleLabel: UILabel!
 
     var currentStatusVC = CurrentStatusViewController()
-    var ref: FIRDatabaseReference!
+    var ref: DatabaseReference!
     var locationDelegate: LocationServicesDelegate?
 
     override func viewDidLoad() {
@@ -36,10 +37,10 @@ class SignUpViewController: UIViewController {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        if FIRAuth.auth()?.currentUser != nil {
+        if Auth.auth().currentUser != nil {
             self.removeFromParentViewController()
         }
-        ref = FIRDatabase.database().reference()
+        ref = Database.database().reference()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +71,7 @@ class SignUpViewController: UIViewController {
         } else {
             let spinner: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 150, height: 150)) as UIActivityIndicatorView
 
-            FIRAuth.auth()?.createUser(withEmail: emailString, password: passwordString) { (user, error) in
+            Auth.auth().createUser(withEmail: emailString, password: passwordString) { (user, error) in
                 if let error = error {
                     let alert = UIAlertController(title: "There was an error signing you up", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))

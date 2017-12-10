@@ -16,6 +16,8 @@
 
 @property (nonatomic, readwrite, nonnull, copy) NSDictionary *allResponseFields;
 
+// See STPSourceCardDetails+Private.h
+
 @end
 
 @implementation STPSourceCardDetails
@@ -38,14 +40,18 @@
     self = [super init];
     if (self) {
         _last4 = dict[@"last4"];
-        NSString *brand = [dict[@"brand"] lowercaseString];
-        _brand = [STPCard brandFromString:brand];
-        NSString *funding = dict[@"funding"];
-        _funding = [STPCard fundingFromString:funding];
+        _brand = [STPCard brandFromString:dict[@"brand"]];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated"
+        // This is only intended to be deprecated publicly.
+        // When removed from public header, can remove these pragmas
+        _funding = [STPCard fundingFromString:dict[@"funding"]];
+#pragma clang diagnostic pop
         _country = dict[@"country"];
         _expMonth = [dict[@"exp_month"] intValue];
         _expYear = [dict[@"exp_year"] intValue];
         _threeDSecure = [self.class threeDSecureStatusFromString:dict[@"three_d_secure"]];
+        _isApplePayCard = [dict[@"tokenization_method"] isEqual:@"apple_pay"];
 
         _allResponseFields = dict.copy;
     }

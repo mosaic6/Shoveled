@@ -5,7 +5,7 @@
 "Add a Card" = "Karte hinzufügen";
 
 /* Button to add a new credit card. */
-"Add New Card…" = "Neue Karte hinzufügen...";
+"Add New Card…" = "Neue Karte hinzufügen…";
 
 /* Caption for Address field on address form */
 "Address" = "Adresse";
@@ -15,9 +15,6 @@
 
 /* Caption for Apartment/Address line 2 field on address form */
 "Apt." = "Adresszeile 2";
-
-/* Text for back button */
-"Back" = "Zurück";
 
 /* Title for billing address entry section */
 "Billing Address" = "Rechnungsadresse";
@@ -76,6 +73,9 @@
 /* Caption for Phone field on address form */
 "Phone" = "Telefon";
 
+/* Short string for postal code (text used in non-US countries). Please keep to 8 characters or less if possible. */
+"Postal" = "PLZ";
+
 /* Caption for Postal Code field on address form (only shown in countries other than the United States) */
 "Postal Code" = "Postleitzahl";
 
@@ -92,7 +92,7 @@
 "Shipping Address" = "Versandadresse";
 
 /* Label for shipping method form */
-"Shipping Method" = "Versandart";
+"Shipping Method" = "Versandmethode";
 
 /* Caption for State field on address form (only countries that use state , like United States) */
 "State" = "Bundesstaat";
@@ -132,6 +132,9 @@
 
 /* Error when the card's CVC is not valid */
 "Your card's security code is invalid" = "Der Sicherheitscode Ihrer Karte ist ungültig.";
+
+/* Short string for zip code (United States only) Please keep to 5 characters or less if possible. */
+"ZIP" = "ZIP";
 
 /* Caption for Zip Code field on address form (only shown when country is United States only) */
 "ZIP Code" = "Postleitzahl";

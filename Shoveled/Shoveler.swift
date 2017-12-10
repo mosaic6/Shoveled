@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FirebaseDatabase
 
 let FirstNameKey = "firstName"
 let LastNameKey = "lastName"
@@ -31,7 +32,7 @@ struct Shoveler {
     var dobDay: String
     var dobYear: String
     var stripeId: String
-    var firebaseReference: FIRDatabaseReference?
+    var firebaseReference: DatabaseReference?
 
     init(firstName: String, lastName: String, address1: String, city: String, state: String, postalCode: String, dobMonth: String, dobDay: String, dobYear: String, stripeId: String) {
         self.firstName = firstName
@@ -47,7 +48,7 @@ struct Shoveler {
         self.firebaseReference = nil
     }
 
-    init(snapshot: FIRDataSnapshot?) {
+    init(snapshot: DataSnapshot?) {
         let snapshotValue = snapshot?.value as? [String: Any]
         self.firstName = snapshotValue?[FirstNameKey] as! String
         self.lastName = snapshotValue?[LastNameKey] as! String
@@ -76,4 +77,19 @@ struct Shoveler {
             StripeIdKey: self.stripeId
         ]
     }
+    
+    var isShoveler: Bool {
+        var isShoveler = false
+        if currentUserUid != "" {
+            shovelerRef.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+                let value = snapshot.value as? NSDictionary
+                let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
+                if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
+                    isShoveler = true
+                }
+            })
+        }
+        return isShoveler
+    }
 }
+

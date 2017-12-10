@@ -23,7 +23,7 @@ class NotificationManager {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
 
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+        InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.sandbox)
         print("Device Token:", token)
     }
 
@@ -63,7 +63,7 @@ class NotificationManager {
         // Add observer for InstanceID token refresh callback.
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.tokenRefreshNotification),
-                                               name: NSNotification.Name.firInstanceIDTokenRefresh,
+                                               name: NSNotification.Name.InstanceIDTokenRefresh,
                                                object: nil)
 
         let notificationTypes: UIUserNotificationType = [.alert, .badge, .sound]
@@ -74,7 +74,7 @@ class NotificationManager {
 
     // [START refresh_token]
     @objc func tokenRefreshNotification(notification: NSNotification) {
-        guard let refreshedToken = FIRInstanceID.instanceID().token() else { return }
+        guard let refreshedToken = InstanceID.instanceID().token() else { return }
         print("InstanceID token: \(refreshedToken)")
 
         // Connect to FCM since connection may have failed when attempted before having a token.
@@ -83,7 +83,7 @@ class NotificationManager {
 
     // [START connect_to_fcm]
     func connectToFcm() {
-        FIRMessaging.messaging().connect { (error) in
+        Messaging.messaging().connect { (error) in
             if (error != nil) {
                 print("Unable to connect with FCM. \(error)")
             } else {
@@ -100,7 +100,7 @@ class NotificationManager {
 
     // [START disconnect_from_fcm]
     func applicationDidEnterBackground(_ application: UIApplication) {
-        FIRMessaging.messaging().disconnect()
+        Messaging.messaging().disconnect()
         print("Disconnected from FCM.")
     }
     // [END disconnect_from_fcm]

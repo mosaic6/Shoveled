@@ -9,9 +9,16 @@
 #import "STPSourceParams.h"
 #import "STPSourceParams+Private.h"
 
+#import "NSBundle+Stripe_AppName.h"
 #import "STPCardParams.h"
 #import "STPFormEncoder.h"
 #import "STPSource+Private.h"
+
+@interface STPSourceParams ()
+
+// See STPSourceParams+Private.h
+
+@end
 
 @implementation STPSourceParams
 
@@ -33,7 +40,6 @@
 }
 
 - (void)setType:(STPSourceType)type {
-
     // If setting unknown and we're already unknown, don't want to override raw value
     if (type != self.type) {
         self.rawTypeString = [STPSource stringFromType:type];
@@ -191,7 +197,7 @@
 
     NSMutableDictionary<NSString *,NSString *> *address = [NSMutableDictionary new];
     address[@"city"] = city;
-    address[@"postal_code"] = postalCode,
+    address[@"postal_code"] = postalCode;
     address[@"country"] = country;
     address[@"line1"] = addressLine1;
 
@@ -243,8 +249,59 @@
     return params;
 }
 
-#pragma mark - Redirect url
++ (STPSourceParams *)alipayParamsWithAmount:(NSUInteger)amount
+                                   currency:(NSString *)currency
+                                  returnURL:(NSString *)returnURL {
+    STPSourceParams *params = [self new];
+    params.type = STPSourceTypeAlipay;
+    params.amount = @(amount);
+    params.currency = currency;
+    params.redirect = @{ @"return_url": returnURL };
 
+    NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+    NSString *versionKey = [NSBundle stp_applicationVersion];
+    if (bundleID && versionKey) {
+        params.additionalAPIParameters = @{
+                                           @"alipay": @{
+                                                   @"app_bundle_id": bundleID,
+                                                   @"app_version_key": versionKey,
+                                                   },
+                                           };
+    }
+    return params;
+}
+
++ (STPSourceParams *)alipayReusableParamsWithCurrency:(NSString *)currency
+                                            returnURL:(NSString *)returnURL {
+    STPSourceParams *params = [self new];
+    params.type = STPSourceTypeAlipay;
+    params.currency = currency;
+    params.redirect = @{ @"return_url": returnURL };
+    params.usage = STPSourceUsageReusable;
+
+    return params;
+}
+
++ (STPSourceParams *)p24ParamsWithAmount:(NSUInteger)amount
+                                currency:(NSString *)currency
+                                   email:(NSString *)email
+                                    name:(nullable NSString *)name
+                               returnURL:(NSString *)returnURL {
+    STPSourceParams *params = [self new];
+    params.type = STPSourceTypeP24;
+    params.amount = @(amount);
+    params.currency = currency;
+
+    NSMutableDictionary *ownerDict = @{ @"email" : email }.mutableCopy;
+    if (name) {
+        ownerDict[@"name"] = name;
+    }
+    params.owner = ownerDict.copy;
+    params.redirect = @{ @"return_url": returnURL };
+    return params;
+}
+
+#pragma mark - Redirect Dictionary
 
 /**
  Private setter allows for setting the name of the app in the returnURL so
@@ -293,7 +350,6 @@
     return self.redirect;
 
 }
-
 
 #pragma mark - STPFormEncodable
 

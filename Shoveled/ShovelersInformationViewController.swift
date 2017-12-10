@@ -12,7 +12,9 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class ShovelersInformationViewController: UIViewController {
-
+    
+    // MARK: Enums
+    
     fileprivate enum CellIdentifier: String {
         case firstNameCell = "firstNameCell"
         case lastNameCell = "lastNameCell"
@@ -25,7 +27,9 @@ class ShovelersInformationViewController: UIViewController {
         case bankAccountNumberCell = "bankAccountNumberCell"
         case bankRoutingNumberCell = "bankRoutingNumberCell"
     }
-
+    
+    // MARK: Varibles
+    
     fileprivate var tableViewData: [[CellIdentifier]] = []
     fileprivate var firstNameCell: PersonalInfoCell?
     fileprivate var lastNameCell: PersonalInfoCell?
@@ -90,13 +94,16 @@ class ShovelersInformationViewController: UIViewController {
     fileprivate var saveBtn = UIButton()
     fileprivate var isExistingCustomer = false
     
-    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference()
-    lazy var shovelerRef: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "users")
-
+    lazy var ref = Database.database().reference()
+    lazy var shovelerRef = Database.database().reference(withPath: "users")
+    
+    // MARK: Outlets
+    
     @IBOutlet weak var tableView: UITableView?
-
     @IBOutlet weak var tableViewBottomLayoutConstraint: NSLayoutConstraint?
-
+    
+    // MARK: Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNavbar()
@@ -165,7 +172,9 @@ class ShovelersInformationViewController: UIViewController {
         // update firebase Shoveler object
         // update stripe customer object
     }
-
+    
+    // MARK: Configure View
+    
     func configureNavbar() {
         self.saveBtn = UIButton(type: .system)
         self.saveBtn.isEnabled = false
@@ -370,7 +379,7 @@ extension ShovelersInformationViewController {
             textFields.append(bankRoutingNumber)
 
             for tf in textFields {
-                if tf.text?.characters.count == 0 {
+                if tf.text?.count == 0 {
                     let alert = UIAlertController(title: "Uh oh!", message: "Looks like you forgot something", preferredStyle: .alert)
                     let okBtn = UIAlertAction(title: "Try again", style: .default, handler: nil)
                     alert.addAction(okBtn)
@@ -385,6 +394,8 @@ extension ShovelersInformationViewController {
         return false
     }
 }
+
+// MARK: Textfield delegate
 
 extension ShovelersInformationViewController: UITextFieldDelegate {
 
@@ -553,6 +564,8 @@ extension ShovelersInformationViewController: UITextFieldDelegate {
                 routingNumber.text = self.bankRoutingNumber
             }
         }
+        
+        self.saveBtn.isEnabled = true
     }
 }
 

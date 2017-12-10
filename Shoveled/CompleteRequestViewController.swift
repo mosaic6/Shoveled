@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseDatabase
 
 class CompleteRequestViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -37,7 +38,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     var stripeChargeToken: String?
     var shovelRequest: ShovelRequest?
 
-    lazy var ref: FIRDatabaseReference = FIRDatabase.database().reference(withPath: "requests")
+    lazy var ref = Database.database().reference(withPath: "requests")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     }
 
     func getUserStripeId() {
-        shovelerRef?.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
+        shovelerRef.child("users").child(currentUserUid).observeSingleEvent(of: .value, with: { snapshot in
             let value = snapshot.value as? NSDictionary
             let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
             if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
@@ -196,13 +197,9 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     }
 
     func sendCompletedImage() {
-        let storage = FIRStorage.storage().reference().child("CompletedRequest.png")
+        let storage = Storage.storage().reference().child("CompletedRequest.png")
         if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
-            storage.put(uploadData, metadata: nil) { (metaData, error) in
-                if error != nil {
-                    return
-                }
-            }
+            storage.putData(uploadData, metadata: nil)            
         }
     }
 

@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 import Crashlytics
 
 class LoginViewController: UIViewController {
@@ -19,7 +20,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var btnForgotPassword: UIButton!
     @IBOutlet weak var imgBackground: UIImageView!
 
-    var ref: FIRDatabaseReference?
+    var ref: DatabaseReference?
     var alert: UIAlertController!
 
     override func viewDidLoad() {
@@ -59,7 +60,7 @@ class LoginViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
             self.present(alert, animated: true, completion: .none)
         } else {
-            FIRAuth.auth()?.signIn(withEmail: usernameString, password: passwordString, completion: { (user, error) in
+            Auth.auth().signIn(withEmail: usernameString, password: passwordString, completion: { (user, error) in
                 if let error = error {
                     self.hideActivityIndicator(self.view)
                     let alert = UIAlertController(title: "There was an error logging in", message: "\(error.localizedDescription)", preferredStyle: .alert)
@@ -85,7 +86,7 @@ class LoginViewController: UIViewController {
             alert.addAction(okAction)
             self.present(alert, animated: true, completion: { _ in })
         } else {
-            FIRAuth.auth()?.sendPasswordReset(withEmail: usernameString) { error in
+            Auth.auth().sendPasswordReset(withEmail: usernameString) { error in
                 if let error = error {
                     let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .alert)
                     let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
