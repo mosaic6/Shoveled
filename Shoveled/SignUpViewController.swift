@@ -122,7 +122,7 @@ class SignUpViewController: UIViewController {
         }
     }
 
-    func dismissKeyboards() {
+    @objc func dismissKeyboards() {
         tfEmail.resignFirstResponder()
         tfPassword.resignFirstResponder()
     }

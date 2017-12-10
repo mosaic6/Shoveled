@@ -215,7 +215,7 @@ class RequestDetailsViewController: UITableViewController {
 
    // MARK: - Navigation
 
-    func showCompleteRequest() {
+    @objc func showCompleteRequest() {
         let completeRequestView = self.storyboard?.instantiateViewController(withIdentifier: "CompleteRequestViewController") as? CompleteRequestViewController
         if let completeRequestVC = completeRequestView {
             completeRequestVC.shovelRequest = shovelRequest
@@ -241,7 +241,7 @@ extension RequestDetailsViewController {
         })
     }
 
-    func openShovelerSignUpViewController() {
+    @objc func openShovelerSignUpViewController() {
         let vc = storyboard?.instantiateViewController(withIdentifier: "SettingsTableViewController") as? SettingsTableViewController
         let nav: UINavigationController = UINavigationController(rootViewController: vc!)
         self.present(nav, animated: true, completion: nil)
@@ -254,7 +254,7 @@ extension RequestDetailsViewController {
 
     // MARK: Delete Request
 
-    func deleteRequest() {
+    @objc func deleteRequest() {
         let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
         let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
@@ -265,12 +265,12 @@ extension RequestDetailsViewController {
         }
         alert.addAction(cancelAction)
         alert.addAction(okAction)
-        self.present(alert, animated: true, completion: { _ in })
+        self.present(alert, animated: true)
     }
 
     // MARK: Accept Request
 
-    func acceptRequest() {
+    @objc func acceptRequest() {
         actInd.startAnimating()
 
         let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Once the job is complete please take a photo of your work and submit it.", preferredStyle: .alert)
@@ -298,7 +298,7 @@ extension RequestDetailsViewController {
         }
         alert.addAction(cancelAction)
         alert.addAction(okAction)
-        self.present(alert, animated: true, completion: { _ in })
+        self.present(alert, animated: true)
     }
 
     // MARK: Issue Refund

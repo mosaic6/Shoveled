@@ -100,7 +100,7 @@ class RequestsListTableViewController: UITableViewController {
                 }
                 alert.addAction(cancelAction)
                 alert.addAction(okAction)
-                self.present(alert, animated: true, completion: { _ in })
+                self.present(alert, animated: true)
             }
         }
     }

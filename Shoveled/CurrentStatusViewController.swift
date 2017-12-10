@@ -137,7 +137,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
 
     // MARK: - Get users location
-    func getCurrentLocation() {
+    @objc func getCurrentLocation() {
         self.locationManager.requestWhenInUseAuthorization()
 
         if CLLocationManager.locationServicesEnabled() {
@@ -405,7 +405,7 @@ extension CurrentStatusViewController {
 
 extension CurrentStatusViewController {
 
-    func applicationEnteredBackground(_ notification: Notification) {
+    @objc func applicationEnteredBackground(_ notification: Notification) {
         self.hasBeenShown = false
     }
 }

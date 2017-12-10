@@ -409,7 +409,7 @@ extension RequestShovelingViewController: UITableViewDelegate {
 // MARK: Keyboard delegate
 extension RequestShovelingViewController {
 
-    func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.tableView?.frame.origin.y == 0 {
                 self.tableViewBottomConstraint?.constant = keyboardSize.size.height

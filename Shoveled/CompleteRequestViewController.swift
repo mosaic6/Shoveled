@@ -158,7 +158,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         }
     }
 
-    func displayCamera() {
+    @objc func displayCamera() {
         guard let imagePickerView = self.imagePickerView else { return }
         imagePickerView.delegate = self
         #if(arch(i386) || arch(x86_64)) && os(iOS)
@@ -169,7 +169,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         present(imagePickerView, animated: true, completion: nil)
     }
 
-    func sendCompletedJob() {
+    @objc func sendCompletedJob() {
         let requestFirebaseReference = self.shovelRequest?.firebaseReference
         requestFirebaseReference?.updateChildValues([
             StatusKey: "Completed",
@@ -186,7 +186,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
                     self.dismiss(animated: true, completion: nil)
                 }
                 alert.addAction(okAction)
-                self.present(alert, animated: true, completion: { _ in })
+                self.present(alert, animated: true)
                 if let addedByUser = self.addedByUser {
                     if let token = self.stripeChargeToken {
                         EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "<html><div>Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.<br/></div></html>")

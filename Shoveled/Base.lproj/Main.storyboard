@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fQv-eh-qr0">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fQv-eh-qr0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -169,22 +169,6 @@
                                             </mask>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffl-8j-n63">
-                                        <rect key="frame" x="72" y="44" width="29" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="VIN-y9-ZMB"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="Kailasa" family="Kailasa" pointSize="12"/>
-                                        <color key="textColor" red="0.59999999999999998" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="04A-VQ-M3y">
-                                        <rect key="frame" x="8" y="39" width="51" height="31"/>
-                                        <color key="onTintColor" red="0.59999999999999998" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="enableShovelerActivitySwitch:" destination="tCX-AY-NMz" eventType="valueChanged" id="6Co-QO-bPf"/>
-                                        </connections>
-                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" red="0.81176470588235294" green="0.81176470588235294" blue="0.81176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -195,7 +179,6 @@
                                     <constraint firstAttribute="bottom" secondItem="QDm-DM-ozz" secondAttribute="bottom" id="5Vz-N9-JeK"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="leading" secondItem="5Ci-O4-bL1" secondAttribute="trailing" constant="8" id="7ca-zJ-PwP"/>
                                     <constraint firstItem="QDm-DM-ozz" firstAttribute="centerX" secondItem="s3z-U7-Vy4" secondAttribute="centerX" id="7h7-wI-Yfp"/>
-                                    <constraint firstItem="5Ci-O4-bL1" firstAttribute="leading" secondItem="ffl-8j-n63" secondAttribute="trailing" constant="40" id="7hn-0v-wDt"/>
                                     <constraint firstAttribute="trailing" secondItem="5Ci-O4-bL1" secondAttribute="trailing" constant="182" id="8YC-hz-48W"/>
                                     <constraint firstItem="5Ci-O4-bL1" firstAttribute="centerY" secondItem="ouX-RD-UJK" secondAttribute="centerY" id="9jr-er-HEa"/>
                                     <constraint firstItem="s3z-U7-Vy4" firstAttribute="bottom" secondItem="bfk-BZ-nYV" secondAttribute="bottomMargin" id="CrL-i9-qh2"/>
@@ -204,7 +187,6 @@
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="leading" secondItem="5Ci-O4-bL1" secondAttribute="trailing" constant="109" id="IBf-Eh-c5f"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerY" secondItem="5Ci-O4-bL1" secondAttribute="centerY" id="ImG-Lo-xqm"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerX" secondItem="bfk-BZ-nYV" secondAttribute="centerX" constant="193" id="Jtk-l8-Mo1"/>
-                                    <constraint firstItem="ffl-8j-n63" firstAttribute="top" secondItem="bfk-BZ-nYV" secondAttribute="top" constant="44" id="K6I-0D-w2k"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerY" secondItem="5Ci-O4-bL1" secondAttribute="centerY" id="Lat-77-BEi"/>
                                     <constraint firstAttribute="trailing" secondItem="s3z-U7-Vy4" secondAttribute="trailing" constant="151" id="P1I-Cp-Zn0"/>
                                     <constraint firstItem="s3z-U7-Vy4" firstAttribute="leading" secondItem="bfk-BZ-nYV" secondAttribute="leading" constant="151" id="Pav-Yc-81w"/>
@@ -213,12 +195,9 @@
                                     <constraint firstAttribute="trailing" secondItem="ouX-RD-UJK" secondAttribute="trailing" constant="272" id="RPN-fA-gZb"/>
                                     <constraint firstItem="s3z-U7-Vy4" firstAttribute="leading" secondItem="bfk-BZ-nYV" secondAttribute="leading" constant="151" id="RjQ-Rk-rUh"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="leading" secondItem="5Ci-O4-bL1" secondAttribute="trailing" constant="109" id="T6W-hI-hgO"/>
-                                    <constraint firstItem="04A-VQ-M3y" firstAttribute="leading" secondItem="bfk-BZ-nYV" secondAttribute="leading" constant="8" id="USQ-nN-8po"/>
                                     <constraint firstItem="s3z-U7-Vy4" firstAttribute="top" secondItem="5Ci-O4-bL1" secondAttribute="bottom" constant="-21" id="V2w-OH-v6K"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerX" secondItem="bfk-BZ-nYV" secondAttribute="centerX" id="WZc-Le-Ezp"/>
                                     <constraint firstItem="5Ci-O4-bL1" firstAttribute="top" secondItem="bfk-BZ-nYV" secondAttribute="top" constant="35" id="YxY-o2-66Z"/>
-                                    <constraint firstItem="ffl-8j-n63" firstAttribute="leading" secondItem="04A-VQ-M3y" secondAttribute="trailing" constant="14.5" id="ZOE-Iq-AWJ"/>
-                                    <constraint firstItem="04A-VQ-M3y" firstAttribute="top" secondItem="bfk-BZ-nYV" secondAttribute="top" constant="39" id="b2v-cF-kaw"/>
                                     <constraint firstItem="5Ci-O4-bL1" firstAttribute="centerX" secondItem="bfk-BZ-nYV" secondAttribute="centerX" constant="0.5" id="ctO-XS-gnP"/>
                                     <constraint firstItem="QDm-DM-ozz" firstAttribute="leading" secondItem="bfk-BZ-nYV" secondAttribute="leading" id="dqH-Eg-Bvx"/>
                                     <constraint firstItem="ouX-RD-UJK" firstAttribute="centerY" secondItem="5Ci-O4-bL1" secondAttribute="centerY" id="f6T-t3-5Iz"/>
@@ -373,8 +352,6 @@
                         <outlet property="refreshMapBtn" destination="Au9-9S-VKo" id="Ka5-wG-5dg"/>
                         <outlet property="requestsListBtn" destination="eFf-xI-OxT" id="KZk-sl-Zi4"/>
                         <outlet property="settingsButton" destination="3Qe-PQ-cTu" id="Nav-BS-NqU"/>
-                        <outlet property="shovelerActivityLabel" destination="ffl-8j-n63" id="8kA-2A-vEj"/>
-                        <outlet property="shovelerActivitySwitch" destination="04A-VQ-M3y" id="bcH-kh-grk"/>
                         <segue destination="L07-nq-jTk" kind="presentation" identifier="notLoggedIn" id="2R3-lk-DrQ"/>
                     </connections>
                 </viewController>
@@ -1097,7 +1074,7 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hrF-VP-y7g">
-                                <rect key="frame" x="97.5" y="404.5" width="180" height="33"/>
+                                <rect key="frame" x="105.5" y="404.5" width="164" height="35"/>
                                 <fontDescription key="fontDescription" name="Rajdhani-Bold" family="Rajdhani" pointSize="18"/>
                                 <state key="normal" title="Already a user? Log in">
                                     <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1107,7 +1084,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyn-7W-ixN">
-                                <rect key="frame" x="134" y="615" width="107" height="32"/>
+                                <rect key="frame" x="141.5" y="613" width="92" height="34"/>
                                 <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                 <state key="normal" title="Privacy Policy">
                                     <color key="titleColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -1214,7 +1191,7 @@
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                             </imageView>
                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5jM-Cp-mrq" userLabel="Login" customClass="ShoveledButton" customModule="Shoveled" customModuleProvider="target">
-                                <rect key="frame" x="16" y="311" width="343" height="42"/>
+                                <rect key="frame" x="16" y="311" width="343" height="44"/>
                                 <color key="backgroundColor" red="0.29170413899999997" green="0.68893417239999999" blue="0.80169412360000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="kQ2-QK-Z4K"/>
@@ -1503,13 +1480,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FIRST NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fO1-cm-N2n">
-                                                    <rect key="frame" x="15" y="20" width="100" height="20"/>
+                                                    <rect key="frame" x="15" y="20" width="81" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJS-zU-SxW">
-                                                    <rect key="frame" x="163" y="0.0" width="197" height="54"/>
+                                                    <rect key="frame" x="144" y="0.0" width="216" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -1540,7 +1517,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LAST NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLM-qP-FXz">
-                                                    <rect key="frame" x="15" y="17" width="81" height="20"/>
+                                                    <rect key="frame" x="15" y="16" width="81" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="81" id="UjY-H8-TqX"/>
                                                     </constraints>
@@ -1580,13 +1557,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADDRESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nnR-Aj-plc">
-                                                    <rect key="frame" x="15" y="17" width="79.5" height="20"/>
+                                                    <rect key="frame" x="15" y="16" width="64.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0bz-SQ-DP9">
-                                                    <rect key="frame" x="158.5" y="0.0" width="201.5" height="54"/>
+                                                    <rect key="frame" x="143.5" y="0.0" width="216.5" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -1617,7 +1594,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CITY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgJ-Tm-WfL">
-                                                    <rect key="frame" x="15" y="17" width="37.5" height="20"/>
+                                                    <rect key="frame" x="15" y="16" width="29" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1656,13 +1633,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgj-d0-Yg1">
-                                                    <rect key="frame" x="15" y="17" width="49" height="20"/>
+                                                    <rect key="frame" x="15" y="16" width="41.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="RI" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="joG-9K-1jT">
-                                                    <rect key="frame" x="151" y="0.0" width="209" height="54"/>
+                                                    <rect key="frame" x="143.5" y="0.0" width="216.5" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -1693,13 +1670,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ZIP CODE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2qp-9a-fly">
-                                                    <rect key="frame" x="15" y="17" width="78.5" height="20"/>
+                                                    <rect key="frame" x="15" y="16" width="62" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4fu-Jm-7AU">
-                                                    <rect key="frame" x="160.5" y="0.0" width="199.5" height="54"/>
+                                                    <rect key="frame" x="144" y="0.0" width="216" height="54"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1730,7 +1707,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DATE OF BIRTH" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MvT-dX-3be">
-                                                    <rect key="frame" x="15" y="18" width="123.5" height="20"/>
+                                                    <rect key="frame" x="15" y="17" width="99.5" height="22"/>
                                                     <fontDescription key="fontDescription" name="Rajdhani-Regular" family="Rajdhani" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1800,7 +1777,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOCIAL SECURITY #" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2c-Hx-zc9">
-                                                    <rect key="frame" x="15" y="16" width="142" height="20"/>
+                                                    <rect key="frame" x="15" y="16" width="142" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="142" id="kMk-d1-5Mb"/>
                                                     </constraints>
@@ -1846,7 +1823,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BANK ACCOUNT NUMBER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qpr-Bv-y5r">
-                                                    <rect key="frame" x="15" y="17" width="175" height="20"/>
+                                                    <rect key="frame" x="15" y="16" width="175" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="175" id="6Ux-iE-n5m"/>
                                                     </constraints>
@@ -1882,7 +1859,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BANK ROUTING NUMBER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="td0-vU-hbo">
-                                                    <rect key="frame" x="8" y="17" width="175" height="20"/>
+                                                    <rect key="frame" x="8" y="16" width="175" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="175" id="SRW-8Q-hv1"/>
                                                     </constraints>

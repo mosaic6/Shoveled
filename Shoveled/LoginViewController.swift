@@ -84,25 +84,25 @@ class LoginViewController: UIViewController {
             let alert: UIAlertController = UIAlertController(title: "Whoops", message: "Please enter your email address and then press the forgot password button.", preferredStyle: .alert)
             let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alert.addAction(okAction)
-            self.present(alert, animated: true, completion: { _ in })
+            self.present(alert, animated: true)
         } else {
             Auth.auth().sendPasswordReset(withEmail: usernameString) { error in
                 if let error = error {
                     let alert: UIAlertController = UIAlertController(title: nil, message: "\(error.localizedDescription)", preferredStyle: .alert)
                     let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: { _ in })
+                    self.present(alert, animated: true)
                 } else {
                     let alert: UIAlertController = UIAlertController(title: nil, message: "Your reset password link has been emailed to you.", preferredStyle: .alert)
                     let okAction: UIAlertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
                     alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: { _ in })
+                    self.present(alert, animated: true)
                 }
             }
         }
     }
 
-    func dismissKeyboards() {
+    @objc func dismissKeyboards() {
         tfExistingUsername.resignFirstResponder()
         tfExistingPassword.resignFirstResponder()
     }
