@@ -32,13 +32,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var mapContainerView: UIView?
     @IBOutlet weak var bottomView: UIView?
     @IBOutlet weak var mapView: MKMapView?
-    @IBOutlet weak var refreshMapBtn: UIButton?    
+    @IBOutlet weak var refreshMapBtn: UIButton?
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     @IBOutlet weak var requestsListBtn: ShoveledButton?
     @IBOutlet weak var settingsButton: UIBarButtonItem?
     @IBOutlet weak var shovelerActivityLabel: UILabel?
     @IBOutlet weak var shovelerActivitySwitch: UISwitch?
-    
+
     // MARK: Variables
 
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
@@ -65,16 +65,16 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
     @IBAction func enableShovelerActivitySwitch(_ sender: Any) {
         if self.shovelerActivitySwitch?.isOn ?? false {
-            
+
         }
     }
-    
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
     // MARK: Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -106,13 +106,13 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewWillDisappear(animated)
         self.numOfShovelers = 0
     }
-    
+
     func registerNotificationServices() {
         NotificationCenter.default.addObserver(self, selector: #selector(RequestDetailsViewController.deleteRequest), name: Notification.Name(rawValue: "cancelRequest"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.getCurrentLocation), name: Notification.Name(rawValue: userLocationNoticationKey), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(CurrentStatusViewController.applicationEnteredBackground), name: .UIApplicationDidEnterBackground, object: nil)
     }
-    
+
     func checkLocationServices() {
         if CLLocationManager.locationServicesEnabled() {
             switch(CLLocationManager.authorizationStatus()) {
@@ -268,7 +268,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
 
 extension CurrentStatusViewController: MKMapViewDelegate {
 
-    //MARK: - MapView Delegate
+    // MARK: - MapView Delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if (annotation is MKUserLocation) {
             return nil
@@ -327,12 +327,12 @@ extension CurrentStatusViewController {
             self.getUserInfo()
         }
     }
-    
+
     private func enableShovelerActivity() {
         let requestName = self.ref.child("users").child(currentUserUid).child("shoveler")
-        requestName.setValue(self.shoveler?.toAnyObject()) { error, ref in
+        requestName.setValue(self.shoveler?.toAnyObject()) { error, _ in
             if error == nil {
-                
+
             }
         }
     }

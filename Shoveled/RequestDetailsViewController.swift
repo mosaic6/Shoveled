@@ -257,7 +257,7 @@ extension RequestDetailsViewController {
     @objc func deleteRequest() {
         let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-        let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+        let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { (_) in
 
             self.shovelRequest?.firebaseReference?.removeValue()
             self.issueRefund()
@@ -275,7 +275,7 @@ extension RequestDetailsViewController {
 
         let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Once the job is complete please take a photo of your work and submit it.", preferredStyle: .alert)
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
-        let okAction: UIAlertAction = UIAlertAction(title: "Let's Go", style: .default) { (action) in
+        let okAction: UIAlertAction = UIAlertAction(title: "Let's Go", style: .default) { (_) in
 
             let requestFirebaseReference = self.shovelRequest?.firebaseReference
             requestFirebaseReference?.updateChildValues([
@@ -290,7 +290,7 @@ extension RequestDetailsViewController {
             if let addedByUser = self.shovelRequest?.addedByUser {
                 if let token = self.shovelRequest?.stripeChargeToken {
                     EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been accepted!", text: "<html><div>\(currentUserEmail) has accepted your shovel request, and in enroute to complete your request. Once your request has been competed you will receive a confirmation email. Use reference ID: <b>\(token)</b> when contacting support.</div></html>")
-                    
+
                     let address = self.shovelRequest?.address ?? ""
                     EmailManager.sharedInstance.sendConfirmationEmail(email: currentUserEmail, toName: "", subject: "Time to get Shoveling!", text: "<html><div>You've accepted a shoveling request at \(address). Please complete this request in a timely manner. If you have any issues please reach out to support@shoveled.works.</div></html>")
                 }

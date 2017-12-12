@@ -42,7 +42,7 @@ class StripeAPI {
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
 
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
-            (data, response, error) in
+            (_, response, error) in
             if (error == nil) {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
@@ -69,7 +69,7 @@ class StripeAPI {
                               fullSS: String,
                               accountRoutingNumber: String,
                               accountAccountNumber: String,
-                              completion: @escaping (_ result: Dictionary<String, Any>?, _ error: Error?) -> ()) {
+                              completion: @escaping (_ result: Dictionary<String, Any>?, _ error: Error?) -> Void) {
 
         guard let URL = URL(string: API_POST_MANAGED_CUSTOMER) else { return }
         var request = URLRequest(url: URL)
@@ -80,13 +80,14 @@ class StripeAPI {
 
         // TODO: Need to pass
         let bodyParameters = [
-            "country": "us",
+            "country": "US",
             "legal_entity[personal_id_number]": fullSS,
             "legal_entity[dob][year]": dobYear,
             "legal_entity[address][postal_code]": zip,
             "external_account[object]": "bank_account",
             "legal_entity[first_name]": firstName,
             "legal_entity[type]": "individual",
+            "type": "custom",
             "legal_entity[address][line1]": address1,
             "tos_acceptance[ip]": "8.8.8.8",
             "legal_entity[last_name]": lastName,
@@ -98,10 +99,8 @@ class StripeAPI {
             "external_account[country]": "us",
             "external_account[account_number]": accountAccountNumber,
             "external_account[routing_number]": accountRoutingNumber,
-            "managed": "true",
             "tos_acceptance[date]": "1476668004",
             "legal_entity[dob][month]": dobMonth,
-            "transfer_schedule[delay_days]": "3",
             ]
 
         let bodyString = bodyParameters.queryParameters
@@ -157,7 +156,7 @@ class StripeAPI {
 
     // MARK: Get customers with Stripe account
 
-    func getCustomers(_ completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
+    func getCustomers(_ completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> Void) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
 
@@ -207,7 +206,7 @@ class StripeAPI {
     }
 
     // MARK: Create a new customer if they don't already exist
-    func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
+    func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
 
@@ -232,7 +231,7 @@ class StripeAPI {
 
         /* Start a new Task */
         let task = session.dataTask(with: URL, completionHandler: {
-            (data, response, error) in
+            (_, response, error) in
             if (error == nil) {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode
@@ -250,7 +249,7 @@ class StripeAPI {
     }
 
     // MARK: Send the charge to Stripe
-    func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> ()) {
+    func sendChargeToStripeWith(_ amount: String, source: String, description: String, completion: @escaping (_ result: NSDictionary?, _ error: NSError?) -> Void) {
 
         guard let URL = URL(string: API_POST_CHARGE) else {return}
         var request = URLRequest(url: URL)
@@ -303,7 +302,7 @@ class StripeAPI {
     }
 
     // MARK: GET Connected Accounts
-    func getConnectedAccounts(completion: @escaping (_ result: NSArray?, _ error: NSError?) -> ()) {
+    func getConnectedAccounts(completion: @escaping (_ result: NSArray?, _ error: NSError?) -> Void) {
         var resultArray: NSArray = []
         var resultError: NSError?
         let URL = NSURL(string: API_GET_CONNECTED_ACCOUNTS)
@@ -366,7 +365,7 @@ class StripeAPI {
         request.httpBody = bodyString.data(using: String.Encoding.utf8, allowLossyConversion: true)
 
         let task = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: {
-            (data, response, error) in
+            (_, response, error) in
             if (error == nil) {
                 // Success
                 let statusCode = (response as! HTTPURLResponse).statusCode

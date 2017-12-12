@@ -77,7 +77,7 @@ struct Shoveler {
             StripeIdKey: self.stripeId
         ]
     }
-    
+
     var isShoveler: Bool {
         var isShoveler = false
         if currentUserUid != "" {
@@ -92,4 +92,3 @@ struct Shoveler {
         return isShoveler
     }
 }
-

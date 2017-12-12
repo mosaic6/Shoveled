@@ -12,9 +12,9 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class ShovelersInformationViewController: UIViewController {
-    
+
     // MARK: Enums
-    
+
     fileprivate enum CellIdentifier: String {
         case firstNameCell = "firstNameCell"
         case lastNameCell = "lastNameCell"
@@ -27,9 +27,9 @@ class ShovelersInformationViewController: UIViewController {
         case bankAccountNumberCell = "bankAccountNumberCell"
         case bankRoutingNumberCell = "bankRoutingNumberCell"
     }
-    
+
     // MARK: Varibles
-    
+
     fileprivate var tableViewData: [[CellIdentifier]] = []
     fileprivate var firstNameCell: PersonalInfoCell?
     fileprivate var lastNameCell: PersonalInfoCell?
@@ -93,17 +93,17 @@ class ShovelersInformationViewController: UIViewController {
     fileprivate var shoveler: Shoveler?
     fileprivate var saveBtn = UIButton()
     fileprivate var isExistingCustomer = false
-    
+
     lazy var ref = Database.database().reference()
     lazy var shovelerRef = Database.database().reference(withPath: "users")
-    
+
     // MARK: Outlets
-    
+
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var tableViewBottomLayoutConstraint: NSLayoutConstraint?
-    
+
     // MARK: Lifecycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureNavbar()
@@ -135,7 +135,6 @@ class ShovelersInformationViewController: UIViewController {
         self.shovelerRef.observe(.value, with: { snapshot in
             if let items = snapshot.value as? [String: AnyObject] {
                 if !items.isEmpty {
-                    self.isExistingCustomer = true
                     self.saveBtn.isEnabled = false
                 }
                 for item in items {
@@ -160,21 +159,23 @@ class ShovelersInformationViewController: UIViewController {
                             self.dobCell?.dobDayTF?.text = dobDay
                             self.dobCell?.dobMonthTF?.text = dobMonth
                             self.dobCell?.dobYearTF?.text = dobYear
+                            self.isExistingCustomer = true
+                            return
                         }
                     }
                 }
             }
         })
     }
-    
+
     fileprivate func updateShovelerInformation() {
         // if value changed on text fields enable save button
         // update firebase Shoveler object
         // update stripe customer object
     }
-    
+
     // MARK: Configure View
-    
+
     func configureNavbar() {
         self.saveBtn = UIButton(type: .system)
         self.saveBtn.isEnabled = false
@@ -311,10 +312,24 @@ extension ShovelersInformationViewController {
                 let fullSS = self.ss,
                 let bankAccountNumber = self.bankAccountNumber,
                 let bankRoutingNumber = self.bankRoutingNumber else { return }
-            if isExistingCustomer {
+            if self.isExistingCustomer {
                 // Stripe manager update customer
             } else {
-                StripeManager.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, fullSS: fullSS, accountRoutingNumber: bankRoutingNumber, accountAccountNumber: bankAccountNumber) { result, error in
+                StripeManager.sharedInstance.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, fullSS: fullSS, accountRoutingNumber: bankRoutingNumber, accountAccountNumber: bankAccountNumber) { result, error in
+
+                    if let resultError = result?["error"] as? Dictionary<String, String> {
+                        for (_, _) in resultError {
+                            let alertMessage = resultError["message"] ?? ""
+                            let alert = UIAlertController(title: "🤔", message: alertMessage, preferredStyle: .alert)
+                            let okAction = UIAlertAction(title: "Ok", style: .default)
+                            alert.addAction(okAction)
+                            DispatchQueue.main.async {
+                                self.hideActivityIndicator(self.view)
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                            return
+                        }
+                    }
 
                     if let result = result {
                         if let externalAccounts = result["external_accounts"] as? Dictionary<String, Any> {
@@ -326,15 +341,17 @@ extension ShovelersInformationViewController {
                                                 if let id = account.object(forKey: "account") as? String {
                                                     self.shoveler = Shoveler(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, postalCode: zip, dobMonth: dobMonth, dobDay: dobDay, dobYear: dobYear, stripeId: id)
                                                     let requestName = self.ref.child("users").child(currentUserUid).child("shoveler")
-                                                    requestName.setValue(self.shoveler?.toAnyObject()) { error, ref in
+                                                    requestName.setValue(self.shoveler?.toAnyObject()) { error, _ in
                                                         if error == nil {
-                                                            self.hideActivityIndicator(self.view)
                                                             let alert = UIAlertController(title: "👍❄️💰", message: "Thank you for signing up as a shoveler! Go check for requests and get those people shoveled out!", preferredStyle: .alert)
-                                                            let okAction = UIAlertAction(title: "Get Going!", style: .default) { action in
+                                                            let okAction = UIAlertAction(title: "Get Going!", style: .default) { _ in
                                                                 self.dismiss(animated: true, completion: nil)
                                                             }
                                                             alert.addAction(okAction)
-                                                            self.present(alert, animated: true, completion: nil)
+                                                            DispatchQueue.main.async {
+                                                                self.hideActivityIndicator(self.view)
+                                                                self.present(alert, animated: true, completion: nil)
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -564,7 +581,7 @@ extension ShovelersInformationViewController: UITextFieldDelegate {
                 routingNumber.text = self.bankRoutingNumber
             }
         }
-        
+
         self.saveBtn.isEnabled = true
     }
 }
@@ -572,7 +589,7 @@ extension ShovelersInformationViewController: UITextFieldDelegate {
 extension ShovelersInformationViewController {
     @objc func moreInfoSSTapped() {
         let alert = UIAlertController(title: "Why do we need this?", message: "In order to verify you're identity for transfering you payments, we need your SS# as a one time identifier. We do not store this or share with anyone. If you want to update your bank account you'll need to enter this again for verification.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default) { action in
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
 
         }
         alert.addAction(okAction)

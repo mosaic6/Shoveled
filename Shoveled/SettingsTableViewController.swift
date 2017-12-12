@@ -70,7 +70,7 @@ extension SettingsTableViewController {
     // MARK: - Actions
     func showMenu() {
         let logoutAction = UIAlertController(title: "ARE YOU SURE YOU WANT TO LOGOUT?", message: nil, preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "LOGOUT", style: .destructive) { action in
+        let okAction = UIAlertAction(title: "LOGOUT", style: .destructive) { _ in
             try! Auth.auth().signOut()
             self.dismiss(animated: true, completion: nil)
         }

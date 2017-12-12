@@ -19,7 +19,7 @@ class RequestsListTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         print(self.requests)
 
         self.navigationController?.navigationBar.isHidden = false
@@ -66,7 +66,7 @@ class RequestsListTableViewController: UITableViewController {
         if let price = self.newPriceString {
             cell.priceLabel?.text = "$\(price)"
         }
-        cell.statusLabel?.text = request.status            
+        cell.statusLabel?.text = request.status
 
         return cell
     }
@@ -93,7 +93,7 @@ class RequestsListTableViewController: UITableViewController {
             if request.status == "Active" {
                 let alert: UIAlertController = UIAlertController(title: "Are you sure?", message: "Are you sure you want to remove your shovel request?\nYou will be issued a refund immediately.", preferredStyle: .alert)
                 let cancelAction: UIAlertAction = UIAlertAction(title: "No", style: .destructive, handler: nil)
-                let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action in
+                let okAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { _ in
                     request.firebaseReference?.removeValue()
                     self.requests.remove(at: indexPath.row)
                     StripeManager.sendRefundToCharge(chargeId: request.stripeChargeToken)

@@ -11,7 +11,7 @@ import Stripe
 
 class RequestCell: UITableViewCell, STPPaymentCardTextFieldDelegate {
 
-    var tfCardDetails: STPPaymentCardTextField? = nil
+    var tfCardDetails: STPPaymentCardTextField?
 
     @IBOutlet weak var tfAddress: UITextField?
     @IBOutlet weak var tfDescription: UITextField?

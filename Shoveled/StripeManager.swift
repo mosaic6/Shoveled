@@ -9,9 +9,11 @@ import Foundation
 
 class StripeManager {
 
+    static let sharedInstance = StripeManager()
+
     // Get Customers
-    class func getCustomers(_ completion: @escaping (_ customerEmail: String) -> ()) {
-        StripeAPI.sharedInstance.getCustomers { (result, error) in
+    class func getCustomers(_ completion: @escaping (_ customerEmail: String) -> Void) {
+        StripeAPI.sharedInstance.getCustomers { (result, _) in
             if let result = result {
                 if let data = result.object(forKey: "data") as? [NSDictionary] {
                     for customers in data {
@@ -25,7 +27,7 @@ class StripeManager {
     }
 
     // Send charge to Stripe
-    class func sendChargeToStripeWith(amount: String, source: String, description: String, completion: @escaping (_ chargeId: String, _ result: [String: Any]) -> ()) {
+    class func sendChargeToStripeWith(amount: String, source: String, description: String, completion: @escaping (_ chargeId: String, _ result: [String: Any]) -> Void) {
         var chargeId = ""
         StripeAPI.sharedInstance.sendChargeToStripeWith(amount, source: source, description: description, completion: { result, error
             in
@@ -42,7 +44,7 @@ class StripeManager {
     }
 
     // Create Customer 
-    class func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> ()) {
+    class func createCustomerStripeAccountWith(_ customerDesciption: String = "Shoveled Customer", source: String, email: String, completion: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
 
         let error: NSError? = nil
         getCustomers { (customerEmail) in
@@ -50,7 +52,7 @@ class StripeManager {
                 completion(false, error)
             } else {
                 completion(true, nil)
-                StripeAPI.sharedInstance.createCustomerStripeAccountWith(customerDesciption, source: source, email: email) { (success, error) in
+                StripeAPI.sharedInstance.createCustomerStripeAccountWith(customerDesciption, source: source, email: email) { (success, _) in
                     if success {
                         print("Customer Created!")
                     }
@@ -60,7 +62,7 @@ class StripeManager {
     }
 
     // Create Managed Account
-    class func createManagedAccount(firstName: String,
+    func createManagedAccount(firstName: String,
                                     lastName: String,
                                     address1: String,
                                     city: String,
@@ -72,7 +74,7 @@ class StripeManager {
                                     fullSS: String,
                                     accountRoutingNumber: String,
                                     accountAccountNumber: String,
-                                    completion: @escaping (_ result: Dictionary<String, Any>?, _ error: Error?) -> ()) {
+                                    completion: @escaping (_ result: Dictionary<String, Any>?, _ error: Error?) -> Void) {
 
         StripeAPI.sharedInstance.createManagedAccount(firstName: firstName,
                                                       lastName: lastName,
@@ -106,9 +108,9 @@ class StripeManager {
     }
 
     // GET Connected Accounts
-    class func getConnectedAccounts(completion: @escaping (_ email: String) -> ()) {
+    class func getConnectedAccounts(completion: @escaping (_ email: String) -> Void) {
         var userEmail = ""
-        StripeAPI.sharedInstance.getConnectedAccounts { (result, error) in
+        StripeAPI.sharedInstance.getConnectedAccounts { (result, _) in
             if let objects = result {
                 for item in objects {
                     if let item = item as? [String: AnyObject] {

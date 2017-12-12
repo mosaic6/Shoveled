@@ -67,7 +67,7 @@ class LoginViewController: UIViewController {
                     alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
                     self.present(alert, animated: true, completion: .none)
                 } else if let user = user {
-                    self.ref?.child("users").child(user.uid).observeSingleEvent(of: .value, with: { snapshot in
+                    self.ref?.child("users").child(user.uid).observeSingleEvent(of: .value, with: { _ in
                     })
                     self.dismiss(animated: true, completion: nil)
                     NotificationCenter.default.post(name: Notification.Name(rawValue: userLocationNoticationKey), object: self)

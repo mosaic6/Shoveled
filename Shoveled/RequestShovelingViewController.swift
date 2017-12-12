@@ -60,7 +60,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         return self.paymentInfoCell?.tfCardDetails
     }
 
-    //MARK: - Variables
+    // MARK: - Variables
 
     let locationManager = CLLocationManager()
     var latitude: NSNumber!
@@ -149,7 +149,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         return tableViewData
     }
 
-    //MARK: - Location Manager Delegate
+    // MARK: - Location Manager Delegate
     func getLocation() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
@@ -187,7 +187,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     func getCoordinatesFromAddress(address: String) -> CLPlacemark? {
         let geocoder = CLGeocoder()
         var placemark = CLPlacemark()
-        geocoder.geocodeAddressString(address) { placemarks, error in
+        geocoder.geocodeAddressString(address) { placemarks, _ in
             if let placemarks = placemarks {
                 if placemarks.count != 0 {
                     placemark = placemarks[0]
@@ -221,7 +221,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             showActivityIndicatory(self.view)
             guard let card = self.paymentInfoTF?.cardParams else { return }
 
-            STPAPIClient.shared().createToken(withCard: card) { token, error in
+            STPAPIClient.shared().createToken(withCard: card) { token, _ in
                 guard let stripeToken = token else {
                     return
                 }
@@ -253,7 +253,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
                             self.hideActivityIndicator(self.view)
                         } else {
                             let alert = UIAlertController(title: "Something went wrong", message: "We could not complete your request. Please check that your card information is correct.", preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "Try again", style: .default) { alert in
+                            let okAction = UIAlertAction(title: "Try again", style: .default) { _ in
                                 self.hideActivityIndicator(self.view)
                             }
                             alert.addAction(okAction)
@@ -314,7 +314,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in
             let requestName = self.ref.child("/requests/").childByAutoId()
             self.hideActivityIndicator(self.view)
-            requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, ref) in
+            requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, _) in
                 if error != nil {
                     let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)
                     let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)

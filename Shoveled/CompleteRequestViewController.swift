@@ -174,12 +174,12 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         requestFirebaseReference?.updateChildValues([
             StatusKey: "Completed",
             AcceptedByUserKey: currentUserEmail
-            ]) { (error, ref) in
+            ]) { (error, _) in
             if error != nil {
                 return
             } else {
                 let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
-                let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (action) in
+                let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (_) in
                     self.sendCompletedJob()
                     self.transferFunds()
                     self.sendCompletedImage()
@@ -199,7 +199,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     func sendCompletedImage() {
         let storage = Storage.storage().reference().child("CompletedRequest.png")
         if let uploadData = UIImagePNGRepresentation((self.imageView?.image)!) {
-            storage.putData(uploadData, metadata: nil)            
+            storage.putData(uploadData, metadata: nil)
         }
     }
 

@@ -33,7 +33,7 @@ class EmailService {
         request.httpMethod = "POST"
 
         let task = session.dataTask(with: URL, completionHandler: {
-            (data, response, error) in
+            (_, _, error) in
             if (error == nil) {
                 // Success
 

@@ -303,11 +303,11 @@ extension ShovelersInformationViewController {
                                                 if let id = account.object(forKey: "account") as? String {
                                                     self.shoveler = Shoveler(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, postalCode: zip, dobMonth: dobMonth, dobDay: dobDay, dobYear: dobYear, stripeId: id)
                                                     let requestName = self.ref.child("users").child(currentUserUid).child("shoveler")
-                                                    requestName.setValue(self.shoveler?.toAnyObject()) { error, ref in
+                                                    requestName.setValue(self.shoveler?.toAnyObject()) { error, _ in
                                                         if error == nil {
                                                             self.hideActivityIndicator(self.view)
                                                             let alert = UIAlertController(title: "👍❄️💰", message: "Thank you for signing up as a shoveler! Go check for requests and get those people shoveled out!", preferredStyle: .alert)
-                                                            let okAction = UIAlertAction(title: "Get Going!", style: .default) { action in
+                                                            let okAction = UIAlertAction(title: "Get Going!", style: .default) { _ in
                                                                 self.dismiss(animated: true, completion: nil)
                                                             }
                                                             alert.addAction(okAction)
@@ -545,7 +545,7 @@ extension ShovelersInformationViewController: UITextFieldDelegate {
 extension ShovelersInformationViewController {
     @objc func moreInfoSSTapped() {
         let alert = UIAlertController(title: "Why do we need this?", message: "In order to verify you're identity for transfering you payments, we need your SS# as a one time identifier. We do not store this or share with anyone. If you want to update your bank account you'll need to enter this again for verification.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Ok", style: .default) { action in
+        let okAction = UIAlertAction(title: "Ok", style: .default) { _ in
 
         }
         alert.addAction(okAction)
