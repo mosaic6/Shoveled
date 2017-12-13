@@ -414,63 +414,67 @@ extension ShovelersInformationViewController {
 
 // MARK: Textfield delegate
 
-extension ShovelersInformationViewController: UITextFieldDelegate {
+extension ShovelersInformationViewController {
 
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.tableView?.frame.origin.y == 0 {
-                self.tableViewBottomLayoutConstraint?.constant = keyboardSize.size.height
                 self.tableViewBottomLayoutConstraint?.isActive = true
+                self.tableViewBottomLayoutConstraint?.constant = keyboardSize.size.height + 20
             }
         }
+    }
+    
+    override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return false
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.firstNameCell?.firstNameTF {
-            if let firstName = self.firstNameCell?.firstNameTF?.text?.characters.count {
-                let newLength = firstName + string.characters.count - range.length
+            if let firstName = self.firstNameCell?.firstNameTF?.text?.count {
+                let newLength = firstName + string.count - range.length
                 return newLength <= 100
             }
         }
 
         if textField == self.lastNameCell?.lastNameTF {
-            if let lastName = self.lastNameCell?.lastNameTF?.text?.characters.count {
-                let newLength = lastName + string.characters.count - range.length
+            if let lastName = self.lastNameCell?.lastNameTF?.text?.count {
+                let newLength = lastName + string.count - range.length
                 return newLength <= 100
             }
         }
 
         if textField == self.addressCell?.addressTF {
-            if let address = self.addressCell?.addressTF?.text?.characters.count {
-                let newLength = address + string.characters.count - range.length
+            if let address = self.addressCell?.addressTF?.text?.count {
+                let newLength = address + string.count - range.length
                 return newLength <= 100
             }
         }
 
         if textField == self.cityCell?.cityTF {
-            if let city = self.cityCell?.cityTF?.text?.characters.count {
-                let newLength = city + string.characters.count - range.length
+            if let city = self.cityCell?.cityTF?.text?.count {
+                let newLength = city + string.count - range.length
                 return newLength <= 100
             }
         }
 
         if textField == self.stateCell?.stateTF {
-            if let state = self.stateCell?.stateTF?.text?.characters.count {
-                let newLength = state + string.characters.count - range.length
+            if let state = self.stateCell?.stateTF?.text?.count {
+                let newLength = state + string.count - range.length
                 return newLength <= 2
             }
         }
 
         if textField == self.zipCell?.zipTF {
-            if let zip = self.zipCell?.zipTF?.text?.characters.count {
-                let newLength = zip + string.characters.count - range.length
+            if let zip = self.zipCell?.zipTF?.text?.count {
+                let newLength = zip + string.count - range.length
                 return newLength <= 5
             }
         }
 
         if textField == self.dobCell?.dobMonthTF {
-            if let dobMonth = self.dobCell?.dobMonthTF?.text?.characters.count {
-                let newLength = dobMonth + string.characters.count - range.length
+            if let dobMonth = self.dobCell?.dobMonthTF?.text?.count {
+                let newLength = dobMonth + string.count - range.length
                 if newLength == 3 {
                     self.dobCell?.dobDayTF?.becomeFirstResponder()
                 }
@@ -480,8 +484,8 @@ extension ShovelersInformationViewController: UITextFieldDelegate {
         }
 
         if textField == self.dobCell?.dobDayTF {
-            if let dobDay = self.dobCell?.dobDayTF?.text?.characters.count {
-                let newLength = dobDay + string.characters.count - range.length
+            if let dobDay = self.dobCell?.dobDayTF?.text?.count {
+                let newLength = dobDay + string.count - range.length
                 if newLength == 3 {
                     self.dobCell?.dobYearTF?.becomeFirstResponder()
                 }
@@ -491,29 +495,29 @@ extension ShovelersInformationViewController: UITextFieldDelegate {
         }
 
         if textField == self.dobCell?.dobYearTF {
-            if let dobYear = self.dobCell?.dobYearTF?.text?.characters.count {
-                let newLength = dobYear + string.characters.count - range.length
+            if let dobYear = self.dobCell?.dobYearTF?.text?.count {
+                let newLength = dobYear + string.count - range.length
                 return newLength <= 4
             }
         }
 
         if textField == self.ssCell?.ssTF {
-            if let ss = self.ssCell?.ssTF?.text?.characters.count {
-                let newLength = ss + string.characters.count - range.length
+            if let ss = self.ssCell?.ssTF?.text?.count {
+                let newLength = ss + string.count - range.length
                 return newLength <= 9
             }
         }
 
         if textField == self.bankAccountNumberCell?.accountNumberTF {
-            if let accountNumber = self.bankAccountNumberCell?.accountNumberTF?.text?.characters.count {
-                let newLength = accountNumber + string.characters.count - range.length
+            if let accountNumber = self.bankAccountNumberCell?.accountNumberTF?.text?.count {
+                let newLength = accountNumber + string.count - range.length
                 return newLength <= 15
             }
         }
 
         if textField == self.bankRoutingNumberCell?.routingNumberTF {
-            if let routingNumber = self.bankRoutingNumberCell?.routingNumberTF?.text?.characters.count {
-                let newLength = routingNumber + string.characters.count - range.length
+            if let routingNumber = self.bankRoutingNumberCell?.routingNumberTF?.text?.count {
+                let newLength = routingNumber + string.count - range.length
                 return newLength <= 15
             }
         }

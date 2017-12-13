@@ -15,7 +15,7 @@ import PassKit
 import Crashlytics
 
 @available(iOS 9.0, *)
-class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate, UITextFieldDelegate {
+class RequestShovelingViewController: UIViewController, UIGestureRecognizerDelegate, CLLocationManagerDelegate {
 
     fileprivate enum CellIdentifier: String {
         case address1Cell = "address1Cell"
@@ -63,8 +63,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     // MARK: - Variables
 
     let locationManager = CLLocationManager()
-    var latitude: NSNumber!
-    var longitude: NSNumber!
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
     var coordinates: CLLocationCoordinate2D!
     var user: User!
     lazy var ref = Database.database().reference()
@@ -165,10 +165,9 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-
         self.coordinates = manager.location?.coordinate
-        self.latitude = coordinates.latitude as NSNumber
-        self.longitude = coordinates.longitude as NSNumber
+        self.latitude = coordinates.latitude
+        self.longitude = coordinates.longitude
 
         CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error) -> Void in
             if (error != nil) {
@@ -184,19 +183,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         })
     }
 
-    func getCoordinatesFromAddress(address: String) -> CLPlacemark? {
-        let geocoder = CLGeocoder()
-        var placemark = CLPlacemark()
-        geocoder.geocodeAddressString(address) { placemarks, _ in
-            if let placemarks = placemarks {
-                if placemarks.count != 0 {
-                    placemark = placemarks[0]
-                }
-            }
-        }
-        return placemark
-    }
-
     func displayLocationInfo(_ placemark: CLPlacemark?) {
         if let containsPlacemark = placemark {
             locationManager.stopUpdatingLocation()
@@ -209,7 +195,21 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             self.address1 = address
         }
     }
+    
+    func getCoordinatesFromAddress(address1: String) {
+        let geoCoder = CLGeocoder()
+        geoCoder.geocodeAddressString(address1) { (placemarks, error) in
+            guard let placemarks = placemarks, let location = placemarks.first?.location else {
+                return
+            }
+            
+            self.latitude = location.coordinate.latitude
+            self.longitude = location.coordinate.longitude
+        }
+    }
 
+    // MARK: Submit Request
+    
     func submitCard() {
         guard let paymentInfo = self.paymentInfoTF else { return }
         if self.address1 == "" || self.shovelingDescription == "" || self.price == "" || !paymentInfo.hasText {
@@ -294,8 +294,6 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
     func addRequestOnSuccess(stripeToken: String) {
         guard let address = self.address1 else { return }
-        guard let lat = self.latitude else { return }
-        guard let lon = self.longitude else { return }
         guard let details = self.shovelingDescription else { return }
         guard let otherInfo = self.moreInfo else { return }
 
@@ -308,7 +306,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
 
-        self.shovelRequest = ShovelRequest(address: address, addedByUser: currentUserEmail, status: "Active", latitude: Double(lat), longitude: Double(lon), details: details, otherInfo: otherInfo, price: Float(NSDecimalNumber(string: stringPrice)), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
+        self.shovelRequest = ShovelRequest(address: address, addedByUser: currentUserEmail, status: "Active", latitude: self.latitude, longitude: self.longitude , details: details, otherInfo: otherInfo, price: Float(truncating: NSDecimalNumber(string: stringPrice)), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
 
         let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { alert in
@@ -428,14 +426,14 @@ extension RequestShovelingViewController {
 }
 
 // MARK: TextField delegate
-extension RequestShovelingViewController {
 
+extension RequestShovelingViewController {
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == self.address1Cell?.tfAddress {
             if let address = self.address1Cell?.tfAddress {
                 if let addressText = address.text {
-                    let placemark = self.getCoordinatesFromAddress(address: addressText)
-                    print(placemark?.addressDictionary as Any)
+                    self.getCoordinatesFromAddress(address1: addressText)
                 }
             }
         }

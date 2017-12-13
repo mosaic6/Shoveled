@@ -27,7 +27,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var lblCurrentTemp: UILabel?
     @IBOutlet weak var imgCurrentWeatherIcon: UIImageView?
     @IBOutlet weak var lblCurrentPrecip: UILabel?
-    @IBOutlet weak var currentWeatherView: UIView?
     @IBOutlet weak var btnGetShoveled: UIButton?
     @IBOutlet weak var mapContainerView: UIView?
     @IBOutlet weak var bottomView: UIView?
@@ -36,8 +35,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     @IBOutlet weak var requestsListBtn: ShoveledButton?
     @IBOutlet weak var settingsButton: UIBarButtonItem?
-    @IBOutlet weak var shovelerActivityLabel: UILabel?
-    @IBOutlet weak var shovelerActivitySwitch: UISwitch?
 
     // MARK: Variables
 
@@ -63,12 +60,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var numOfShovelers = 0
     var isUserShoveler = false
 
-    @IBAction func enableShovelerActivitySwitch(_ sender: Any) {
-        if self.shovelerActivitySwitch?.isOn ?? false {
-
-        }
-    }
-
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -79,10 +70,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidLoad()
 
         self.navigationController?.navigationBar.isHidden = false
-        self.shovelerActivityLabel?.isHidden = true
-        self.shovelerActivitySwitch?.isHidden = true
         self.mapView?.delegate = self
-        self.configureView()
         self.checkLocationServices()
         self.areShovelersAvailable()
         self.registerNotificationServices()
@@ -93,6 +81,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         super.viewDidAppear(animated)
         self.getUserInfo()
         self.getShovelRequests()
+        self.configureRequestButton()
 
     }
 
@@ -124,19 +113,21 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         }
     }
 
-    func configureView() {
-        if let currentWeatherView = self.currentWeatherView {
-            self.view.addSubview(currentWeatherView)
-        }
-    }
-
     func getUserInfo() {
         if Auth.auth().currentUser == nil {
             self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
         }
     }
+    
+    // MARK: - UI Configuration
+    
+    func configureRequestButton() {
+        let btnHeight = self.btnGetShoveled?.frame.size.height ?? 0
+        self.btnGetShoveled?.layer.cornerRadius = btnHeight / 2
+    }
 
     // MARK: - Get users location
+    
     @objc func getCurrentLocation() {
         self.locationManager.requestWhenInUseAuthorization()
 
@@ -311,12 +302,8 @@ extension CurrentStatusViewController {
                 let value = snapshot.value as? NSDictionary
                 let shoveler = value?["shoveler"] as? NSDictionary ?? [:]
                 if let stripeId = shoveler.object(forKey: "stripeId") as? String, stripeId != "" {
-                    self.shovelerActivitySwitch?.isHidden = false
-                    self.shovelerActivityLabel?.isHidden = false
                     self.isUserShoveler = true
                 } else {
-                    self.shovelerActivitySwitch?.isHidden = true
-                    self.shovelerActivityLabel?.isHighlighted = true
                     self.isUserShoveler = false
                 }
             }) { error in
@@ -391,10 +378,8 @@ extension CurrentStatusViewController {
 extension CurrentStatusViewController {
 
     func animateInCurrentWeatherView() {
-        self.currentWeatherView?.alpha = 0.0
         self.imgCurrentWeatherIcon?.center.y -= self.view.bounds.height
         UIView.animate(withDuration: 1.5, delay: 0.0, options: UIViewAnimationOptions(), animations: {
-            self.currentWeatherView?.alpha = 1.0
             self.hasBeenShown = true
         })
         UIView.animate(withDuration: 2, delay: 0.0, options: [.curveEaseInOut], animations: {

@@ -67,8 +67,8 @@ extension UIViewController {
     }
 }
 
-extension UIViewController {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+extension UIViewController: UITextFieldDelegate {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTage = textField.tag + 1
         // Try to find next responder
         let nextResponder = textField.superview?.viewWithTag(nextTage) as UIResponder!
