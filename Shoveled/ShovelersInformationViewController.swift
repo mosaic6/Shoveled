@@ -424,7 +424,7 @@ extension ShovelersInformationViewController {
             }
         }
     }
-    
+
     override func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return false
     }

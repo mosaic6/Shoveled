@@ -17,7 +17,10 @@ class ShovelAnnotation: NSObject, MKAnnotation {
     }
 
     var subtitle: String? {
-        return shovelRequest?.status.uppercased()
+        guard let shovelRequest = self.shovelRequest else {
+            return ""
+        }
+        return "\(shovelRequest.status.uppercased()) $\(shovelRequest.priceForShoveler)"
     }
 
     var coordinate: CLLocationCoordinate2D {

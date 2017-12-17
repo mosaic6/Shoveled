@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import MessageUI
 
 class SettingsTableViewController: UITableViewController {
 
@@ -55,8 +56,7 @@ class SettingsTableViewController: UITableViewController {
         let currentCell = tableView.cellForRow(at: indexPath) as! SettingsCell
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if currentCell.cellTitleLabel?.text == "Help" {
-            let viewController = storyboard.instantiateViewController(withIdentifier: "FAQViewController") as! FAQViewController
-            self.navigationController?.pushViewController(viewController, animated: true)
+            self.openEmail()
         } else if currentCell.cellTitleLabel?.text == "Shovelers Information" || currentCell.cellTitleLabel?.text == "Become a Shoveler" {
             let viewController = storyboard.instantiateViewController(withIdentifier: "PersonalInformationViewController") as! ShovelersInformationViewController
             self.navigationController?.pushViewController(viewController, animated: true)
@@ -97,5 +97,29 @@ extension SettingsTableViewController {
                 }
             }
         })
+    }
+}
+
+// MARK: Message Composer delegate
+
+extension SettingsTableViewController: MFMailComposeViewControllerDelegate {
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func openEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let emailVC = MFMailComposeViewController()
+            emailVC.mailComposeDelegate = self
+            emailVC.setToRecipients(["support@shoveled.works"])
+            emailVC.setSubject("Help needed!")
+            self.present(emailVC, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "", message: "We don't currently support your email client. Please open your email and send your questions to support@shoveled.works", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

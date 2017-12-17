@@ -76,6 +76,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     @IBOutlet weak var submitRequestButton: UIBarButtonItem?
 
     // MARK: - Private Variables
+
     private var shovelRequest: ShovelRequest?
 
     static let SupportedNetworks = [
@@ -86,6 +87,7 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
     ]
 
     // MARK: - Configure Views
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -97,6 +99,8 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
         self.getLocation()
         self.rebuildTableViewDataAndRefresh()
+
+        self.observeNotifications()
 
         NotificationCenter.default.addObserver(self, selector: #selector(RequestShovelingViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
@@ -195,21 +199,21 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
             self.address1 = address
         }
     }
-    
+
     func getCoordinatesFromAddress(address1: String) {
         let geoCoder = CLGeocoder()
-        geoCoder.geocodeAddressString(address1) { (placemarks, error) in
+        geoCoder.geocodeAddressString(address1) { (placemarks, _) in
             guard let placemarks = placemarks, let location = placemarks.first?.location else {
                 return
             }
-            
+
             self.latitude = location.coordinate.latitude
             self.longitude = location.coordinate.longitude
         }
     }
 
     // MARK: Submit Request
-    
+
     func submitCard() {
         guard let paymentInfo = self.paymentInfoTF else { return }
         if self.address1 == "" || self.shovelingDescription == "" || self.price == "" || !paymentInfo.hasText {
@@ -306,25 +310,28 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss"
         let dateString = dateFormatter.string(from: date)
 
-        self.shovelRequest = ShovelRequest(address: address, addedByUser: currentUserEmail, status: "Active", latitude: self.latitude, longitude: self.longitude , details: details, otherInfo: otherInfo, price: Float(truncating: NSDecimalNumber(string: stringPrice)), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
+        self.shovelRequest = ShovelRequest(address: address, addedByUser: currentUserEmail, status: "Active", latitude: self.latitude, longitude: self.longitude, details: details, otherInfo: otherInfo, price: Float(truncating: NSDecimalNumber(string: stringPrice)), createdAt: dateString, acceptedByUser: "", stripeChargeToken: stripeToken)
 
-        let alert = UIAlertController(title: "Congrats!", message: "Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { alert in
-            let requestName = self.ref.child("/requests/").childByAutoId()
-            self.hideActivityIndicator(self.view)
-            requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, _) in
-                if error != nil {
-                    let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)
-                    let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    alert.addAction(okAction)
-                    self.present(alert, animated: true, completion: nil)
-                    Crashlytics.sharedInstance().recordError(error!)
-                }
-            })
-            self.dismiss(animated: true, completion: nil)
-        }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
+        let requestName = self.ref.child("/requests/").childByAutoId()
+        self.hideActivityIndicator(self.view)
+        requestName.setValue(self.shovelRequest?.toAnyObject(), withCompletionBlock: { (error, _) in
+            if error != nil {
+                let alert = UIAlertController(title: "Uh Oh!", message: "There was an error saving your request", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                Crashlytics.sharedInstance().recordError(error!)
+                return
+            }
+
+            let storyboard = UIStoryboard(name: "FullScreen", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "FullScreenViewController") as? FullScreenViewController
+
+            if let vc = vc {
+                vc.message = "Congrats! Your request at \(address), to have your \(details) shoveled, for $\(price) has been sent."
+                self.present(vc, animated: true, completion: nil)
+            }
+        })
     }
 }
 
@@ -428,7 +435,7 @@ extension RequestShovelingViewController {
 // MARK: TextField delegate
 
 extension RequestShovelingViewController {
-    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == self.address1Cell?.tfAddress {
             if let address = self.address1Cell?.tfAddress {
@@ -437,5 +444,19 @@ extension RequestShovelingViewController {
                 }
             }
         }
+    }
+}
+
+// MARK: Notification Center
+
+extension RequestShovelingViewController {
+
+    func observeNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(RequestShovelingViewController.dismissView), name: .fullScreenDidDisapear, object: nil)
+    }
+
+    @objc func dismissView(_ notification: Notification) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

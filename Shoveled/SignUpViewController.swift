@@ -63,7 +63,7 @@ class SignUpViewController: UIViewController {
         guard let emailString = tfEmail.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
         guard let passwordString = tfPassword.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
 
-        if emailString.characters.count == 0 || passwordString.characters.count == 0 {
+        if emailString.count == 0 || passwordString.count == 0 {
             let alert = UIAlertController(title: "There was an error signing you up", message: "Please fill out all fields", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
             self.present(alert, animated: true, completion: .none)

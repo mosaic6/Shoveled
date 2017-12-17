@@ -204,15 +204,11 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     }
 
     func transferFunds() {
-        if let newPriceString = self.priceString {
-            let convertedPrice: Float = Float(newPriceString)! * 100
-            let percentageChange: Float = Float(convertedPrice) * 0.10
-            let updatedPrice: Int = Int(convertedPrice - percentageChange) / 100
-            let stringAmount: String = String(updatedPrice)
-
-            if let stripeId = self.stripeId, let chargeId = self.stripeChargeToken {
-                StripeManager.transferFundsToAccount(amount: stringAmount, destination: stripeId, chargeId: chargeId)
-            }
+        guard let price = self.shovelRequest?.priceForShoveler else {
+            return
+        }
+        if let stripeId = self.stripeId, let chargeId = self.stripeChargeToken {
+            StripeManager.transferFundsToAccount(amount: price, destination: stripeId, chargeId: chargeId)
         }
     }
 

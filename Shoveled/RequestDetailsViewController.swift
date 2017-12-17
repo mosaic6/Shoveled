@@ -176,14 +176,8 @@ class RequestDetailsViewController: UITableViewController {
             self.moreInfoCell = moreInfoCell
         case .priceCell:
             let priceCell = cell as! RequestDetailCell
-            if let price = shovelRequest?.price {
-                let convertedPrice: Float = Float(price)
-                let percentageChange: Float = Float(convertedPrice) * 0.10
-                let updatedPrice = (convertedPrice - percentageChange) / 100
-                self.newPriceString = String(updatedPrice)
-                if let price = self.newPriceString {
-                    priceCell.priceLabel?.text = "$\(price)".uppercased()
-                }
+            if let price = self.shovelRequest?.priceForShoveler {
+                priceCell.priceLabel?.text = "$\(price)".uppercased()
             }
             self.priceCell = priceCell
         case .acceptCell:

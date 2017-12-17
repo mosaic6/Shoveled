@@ -82,4 +82,19 @@ struct ShovelRequest {
             AddedByUserKey: self.addedByUser
         ]
     }
+
+    // MARK: Price
+
+    var priceForShoveler: String {
+        let convertedPrice: Float = Float(self.price)
+        let percentageChange: Float = Float(convertedPrice) * 0.10
+        let updatedPrice: Int = Int(convertedPrice - percentageChange) / 100
+        return String(updatedPrice)
+
+    }
+
+    var priceSendForRequest: String {
+        let convertedPrice: Float = Float(self.price) / 100
+        return String(convertedPrice)
+    }
 }

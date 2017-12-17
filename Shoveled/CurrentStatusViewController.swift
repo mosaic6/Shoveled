@@ -35,6 +35,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
     @IBOutlet weak var requestsListBtn: ShoveledButton?
     @IBOutlet weak var settingsButton: UIBarButtonItem?
+    @IBOutlet weak var weatherView: UIView?
 
     // MARK: Variables
 
@@ -82,13 +83,14 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.getUserInfo()
         self.getShovelRequests()
         self.configureRequestButton()
+        self.configureWeatherView()
 
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.isUserAShoveler()
-        self.navigationController?.navigationBar.barTintColor = UIColor.gray
+        self.navigationController?.navigationBar.barTintColor = UIColor.lightGray
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -118,16 +120,30 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             self.performSegue(withIdentifier: "notLoggedIn", sender: nil)
         }
     }
-    
+
     // MARK: - UI Configuration
-    
+
     func configureRequestButton() {
         let btnHeight = self.btnGetShoveled?.frame.size.height ?? 0
         self.btnGetShoveled?.layer.cornerRadius = btnHeight / 2
     }
 
+    private func configureWeatherView() {
+        guard let weatherView = self.weatherView else {
+            return
+        }
+        let rectShape = CAShapeLayer()
+
+        rectShape.bounds = weatherView.frame
+        rectShape.position = weatherView.center
+        rectShape.path = UIBezierPath(roundedRect: weatherView.bounds, byRoundingCorners: [.bottomRight], cornerRadii: CGSize(width: 50, height: 50)).cgPath
+
+        weatherView.layer.backgroundColor = UIColor.white.cgColor
+        weatherView.layer.mask = rectShape
+    }
+
     // MARK: - Get users location
-    
+
     @objc func getCurrentLocation() {
         self.locationManager.requestWhenInUseAuthorization()
 
@@ -329,7 +345,7 @@ extension CurrentStatusViewController {
 extension CurrentStatusViewController {
 
     fileprivate func areShovelersAvailable() {
-        self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
+        self.numOfShovelersLabel?.setTitle("0 ☃️", for: .normal)
         shovelerRef.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let users = snapshot.value
@@ -345,9 +361,9 @@ extension CurrentStatusViewController {
                                 case 0:
                                     self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
                                 case 1:
-                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) shoveler in area", for: .normal)
+                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) ☃️", for: .normal)
                                 case 2...100000:
-                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) shovelers in area", for: .normal)
+                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) ☃️", for: .normal)
                                 default: break
                                 }
                             }

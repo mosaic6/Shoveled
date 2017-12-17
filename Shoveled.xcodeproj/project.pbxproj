@@ -49,6 +49,8 @@
 		618FBD781C8695E400A6504F /* ShovelRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 618FBD771C8695E400A6504F /* ShovelRequest.swift */; };
 		6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6199E08E1DE133F4009A4F22 /* NotificationManager.swift */; };
 		619D20191DFEEFC90015C875 /* RequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619D20181DFEEFC90015C875 /* RequestCell.swift */; };
+		619D54DF1FE6088E00D34CA1 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619D54DE1FE6088E00D34CA1 /* Notification.swift */; };
+		61A1B5001FE4C02D0084F4AE /* FullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A1B4FF1FE4C02D0084F4AE /* FullScreenViewController.swift */; };
 		61A3548F1BCF37830071B5BE /* DailyWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A3548E1BCF37830071B5BE /* DailyWeather.swift */; };
 		61A354911BCF39520071B5BE /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354901BCF39520071B5BE /* Icon.swift */; };
 		61A354931BCF397B0071B5BE /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354921BCF397B0071B5BE /* Forecast.swift */; };
@@ -56,6 +58,7 @@
 		61A354971BCF3E580071B5BE /* NetworkOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354961BCF3E580071B5BE /* NetworkOperations.swift */; };
 		61A354991BCF3EA00071B5BE /* ForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A354981BCF3EA00071B5BE /* ForecastService.swift */; };
 		61A3549D1BD00FDA0071B5BE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */; };
+		61A460931FE4BD8B00AD4A9D /* FullScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61A460921FE4BD8B00AD4A9D /* FullScreen.storyboard */; };
 		61AF57661E50FC78005292FF /* RequestsListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF57651E50FC77005292FF /* RequestsListTableViewController.swift */; };
 		61AF57681E50FD03005292FF /* RequestsListStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61AF57671E50FD03005292FF /* RequestsListStoryboard.storyboard */; };
 		61AF576A1E5100B2005292FF /* RequestsListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61AF57691E5100B2005292FF /* RequestsListCell.swift */; };
@@ -140,6 +143,8 @@
 		618FBD771C8695E400A6504F /* ShovelRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShovelRequest.swift; sourceTree = "<group>"; };
 		6199E08E1DE133F4009A4F22 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		619D20181DFEEFC90015C875 /* RequestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCell.swift; sourceTree = "<group>"; };
+		619D54DE1FE6088E00D34CA1 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		61A1B4FF1FE4C02D0084F4AE /* FullScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenViewController.swift; sourceTree = "<group>"; };
 		61A3548E1BCF37830071B5BE /* DailyWeather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyWeather.swift; sourceTree = "<group>"; };
 		61A354901BCF39520071B5BE /* Icon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		61A354921BCF397B0071B5BE /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
@@ -147,6 +152,7 @@
 		61A354961BCF3E580071B5BE /* NetworkOperations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperations.swift; sourceTree = "<group>"; };
 		61A354981BCF3EA00071B5BE /* ForecastService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastService.swift; sourceTree = "<group>"; };
 		61A3549C1BD00FDA0071B5BE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		61A460921FE4BD8B00AD4A9D /* FullScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FullScreen.storyboard; sourceTree = "<group>"; };
 		61AF57651E50FC77005292FF /* RequestsListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsListTableViewController.swift; sourceTree = "<group>"; };
 		61AF57671E50FD03005292FF /* RequestsListStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RequestsListStoryboard.storyboard; sourceTree = "<group>"; };
 		61AF57691E5100B2005292FF /* RequestsListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsListCell.swift; sourceTree = "<group>"; };
@@ -304,6 +310,7 @@
 			children = (
 				61C4674D1DFAEADF00301D24 /* CardUtils.swift */,
 				6181B7F61E034EEA00AB1C33 /* ExtensionHelpers.swift */,
+				619D54DE1FE6088E00D34CA1 /* Notification.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -394,6 +401,7 @@
 				61C841F81E382286005F322F /* CompleteRequestViewController.swift */,
 				612B41571BB0DE0300331F9B /* CurrentStatusViewController.swift */,
 				61EBB9E51DDE9F7900841A3F /* FAQViewController.swift */,
+				61A1B4FF1FE4C02D0084F4AE /* FullScreenViewController.swift */,
 				6165CAD71DA7349C00375D29 /* HowItWorksViewController.swift */,
 				61EBB9E71DDF30D400841A3F /* LoginViewController.swift */,
 				61F067FB1E2F10FF009283F9 /* RequestDetailsViewController.swift */,
@@ -428,6 +436,7 @@
 				61ED02281BAE43F3006B22B7 /* LaunchScreen.storyboard */,
 				61ED02201BAE43F3006B22B7 /* Main.storyboard */,
 				61AF57671E50FD03005292FF /* RequestsListStoryboard.storyboard */,
+				61A460921FE4BD8B00AD4A9D /* FullScreen.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -609,6 +618,7 @@
 				61ED022A1BAE43F3006B22B7 /* LaunchScreen.storyboard in Resources */,
 				616A5F571C728B0500A81AE5 /* Localizable.strings in Resources */,
 				61ED02271BAE43F3006B22B7 /* Assets.xcassets in Resources */,
+				61A460931FE4BD8B00AD4A9D /* FullScreen.storyboard in Resources */,
 				61ED02221BAE43F3006B22B7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -848,6 +858,7 @@
 				616620F51E0CCFBB006D88C9 /* Config.swift in Sources */,
 				613FCB6E1DED0B6D00ED991B /* SettingsTableViewController.swift in Sources */,
 				617031391C7D53B100297A25 /* ShovelAnnotationView.swift in Sources */,
+				619D54DF1FE6088E00D34CA1 /* Notification.swift in Sources */,
 				6181B7F71E034EEA00AB1C33 /* ExtensionHelpers.swift in Sources */,
 				61ED021D1BAE43F3006B22B7 /* AppDelegate.swift in Sources */,
 				61C841FB1E383094005F322F /* CompleteRequestCell.swift in Sources */,
@@ -863,6 +874,7 @@
 				614F28C51DFCEF6A005D9968 /* Shoveler.swift in Sources */,
 				61AF576A1E5100B2005292FF /* RequestsListCell.swift in Sources */,
 				617ECFCE1BE59B7300E61546 /* WeatherCell.swift in Sources */,
+				61A1B5001FE4C02D0084F4AE /* FullScreenViewController.swift in Sources */,
 				6199E08F1DE133F4009A4F22 /* NotificationManager.swift in Sources */,
 				61F067FA1E2F05DD009283F9 /* RequestDetailCell.swift in Sources */,
 				61A354931BCF397B0071B5BE /* Forecast.swift in Sources */,
