@@ -103,11 +103,11 @@ extension SettingsTableViewController {
 // MARK: Message Composer delegate
 
 extension SettingsTableViewController: MFMailComposeViewControllerDelegate {
-    
+
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     func openEmail() {
         if MFMailComposeViewController.canSendMail() {
             let emailVC = MFMailComposeViewController()

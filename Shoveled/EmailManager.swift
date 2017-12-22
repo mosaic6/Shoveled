@@ -12,7 +12,7 @@ class EmailManager {
 
     static var sharedInstance = EmailManager()
 
-    func sendConfirmationEmail(email: String, toName: String, subject: String, text: String) {
-        EmailService.sharedInstance.sendEmailTo(email: email, toName: toName, subject: subject, text: text)
+    func sendConfirmationEmail(email: String, toName: String, subject: String, text: String, image: String) {
+        EmailService.sharedInstance.sendEmailTo(email: email, toName: toName, subject: subject, text: text, image: image)
     }
 }

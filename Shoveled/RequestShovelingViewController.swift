@@ -116,12 +116,12 @@ class RequestShovelingViewController: UIViewController, UIGestureRecognizerDeleg
 
     func configureAppearance() {
 
-        actInd.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        actInd.center = self.view.center
-        actInd.hidesWhenStopped = true
-        actInd.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
-        actInd.isHidden = true
-        view.addSubview(actInd)
+        loadingSpinner.frame = CGRect(x: 25, y: 25, width: 50, height: 50)
+        loadingSpinner.center = self.view.center
+        loadingSpinner.hidesWhenStopped = true
+        loadingSpinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.white
+        loadingSpinner.isHidden = true
+        view.addSubview(loadingSpinner)
 
         self.title = "REQUEST"
 
@@ -428,7 +428,7 @@ extension RequestShovelingViewController {
 extension RequestShovelingViewController {
 
     fileprivate func sendConfirmationEmail(email: String, subject: String, text: String) {
-        EmailService.sharedInstance.sendEmailTo(email: email, toName: "", subject: subject, text: text)
+        EmailService.sharedInstance.sendEmailTo(email: email, toName: "", subject: subject, text: text, image: "")
     }
 }
 

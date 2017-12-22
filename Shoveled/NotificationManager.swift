@@ -8,7 +8,6 @@
 
 import Foundation
 import Firebase
-import Firebase
 import FirebaseDatabase
 import FirebaseMessaging
 import UserNotifications

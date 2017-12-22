@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import MessageUI
+import SendGrid
 
 class CompleteRequestViewController: UITableViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -33,16 +35,19 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     var priceString: String?
     var latitude: NSNumber?
     var longitude: NSNumber?
-    var addedByUser: String?
     var createdAt: String?
-    var stripeChargeToken: String?
     var shovelRequest: ShovelRequest?
 
     lazy var ref = Database.database().reference(withPath: "requests")
 
+    var documentsUrl: URL {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.observeNotifications()
         self.getUserStripeId()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
@@ -154,7 +159,15 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         case .sendJobCell:
             return 55.0
         case .photoViewCell:
-            return 200.0
+            var height: CGFloat
+            if #available(iOS 11.0, *) {
+                height = self.view.safeAreaInsets.top
+            } else {
+                height = 0
+            }
+            let navHeight = self.navigationController?.navigationBar.frame.height ?? 0
+            let photoCellHeight = self.view.frame.height - (navHeight + 99 + height)
+            return photoCellHeight
         }
     }
 
@@ -169,30 +182,76 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         present(imagePickerView, animated: true, completion: nil)
     }
 
-    @objc func sendCompletedJob() {
-        let requestFirebaseReference = self.shovelRequest?.firebaseReference
-        requestFirebaseReference?.updateChildValues([
-            StatusKey: "Completed",
-            AcceptedByUserKey: currentUserEmail
-            ]) { (error, _) in
-            if error != nil {
-                return
-            } else {
-                let alert: UIAlertController = UIAlertController(title: "Congrats!", message: "Check to see if there are more requests.", preferredStyle: .alert)
-                let okAction: UIAlertAction = UIAlertAction(title: "Ok", style: .default) { (_) in
-                    self.sendCompletedJob()
-                    self.transferFunds()
-                    self.sendCompletedImage()
-                    self.dismiss(animated: true, completion: nil)
-                }
-                alert.addAction(okAction)
-                self.present(alert, animated: true)
-                if let addedByUser = self.addedByUser {
-                    if let token = self.stripeChargeToken {
-                        EmailManager.sharedInstance.sendConfirmationEmail(email: addedByUser, toName: "", subject: "Your shoveled request has been completed!", text: "<html><div>Sweet day! Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.<br/></div></html>")
+    func sendCompletedJob() {
+        self.showActivityIndicatory(self.view)
+        self.sendEmail { result in
+            let requestFirebaseReference = self.shovelRequest?.firebaseReference
+            requestFirebaseReference?.updateChildValues([
+                StatusKey: "Completed",
+                AcceptedByUserKey: currentUserEmail
+                ]) { (error, _) in
+                if error != nil {
+                    return
+                } else {
+                    if result {
+                        self.transferFunds()
+                        self.sendCompletedImage()
+
+                        let storyboard = UIStoryboard(name: "FullScreen", bundle: nil)
+                        let vc = storyboard.instantiateViewController(withIdentifier: "FullScreenViewController") as? FullScreenViewController
+
+                        if let vc = vc {
+                            self.hideActivityIndicator(self.view)
+                            vc.message = "Congrats! Check to see if there are more requests."
+                            self.present(vc, animated: true, completion: nil)
+                        }
+                    } else {
+                        self.hideActivityIndicator(self.view)
+                        let alert = UIAlertController(title: "There was an error completing your job.", message: "Please try sending it again.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
+                        self.present(alert, animated: true, completion: .none)
                     }
                 }
             }
+        }
+    }
+
+    func sendEmail(_ callBack: @escaping ((Bool)) -> Void) {
+        guard let token = self.shovelRequest?.stripeChargeToken else {
+            return
+        }
+
+        let personalization = Personalization(recipients: self.shovelRequest?.addedByUser ?? "")
+        let contents = Content.emailBody(
+            plain: "Sweet Day! Go out and check out your request. If you have any issues or for whatever reason your request was not completed, please use this reference ID: \(token) when contacting support.",
+            html: "<h2>Sweet day!</h2><div>Go out and check out your request.\nIf you have any issues or for whatever reason your request was not completed, please use this reference ID: <b>\(token)</b> when contacting support.</div>"
+         )
+        let email = Email(
+            personalizations: [personalization],
+            from: Address(email: "noreply@shoveled.works"),
+            content: contents,
+            subject: "Shovel Request Completed!"
+        )
+        do {
+            let path = documentsUrl.appendingPathComponent("shovelRequest.jpeg")
+            let attachment = Attachment(
+                filename: "shovelRequest.jpeg",
+                content: try Data(contentsOf: path),
+                disposition: .attachment,
+                type: .jpeg,
+                contentID: nil
+            )
+            email.attachments = [attachment]
+            try Session.shared.send(request: email) { response in
+                print(response?.httpUrlResponse?.statusCode ?? 400)
+                if response?.httpUrlResponse?.statusCode == 202 {
+                    callBack(true)
+                } else {
+                    callBack(false)
+                }
+            }
+        } catch {
+            print(error)
         }
     }
 
@@ -204,10 +263,10 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
     }
 
     func transferFunds() {
-        guard let price = self.shovelRequest?.priceForShoveler else {
+        guard let price = self.shovelRequest?.priceToTransfer else {
             return
         }
-        if let stripeId = self.stripeId, let chargeId = self.stripeChargeToken {
+        if let stripeId = self.stripeId, let chargeId = self.shovelRequest?.stripeChargeToken {
             StripeManager.transferFundsToAccount(amount: price, destination: stripeId, chargeId: chargeId)
         }
     }
@@ -222,8 +281,45 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
             self.imageView = photoViewCell?.completedJobImageView
             self.imageView?.contentMode = UIViewContentMode.scaleAspectFill
             self.imageView?.image = image
-
+            self.saveImage(imageName: "shovelRequest.jpeg")
             self.didImagePickerDismiss = true
         }
+    }
+
+    func saveImage(imageName: String) {
+        let fileManager = FileManager.default
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
+        guard let image = self.imageView?.image else {
+            return
+        }
+        guard let data = UIImagePNGRepresentation(image) else {
+            return
+        }
+        fileManager.createFile(atPath: imagePath as String, contents: data, attributes: nil)
+    }
+
+    private func loadImage() -> UIImage? {
+        let fileURL = documentsUrl.appendingPathComponent("shovelRequest.jpeg")
+        do {
+            let imageData = try Data(contentsOf: fileURL)
+            return UIImage(data: imageData)
+        } catch {
+            print("Error loading image : \(error)")
+        }
+        return nil
+    }
+}
+
+// MARK: Notification Center
+
+extension CompleteRequestViewController {
+
+    func observeNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(CompleteRequestViewController.dismissView), name: .fullScreenDidDisapear, object: nil)
+    }
+
+    @objc func dismissView(_ notification: Notification) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

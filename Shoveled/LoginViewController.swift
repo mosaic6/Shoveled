@@ -21,7 +21,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var imgBackground: UIImageView!
 
     var ref: DatabaseReference?
-    var alert: UIAlertController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +54,7 @@ class LoginViewController: UIViewController {
         guard let usernameString = tfExistingUsername.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
         guard let passwordString = tfExistingPassword.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
 
-        if usernameString.characters.count == 0 || passwordString.characters.count == 0 {
+        if usernameString.count == 0 || passwordString.count == 0 {
             let alert = UIAlertController(title: "There was an error logging in", message: "Please fill out all fields", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: .none))
             self.present(alert, animated: true, completion: .none)
@@ -106,5 +105,4 @@ class LoginViewController: UIViewController {
         tfExistingUsername.resignFirstResponder()
         tfExistingPassword.resignFirstResponder()
     }
-
 }

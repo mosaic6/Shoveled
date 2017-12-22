@@ -11,7 +11,7 @@ import Foundation
 
 var container: UIView = UIView()
 var loadingView: UIView = UIView()
-var actInd = UIActivityIndicatorView()
+var loadingSpinner = UIActivityIndicatorView()
 
 extension UIColor {
   convenience init(colorArray array: NSArray) {
@@ -33,7 +33,7 @@ extension UIViewController {
     }
 
     func hideSpinner() {
-        actInd.isHidden = true
+        loadingSpinner.isHidden = true
     }
 }
 
@@ -62,8 +62,10 @@ extension UIViewController {
     }
 
     func hideActivityIndicator(_ uiView: UIView) {
-        actInd.stopAnimating()
-        container.removeFromSuperview()
+        DispatchQueue.main.async {
+            loadingSpinner.stopAnimating()
+            container.removeFromSuperview()
+        }
     }
 }
 

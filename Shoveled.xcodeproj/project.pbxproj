@@ -484,8 +484,8 @@
 				SWIFCLEANCUSTOMRUNSCRIPT /* Swift-Clean Run Script */,
 				24A03C2E1896E4C194AB30B9 /* [CP] Embed Pods Frameworks */,
 				15F6ED480C0E30CA44B511D1 /* [CP] Copy Pods Resources */,
-				38FE2EFCED3546B5ED3B1EDD /* Ô£ø√º√¨¬∂ Embed Pods Frameworks */,
-				A1D801C5602050DB26D909C9 /* Ô£ø√º√¨¬∂ Copy Pods Resources */,
+				38FE2EFCED3546B5ED3B1EDD /* Ô£ø√º√¨¬∂ Embed Pods Frameworks */,
+				A1D801C5602050DB26D909C9 /* Ô£ø√º√¨¬∂ Copy Pods Resources */,
 				FE20D061063C8E2CFC23B833 /* 📦 Embed Pods Frameworks */,
 				E2ED5127660A9583F79F8977 /* 📦 Copy Pods Resources */,
 			);
@@ -666,7 +666,11 @@
 				"${BUILT_PRODUCTS_DIR}/ForecastIO/ForecastIO.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SendGrid/SendGrid.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -674,7 +678,11 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ForecastIO.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SendGrid.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -696,7 +704,7 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		38FE2EFCED3546B5ED3B1EDD /* Ô£ø√º√¨¬∂ Embed Pods Frameworks */ = {
+		38FE2EFCED3546B5ED3B1EDD /* Ô£ø√º√¨¬∂ Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -724,7 +732,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" 8e5af39567b3632a7b65708e7752946fc2cb646d c3dae658ae81da8aec2cac1b65afe21793a6024d1c7532d08c1c9514b26ec731";
 		};
-		A1D801C5602050DB26D909C9 /* Ô£ø√º√¨¬∂ Copy Pods Resources */ = {
+		A1D801C5602050DB26D909C9 /* Ô£ø√º√¨¬∂ Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -754,7 +762,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E0DA96D2FF71F4D1ADBA9971 /* [CP] Check Pods Manifest.lock */ = {

@@ -16,6 +16,7 @@ import FirebaseMessaging
 import UserNotifications
 import FirebaseInstanceID
 import Stripe
+import SendGrid
 
 @UIApplicationMain
 
@@ -51,8 +52,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self, STPAPIClient.self])
 
         Stripe.setDefaultPublishableKey(config.environment.stripeKey)
+        self.registerSendgridAuth()
 
         return true
+    }
+
+    func registerSendgridAuth() {
+        let myApiKey = "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"
+        Session.shared.authentication = Authentication.apiKey(myApiKey)
     }
 
     // MARK: Register for push

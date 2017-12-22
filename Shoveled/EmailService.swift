@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SendGrid
 
 private let API_POST_SENDGRID_EMAIL = "https://api.sendgrid.com/api/mail.send.json"
 
@@ -14,7 +15,7 @@ class EmailService {
 
     static let sharedInstance = EmailService()
 
-    func sendEmailTo(email: String, toName: String, subject: String, text: String) {
+    func sendEmailTo(email: String, toName: String, subject: String, text: String, image: String) {
         let sessionConfig = URLSessionConfiguration.default
         let session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
 
@@ -26,6 +27,8 @@ class EmailService {
             "toname": toName,
             "subject": subject,
             "html": text,
+            "files": image,
+            "filename": "Completed Shovel Job",
             "from": "noreply@shoveled.works"
             ]
         URL = URL.URLByAppendingQueryParameters(URLParams)
@@ -35,10 +38,9 @@ class EmailService {
         let task = session.dataTask(with: URL, completionHandler: {
             (_, _, error) in
             if (error == nil) {
-                // Success
-
+                print("sent email successfully")
             } else {
-                // Failure
+                print("failed to send email")
 
             }
         })
