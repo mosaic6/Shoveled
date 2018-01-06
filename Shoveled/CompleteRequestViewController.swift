@@ -182,7 +182,7 @@ class CompleteRequestViewController: UITableViewController, UINavigationControll
         present(imagePickerView, animated: true, completion: nil)
     }
 
-    func sendCompletedJob() {
+    @objc func sendCompletedJob() {
         self.showActivityIndicatory(self.view)
         self.sendEmail { result in
             let requestFirebaseReference = self.shovelRequest?.firebaseReference

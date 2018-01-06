@@ -22,21 +22,6 @@ protocol LocationServicesDelegate {
 
 class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate, UIScrollViewDelegate, CLLocationManagerDelegate, UpdateRequestStatusDelegate {
 
-    // MARK: Outlets
-
-    @IBOutlet weak var lblCurrentTemp: UILabel?
-    @IBOutlet weak var imgCurrentWeatherIcon: UIImageView?
-    @IBOutlet weak var lblCurrentPrecip: UILabel?
-    @IBOutlet weak var btnGetShoveled: UIButton?
-    @IBOutlet weak var mapContainerView: UIView?
-    @IBOutlet weak var bottomView: UIView?
-    @IBOutlet weak var mapView: MKMapView?
-    @IBOutlet weak var refreshMapBtn: UIButton?
-    @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
-    @IBOutlet weak var requestsListBtn: ShoveledButton?
-    @IBOutlet weak var settingsButton: UIBarButtonItem?
-    @IBOutlet weak var weatherView: UIView?
-
     // MARK: Variables
 
     fileprivate let forecastAPIKey = "7c0e740db76a3f7f8f03e6115391ea6f"
@@ -61,6 +46,51 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate var numOfShovelers = 0
     var isUserShoveler = false
 
+    // MARK: Outlets
+
+    @IBOutlet weak var lblCurrentTemp: UILabel?
+    @IBOutlet weak var imgCurrentWeatherIcon: UIImageView?
+    @IBOutlet weak var lblCurrentPrecip: UILabel?
+    @IBOutlet weak var btnGetShoveled: UIButton?
+    @IBOutlet weak var mapContainerView: UIView?
+    @IBOutlet weak var bottomView: UIView?
+    @IBOutlet weak var mapView: MKMapView?
+    @IBOutlet weak var refreshMapBtn: UIButton?
+    @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
+    @IBOutlet weak var requestsListBtn: ShoveledButton?
+    @IBOutlet weak var settingsButton: UIBarButtonItem?
+    @IBOutlet weak var weatherView: UIView?
+
+    // MARK: - Request shoveling
+    @IBAction func requestShoveling(_ sender: AnyObject) {
+        if self.numOfShovelersLabel?.titleLabel?.text?.contains("0") ?? false {
+            let alert: UIAlertController = UIAlertController(title: "Shucks", message: "It doesn't look like there are any shovelers in your area yet.", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "RequestShovelingViewController") as? RequestShovelingViewController
+            if let vc = vc {
+                let nav: UINavigationController = UINavigationController(rootViewController: vc)
+                self.present(nav, animated: true, completion: nil)
+            }
+        }
+    }
+
+    @IBAction func refreshMap(_ sender: AnyObject) {
+        self.getCurrentLocation()
+        self.areShovelersAvailable()
+
+        UIView.animate(withDuration: 0.3) {
+            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
+        }
+        UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
+            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 2))
+        }, completion: nil)
+        getShovelRequests()
+    }
+
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -73,22 +103,23 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.navigationController?.navigationBar.isHidden = false
         self.mapView?.delegate = self
         self.checkLocationServices()
-        self.areShovelersAvailable()
         self.registerNotificationServices()
         self.requestsListBtn?.addTarget(self, action: #selector(CurrentStatusViewController.showRequestsListViewController), for: .touchUpInside)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.getUserInfo()
-        self.getShovelRequests()
         self.configureRequestButton()
         self.configureWeatherView()
-
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.areShovelersAvailable()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.getUserInfo()
+        self.getShovelRequests()
         self.isUserAShoveler()
         self.navigationController?.navigationBar.barTintColor = UIColor.lightGray
     }
@@ -180,6 +211,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
             if placemarks!.count > 0 {
                 let pm = placemarks![0] as CLPlacemark
                 self.displayLocationInfo(pm)
+                self.areShovelersAvailable()
             } else {
                 print("Problem with the data received from geocoder")
             }
@@ -253,24 +285,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-
-    // MARK: - Request shoveling
-    @IBAction func requestShoveling(_ sender: AnyObject) {
-        self.performSegue(withIdentifier: "showRequest", sender: self)
-    }
-
-    @IBAction func refreshMap(_ sender: AnyObject) {
-        self.getCurrentLocation()
-
-        UIView.animate(withDuration: 0.3) {
-            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
-        }
-        UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
-            self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 2))
-            }, completion: nil)
-        getShovelRequests()
-    }
-
 }
 
 extension CurrentStatusViewController: MKMapViewDelegate {
@@ -345,26 +359,27 @@ extension CurrentStatusViewController {
 extension CurrentStatusViewController {
 
     fileprivate func areShovelersAvailable() {
+        self.numOfShovelers = 0
         self.numOfShovelersLabel?.setTitle("0 ☃️", for: .normal)
         shovelerRef.child("users").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 let users = snapshot.value
-                guard let user = users as? NSDictionary else { return }
+                guard let user = users as? Dictionary<String, Any> else { return }
                 for data in user {
                     let shovelers = data.value
-                    if let data = shovelers as? NSDictionary {
-                        if let shoveler = data["shoveler"] as? NSDictionary {
+                    if let data = shovelers as? Dictionary<String, Any> {
+                        if let shoveler = data["shoveler"] as? Dictionary<String, Any> {
                             if let postalCode = shoveler["postalCode"] as? String, postalCode == self.postalCode {
                                 self.numOfShovelers += 1
                                 let shovelerCount = "\(self.numOfShovelers)"
-                                switch self.numOfShovelers {
-                                case 0:
-                                    self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
-                                case 1:
-                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) ☃️", for: .normal)
-                                case 2...100000:
-                                    self.numOfShovelersLabel?.setTitle("\(shovelerCount) ☃️", for: .normal)
-                                default: break
+                                DispatchQueue.main.async {
+                                    switch self.numOfShovelers {
+                                    case 0:
+                                        self.numOfShovelersLabel?.setTitle("No shovelers in area", for: .normal)
+                                    case 1...100000:
+                                        self.numOfShovelersLabel?.setTitle("\(shovelerCount) ☃️", for: .normal)
+                                    default: break
+                                    }
                                 }
                             }
                         }

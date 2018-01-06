@@ -5,7 +5,7 @@ target 'Shoveled' do
     pod 'AFNetworking'
     pod 'ForecastIO'
     pod 'Fabric'
-    pod 'Crashlytics'
+    pod 'Crashlytics', '~>  3.9'
     pod 'SendGrid', :git => 'https://github.com/scottkawai/sendgrid-swift.git'
     pod 'Stripe'
     pod 'Firebase'
