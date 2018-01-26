@@ -12,6 +12,7 @@ import FirebaseDatabase
 import FirebaseMessaging
 import UserNotifications
 import FirebaseInstanceID
+import Messages
 
 let userLocationNoticationKey = "com.mosaic6.userLocationKey"
 
@@ -22,7 +23,7 @@ class NotificationManager {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
 
-        InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.sandbox)
+        Messaging.messaging().setAPNSToken(deviceToken, type: .sandbox)
         print("Device Token:", token)
     }
 
@@ -71,38 +72,29 @@ class NotificationManager {
         application.registerForRemoteNotifications()
     }
 
-    // [START refresh_token]
     @objc func tokenRefreshNotification(notification: NSNotification) {
         guard let refreshedToken = InstanceID.instanceID().token() else { return }
         print("InstanceID token: \(refreshedToken)")
 
-        // Connect to FCM since connection may have failed when attempted before having a token.
         connectToFcm()
     }
 
-    // [START connect_to_fcm]
     func connectToFcm() {
-        Messaging.messaging().connect { (error) in
-            if (error != nil) {
-                print("Unable to connect with FCM. \(error)")
-            } else {
-                print("Connected to FCM.")
-            }
+        if Messaging.messaging().shouldEstablishDirectChannel {
+            print("Connected to FCM")
         }
     }
-    // [END connect_to_fcm]
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         application.applicationIconBadgeNumber = 0
         connectToFcm()
     }
 
-    // [START disconnect_from_fcm]
     func applicationDidEnterBackground(_ application: UIApplication) {
-        Messaging.messaging().disconnect()
-        print("Disconnected from FCM.")
+        if Messaging.messaging().shouldEstablishDirectChannel {
+            print("Disconnected from FCM.")
+        }
     }
-    // [END disconnect_from_fcm]
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         if error._code == 3010 {

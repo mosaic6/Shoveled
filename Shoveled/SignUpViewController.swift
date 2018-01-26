@@ -14,6 +14,14 @@ import FirebaseDatabase
 
 class SignUpViewController: UIViewController {
 
+    // MARK: Varibles
+
+    var currentStatusVC = CurrentStatusViewController()
+    var ref: DatabaseReference!
+    var locationDelegate: LocationServicesDelegate?
+
+    // MARK: Outlet
+
     @IBOutlet weak var imgBackground: UIImageView!
     @IBOutlet weak var btnSignUp: ShoveledButton!
     @IBOutlet weak var tfEmail: UITextField!
@@ -22,9 +30,22 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var welcomeTitleLabel: UILabel!
     @IBOutlet weak var signupTitleLabel: UILabel!
 
-    var currentStatusVC = CurrentStatusViewController()
-    var ref: DatabaseReference!
-    var locationDelegate: LocationServicesDelegate?
+    // MARK: Actions
+
+    @IBAction func signUpNewUser(_ sender: AnyObject) {
+        signUpUser()
+    }
+
+    @IBAction func showRegisterShovelerViewController(_ sender: UIButton) {
+        let storyboard: UIStoryboard = UIStoryboard(name: "RegisterShoveler", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "RegisterShovelerViewController") as? RegisterShovelerViewController
+        if let vc = vc {
+            let nav: UINavigationController = UINavigationController(rootViewController: vc)
+            self.present(nav, animated: true, completion: nil)
+        }
+    }
+
+    // MARK: View Overrides
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +79,7 @@ class SignUpViewController: UIViewController {
     }
 
     // MARK: - SIGN UP NEW USER
+
     func signUpUser() {
         self.showActivityIndicatory(self.view)
         guard let emailString = tfEmail.text?.trimmingCharacters(in: CharacterSet.whitespaces) else { return }
@@ -101,10 +123,6 @@ class SignUpViewController: UIViewController {
             self.btnSignUp.center.x += self.view.bounds.width
             self.btnLogin.center.x += self.view.bounds.width
         }, completion: nil)
-    }
-
-    @IBAction func signUpNewUser(_ sender: AnyObject) {
-        signUpUser()
     }
 
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {

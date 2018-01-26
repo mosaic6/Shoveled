@@ -103,7 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             token += String(format: "%02.2hhx", deviceToken[i] as CVarArg)
         }
 
-        InstanceID.instanceID().setAPNSToken(deviceToken, type: InstanceIDAPNSTokenType.sandbox)
+        Messaging.messaging().setAPNSToken(deviceToken, type: .sandbox)
         print("Device Token:", token)
     }
 

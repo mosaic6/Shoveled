@@ -10,37 +10,24 @@ import UIKit
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
+import MessageUI
 
 class ShovelersInformationViewController: UIViewController {
 
-    // MARK: Enums
-
-    fileprivate enum CellIdentifier: String {
-        case firstNameCell = "firstNameCell"
-        case lastNameCell = "lastNameCell"
-        case addressCell = "addressCell"
-        case cityCell = "cityCell"
-        case stateCell = "stateCell"
-        case zipCell = "zipCell"
-        case dobCell = "dobCell"
-        case ssCell = "ssCell"
-        case bankAccountNumberCell = "bankAccountNumberCell"
-        case bankRoutingNumberCell = "bankRoutingNumberCell"
-    }
-
     // MARK: Varibles
 
-    fileprivate var tableViewData: [[CellIdentifier]] = []
-    fileprivate var firstNameCell: PersonalInfoCell?
-    fileprivate var lastNameCell: PersonalInfoCell?
-    fileprivate var addressCell: PersonalInfoCell?
-    fileprivate var cityCell: PersonalInfoCell?
-    fileprivate var stateCell: PersonalInfoCell?
-    fileprivate var zipCell: PersonalInfoCell?
-    fileprivate var dobCell: PersonalInfoCell?
-    fileprivate var ssCell: PersonalInfoCell?
-    fileprivate var bankAccountNumberCell: BankAccountCell?
-    fileprivate var bankRoutingNumberCell: BankAccountCell?
+    private var tableViewData: [[CellIdentifier]] = []
+    private var firstNameCell: PersonalInfoCell?
+    private var lastNameCell: PersonalInfoCell?
+    private var addressCell: PersonalInfoCell?
+    private var cityCell: PersonalInfoCell?
+    private var stateCell: PersonalInfoCell?
+    private var zipCell: PersonalInfoCell?
+    private var dobCell: PersonalInfoCell?
+    private var ssCell: PersonalInfoCell?
+    private var bankAccountNumberCell: BankAccountCell?
+    private var bankRoutingNumberCell: BankAccountCell?
+    private var existingShovelerCell: ShovelersInfoCell?
 
     fileprivate var firstName: String? {
         return self.firstNameCell?.firstNameTF?.text
@@ -67,15 +54,15 @@ class ShovelersInformationViewController: UIViewController {
     }
 
     fileprivate var dobDay: String? {
-        return self.dobCell?.dobDayTF?.text
+        return self.dobCell?.dobDay
     }
 
     fileprivate var dobMonth: String? {
-        return self.dobCell?.dobMonthTF?.text
+        return self.dobCell?.dobMonth
     }
 
     fileprivate var dobYear: String? {
-        return self.dobCell?.dobYearTF?.text
+        return self.dobCell?.dobYear
     }
 
     fileprivate var ss: String? {
@@ -114,9 +101,7 @@ class ShovelersInformationViewController: UIViewController {
         self.cityCell?.cityTF?.delegate = self
         self.stateCell?.stateTF?.delegate = self
         self.zipCell?.zipTF?.delegate = self
-        self.dobCell?.dobYearTF?.delegate = self
-        self.dobCell?.dobMonthTF?.delegate = self
-        self.dobCell?.dobDayTF?.delegate = self
+        self.dobCell?.dobTextField?.delegate = self
         self.ssCell?.ssTF?.delegate = self
         self.bankAccountNumberCell?.accountNumberTF?.delegate = self
         self.bankRoutingNumberCell?.routingNumberTF?.delegate = self
@@ -124,7 +109,13 @@ class ShovelersInformationViewController: UIViewController {
         self.rebuildTableViewDataAndRefresh()
 
         NotificationCenter.default.addObserver(self, selector: #selector(ShovelersInformationViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+    }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.getShovelerInformation()
+        self.configureViewForShoveler()
+        self.rebuildTableViewDataAndRefresh()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -140,15 +131,17 @@ class ShovelersInformationViewController: UIViewController {
                 for item in items {
                     if currentUserUid == item.key {
                         if let shoveler = item.value["shoveler"] as? NSDictionary {
-                            guard let firstName = shoveler.object(forKey: "firstName") as? String else { return }
-                            guard let lastName = shoveler.object(forKey: "lastName") as? String else { return }
-                            guard let address1 = shoveler.object(forKey: "address1") as? String else { return }
-                            guard let city = shoveler.object(forKey: "city") as? String else { return }
-                            guard let state = shoveler.object(forKey: "state") as? String else { return }
-                            guard let zip = shoveler.object(forKey: "postalCode") as? String else { return }
-                            guard let dobDay = shoveler.object(forKey: "dobDay") as? String else { return }
-                            guard let dobMonth = shoveler.object(forKey: "dobMonth") as? String else { return }
-                            guard let dobYear = shoveler.object(forKey: "dobYear") as? String else { return }
+                            guard let firstName = shoveler.object(forKey: "firstName") as? String,
+                            let lastName = shoveler.object(forKey: "lastName") as? String,
+                            let address1 = shoveler.object(forKey: "address1") as? String,
+                            let city = shoveler.object(forKey: "city") as? String,
+                            let state = shoveler.object(forKey: "state") as? String,
+                            let zip = shoveler.object(forKey: "postalCode") as? String,
+                            let dobDay = shoveler.object(forKey: "dobDay") as? String,
+                            let dobMonth = shoveler.object(forKey: "dobMonth") as? String,
+                            let dobYear = shoveler.object(forKey: "dobYear") as? String else {
+                                return
+                            }
 
                             self.firstNameCell?.firstNameTF?.text = firstName
                             self.lastNameCell?.lastNameTF?.text = lastName
@@ -156,9 +149,7 @@ class ShovelersInformationViewController: UIViewController {
                             self.cityCell?.cityTF?.text = city
                             self.stateCell?.stateTF?.text = state
                             self.zipCell?.zipTF?.text = zip
-                            self.dobCell?.dobDayTF?.text = dobDay
-                            self.dobCell?.dobMonthTF?.text = dobMonth
-                            self.dobCell?.dobYearTF?.text = dobYear
+                            self.dobCell?.dobTextField?.text = "\(dobMonth) \(dobDay), \(dobYear)"
                             self.isExistingCustomer = true
                             return
                         }
@@ -177,6 +168,9 @@ class ShovelersInformationViewController: UIViewController {
     // MARK: Configure View
 
     func configureNavbar() {
+        if self.isExistingCustomer {
+            self.saveBtn.isHidden = true
+        }
         self.saveBtn = UIButton(type: .system)
         self.saveBtn.isEnabled = false
         self.saveBtn.setTitle("Save", for: .normal)
@@ -186,6 +180,14 @@ class ShovelersInformationViewController: UIViewController {
         rightBarBtn.customView = self.saveBtn
         self.navigationItem.rightBarButtonItem = rightBarBtn
     }
+
+    func configureViewForShoveler() {
+        if self.isExistingCustomer {
+            self.saveBtn.isHidden = true
+        }
+    }
+
+    // MARK: TableViewData
 
     func rebuildTableViewDataAndRefresh() {
         let tableViewData: [[CellIdentifier]]
@@ -208,9 +210,15 @@ class ShovelersInformationViewController: UIViewController {
         addressData.append(.stateCell)
         addressData.append(.zipCell)
         addressData.append(.dobCell)
-        addressData.append(.ssCell)
-        addressData.append(.bankAccountNumberCell)
-        addressData.append(.bankRoutingNumberCell)
+        if !self.isExistingCustomer {
+            addressData.append(.ssCell)
+            addressData.append(.bankAccountNumberCell)
+            addressData.append(.bankRoutingNumberCell)
+        }
+
+        if self.isExistingCustomer {
+            addressData.append(.existingShovelerCell)
+        }
 
         tableViewData.append(addressData)
 
@@ -228,7 +236,7 @@ extension ShovelersInformationViewController: UITableViewDataSource {
         return self.tableViewData[section].count
     }
 
-    fileprivate func indexPathForCellIdentifier(_ identifier: CellIdentifier) -> IndexPath? {
+    private func indexPathForCellIdentifier(_ identifier: CellIdentifier) -> IndexPath? {
         for (sectionIndex, sectionData) in self.tableViewData.enumerated() {
             for (rowIndex, cellIdentifier) in sectionData.enumerated() {
                 if cellIdentifier == identifier {
@@ -240,7 +248,7 @@ extension ShovelersInformationViewController: UITableViewDataSource {
         return nil
     }
 
-    fileprivate func identifier(at indexPath: IndexPath) -> CellIdentifier? {
+    private func identifier(at indexPath: IndexPath) -> CellIdentifier? {
         return self.tableViewData[indexPath.section][indexPath.row]
     }
 
@@ -274,9 +282,6 @@ extension ShovelersInformationViewController: UITableViewDataSource {
             self.zipCell = zipCell
         case .dobCell:
             let dobCell = cell as! PersonalInfoCell
-            dobCell.dobMonthTF?.text = self.shoveler?.dobMonth
-            dobCell.dobDayTF?.text = self.shoveler?.dobDay
-            dobCell.dobYearTF?.text = self.shoveler?.dobYear
             self.dobCell = dobCell
         case .ssCell:
             let ssCell = cell as! PersonalInfoCell
@@ -288,6 +293,10 @@ extension ShovelersInformationViewController: UITableViewDataSource {
         case .bankRoutingNumberCell:
             let bankRoutingNumberCell = cell as! BankAccountCell
             self.bankRoutingNumberCell = bankRoutingNumberCell
+        case .existingShovelerCell:
+            let shovelersInfoCell = cell as! ShovelersInfoCell
+            shovelersInfoCell.contactShoveledButton?.addTarget(self, action: #selector(ShovelersInformationViewController.openEmail), for: .touchUpInside)
+            self.existingShovelerCell = shovelersInfoCell
         }
         return cell
     }
@@ -295,8 +304,7 @@ extension ShovelersInformationViewController: UITableViewDataSource {
 
 // MARK: Save personal information
 extension ShovelersInformationViewController {
-    @objc
-    fileprivate func saveProfile() {
+    @objc fileprivate func saveProfile() {
         self.resignFirstResponder()
         if self.allTextFieldsHaveText() {
             self.showActivityIndicatory(self.view)
@@ -311,47 +319,46 @@ extension ShovelersInformationViewController {
                 let dobYear = self.dobYear,
                 let fullSS = self.ss,
                 let bankAccountNumber = self.bankAccountNumber,
-                let bankRoutingNumber = self.bankRoutingNumber else { return }
-            if self.isExistingCustomer {
-                // Stripe manager update customer
-            } else {
-                StripeManager.sharedInstance.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, fullSS: fullSS, accountRoutingNumber: bankRoutingNumber, accountAccountNumber: bankAccountNumber) { result, error in
+                let bankRoutingNumber = self.bankRoutingNumber else {
+                    return
+            }
 
-                    if let resultError = result?["error"] as? Dictionary<String, String> {
-                        for (_, _) in resultError {
-                            let alertMessage = resultError["message"] ?? ""
-                            let alert = UIAlertController(title: "🤔", message: alertMessage, preferredStyle: .alert)
-                            let okAction = UIAlertAction(title: "Ok", style: .default)
-                            alert.addAction(okAction)
-                            DispatchQueue.main.async {
-                                self.hideActivityIndicator(self.view)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                            return
+            StripeManager.sharedInstance.createManagedAccount(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, zip: zip, dobDay: dobDay, dobMonth: dobMonth, dobYear: dobYear, fullSS: fullSS, accountRoutingNumber: bankRoutingNumber, accountAccountNumber: bankAccountNumber) { result, error in
+
+                if let resultError = result?["error"] as? Dictionary<String, String> {
+                    for (_, _) in resultError {
+                        let alertMessage = resultError["message"] ?? ""
+                        let alert = UIAlertController(title: "🤔", message: alertMessage, preferredStyle: .alert)
+                        let okAction = UIAlertAction(title: "Ok", style: .default)
+                        alert.addAction(okAction)
+                        DispatchQueue.main.async {
+                            self.hideActivityIndicator(self.view)
+                            self.present(alert, animated: true, completion: nil)
                         }
+                        return
                     }
+                }
 
-                    if let result = result {
-                        if let externalAccounts = result["external_accounts"] as? Dictionary<String, Any> {
-                            for (key, value) in externalAccounts {
-                                if key == "data" {
-                                    if let data = value as? NSArray {
-                                        for d in data {
-                                            if let account = d as? NSDictionary {
-                                                if let id = account.object(forKey: "account") as? String {
-                                                    self.shoveler = Shoveler(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, postalCode: zip, dobMonth: dobMonth, dobDay: dobDay, dobYear: dobYear, stripeId: id)
-                                                    let requestName = self.ref.child("users").child(currentUserUid).child("shoveler")
-                                                    requestName.setValue(self.shoveler?.toAnyObject()) { error, _ in
-                                                        if error == nil {
-                                                            let alert = UIAlertController(title: "👍❄️💰", message: "Thank you for signing up as a shoveler! Go check for requests and get those people shoveled out!", preferredStyle: .alert)
-                                                            let okAction = UIAlertAction(title: "Get Going!", style: .default) { _ in
-                                                                self.dismiss(animated: true, completion: nil)
-                                                            }
-                                                            alert.addAction(okAction)
-                                                            DispatchQueue.main.async {
-                                                                self.hideActivityIndicator(self.view)
-                                                                self.present(alert, animated: true, completion: nil)
-                                                            }
+                if let result = result {
+                    if let externalAccounts = result["external_accounts"] as? Dictionary<String, Any> {
+                        for (key, value) in externalAccounts {
+                            if key == "data" {
+                                if let data = value as? NSArray {
+                                    for d in data {
+                                        if let account = d as? NSDictionary {
+                                            if let id = account.object(forKey: "account") as? String {
+                                                self.shoveler = Shoveler(firstName: firstName, lastName: lastName, address1: address, city: city, state: state, postalCode: zip, dobMonth: "", dobDay: "", dobYear: "", stripeId: id)
+                                                let requestName = self.ref.child("users").child(currentUserUid).child("shoveler")
+                                                requestName.setValue(self.shoveler?.toAnyObject()) { error, _ in
+                                                    if error == nil {
+                                                        let alert = UIAlertController(title: "👍❄️💰", message: "Thank you for signing up as a shoveler! Go check for requests and get those people shoveled out!", preferredStyle: .alert)
+                                                        let okAction = UIAlertAction(title: "Get Going!", style: .default) { _ in
+                                                            self.dismiss(animated: true, completion: nil)
+                                                        }
+                                                        alert.addAction(okAction)
+                                                        DispatchQueue.main.async {
+                                                            self.hideActivityIndicator(self.view)
+                                                            self.present(alert, animated: true, completion: nil)
                                                         }
                                                     }
                                                 }
@@ -375,9 +382,7 @@ extension ShovelersInformationViewController {
         let city = self.cityCell?.cityTF,
         let state = self.stateCell?.stateTF,
         let zip = self.zipCell?.zipTF,
-        let dobDay = self.dobCell?.dobDayTF,
-        let dobMonth = self.dobCell?.dobMonthTF,
-        let dobYear = self.dobCell?.dobYearTF,
+        let dob = self.dobCell?.dobTextField,
         let ss = self.ssCell?.ssTF,
         let bankAccountNumber = self.bankAccountNumberCell?.accountNumberTF,
         let bankRoutingNumber = self.bankRoutingNumberCell?.routingNumberTF {
@@ -388,9 +393,7 @@ extension ShovelersInformationViewController {
             textFields.append(city)
             textFields.append(state)
             textFields.append(zip)
-            textFields.append(dobDay)
-            textFields.append(dobMonth)
-            textFields.append(dobYear)
+            textFields.append(dob)
             textFields.append(ss)
             textFields.append(bankAccountNumber)
             textFields.append(bankRoutingNumber)
@@ -420,7 +423,7 @@ extension ShovelersInformationViewController {
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             if self.tableView?.frame.origin.y == 0 {
                 self.tableViewBottomLayoutConstraint?.isActive = true
-                self.tableViewBottomLayoutConstraint?.constant = keyboardSize.size.height + 20
+                self.tableViewBottomLayoutConstraint?.constant = keyboardSize.size.height
             }
         }
     }
@@ -430,97 +433,34 @@ extension ShovelersInformationViewController {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == self.firstNameCell?.firstNameTF {
-            if let firstName = self.firstNameCell?.firstNameTF?.text?.count {
-                let newLength = firstName + string.count - range.length
-                return newLength <= 100
-            }
-        }
+        let currentText = textField.text ?? ""
 
-        if textField == self.lastNameCell?.lastNameTF {
-            if let lastName = self.lastNameCell?.lastNameTF?.text?.count {
-                let newLength = lastName + string.count - range.length
-                return newLength <= 100
-            }
-        }
+        guard let stringRange = Range(range, in: currentText) else {
+            return false
 
-        if textField == self.addressCell?.addressTF {
-            if let address = self.addressCell?.addressTF?.text?.count {
-                let newLength = address + string.count - range.length
-                return newLength <= 100
-            }
         }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
 
-        if textField == self.cityCell?.cityTF {
-            if let city = self.cityCell?.cityTF?.text?.count {
-                let newLength = city + string.count - range.length
-                return newLength <= 100
-            }
+        if textField == self.firstNameCell?.firstNameTF || textField == self.lastNameCell?.lastNameTF || textField == self.addressCell?.addressTF || textField == self.cityCell?.cityTF {
+            return updatedText.count <= 100 // Change limit based on your requirement.
         }
 
         if textField == self.stateCell?.stateTF {
-            if let state = self.stateCell?.stateTF?.text?.count {
-                let newLength = state + string.count - range.length
-                return newLength <= 2
-            }
+            return updatedText.count <= 2
         }
 
         if textField == self.zipCell?.zipTF {
-            if let zip = self.zipCell?.zipTF?.text?.count {
-                let newLength = zip + string.count - range.length
-                return newLength <= 5
-            }
-        }
-
-        if textField == self.dobCell?.dobMonthTF {
-            if let dobMonth = self.dobCell?.dobMonthTF?.text?.count {
-                let newLength = dobMonth + string.count - range.length
-                if newLength == 3 {
-                    self.dobCell?.dobDayTF?.becomeFirstResponder()
-                }
-                return newLength <= 2
-
-            }
-        }
-
-        if textField == self.dobCell?.dobDayTF {
-            if let dobDay = self.dobCell?.dobDayTF?.text?.count {
-                let newLength = dobDay + string.count - range.length
-                if newLength == 3 {
-                    self.dobCell?.dobYearTF?.becomeFirstResponder()
-                }
-                return newLength <= 2
-
-            }
-        }
-
-        if textField == self.dobCell?.dobYearTF {
-            if let dobYear = self.dobCell?.dobYearTF?.text?.count {
-                let newLength = dobYear + string.count - range.length
-                return newLength <= 4
-            }
+            return updatedText.count <= 5
         }
 
         if textField == self.ssCell?.ssTF {
-            if let ss = self.ssCell?.ssTF?.text?.count {
-                let newLength = ss + string.count - range.length
-                return newLength <= 9
-            }
+            return updatedText.count <= 9
         }
 
-        if textField == self.bankAccountNumberCell?.accountNumberTF {
-            if let accountNumber = self.bankAccountNumberCell?.accountNumberTF?.text?.count {
-                let newLength = accountNumber + string.count - range.length
-                return newLength <= 15
-            }
+        if textField == self.bankAccountNumberCell?.accountNumberTF || textField == self.bankRoutingNumberCell?.routingNumberTF {
+            return updatedText.count <= 15
         }
 
-        if textField == self.bankRoutingNumberCell?.routingNumberTF {
-            if let routingNumber = self.bankRoutingNumberCell?.routingNumberTF?.text?.count {
-                let newLength = routingNumber + string.count - range.length
-                return newLength <= 15
-            }
-        }
         return true
     }
 
@@ -555,21 +495,6 @@ extension ShovelersInformationViewController {
                 zip.text = self.zip
             }
         }
-        if textField == self.dobCell?.dobDayTF {
-            if let dobDay = self.dobCell?.dobDayTF {
-                dobDay.text = self.dobDay
-            }
-        }
-        if textField == self.dobCell?.dobMonthTF {
-            if let dobMonth = self.dobCell?.dobMonthTF {
-                dobMonth.text = self.dobMonth
-            }
-        }
-        if textField == self.dobCell?.dobYearTF {
-            if let dobYear = self.dobCell?.dobYearTF {
-                dobYear.text = self.dobYear
-            }
-        }
         if textField == self.ssCell?.ssTF {
             if let ss = self.ssCell?.ssTF {
                 ss.text = self.ss
@@ -590,6 +515,25 @@ extension ShovelersInformationViewController {
     }
 }
 
+// MARK: CellIdentifier
+
+extension ShovelersInformationViewController {
+
+    private enum CellIdentifier: String {
+        case firstNameCell = "firstNameCell"
+        case lastNameCell = "lastNameCell"
+        case addressCell = "addressCell"
+        case cityCell = "cityCell"
+        case stateCell = "stateCell"
+        case zipCell = "zipCell"
+        case dobCell = "dobCell"
+        case ssCell = "ssCell"
+        case bankAccountNumberCell = "bankAccountNumberCell"
+        case bankRoutingNumberCell = "bankRoutingNumberCell"
+        case existingShovelerCell = "existingShovelerInfoCell"
+    }
+}
+
 extension ShovelersInformationViewController {
     @objc func moreInfoSSTapped() {
         let alert = UIAlertController(title: "Why do we need this?", message: "In order to verify you're identity for transfering you payments, we need your SS# as a one time identifier. We do not store this or share with anyone. If you want to update your bank account you'll need to enter this again for verification.", preferredStyle: .alert)
@@ -598,5 +542,29 @@ extension ShovelersInformationViewController {
         }
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: Message Composer delegate
+
+extension ShovelersInformationViewController: MFMailComposeViewControllerDelegate {
+
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        dismiss(animated: true, completion: nil)
+    }
+
+    @objc func openEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let emailVC = MFMailComposeViewController()
+            emailVC.mailComposeDelegate = self
+            emailVC.setToRecipients(["support@shoveled.works"])
+            emailVC.setSubject("Shovelers Info Update")
+            self.present(emailVC, animated: true, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "", message: "We don't currently support your email client. Please open your email and send your questions to support@shoveled.works", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }

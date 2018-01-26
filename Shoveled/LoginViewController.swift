@@ -14,39 +14,19 @@ import Crashlytics
 
 class LoginViewController: UIViewController {
 
+    // MARK: Variables
+
+    var ref: DatabaseReference?
+
+    // MARK: Outlets
+
     @IBOutlet weak var tfExistingUsername: UITextField!
     @IBOutlet weak var tfExistingPassword: UITextField!
     @IBOutlet weak var btnLogin: UIButton!
     @IBOutlet weak var btnForgotPassword: UIButton!
     @IBOutlet weak var imgBackground: UIImageView!
 
-    var ref: DatabaseReference?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
-        self.view.addGestureRecognizer(tap)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.configureView()
-        self.navigationController?.navigationBar.isHidden = false
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.imgBackground.isHidden = true
-    }
-
-    func configureView() {
-        let darkBlur = UIBlurEffect(style: .light)
-        let blurView = UIVisualEffectView(effect: darkBlur)
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurView.frame = self.imgBackground.bounds
-        self.imgBackground.insertSubview(blurView, at: 0)
-    }
+    // MARK: Actions
 
     @IBAction func loginUser(_ sender: AnyObject) {
         self.dismissKeyboards()
@@ -99,6 +79,34 @@ class LoginViewController: UIViewController {
                 }
             }
         }
+    }
+
+    // MARK: View Overrides
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboards))
+        self.view.addGestureRecognizer(tap)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureView()
+        self.navigationController?.navigationBar.isHidden = false
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.imgBackground.isHidden = true
+    }
+
+    func configureView() {
+        let darkBlur = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: darkBlur)
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurView.frame = self.imgBackground.bounds
+        self.imgBackground.insertSubview(blurView, at: 0)
     }
 
     @objc func dismissKeyboards() {

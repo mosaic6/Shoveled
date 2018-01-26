@@ -11,7 +11,7 @@ import UIKit
 
 struct CurrentWeather {
 
-    let temperature: Int?
+    let temperature: Double?
     let humidity: Int?
     let precipProbability: Int?
     let precipType: String?
@@ -19,7 +19,7 @@ struct CurrentWeather {
     var icon: UIImage? = UIImage(named: "default.png")
 
     init(weatherDictionary: [String: AnyObject]) {
-        temperature = weatherDictionary["temperature"] as? Int
+        self.temperature = weatherDictionary["temperature"] as? Double
 
         if let humidityFloat = weatherDictionary["humidity"] as? Double {
             humidity = Int(humidityFloat * 100)

@@ -273,16 +273,13 @@ class StripeAPI {
             if (error == nil) {
                 let statusCode = (response as! HTTPURLResponse).statusCode
                 var parsedObject: [String: Any]?
-                var serializationError: NSError? = nil
                 if let data = data {
                     do {
                         parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: Any]
 
-                    } catch let error as NSError {
-                        serializationError = error
+                    } catch let error {
+                        print(error)
                         parsedObject = nil
-                    } catch {
-                        fatalError()
                     }
                 }
                 switch statusCode {
@@ -302,11 +299,13 @@ class StripeAPI {
     }
 
     // MARK: GET Connected Accounts
-    func getConnectedAccounts(completion: @escaping (_ result: NSArray?, _ error: NSError?) -> Void) {
-        var resultArray: NSArray = []
-        var resultError: NSError?
-        let URL = NSURL(string: API_GET_CONNECTED_ACCOUNTS)
-        var request = URLRequest(url: URL as! URL)
+    func getConnectedAccounts(completion: @escaping (_ result: [Any]?, _ error: Error?) -> Void) {
+        var resultArray: [Any]? = []
+        var resultError: Error?
+        guard let url = URL(string: API_GET_CONNECTED_ACCOUNTS) else {
+            return
+        }
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
 
         // Headers
@@ -330,7 +329,9 @@ class StripeAPI {
                             parsedObject = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions()) as? [String: AnyObject]
 
                             if let object = parsedObject {
-                                resultArray = (object["data"] as? NSArray)!
+                                if let result = object["data"] as? [Any] {
+                                    resultArray = result
+                                }
                                 completion(resultArray, nil)
                             }
                         } catch let error as NSError {
@@ -343,7 +344,7 @@ class StripeAPI {
                     semaphore.signal()
                 }
             } else {
-                completion(nil, resultError)
+                completion([], resultError)
                 print("URL Session Task Failed: %@", error!.localizedDescription)
             }
         })

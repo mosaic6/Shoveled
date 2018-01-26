@@ -31,9 +31,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     fileprivate let dateFormatter = DateFormatter()
     fileprivate var radius = 200.0
     fileprivate var nearArray: [CLLocationCoordinate2D] = []
-    fileprivate var userLat: Double!
-    fileprivate var userLong: Double!
-    fileprivate var requestStatus: String!
+    fileprivate var userLat: Double = 0.0
+    fileprivate var userLong: Double = 0.0
+    fileprivate var requestStatus: String?
     fileprivate var updateRequestDelegate: UpdateRequestStatusDelegate?
     fileprivate var locationDelegate: LocationServicesDelegate?
     fileprivate var ref = Database.database().reference(withPath: "requests")
@@ -57,7 +57,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     @IBOutlet weak var mapView: MKMapView?
     @IBOutlet weak var refreshMapBtn: UIButton?
     @IBOutlet weak var numOfShovelersLabel: ShoveledButton?
-    @IBOutlet weak var requestsListBtn: ShoveledButton?
     @IBOutlet weak var settingsButton: UIBarButtonItem?
     @IBOutlet weak var weatherView: UIView?
 
@@ -88,7 +87,9 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         UIView.animate(withDuration: 0.3, delay: 0.25, options: UIViewAnimationOptions.curveEaseIn, animations: {
             self.refreshMapBtn?.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 2))
         }, completion: nil)
-        getShovelRequests()
+
+        self.getShovelRequests()
+        self.retrieveWeatherForecast()
     }
 
     deinit {
@@ -104,7 +105,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.mapView?.delegate = self
         self.checkLocationServices()
         self.registerNotificationServices()
-        self.requestsListBtn?.addTarget(self, action: #selector(CurrentStatusViewController.showRequestsListViewController), for: .touchUpInside)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -113,6 +113,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.configureWeatherView()
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.areShovelersAvailable()
+            self.retrieveWeatherForecast()
         }
     }
 
@@ -197,7 +198,7 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         self.userLat = coordinates.latitude
         self.userLong = coordinates.longitude
 
-        let center = CLLocationCoordinate2D(latitude: userLat, longitude: userLong)
+        let center = CLLocationCoordinate2D(latitude: self.userLat, longitude: self.userLong)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         self.mapView?.showsUserLocation = true
         self.mapView?.isUserInteractionEnabled = true
@@ -218,21 +219,19 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
         })
 
         self.mapView?.setRegion(region, animated: false)
-        defer { retrieveWeatherForecast() }
         locationManager.stopUpdatingLocation()
     }
 
     // MARK: - Weather Fetching
     func retrieveWeatherForecast() {
         let forecastService = ForecastService(APIKey: forecastAPIKey)
-        forecastService.getForecast(userLat, lon: userLong) {
-            (forecast) in
-
+        forecastService.getForecast(self.userLat, lon: self.userLong) { forecast in
             if let weatherForecast = forecast,
                 let currentWeather = weatherForecast.currentWeather {
                 DispatchQueue.main.async {
                     if let temp = currentWeather.temperature {
-                        self.lblCurrentTemp?.text = "\(temp)º"
+                        let text = String(format: "%.0f", arguments: [temp])
+                        self.lblCurrentTemp?.text = "\(text)º"
                     }
 
                     if let precip = currentWeather.precipProbability {
@@ -240,7 +239,6 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
                     }
 
                     self.imgCurrentWeatherIcon?.image = currentWeather.icon
-
                 }
             }
         }
@@ -287,9 +285,10 @@ class CurrentStatusViewController: UIViewController, UIGestureRecognizerDelegate
     }
 }
 
+// MARK: - MapView Delegate
+
 extension CurrentStatusViewController: MKMapViewDelegate {
 
-    // MARK: - MapView Delegate
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if (annotation is MKUserLocation) {
             return nil
@@ -356,6 +355,7 @@ extension CurrentStatusViewController {
 }
 
 // MARK: Get number of shovelers
+
 extension CurrentStatusViewController {
 
     fileprivate func areShovelersAvailable() {
@@ -387,20 +387,6 @@ extension CurrentStatusViewController {
                 }
             }
         })
-    }
-}
-
-// MARK: Show Requests List View Controller
-extension CurrentStatusViewController {
-
-    @objc fileprivate func showRequestsListViewController() {
-        let storyboard = UIStoryboard(name: "RequestsListStoryboard", bundle: nil)
-        guard let requestsListTableViewController = storyboard.instantiateViewController(withIdentifier: "RequestsListTableViewController") as? RequestsListTableViewController else {
-            return
-        }
-        let navController: UINavigationController = UINavigationController(rootViewController: requestsListTableViewController)
-
-        self.present(navController, animated: true, completion: nil)
     }
 }
 

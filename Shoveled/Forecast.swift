@@ -18,7 +18,6 @@ struct Forecast {
         }
 
         if let weeklyWeatherArray = weatherDictionary?["daily"]?["data"] as? [[String: AnyObject]] {
-
             for dailyWeather in weeklyWeatherArray {
                 let daily = DailyWeather(dailyWeatherDict: dailyWeather)
                 weekly.append(daily)
